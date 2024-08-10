@@ -20,7 +20,7 @@ export default function RootLayout({
       lang="en"
       suppressHydrationWarning
     >
-      <body className={GeistSans.className}>
+      <body className={`${GeistSans.className} antialiased`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

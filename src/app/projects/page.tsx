@@ -1,3 +1,18 @@
+import ProjectCard from '@/components/projects/project-card';
+import { projects, Project } from '@/lib/projects';
+
 export default function Page() {
-  return <>projects page</>;
+  return (
+    <section className="py-12 space-y-6 text-center">
+      <h1 className="text-3xl font-bold">projects</h1>
+      <ul className='grid grid-cols-3 gap-4 text-left'>
+        {projects.map((project: Project) => (
+          <ProjectCard
+            key={project.id}
+            project={project}
+          />
+        ))}
+      </ul>
+    </section>
+  );
 }
