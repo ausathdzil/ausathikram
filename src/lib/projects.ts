@@ -21,32 +21,32 @@ export const projects: Project[] = [
   },
   {
     id: 3,
-    title: 'sea salon',
-    description: 'salon management system',
-    link: 'https://sea-salon-ausath.vercel.app/',
-    repo: 'https://github.com/ausathdzil/sea-salon',
-  },
-  {
-    id: 4,
-    title: 'moneasy',
-    description:
-      'micro, small, and medium enterprise financial management system',
-    link: 'https://moneasy.vercel.app/',
-    repo: 'https://github.com/valuin/moneasy',
-  },
-  {
-    id: 5,
     title: 'nasa apod gallery',
     description: 'collection of nasa astronomy picture of the day',
     link: 'https://apod-gallery-nasa.vercel.app/',
     repo: 'https://github.com/ausathdzil/nasa-apod-gallery',
   },
   {
-    id: 6,
+    id: 4,
+    title: 'sea salon',
+    description: 'salon management system',
+    link: 'https://sea-salon-ausath.vercel.app/',
+    repo: 'https://github.com/ausathdzil/sea-salon',
+  },
+  {
+    id: 5,
     title: 'ausathikram',
     description: 'this website :)',
     link: 'https://ausathikram.vercel.app/',
     repo: 'https://github.com/ausathdzil/ausathikram',
+  },
+  {
+    id: 5,
+    title: 'moneasy',
+    description:
+      'micro, small, and medium enterprise financial management system',
+    link: 'https://moneasy.vercel.app/',
+    repo: 'https://github.com/valuin/moneasy',
   },
   {
     id: 7,
