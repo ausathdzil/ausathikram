@@ -12,7 +12,7 @@ export default function Header() {
 
   return (
     <>
-      <header className="pt-8 lg:pt-16 pb-4 px-8 lg:px-80">
+      <header className="pt-8 lg:pt-16 pb-4 px-8 xl:px-80">
         <nav className="flex justify-between items-center">
           <Link
             className="flex gap-2 hover:underline underline-offset-4"

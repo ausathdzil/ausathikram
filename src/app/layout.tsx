@@ -31,7 +31,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Header />
-          <main className="flex flex-col min-h-[calc(100vh-232px)] px-8 lg:px-80">
+          <main className="flex flex-col min-h-[calc(100vh-232px)] px-8 xl:px-80">
             {children}
           </main>
           <Footer />
