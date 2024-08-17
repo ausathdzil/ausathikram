@@ -41,7 +41,7 @@ export const projects: Project[] = [
     repo: 'https://github.com/ausathdzil/ausathikram',
   },
   {
-    id: 5,
+    id: 6,
     title: 'moneasy',
     description:
       'msme financial management system',

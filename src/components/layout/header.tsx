@@ -4,7 +4,7 @@ import { ModeToggle } from '@/components/layout/mode-toggle';
 import { Separator } from '@/components/ui/separator';
 import clsx from 'clsx';
 import { SkullIcon } from 'lucide-react';
-import Link from 'next/link';
+import { Link } from 'next-view-transitions'
 import { usePathname } from 'next/navigation';
 
 export default function Header() {
@@ -12,7 +12,7 @@ export default function Header() {
 
   return (
     <>
-      <header className="pt-8 lg:pt-16 pb-4">
+      <header className="pt-8 lg:pt-16 pb-4 max-w-3xl mx-8 lg:mx-auto">
         <nav className="flex justify-between items-center">
           <Link
             className="flex gap-2 hover:underline underline-offset-4"
