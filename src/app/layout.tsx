@@ -23,7 +23,7 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/skull.svg" />
       </head>
-      <body className={`${GeistSans.className} antialiased`}>
+      <body className={`${GeistSans.className} antialiased max-w-3xl mx-4 lg:mx-auto`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -31,7 +31,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Header />
-          <main className="flex flex-col min-h-[calc(100vh-232px)] px-8 xl:px-80">
+          <main className="flex flex-col min-h-[calc(100vh-232px)] text-muted-foreground">
             {children}
           </main>
           <Footer />

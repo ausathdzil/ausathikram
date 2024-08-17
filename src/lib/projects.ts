@@ -44,7 +44,7 @@ export const projects: Project[] = [
     id: 5,
     title: 'moneasy',
     description:
-      'micro, small, and medium enterprise financial management system',
+      'msme financial management system',
     link: 'https://moneasy.vercel.app/',
     repo: 'https://github.com/valuin/moneasy',
   },
@@ -64,7 +64,7 @@ export const projects: Project[] = [
   {
     id: 9,
     title: 'bookshelf api',
-    description: 'simple bookshelf api, not related to the bookshelf project',
+    description: 'simple bookshelf api',
     repo: 'https://github.com/ausathdzil/bookshelf-api',
   },
 ];
