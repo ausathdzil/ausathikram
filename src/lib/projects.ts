@@ -17,6 +17,7 @@ export const projects: Project[] = [
     id: 2,
     title: 'bookshelf',
     description: 'my attempt at cloning goodreads',
+    link: 'https://bookshelf-ausath.vercel.app/',
     repo: 'https://github.com/ausathdzil/bookshelf',
   },
   {
@@ -30,7 +31,6 @@ export const projects: Project[] = [
     id: 4,
     title: 'sea salon',
     description: 'salon management system',
-    link: 'https://sea-salon-ausath.vercel.app/',
     repo: 'https://github.com/ausathdzil/sea-salon',
   },
   {
@@ -43,8 +43,7 @@ export const projects: Project[] = [
   {
     id: 6,
     title: 'moneasy',
-    description:
-      'msme financial management system',
+    description: 'msme financial management system',
     link: 'https://moneasy.vercel.app/',
     repo: 'https://github.com/valuin/moneasy',
   },

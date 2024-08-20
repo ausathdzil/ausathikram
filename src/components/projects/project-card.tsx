@@ -10,7 +10,7 @@ import Link from 'next/link';
 export default function ProjectCard({ project }: { project: Project }) {
   return (
     <Link
-      href={project.repo ? project.repo : project.link || ''}
+      href={project.link ? project.link : project.repo || ''}
       target="_blank"
     >
       <Card className="border-none shadow-none hover:bg-accent-foreground/5 dark:hover:bg-accent/15 transition ease-in-out">
