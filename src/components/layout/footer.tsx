@@ -16,7 +16,8 @@ export default function Footer() {
                 href="https://github.com/ausathdzil"
                 target="_blank"
               >
-                <span>github</span> <ArrowUpRight />
+                <span>github</span>
+                <ArrowUpRight />
               </Link>
             </li>
             <li>
@@ -25,7 +26,8 @@ export default function Footer() {
                 href="https://linkedin.com/in/ausathdzil"
                 target="_blank"
               >
-                <span>linkedin</span> <ArrowUpRight />
+                <span>linkedin</span>
+                <ArrowUpRight />
               </Link>
             </li>
           </ul>

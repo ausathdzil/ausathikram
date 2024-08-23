@@ -4,7 +4,7 @@ import { projects } from '@/lib/projects';
 export const metadata = {
   title: 'projects',
   description: 'ausath ikram projects.',
-}
+};
 
 export default function Page() {
   return (
