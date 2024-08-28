@@ -1,7 +1,13 @@
 import { projects } from '@/lib/projects';
 import { ArrowUpRightIcon } from 'lucide-react';
-import Link from 'next/link';
 import Image from 'next/image';
+import Link from 'next/link';
+
+export async function generateStaticParams() {
+  return projects.map((project) => ({
+    slug: project.slug,
+  }));
+}
 
 export async function generateMetadata({
   params,
@@ -26,10 +32,10 @@ export default function Page({ params }: { params: { slug: string } }) {
           <h1 className="text-4xl text-primary font-bold">{project.title}</h1>
           {project.image && (
             <Image
-              src={project.image || ''}
+              src={project.image}
               alt={`${project.title} image preview`}
               width={800}
-              height={200}
+              height={500}
               className="rounded-lg border-zinc-500 border-2"
               priority={true}
               quality={100}

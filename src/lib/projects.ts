@@ -11,8 +11,8 @@ export type Project = {
 export const projects: Project[] = [
   {
     id: 1,
-    slug: 'dignition',
     title: 'dignition',
+    slug: 'dignition',
     description: 'study club learning management system',
     image: '/projects/dignition.png',
     link: 'https://dignition.androidupnvj.com/',
