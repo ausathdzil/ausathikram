@@ -41,7 +41,7 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <Header />
-            <main className="flex flex-col min-h-[calc(100vh-232px)] text-muted-foreground max-w-3xl mx-8 lg:mx-auto">
+            <main className="flex flex-col items-center min-h-[calc(100vh-232px)] text-muted-foreground max-w-5xl mx-8 lg:mx-auto">
               {children}
             </main>
             <Footer />

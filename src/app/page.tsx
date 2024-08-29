@@ -3,7 +3,7 @@ import { MailIcon, MapPinIcon } from 'lucide-react';
 export default function Home() {
   return (
     <>
-      <section className="py-12 space-y-12">
+      <section className="max-w-3xl py-12 space-y-12">
         <article className="space-y-4">
           <h1 className="text-3xl text-foreground font-bold">ausath ikram</h1>
           <p className="text-lg">
@@ -28,7 +28,7 @@ export default function Home() {
           </p>
         </article>
       </section>
-      <section className="pb-12 space-y-4">
+      <section className="w-full max-w-3xl text-left pb-12 space-y-4">
         <p className="flex text-muted-foreground gap-2">
           <MailIcon />
           <span>ausathdzil@gmail.com</span>
