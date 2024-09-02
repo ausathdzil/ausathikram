@@ -31,15 +31,15 @@ export default function Page({ params }: { params: { slug: string } }) {
         <article className="space-y-2">
           <h1 className="text-4xl text-primary font-bold">{project.title}</h1>
           {project.image && (
-            <Image
-              src={project.image}
-              alt={`${project.title} image preview`}
-              width={800}
-              height={500}
-              className="rounded-lg border-zinc-500 border-2"
-              priority={true}
-              quality={100}
-            />
+            <div className="relative w-[800px] h-[600px]">
+              <Image
+                src={project.image}
+                alt={`${project.title} image preview`}
+                className="object-cover object-top rounded-lg border-zinc-500 border-2"
+                priority={true}
+                fill
+              />
+            </div>
           )}
           <p className="text-lg">{project.description}</p>
           <div className="flex space-x-4">

@@ -17,17 +17,17 @@ export default function ProjectCard({ project }: { project: Project }) {
     >
       <Card className="text-muted-foreground hover:text-primary flex flex-col items-center border-none shadow-none hover:bg-accent-foreground/5 dark:hover:bg-accent/15 transition ease-in-out p-6 gap-4">
         {project.image && (
-          <CardHeader className="relative w-[300px] h-[150px]">
+          <CardHeader className="relative w-[300px] h-[200px]">
             <Image
-              className="object-cover rounded-lg border-zinc-500 border-2"
+              className="object-cover object-top rounded-lg border-zinc-500 border-2"
               src={project.image}
               alt={project.title}
-              quality={100}
+              priority={true}
               fill
             />
           </CardHeader>
         )}
-        <CardContent className="">
+        <CardContent className="space-y-2">
           <CardTitle>{project.title}</CardTitle>
           <CardDescription>{project.description}</CardDescription>
         </CardContent>
