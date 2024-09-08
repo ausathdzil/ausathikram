@@ -17,7 +17,7 @@ export default function ProjectCard({ project }: { project: Project }) {
     >
       <Card className="text-muted-foreground hover:text-primary flex flex-col items-center border-none shadow-none hover:bg-accent-foreground/5 dark:hover:bg-accent/15 transition ease-in-out p-6 gap-4">
         {project.image && (
-          <CardHeader className="relative w-[300px] h-[200px]">
+          <CardHeader className="relative w-[250px] h-[150px] md:w-[300px] md:h-[200px]">
             <Image
               className="object-cover object-top rounded-lg border-zinc-500 border-2"
               src={project.image}

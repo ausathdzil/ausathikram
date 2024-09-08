@@ -31,7 +31,7 @@ export default function Page({ params }: { params: { slug: string } }) {
         <article className="space-y-2">
           <h1 className="text-4xl text-primary font-bold">{project.title}</h1>
           {project.image && (
-            <div className="relative w-[250px] h-[150px] sm:w-[400px] sm:h-[300px] lg:w-[800px] lg:h-[600px]">
+            <div className="relative w-[250px] h-[150px] sm:w-[400px] sm:h-[300px] lg:w-[800px] lg:h-[500px]">
               <Image
                 src={project.image}
                 alt={`${project.title} image preview`}
