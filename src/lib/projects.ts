@@ -1,9 +1,17 @@
+import { StaticImageData } from 'next/image';
+import dignition from '../../public/projects/dignition.png';
+import bookshelf from '../../public/projects/bookshelf.png';
+import nasaApodGallery from '../../public/projects/nasa-apod-gallery.png';
+import moneasy from '../../public/projects/moneasy.png';
+import ausathikram from '../../public/projects/ausathikram.png';
+import reactCalculator from '../../public/projects/react-calculator.png';
+
 export type Project = {
   id: number;
   title: string;
   slug: string;
   description: string;
-  image?: string;
+  image?: StaticImageData;
   link?: string;
   repo?: string;
 };
@@ -14,7 +22,7 @@ export const projects: Project[] = [
     title: 'dignition',
     slug: 'dignition',
     description: 'study club learning management system',
-    image: '/projects/dignition.png',
+    image: dignition,
     link: 'https://dignition.androidupnvj.com/',
   },
   {
@@ -22,7 +30,7 @@ export const projects: Project[] = [
     title: 'bookshelf',
     slug: 'bookshelf',
     description: 'my attempt at cloning goodreads',
-    image: '/projects/bookshelf.png',
+    image: bookshelf,
     link: 'https://bookshelf-ausath.vercel.app/',
     repo: 'https://github.com/ausathdzil/bookshelf',
   },
@@ -31,7 +39,7 @@ export const projects: Project[] = [
     title: 'nasa apod gallery',
     slug: 'nasa-apod-gallery',
     description: 'collection of nasa astronomy picture of the day',
-    image: '/projects/nasa-apod-gallery.png',
+    image: nasaApodGallery,
     link: 'https://apod-gallery-nasa.vercel.app/',
     repo: 'https://github.com/ausathdzil/nasa-apod-gallery',
   },
@@ -40,7 +48,7 @@ export const projects: Project[] = [
     title: 'moneasy',
     slug: 'moneasy',
     description: 'msme financial management system',
-    image: '/projects/moneasy.png',
+    image: moneasy,
     link: 'https://moneasy.vercel.app/',
     repo: 'https://github.com/valuin/moneasy',
   },
@@ -49,7 +57,7 @@ export const projects: Project[] = [
     title: 'ausathikram',
     slug: 'ausathikram',
     description: 'this website :)',
-    image: '/projects/ausathikram.png',
+    image: ausathikram,
     link: 'https://ausathikram.vercel.app/',
     repo: 'https://github.com/ausathdzil/ausathikram',
   },
@@ -58,7 +66,7 @@ export const projects: Project[] = [
     title: 'react calculator',
     slug: 'react-calculator',
     description: 'simple calculator using react',
-    image: '/projects/react-calculator.png',
+    image: reactCalculator,
     link: 'https://react-calculator-ausath.vercel.app/',
     repo: 'https://github.com/ausathdzil/react-calculator',
   },

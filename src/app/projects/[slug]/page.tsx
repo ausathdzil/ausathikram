@@ -33,10 +33,11 @@ export default function Page({ params }: { params: { slug: string } }) {
           {project.image && (
             <div className="relative w-[250px] h-[150px] sm:w-[400px] sm:h-[300px] lg:w-[800px] lg:h-[500px]">
               <Image
+                className="object-cover object-top rounded-lg border-zinc-500 border-2"
                 src={project.image}
                 alt={`${project.title} image preview`}
-                className="object-cover object-top rounded-lg border-zinc-500 border-2"
                 priority={true}
+                placeholder="blur"
                 fill
               />
             </div>

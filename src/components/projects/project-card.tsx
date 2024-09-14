@@ -23,6 +23,7 @@ export default function ProjectCard({ project }: { project: Project }) {
               src={project.image}
               alt={project.title}
               priority={true}
+              placeholder='blur'
               fill
             />
           </CardHeader>
