@@ -6,8 +6,8 @@ export default function Footer() {
   return (
     <>
       <Separator />
-      <footer className="flex flex-col sm:flex-row justify-center sm:justify-between items-center pt-8 pb-8 lg:pb-16 max-w-3xl mx-8 lg:mx-auto gap-4">
-        <p>© ausath ikram</p>
+      <footer className="flex justify-center sm:justify-between max-w-3xl px-0 sm:px-6 lg:px-0 py-8 lg:pb-16 mx-8 md:mx-auto">
+        <p className="hidden sm:block">ausath ikram</p>
         <nav>
           <ul className="flex items-center gap-8">
             <li>
@@ -16,8 +16,8 @@ export default function Footer() {
                 href="https://github.com/ausathdzil"
                 target="_blank"
               >
-                <span>github</span>
                 <ArrowUpRight />
+                <span>github</span>
               </Link>
             </li>
             <li>
@@ -26,8 +26,8 @@ export default function Footer() {
                 href="https://linkedin.com/in/ausathdzil"
                 target="_blank"
               >
-                <span>linkedin</span>
                 <ArrowUpRight />
+                <span>linkedin</span>
               </Link>
             </li>
           </ul>

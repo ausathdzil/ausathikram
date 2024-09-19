@@ -4,7 +4,7 @@ import { ModeToggle } from '@/components/layout/mode-toggle';
 import { Separator } from '@/components/ui/separator';
 import clsx from 'clsx';
 import { SkullIcon } from 'lucide-react';
-import { Link } from 'next-view-transitions'
+import { Link } from 'next-view-transitions';
 import { usePathname } from 'next/navigation';
 
 export default function Header() {
@@ -12,14 +12,20 @@ export default function Header() {
 
   return (
     <>
-      <header className="pt-8 lg:pt-16 pb-4 max-w-3xl mx-8 md:mx-auto">
+      <header className="px-0 sm:px-6 lg:px-0 pt-8 pb-4 lg:pt-16 max-w-3xl mx-8 md:mx-auto">
         <nav className="flex justify-between items-center">
           <Link
             className="flex gap-2 hover:underline underline-offset-4"
             href="/"
           >
-            <SkullIcon />
-            <span className={clsx({ underline: pathname === '/' })}>home</span>
+            <SkullIcon aria-label="home icon" />
+            <span
+              className={clsx('hidden sm:block', {
+                underline: pathname === '/',
+              })}
+            >
+              home
+            </span>
           </Link>
           <ul className="flex items-center gap-8">
             <li>
@@ -29,6 +35,16 @@ export default function Header() {
               >
                 <span className={clsx({ underline: pathname === '/projects' })}>
                   projects
+                </span>
+              </Link>
+            </li>
+            <li>
+              <Link
+                className="flex gap-2 hover:underline underline-offset-4"
+                href="/blogs"
+              >
+                <span className={clsx({ underline: pathname === '/blogs' })}>
+                  blogs
                 </span>
               </Link>
             </li>

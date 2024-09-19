@@ -28,8 +28,7 @@ export default function Page({ params }: { params: { slug: string } }) {
   return (
     <section className="py-12 space-y-12">
       {project ? (
-        <article className="space-y-2">
-          <h1 className="text-4xl text-primary font-bold">{project.title}</h1>
+        <div className="space-y-4">
           {project.image && (
             <div className="relative w-[250px] h-[150px] sm:w-[400px] sm:h-[300px] lg:w-[800px] lg:h-[500px]">
               <Image
@@ -42,7 +41,10 @@ export default function Page({ params }: { params: { slug: string } }) {
               />
             </div>
           )}
-          <p className="text-lg">{project.description}</p>
+          <article>
+            <h1 className="text-4xl text-primary font-bold">{project.title}</h1>
+            <p className="text-lg">{project.description}</p>
+          </article>
           <div className="flex space-x-4">
             {project.link && (
               <Link
@@ -65,7 +67,7 @@ export default function Page({ params }: { params: { slug: string } }) {
               </Link>
             )}
           </div>
-        </article>
+        </div>
       ) : (
         <p>project not found</p>
       )}
