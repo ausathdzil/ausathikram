@@ -1,5 +1,10 @@
 import BlogPosts from '@/components/blog/blog-posts';
 
+export const metadata = {
+  title: 'blog',
+  description: 'ausath ikram blog.',
+};
+
 export default function Page() {
   return (
     <section className="w-full max-w-3xl py-12 space-y-8">

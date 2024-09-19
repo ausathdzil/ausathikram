@@ -2,6 +2,27 @@ import CustomMDX from '@/components/blog/custom-mdx';
 import { getBlogPosts } from '@/lib/blog';
 import { notFound } from 'next/navigation';
 
+export async function generateStaticParams() {
+  let posts = getBlogPosts();
+
+  return posts.map((post) => ({
+    slug: post.slug,
+  }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  let post = getBlogPosts().find((post) => post.slug === params.slug);
+
+  return {
+    title: post?.metadata.title,
+    description: post?.metadata.summary,
+  };
+}
+
 export default function Page({ params }: { params: { slug: string } }) {
   let post = getBlogPosts().find((post) => post.slug === params.slug);
 
