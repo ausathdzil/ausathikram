@@ -41,10 +41,10 @@ export default function Header() {
             <li>
               <Link
                 className="flex gap-2 hover:underline underline-offset-4"
-                href="/blogs"
+                href="/blog"
               >
-                <span className={clsx({ underline: pathname === '/blogs' })}>
-                  blogs
+                <span className={clsx({ underline: pathname === '/blog' })}>
+                  blog
                 </span>
               </Link>
             </li>
