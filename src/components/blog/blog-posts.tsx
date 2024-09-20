@@ -12,11 +12,11 @@ export default function BlogPosts() {
   });
 
   return (
-    <ul className="space-y-2">
+    <ul className="space-y-4">
       {sortedPosts.map((post) => (
         <li
           key={post.slug}
-          className="flex justify-between items-center"
+          className="flex flex-col sm:flex-row justify-between items-start sm:items-center"
         >
           <Link href={`/blog/${post.slug}`}>
             <h2 className="text-xl text-foreground hover:underline underline-offset-4">
