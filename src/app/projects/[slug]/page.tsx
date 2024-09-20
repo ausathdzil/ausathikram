@@ -30,7 +30,7 @@ export default function Page({ params }: { params: { slug: string } }) {
       {project ? (
         <div className="space-y-4">
           {project.image && (
-            <div className="relative w-[250px] h-[150px] sm:w-[400px] sm:h-[300px] lg:w-[800px] lg:h-[500px]">
+            <div className="relative w-[250px] h-[150px] sm:w-[400px] sm:h-[300px] lg:w-[700px] lg:h-[400px]">
               <Image
                 className="object-cover object-top rounded-lg border-zinc-500 border-2"
                 src={project.image}
@@ -38,7 +38,8 @@ export default function Page({ params }: { params: { slug: string } }) {
                 priority={true}
                 placeholder="blur"
                 fill
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                sizes='(min-width: 1024px) 100vw, (min-width: 640px) 50vw, 33vw'
+                quality={100}
               />
             </div>
           )}

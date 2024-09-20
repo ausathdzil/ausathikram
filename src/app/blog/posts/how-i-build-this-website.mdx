@@ -1,0 +1,58 @@
+---
+title: how i build this website
+publishedAt: 2024-09-20
+summary:
+---
+
+import Button from '@/components/blog/button';
+
+the first thing to do when building a website is **choosing the right stack**. how do i choose it? by knowing what type of website i want to build. in this case, i want to build a **personal blog**, so a static site generator could be a good choice. examples are **hugo**, **gatsby**, **astro**, or even **next.js**.
+
+# frameworks
+
+sometimes you don't even need a framework, plain **html**, **css**, and a little bit of **javascript** for interactivity could be enough depending of what you want to build, or just pick a small framework like **alpine.js**. this could be a topic on its own, and i might make a blog post about it in the future.
+
+on the other hand, choosing something you already know is almost always a good choice. for this website, i chose **next.js** because i am already familiar with it. i have built a few websites using next.js before, so i know what to expect.
+
+## next.js
+
+other than being familiar with it, making a blog using next.js is easy. rather than using a **content management system** to manage my blog posts, i can just write my posts in **markdown** files, upload them to my repository, and next.js will take care of the rest. of course there's more to it than that, but that's the basic idea.
+
+# styling
+
+i almost always use **tailwindcss** for styling any type of websites. it's a utility-first css framework that makes styling a breeze. what i like about tailwind is there's no need to write your own custom classes for components. just use their utility classes and you're good to go.
+
+i also use a little bit of **shadcn-ui** for some components. it's a copy and paste component library built on top of **radix-ui** and tailwindcss. it's highly customizable and easy to use.
+
+# typescript
+
+when building websites with next.js, i always use **typescript**. it's a superset of javascript that adds static typing to the language. what i really like about typescript is using vscode's intellisense with it. you get suggestions and type checking as you type. it helps me catch errors before they happen, and makes my code more readable. although sometimes it can be a bit annoying when you're just starting out with it. or even when you don't know what type to use and just use `any` everywhere.
+
+# deployment
+
+right now i'm using **vercel** to deploy this website. it's a cloud platform that specializes in serverless deployment. it's easy to use, and it's free for personal projects. i just connect my github repository to vercel, and it will automatically deploy my website whenever i push new changes to the repository.
+
+because this is just a personal blog, i don't really need to worry about scaling or performance. vercel takes care of that for me. there are other options like vercel to host your small side projects so you don't have to worry about setting up a server and focus on building your project in the meantime. github pages, netlify, heroku, digitalocean app platform are some of the examples. 
+
+if you're building something bigger, you might want to consider other options or even hosting it yourself.
+
+# markdowns
+
+lastly, i wrote all my posts in **mdx**. it's a markdown format that allows you to write jsx in markdown. it's great for writing blog posts like this one. it's easy to use, and it's easy to embed react components in it.
+
+# conclusions
+
+building this website has been a great learning experience, especially in writing markdowns. i've learned a lot in the process. i'm happy with the result, and i hope you enjoy reading my blog posts as much as i enjoy writing them.
+
+## tech stacks
+
+- [next.js](https://github.com/vercel/next.js)
+- [typescript](https://github.com/microsoft/TypeScript)
+- [tailwindcss](https://github.com/tailwindlabs/tailwindcss)
+- [shadcn-ui](https://github.com/shadcn-ui/ui)
+- [mdx](https://github.com/mdx-js/mdx/)
+- [vercel](https://vercel.com)
+
+## repo
+
+feel free to checkout this website's [github repository](https://github.com/ausathdzil/ausathikram) and give me a feedback or suggestions {':)'}

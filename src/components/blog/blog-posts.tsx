@@ -1,4 +1,4 @@
-import { getBlogPosts } from '@/lib/blog';
+import { formatDate, getBlogPosts } from '@/lib/blog';
 import { Link } from 'next-view-transitions';
 
 export default function BlogPosts() {
@@ -12,18 +12,18 @@ export default function BlogPosts() {
   });
 
   return (
-    <ul>
+    <ul className="space-y-2">
       {sortedPosts.map((post) => (
         <li
           key={post.slug}
-          className="flex items-center gap-4"
+          className="flex justify-between items-center"
         >
-          <p className="text-lg">{post.metadata.publishedAt}</p>
           <Link href={`/blog/${post.slug}`}>
             <h2 className="text-xl text-foreground hover:underline underline-offset-4">
               {post.metadata.title}
             </h2>
           </Link>
+          <p className="text-lg">{formatDate(post.metadata.publishedAt)}</p>
         </li>
       ))}
     </ul>

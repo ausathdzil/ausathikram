@@ -25,7 +25,7 @@ export default function ProjectCard({ project }: { project: Project }) {
               priority={true}
               placeholder='blur'
               fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              sizes='(min-width: 1024px) 100vw, (min-width: 640px) 50vw, 33vw'
             />
           </CardHeader>
         )}
