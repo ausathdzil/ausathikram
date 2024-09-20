@@ -39,7 +39,7 @@ export default function Page({ params }: { params: { slug: string } }) {
         </h1>
         <p>{post.metadata.publishedAt}</p>
       </article>
-      <article className="space-y-6">
+      <article className="prose prose-zinc dark:prose-invert prose-sm sm:prose-base lg:prose-lg">
         <CustomMDX source={post.content} />
       </article>
     </section>
