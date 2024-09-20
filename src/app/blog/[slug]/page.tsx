@@ -1,6 +1,5 @@
 import CustomMDX from '@/components/blog/custom-mdx';
 import { getBlogPosts } from '@/lib/blog';
-import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
 export async function generateStaticParams() {
