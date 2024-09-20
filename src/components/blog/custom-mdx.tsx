@@ -25,6 +25,12 @@ const components = {
       {...props}
     />
   ),
+  a: (props: any) => (
+    <a
+      className="text-foreground hover:underline underline-offset-4"
+      {...props}
+    />
+  ),
 };
 
 export default function CustomMDX(props: any) {

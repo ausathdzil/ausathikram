@@ -19,11 +19,14 @@ export default function Home() {
       <article className="space-y-4 text-lg">
         <h1 className="text-3xl text-foreground font-bold">ausath ikram</h1>
         <p>
-          hi 👋 my name is ausath abdi dzil ikram. i&apos;m an undergraduate
-          computer science student majoring in information systems. i&apos;m
-          also a web developer. i mainly work with next.js as my go to react
-          framework. i&apod;m always looking for new opportunities to learn and
-          grow.
+          hi 👋 my name is{' '}
+          <strong className="text-foreground">ausath abdi dzil ikram</strong>.
+          i&apos;m an undergraduate computer science student majoring in
+          information systems. i&apos;m also a{' '}
+          <strong className="text-foreground">web developer</strong>. i mainly
+          work with <strong className="text-foreground">next.js</strong> as my
+          go to react framework. i&apos;m always looking for new opportunities
+          to learn and grow.
         </p>
       </article>
       <div className="space-y-2">
