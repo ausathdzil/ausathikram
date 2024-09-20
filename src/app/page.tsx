@@ -21,9 +21,9 @@ export default function Home() {
         <p>
           hi 👋 my name is ausath abdi dzil ikram. i&apos;m an undergraduate
           computer science student majoring in information systems. i&apos;m
-          interested in web development and are currently learning to build
-          websites mainly with the react ecosystem. i frequently use next.js as
-          my go to react framework.
+          also a web developer. i mainly work with next.js as my go to react
+          framework. i&apod;m always looking for new opportunities to learn and
+          grow.
         </p>
       </article>
       <div className="space-y-2">
