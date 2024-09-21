@@ -1,7 +1,6 @@
 import { projects } from '@/lib/projects';
 import { ArrowUpRightIcon } from 'lucide-react';
 import Image from 'next/image';
-import Link from 'next/link';
 
 export async function generateStaticParams() {
   return projects.map((project) => ({
@@ -38,7 +37,7 @@ export default function Page({ params }: { params: { slug: string } }) {
                 priority={true}
                 placeholder="blur"
                 fill
-                sizes='(min-width: 1024px) 100vw, (min-width: 640px) 50vw, 33vw'
+                sizes="(min-width: 1024px) 100vw, (min-width: 640px) 50vw, 33vw"
                 quality={100}
               />
             </div>
@@ -49,24 +48,26 @@ export default function Page({ params }: { params: { slug: string } }) {
           </article>
           <div className="flex space-x-4">
             {project.link && (
-              <Link
+              <a
+                className="flex gap-2 items-center text-primary hover:underline underline-offset-4"
                 href={project.link}
                 target="_blank"
-                className="flex gap-2 items-center text-primary hover:underline underline-offset-4"
+                rel="noopener noreferrer"
               >
                 <span>view site</span>
                 <ArrowUpRightIcon />
-              </Link>
+              </a>
             )}
             {project.repo && (
-              <Link
+              <a
+                className="flex gap-2 items-center text-primary hover:underline underline-offset-4"
                 href={project.repo}
                 target="_blank"
-                className="flex gap-2 items-center text-primary hover:underline underline-offset-4"
+                rel="noopener noreferrer"
               >
                 <span>github repo</span>
                 <ArrowUpRightIcon />
-              </Link>
+              </a>
             )}
           </div>
         </div>

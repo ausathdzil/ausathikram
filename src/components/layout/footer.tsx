@@ -1,6 +1,5 @@
 import { Separator } from '@/components/ui/separator';
 import { ArrowUpRight } from 'lucide-react';
-import Link from 'next/link';
 
 export default function Footer() {
   return (
@@ -11,24 +10,26 @@ export default function Footer() {
         <nav>
           <ul className="flex items-center gap-8">
             <li>
-              <Link
+              <a
                 className="flex gap-2 hover:underline underline-offset-4"
                 href="https://github.com/ausathdzil"
                 target="_blank"
+                rel="noopener noreferrer"
               >
                 <ArrowUpRight />
                 <span>github</span>
-              </Link>
+              </a>
             </li>
             <li>
-              <Link
+              <a
                 className="flex gap-2 hover:underline underline-offset-4"
                 href="https://linkedin.com/in/ausathdzil"
                 target="_blank"
+                rel="noopener noreferrer"
               >
                 <ArrowUpRight />
                 <span>linkedin</span>
-              </Link>
+              </a>
             </li>
           </ul>
         </nav>

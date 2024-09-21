@@ -6,6 +6,7 @@ import { GeistSans } from 'geist/font/sans';
 import type { Metadata } from 'next';
 import { ViewTransitions } from 'next-view-transitions';
 import './globals.css';
+import clsx from 'clsx';
 
 export const metadata: Metadata = {
   title: {
@@ -33,7 +34,11 @@ export default function RootLayout({
           />
         </head>
         <body
-          className={`${GeistSans.className} ${GeistMono.variable} antialiased`}
+          className={clsx(
+            'antialiased',
+            GeistSans.className,
+            GeistMono.variable,
+          )}
         >
           <ThemeProvider
             attribute="class"
