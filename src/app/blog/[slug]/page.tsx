@@ -1,5 +1,5 @@
 import CustomMDX from '@/components/blog/custom-mdx';
-import { getBlogPosts } from '@/lib/blog';
+import { formatDate, getBlogPosts } from '@/lib/blog';
 import { notFound } from 'next/navigation';
 
 export async function generateStaticParams() {
@@ -31,14 +31,12 @@ export default function Page({ params }: { params: { slug: string } }) {
   }
 
   return (
-    <section className="w-full max-w-2xl py-12 space-y-8">
-      <article className="space-y-2">
-        <h1 className="text-5xl text-foreground font-bold">
-          {post.metadata.title}
-        </h1>
-        <p>{post.metadata.publishedAt}</p>
+    <section className="w-full max-w-2xl py-12 space-y-8 prose prose-zinc dark:prose-invert prose-sm sm:prose-base lg:prose-lg">
+      <article>
+        <h1>{post.metadata.title}</h1>
+        <p>{formatDate(post.metadata.publishedAt)}</p>
       </article>
-      <article className="prose prose-zinc dark:prose-invert prose-sm sm:prose-base lg:prose-lg">
+      <article>
         <CustomMDX source={post.content} />
       </article>
     </section>

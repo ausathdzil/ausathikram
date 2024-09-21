@@ -30,8 +30,20 @@ function CustomLink(props: any) {
   );
 }
 
+function BlueButton(props: any) {
+  return (
+    <button
+      className="bg-blue-600 hover:bg-blue-700 py-2 px-4 rounded-lg"
+      {...props}
+    >
+      button
+    </button>
+  );
+}
+
 let components = {
   a: CustomLink,
+  BlueButton,
 };
 
 export default function CustomMDX(props: any) {

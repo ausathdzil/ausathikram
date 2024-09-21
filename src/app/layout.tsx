@@ -1,6 +1,7 @@
 import Footer from '@/components/layout/footer';
 import Header from '@/components/layout/header';
 import { ThemeProvider } from '@/components/theme-provider';
+import { GeistMono } from 'geist/font/mono';
 import { GeistSans } from 'geist/font/sans';
 import type { Metadata } from 'next';
 import { ViewTransitions } from 'next-view-transitions';
@@ -32,7 +33,7 @@ export default function RootLayout({
           />
         </head>
         <body
-          className={`${GeistSans.className} antialiased`}
+          className={`${GeistSans.className} ${GeistMono.variable} antialiased`}
         >
           <ThemeProvider
             attribute="class"

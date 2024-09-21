@@ -20,6 +20,16 @@ other than being familiar with it, making a blog using next.js is easy. rather t
 
 i almost always use **tailwindcss** for styling any type of websites. it's a utility-first css framework that makes styling a breeze. what i like about tailwind is there's no need to write your own custom classes for components. just use their utility classes and you're good to go.
 
+```jsx
+<button className="bg-blue-600 hover:bg-blue-700 py-2 px-4 rounded-lg">
+  button
+</button>
+```
+
+this might look a bit weird at first, but once you get used to it, you'll find it's much faster than writing your own css. here's what the button above looks like:
+
+<BlueButton />
+
 i also use a little bit of **shadcn-ui** for some components. it's a copy and paste component library built on top of **radix-ui** and tailwindcss. it's highly customizable and easy to use.
 
 ## typescript
@@ -30,7 +40,7 @@ when building websites with next.js, i always use **typescript**. it's a superse
 
 right now i'm using **vercel** to deploy this website. it's a cloud platform that specializes in serverless deployment. it's easy to use, and it's free for personal projects. i just connect my github repository to vercel, and it will automatically deploy my website whenever i push new changes to the repository.
 
-because this is just a personal blog, i don't really need to worry about scaling or performance. vercel takes care of that for me. there are other options like vercel to host your small side projects so you don't have to worry about setting up a server and focus on building your project in the meantime. github pages, netlify, heroku, digitalocean app platform are some of the examples. 
+because this is just a personal blog, i don't really need to worry about scaling or performance. vercel takes care of that for me. there are other options like vercel to host your small side projects so you don't have to worry about setting up a server and focus on building your project in the meantime. github pages, netlify, heroku, digitalocean app platform are some of the examples.
 
 if you're building something bigger, you might want to consider other options or even hosting it yourself.
 
