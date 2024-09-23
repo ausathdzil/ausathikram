@@ -1,12 +1,12 @@
 import Footer from '@/components/layout/footer';
 import Header from '@/components/layout/header';
 import { ThemeProvider } from '@/components/theme-provider';
+import clsx from 'clsx';
 import { GeistMono } from 'geist/font/mono';
 import { GeistSans } from 'geist/font/sans';
 import type { Metadata } from 'next';
 import { ViewTransitions } from 'next-view-transitions';
 import './globals.css';
-import clsx from 'clsx';
 
 export const metadata: Metadata = {
   title: {
@@ -47,7 +47,7 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <Header />
-            <main className="flex flex-col items-center min-h-[calc(100vh-240px)] text-muted-foreground mx-8 lg:mx-auto">
+            <main className="flex flex-col items-center min-h-[calc(100vh-178px)] text-muted-foreground mx-8 lg:mx-auto">
               {children}
             </main>
             <Footer />

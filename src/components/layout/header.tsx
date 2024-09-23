@@ -4,15 +4,30 @@ import { ModeToggle } from '@/components/layout/mode-toggle';
 import { Separator } from '@/components/ui/separator';
 import clsx from 'clsx';
 import { SkullIcon } from 'lucide-react';
-import { Link } from 'next-view-transitions';
+import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 export default function Header() {
   const pathname = usePathname();
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 0);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
-    <>
-      <header className="px-0 sm:px-6 lg:px-0 pt-8 pb-4 lg:pt-16 max-w-3xl mx-8 md:mx-auto">
+    <header
+      className={clsx('sticky top-0 z-50 transition-all duration-200', {
+        'bg-background/80 backdrop-blur-sm shadow-sm': isScrolled,
+      })}
+    >
+      <div className="px-0 sm:px-6 lg:px-0 py-6 max-w-3xl mx-8 md:mx-auto">
         <nav className="flex justify-between items-center">
           <Link
             className="flex gap-2 hover:underline underline-offset-4"
@@ -53,8 +68,8 @@ export default function Header() {
             </li>
           </ul>
         </nav>
-      </header>
+      </div>
       <Separator />
-    </>
+    </header>
   );
 }

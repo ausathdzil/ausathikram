@@ -5,7 +5,7 @@ export default function Footer() {
   return (
     <>
       <Separator />
-      <footer className="flex justify-center sm:justify-between max-w-3xl px-0 sm:px-6 lg:px-0 py-8 lg:pb-16 mx-8 md:mx-auto">
+      <footer className="flex justify-center sm:justify-between max-w-3xl px-0 sm:px-6 lg:px-0 py-8 mx-8 md:mx-auto">
         <p className="hidden sm:block">ausath ikram</p>
         <nav>
           <ul className="flex items-center gap-8">

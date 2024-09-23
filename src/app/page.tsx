@@ -1,4 +1,4 @@
-import { getBlogPosts } from '@/lib/blog';
+import { formatDate, getBlogPosts } from '@/lib/blog';
 import { MailIcon, MapPinIcon } from 'lucide-react';
 import { Link } from 'next-view-transitions';
 
@@ -45,7 +45,7 @@ export default function Home() {
               >
                 {post.metadata.title}
               </Link>
-              <p>{post.metadata.publishedAt}</p>
+              <p>{formatDate(post.metadata.publishedAt)}</p>
             </li>
           ))}
         </ul>

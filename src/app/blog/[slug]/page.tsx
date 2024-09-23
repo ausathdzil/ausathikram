@@ -32,8 +32,10 @@ export default function Page({ params }: { params: { slug: string } }) {
 
   return (
     <section className="w-full max-w-2xl py-12 space-y-8 prose prose-zinc dark:prose-invert prose-sm sm:prose-base lg:prose-lg">
-      <article>
-        <h1>{post.metadata.title}</h1>
+      <article className="not-prose">
+        <h1 className="text-3xl md:text-5xl text-foreground font-bold">
+          {post.metadata.title}
+        </h1>
         <p>{formatDate(post.metadata.publishedAt)}</p>
       </article>
       <article>
