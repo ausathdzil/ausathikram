@@ -51,6 +51,30 @@ now, let's add a pending state when the form is submitting with useFormStatus. t
 
 but we need to move the server action to a separate file to make it work.
 
+```ts
+// actions.ts
+'use server';
+
+import { revalidatePath } from 'next/cache';
+
+export async function createTodo(formData: FormData) {
+  const rawFormData = {
+    title: formData.get('title'),
+    body: formData.get('body'),
+  };
+
+  await fetch('/api/todos', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(rawFormData),
+  });
+
+  revalidatePath('/todos');
+}
+```
+
 ```jsx
 // form.tsx
 'use client';
@@ -74,30 +98,6 @@ export default function Form() {
 }
 ```
 
-```ts
-// actions.ts
-import { revalidatePath } from 'next/cache';
-
-export async function createTodo(formData: FormData) {
-  'use server';
-
-  const rawFormData = {
-    title: formData.get('title'),
-    body: formData.get('body'),
-  };
-
-  await fetch('/api/todos', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(rawFormData),
-  });
-
-  revalidatePath('/todos');
-}
-```
-
 at this point you can just add html `required` attribute for a simple client-side validation.
 
 ```html
@@ -105,6 +105,197 @@ at this point you can just add html `required` attribute for a simple client-sid
 <input name="body" type="text" required />
 ```
 
-but what if you want to validate the form on the server side? 
+but what if you want to validate the form on the server? sometimes validating should be done both on the client **and** server side to prevent malicious users from bypassing the client-side validation.
 
-we can use useState, but there's a slight problem now that the server action is on a separate file. we need to pass the error state back to the form component.
+we can use useState, but now that the server action is on another file, we need to pass the error state back from the server action to the form component.
+
+one way to do this is to return a success state from the server action.
+
+```ts
+'use server';
+
+import { revalidatePath } from 'next/cache';
+
+export async function createTodo(formData: FormData) {
+  const rawFormData = {
+    title: formData.get('title'),
+    body: formData.get('body'),
+  };
+
+  try {
+    const res = await fetch('/api/todos', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(rawFormData),
+    });
+
+    if (!res.ok) {
+      throw new Error('Failed to create todo');
+    }
+
+    revalidatePath('/todos');
+    return { success: true, message: 'Todo created successfully' };
+  } catch (error) {
+    if (error instanceof Error) {
+      return { success: false, message: error.message };
+    } else {
+      return { success: false, message: 'An error occurred' };
+    }
+  }
+}
+```
+
+now on the client component, we can use the success state to show the error message.
+
+```jsx
+'use client';
+
+import { createTodo } from '@/lib/test';
+import { useState } from 'react';
+import { useFormStatus } from 'react-dom';
+
+export default function Form() {
+  const { pending } = useFormStatus();
+  const [error, setError] = useState<string | null>(null);
+
+  async function handleSubmit(formData: FormData) {
+    const result = await createTodo(formData);
+
+    if (!result.success) {
+      setError(result.message);
+    } else {
+      setError(null);
+    }
+  }
+
+  return (
+    <form action={handleSubmit}>
+      <input name="title" type="text" required />
+      <input name="body" type="text" disabled={pending} required />
+      <button type="submit" disabled={pending}>
+        {pending ? 'Submitting...' : 'Submit'}
+      </button>
+      {error && <p>{error}</p>}
+    </form>
+  );
+}
+```
+
+note that now we use a **handleSubmit** function to call the server action, and we set the error state based on the result.
+
+this only validates the result of the form submission, not the indiviual fields. usually for better user experience, **we should also validate each field** before submitting the form. this is important, especially when working with multiple fields that has different constraints. for example, we may need to set the limit of the title to 50 characters, and the body to 500 characters.
+
+now we have to validate each fields, define our constraints, and set the error state for each field manually using **if else statement** and useState. if you have multiple fields, this would be a bit cumbersome.
+
+to make it a bit simple, we can skip manually defining outr constraints and use a library called **zod** to define the form schema. this will make it easier to validate the form fields.
+
+## using zod for form validation on the server
+
+[zod](https://github.com/colinhacks/zod) is a schema definition library that can be used to validate data.
+
+first, let's define our schema for the todo form, we will add this on the server action file.
+
+```ts
+const formSchema = z.object({
+  title: z
+    .string()
+    .min(1, {
+      message: 'Title is required',
+    })
+    .max(50, {
+      message: 'Title must be less than 50 characters',
+    }),
+  body: z
+    .string()
+    .min(1, {
+      message: 'Body is required',
+    })
+    .max(500, {
+      message: 'Body must be less than 500 characters',
+    }),
+});
+```
+
+now we can use this schema to validate the form data before submitting the form.
+
+```ts
+export async function createTodo(formData: FormData) {
+  const validatedFields = formSchema.safeParse({
+    title: formData.get('title'),
+    body: formData.get('body'),
+  });
+
+  // this will validate the fields based on the schema
+  if (!validatedFields.success) {
+    // flatten the error object defined by zod
+    const errors = validatedFields.error.flatten().fieldErrors;
+    return {
+      success: false,
+      // add the new errors object to the returned object
+      errors,
+    };
+  }
+
+  // same as before
+}
+```
+
+this server action now returns an object with the success boolean and the errors object if the form validation fails. this errors object has the following shape:
+
+```ts
+const errors: {
+  title?: string[] | undefined;
+  body?: string[] | undefined;
+};
+```
+
+notice how the type of each field is an array of strings, this is because each field could have multiple errors. although in our case, we only have one error per field, either it's required or it's too long.
+
+now let's update the client component to show the error messages.
+
+```jsx
+export default function Form() {
+  const { pending } = useFormStatus();
+  const [error, setError] = useState<string | null>(null);
+  const [titleError, setTitleError] = useState<string[] | null>(null);
+  const [bodyError, setBodyError] = useState<string[] | null>(null);
+
+  async function handleSubmit(formData: FormData) {
+    const result = await createTodo(formData);
+
+    if (!result.success) {
+      setError(result.message ?? null);
+
+      if (result.errors?.title) {
+        setTitleError(result.errors.title);
+      }
+
+      if (result.errors?.body) {
+        setBodyError(result.errors.body);
+      }
+
+    } else {
+      setError(null);
+    }
+  }
+
+  return (
+    <form className="space-y-2" action={handleSubmit}>
+      <input name="title" type="text" />
+      {titleError && <p>{titleError.join(', ')}</p>}
+
+      <input name="body" type="text" disabled={pending} />
+      {bodyError && <p>{bodyError.join(', ')}</p>}
+
+      <button type="submit" disabled={pending}>
+        {pending ? 'Submitting...' : 'Submit'}
+      </button>
+      {error && <p>{error}</p>}
+    </form>
+  );
+}
+```
+
+this is already a good setup for form validation, but we still have to manually set the error state for each field. imagine if we have more fields. this is where **useActionState** comes in.
