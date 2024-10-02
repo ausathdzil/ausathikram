@@ -60,7 +60,7 @@ export function formatDate(date: string) {
   let targetDate = new Date(date);
 
   let fullDate = targetDate
-    .toLocaleString('en-id', {
+    .toLocaleString('en-us', {
       month: 'short',
       day: 'numeric',
       year: 'numeric',

@@ -1,0 +1,110 @@
+---
+title: form validation with next.js, react 19, server actions, and zod
+publishedAt: 2024-10-02
+summary: form validation
+---
+
+**this blog is not yet finished.**
+
+validating forms is an essential part of web development. react 19 has a new feature called [useActionState](https://react.dev/reference/react/useActionState) that will simplify how we handle server side form validation. combine it with [zod](https://github.com/colinhacks/zod) and server actions, we can create a powerful form validation system.
+
+## current state of making forms
+
+before useActionState, we usually use a combination of useState to manage error state and [useFormStatus](https://react.dev/reference/react-dom/hooks/useFormStatus) to manage the pending state, although the former is only available on react canary channel based its latest docs (as of oct 2, 2024).
+
+here's an example with next.js and server actions:
+
+```jsx
+import { revalidatePath } from 'next/cache';
+
+export default function Form() {
+  async function createTodo(formData: FormData) {
+    'use server';
+
+    const rawFormData = {
+      title: formData.get('title'),
+      body: formData.get('body'),
+    };
+
+    await fetch('/api/todos', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(rawFormData),
+    });
+
+    revalidatePath('/todos');
+  }
+
+  return (
+    <form action={createTodo}>
+      <input name="title" type="text" />
+      <input name="body" type="text" />
+      <button type="submit">Submit</button>
+    </form>
+  );
+}
+```
+
+now, let's add a pending state when the form is submitting with useFormStatus. this hook will return a pending boolean that we can use to modify the button for better user experience.
+
+but we need to move the server action to a separate file to make it work.
+
+```jsx
+// form.tsx
+'use client';
+
+import { createTodo } from '@/lib/actions';
+import { useFormStatus } from 'react-dom';
+import { revalidatePath } from 'next/cache';
+
+export default function Form() {
+  const { pending } = useFormStatus();
+
+  return (
+    <form action={createTodo}>
+      <input name="title" type="text" />
+      <input name="body" type="text" disabled={pending} />
+      <button type="submit" disabled={pending}>
+        {pending ? 'Submitting...' : 'Submit'}
+      </button>
+    </form>
+  );
+}
+```
+
+```ts
+// actions.ts
+import { revalidatePath } from 'next/cache';
+
+export async function createTodo(formData: FormData) {
+  'use server';
+
+  const rawFormData = {
+    title: formData.get('title'),
+    body: formData.get('body'),
+  };
+
+  await fetch('/api/todos', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(rawFormData),
+  });
+
+  revalidatePath('/todos');
+}
+```
+
+at this point you can just add html `required` attribute for a simple client-side validation.
+
+```html
+<input name="title" type="text" required />
+<input name="body" type="text" required />
+```
+
+but what if you want to validate the form on the server side? 
+
+we can use useState, but there's a slight problem now that the server action is on a separate file. we need to pass the error state back to the form component.
