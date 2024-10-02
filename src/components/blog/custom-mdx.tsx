@@ -53,7 +53,10 @@ async function Pre({
 
     const html = await codeToHtml(String(codeElement?.props.children), {
       lang,
-      theme: 'vitesse-dark',
+      themes: {
+        light: 'vitesse-light',
+        dark: 'vitesse-dark',
+      },
     });
 
     return <div dangerouslySetInnerHTML={{ __html: html }} />;
@@ -64,10 +67,7 @@ async function Pre({
 
 function BlueButton(props: any) {
   return (
-    <button
-      className="bg-blue-500 text-white py-2 px-4 rounded-lg"
-      {...props}
-    >
+    <button className="bg-blue-500 text-white py-2 px-4 rounded-lg" {...props}>
       button
     </button>
   );

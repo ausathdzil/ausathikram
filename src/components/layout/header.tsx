@@ -3,7 +3,6 @@
 import { ModeToggle } from '@/components/layout/mode-toggle';
 import { Separator } from '@/components/ui/separator';
 import clsx from 'clsx';
-import { SkullIcon } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -33,7 +32,6 @@ export default function Header() {
             className="flex gap-2 hover:underline underline-offset-4"
             href="/"
           >
-            <SkullIcon aria-label="home icon" />
             <span
               className={clsx('hidden sm:block', {
                 underline: pathname === '/',
