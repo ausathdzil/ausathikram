@@ -32,21 +32,15 @@ export default function Header() {
             className="flex gap-2 hover:underline underline-offset-4"
             href="/"
           >
-            <span
-              className={clsx('hidden sm:block', {
-                underline: pathname === '/',
-              })}
-            >
-              home
-            </span>
+            <span className={pathname === '/' ? 'underline' : ''}>home</span>
           </Link>
-          <ul className="flex items-center gap-8">
+          <ul className="flex items-center gap-4 sm:gap-8">
             <li>
               <Link
                 className="flex gap-2 hover:underline underline-offset-4"
                 href="/projects"
               >
-                <span className={clsx({ underline: pathname === '/projects' })}>
+                <span className={pathname === '/projects' ? 'underline' : ''}>
                   projects
                 </span>
               </Link>
@@ -56,7 +50,7 @@ export default function Header() {
                 className="flex gap-2 hover:underline underline-offset-4"
                 href="/blog"
               >
-                <span className={clsx({ underline: pathname === '/blog' })}>
+                <span className={pathname === '/blog' ? 'underline' : ''}>
                   blog
                 </span>
               </Link>

@@ -355,7 +355,10 @@ import { useActionState } from 'react';
 
 const initialState = {
   success: false,
-  errors: {},
+  errors: {
+    title: [],
+    body: [],
+  },
 };
 
 export default function Form() {
@@ -393,26 +396,29 @@ export async function createTodo(prevState: any, formData: FormData) {
 you can just use any type for the prevState, but it's better to define a type for it.
 
 let's break down the changes:
-- define an **initialState** object that has a **success** boolean and an **errors** object
+- define an **initialState** object that has a **success** boolean and an **errors** object, this will be the initial state of the form.
 ```ts
 const initialState = {
   success: false,
-  errors: {},
+  errors: {
+    title: [],
+    body: [],
+  },
 };
 ```
 
-- use **useActionState** to handle the form action
+- handle the form action with **useActionState**. this hook takes the server action and the initial state as parameters, and will return the current state and the form action as value.
 ```tsx
 const [state, formAction] = useActionState(createTodo, initialState);
 ```
 
-- use **state.errors** to show the error messages
+- show the error message for each field using **state.errors**.
 ```tsx
 {state.errors?.title && <p>{state.errors.title}</p>}
 {state.errors?.body && <p>{state.errors.body}</p>}
 ```
 
-- use **state.message** to show the success message
+- show the message returned from the server action.
 ```tsx
 <p>{state.message}</p>
 ```
@@ -444,3 +450,20 @@ export default function Form() {
 ```
 
 this will disable the submit button while the form is submitting, and show a "Submitting..." text on the button, just like what we did before with **useFormStatus**. but now, it's more integrated with the form action.
+
+## conclusion
+
+to recap, we've learned how to validate forms on the server with **zod** and return a **state object** from the server action, this lets us **show the error message for each field** using react useState. then we learned how to simplify the form validation code with **useActionState**, this will handle the form action and update the state based on the result instead of setting the state for each indiviual field manually.
+
+**useActionState** is one of the most prominent feature of the upcoming react 19, and it will make form validation easier and more integrated with the form action. it's a great addition to the react ecosystem.
+
+note that this feature is still experimental and shouldn't really be used in production yet. but it's a good idea to learn it and see how it can simplify your form validation code.
+
+if you've made it this far, thank you for reading! i hope you find this article helpful. if you have any questions or feedback, feel free to leave a comment below. happy coding!
+
+## references
+
+- [next.js server-side form validation](https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations#server-side-form-validation)
+- [useActionState](https://react.dev/reference/react/useActionState)
+- [useFormStatus](https://react.dev/reference/react-dom/hooks/useFormStatus)
+- [zod](https://github.com/colinhacks/zod)
