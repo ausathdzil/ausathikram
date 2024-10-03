@@ -345,7 +345,7 @@ export default function Form() {
 }
 ```
 
-we handle each state manually, **giving each field its own error state**. 
+we handle each state manually, **giving each field its own error state**.
 
 here's how we can simplify this with **useActionState**:
 
@@ -353,17 +353,9 @@ here's how we can simplify this with **useActionState**:
 import { useActionState } from 'react';
 //...
 
-const initialState = {
-  success: false,
-  errors: {
-    title: [],
-    body: [],
-  },
-};
-
 export default function Form() {
   const { pending } = useFormStatus();
-  const [state, formAction] = useActionState(createTodo, initialState);
+  const [state, formAction] = useActionState(createTodo, null);
 
   return (
     <form action={formAction}>
@@ -397,29 +389,25 @@ you can just use any type for the prevState, but it's better to define a type fo
 
 let's break down the changes:
 
-- define an **initialState** object that has a **success** boolean and an **errors** object, this will be the **initial state** of the form.
-```ts
-const initialState = {
-  success: false,
-  errors: {
-    title: [],
-    body: [],
-  },
-};
-```
+- handle the form action with **useActionState**. this hook takes the server action and the initial state as parameters, and will return the current state and the form action as value. i'll leave the initial state to null because this is the state before the form is submitted. but you can adjust it accordingly to your needs.
 
-- handle the form action with **useActionState**. this hook takes the server action and the initial state as parameters, and will return the current state and the form action as value.
 ```tsx
-const [state, formAction] = useActionState(createTodo, initialState);
+const [state, formAction] = useActionState(createTodo, null);
 ```
 
 - show the error message for each field using **state.errors**.
+
 ```tsx
-{state.errors?.title && <p>{state.errors.title}</p>}
-{state.errors?.body && <p>{state.errors.body}</p>}
+{
+  state.errors?.title && <p>{state.errors.title}</p>;
+}
+{
+  state.errors?.body && <p>{state.errors.body}</p>;
+}
 ```
 
 - show the message returned from the server action.
+
 ```tsx
 <p>{state.message}</p>
 ```
@@ -432,7 +420,7 @@ oh and a bit of extra, useActionState returns another value called **pending** t
 
 ```tsx
 export default function Form() {
-  const [state, formAction, pending] = useActionState(createTodo, initialState);
+  const [state, formAction, pending] = useActionState(createTodo, null);
 
   //...
 
@@ -456,11 +444,13 @@ this will disable the submit button while the form is submitting, and show a "Su
 
 to recap, we've learned how to validate forms on the server with **zod** and return a **state object** from the server action, this lets us **show the error message for each field** using react useState. then we learned how to simplify the form validation code with **useActionState**, this will handle the form action and update the state based on the result instead of setting the state for each indiviual field manually.
 
-**useActionState** is one of the most prominent feature of the upcoming react 19, and it will make form validation easier and more integrated with the form action. it's a great addition to the react ecosystem.
+note that this feature is only available on [react canary channel](https://react.dev/community/versioning-policy#canary-channel). but it's a good idea to learn it and see how it can simplify your form validation code.
 
-note that this feature is still experimental and shouldn't really be used in production yet. but it's a good idea to learn it and see how it can simplify your form validation code.
+if you've made it this far, thank you for reading! i hope you find this post helpful. if you have any questions or feedback, feel free to leave a comment below.
 
-if you've made it this far, thank you for reading! i hope you find this post helpful. if you have any questions or feedback, feel free to leave a comment below. happy coding!
+## github repo
+
+you can find the full code for this implementation on this [github repo](https://github.com/ausathdzil/nextjs-15-mockapi-todo).
 
 ## references
 
