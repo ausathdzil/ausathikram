@@ -9,7 +9,7 @@ function CustomLink(props: any) {
   if (href.startsWith('/')) {
     return (
       <Link
-        className="underline-offset-4 decoration-zinc-500 hover:decoration-zinc-50"
+        className="underline-offset-4 decoration-zinc-500 hover:decoration-zinc-950 dark:hover:decoration-zinc-50"
         href={href}
         {...props}
       >
@@ -24,7 +24,7 @@ function CustomLink(props: any) {
 
   return (
     <a
-      className="underline-offset-4 decoration-zinc-500 hover:decoration-zinc-50"
+      className="underline-offset-4 decoration-zinc-500 hover:decoration-zinc-950 dark:hover:decoration-zinc-50"
       target="_blank"
       rel="noopener noreferrer"
       {...props}

@@ -1,6 +1,6 @@
 ---
 title: form validation with next.js, react 19, server actions, and zod
-publishedAt: 2024-10-02
+publishedAt: 2024-10-03
 summary: form validation
 ---
 
@@ -12,7 +12,7 @@ before useActionState, we usually use a combination of useState to manage error 
 
 here's an example with next.js and server actions:
 
-```jsx
+```tsx
 import { revalidatePath } from 'next/cache';
 
 export default function Form() {
@@ -73,7 +73,7 @@ export async function createTodo(formData: FormData) {
 }
 ```
 
-```jsx
+```tsx
 // form.tsx
 'use client';
 
@@ -147,7 +147,7 @@ export async function createTodo(formData: FormData) {
 
 now on the client component, we can use the success state to show the error message.
 
-```jsx
+```tsx
 'use client';
 
 import { createTodo } from '@/lib/test';
@@ -253,7 +253,7 @@ notice how the type of each field is an array of strings, this is because each f
 
 now let's update the client component to show the error messages.
 
-```jsx
+```tsx
 export default function Form() {
   const { pending } = useFormStatus();
   const [error, setError] = useState<string | null>(null);
@@ -273,14 +273,13 @@ export default function Form() {
       if (result.errors?.body) {
         setBodyError(result.errors.body);
       }
-
     } else {
       setError(null);
     }
   }
 
   return (
-    <form className="space-y-2" action={handleSubmit}>
+    <form action={handleSubmit}>
       <input name="title" type="text" />
       {titleError && <p>{titleError.join(', ')}</p>}
 
@@ -297,3 +296,151 @@ export default function Form() {
 ```
 
 this is already a good setup for form validation, but we still have to manually set the error state for each field. imagine if we have more fields. this is where **useActionState** comes in.
+
+## form validation with useActionState
+
+[useActionState](https://react.dev/reference/react/useActionState) is a hook that allows you to update state based on the result of a form action. that's what the official docs says, let's see it in practice.
+
+first, let's see our previous code without **useActionState**. we're going to focus on the form component.
+
+```tsx
+export default function Form() {
+  const { pending } = useFormStatus();
+  const [error, setError] = useState<string | null>(null);
+  const [titleError, setTitleError] = useState<string[] | null>(null);
+  const [bodyError, setBodyError] = useState<string[] | null>(null);
+
+  async function handleSubmit(formData: FormData) {
+    const result = await createTodo(formData);
+
+    if (!result.success) {
+      setError(result.message ?? null);
+
+      if (result.errors?.title) {
+        setTitleError(result.errors.title);
+      }
+
+      if (result.errors?.body) {
+        setBodyError(result.errors.body);
+      }
+    } else {
+      setError(null);
+    }
+  }
+
+  return (
+    <form action={handleSubmit}>
+      <input name="title" type="text" />
+      {titleError && <p>{titleError.join(', ')}</p>}
+
+      <input name="body" type="text" disabled={pending} />
+      {bodyError && <p>{bodyError.join(', ')}</p>}
+
+      <button type="submit" disabled={pending}>
+        {pending ? 'Submitting...' : 'Submit'}
+      </button>
+      {error && <p>{error}</p>}
+    </form>
+  );
+}
+```
+
+we handle each state manually, **giving each field its own error state**. 
+
+here's how we can simplify this with **useActionState**:
+
+```tsx
+import { useActionState } from 'react';
+//...
+
+const initialState = {
+  success: false,
+  errors: {},
+};
+
+export default function Form() {
+  const { pending } = useFormStatus();
+  const [state, formAction] = useActionState(createTodo, initialState);
+
+  return (
+    <form action={formAction}>
+      <Label htmlFor="title">Title</Label>
+      <Input name="title" type="text" />
+      {state.errors?.title && <p>{state.errors.title}</p>}
+
+      <Label htmlFor="body">Body</Label>
+      <Input name="body" type="text" disabled={pending} />
+      {state.errors?.body && <p>{state.errors.body}</p>}
+
+      <Button type="submit" disabled={pending}>
+        {pending ? 'Submitting...' : 'Submit'}
+      </Button>
+
+      <p>{state.message}</p>
+    </form>
+  );
+}
+```
+
+and on the server action, we don't need to change anything, just add prevState to the function parameters.
+
+```ts
+export async function createTodo(prevState: any, formData: FormData) {
+  //...
+}
+```
+
+you can just use any type for the prevState, but it's better to define a type for it.
+
+let's break down the changes:
+- define an **initialState** object that has a **success** boolean and an **errors** object
+```ts
+const initialState = {
+  success: false,
+  errors: {},
+};
+```
+
+- use **useActionState** to handle the form action
+```tsx
+const [state, formAction] = useActionState(createTodo, initialState);
+```
+
+- use **state.errors** to show the error messages
+```tsx
+{state.errors?.title && <p>{state.errors.title}</p>}
+{state.errors?.body && <p>{state.errors.body}</p>}
+```
+
+- use **state.message** to show the success message
+```tsx
+<p>{state.message}</p>
+```
+
+now, instead of manually setting the error state for each field, we can use **useActionState** to handle the form action and update the state based on the result.
+
+that's basically it! you can now validate your forms with **useActionState** and **zod**. this will make your form validation code cleaner and easier to maintain.
+
+oh and a bit of extra, useActionState returns another value called **pending** that you can use to disable the submit button while the form is submitting.
+
+```tsx
+export default function Form() {
+  const [state, formAction, pending] = useActionState(createTodo, initialState);
+
+  //...
+
+  return (
+    <form action={formAction}>
+      {/* ... */}
+
+      <button type="submit" disabled={pending}>
+        {pending ? 'Submitting...' : 'Submit'}
+      </button>
+
+      {/* ... */}
+    </form>
+  );
+}
+```
+
+this will disable the submit button while the form is submitting, and show a "Submitting..." text on the button, just like what we did before with **useFormStatus**. but now, it's more integrated with the form action.
