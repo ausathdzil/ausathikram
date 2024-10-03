@@ -8,7 +8,7 @@ validating forms is an essential part of web development. react 19 has a new fea
 
 ## current state of making forms
 
-before useActionState, we usually use a combination of useState to manage error state and [useFormStatus](https://react.dev/reference/react-dom/hooks/useFormStatus) to manage the pending state, although the former is only available on react canary channel based its latest docs (as of oct 2, 2024).
+before useActionState, we usually use a combination of useState to manage error state and [useFormStatus](https://react.dev/reference/react-dom/hooks/useFormStatus) to manage the pending state, although the latter is only available on react canary channel based its latest docs (as of oct 2, 2024).
 
 here's an example with next.js and server actions:
 
@@ -45,7 +45,7 @@ export default function Form() {
 }
 ```
 
-now, let's add a pending state when the form is submitting with useFormStatus. this hook will return a pending boolean that we can use to modify the button for better user experience.
+now, let's add a pending state when the form is submitting with **useFormStatus**. this hook will return a **pending** boolean that we can use to modify the button for better user experience.
 
 but we need to move the server action to a separate file to make it work.
 
@@ -96,16 +96,16 @@ export default function Form() {
 }
 ```
 
-at this point you can just add html `required` attribute for a simple client-side validation.
+at this point you can just add html `required` attribute for a simple **client-side validation**.
 
 ```html
 <input name="title" type="text" required />
 <input name="body" type="text" required />
 ```
 
-but what if you want to validate the form on the server? sometimes validating should be done both on the client **and** server side to prevent malicious users from bypassing the client-side validation.
+but what if you want to validate the form on the server? sometimes validating should be done both on the client **and** server to prevent malicious users from bypassing the client-side validation.
 
-we can use useState, but now that the server action is on another file, we need to pass the error state back from the server action to the form component.
+we can use **useState**, but now that the server action is on another file, we need to pass the error state back from the server action to the form component.
 
 one way to do this is to return a success state from the server action.
 
@@ -183,11 +183,11 @@ export default function Form() {
 
 note that now we use a **handleSubmit** function to call the server action, and we set the error state based on the result.
 
-this only validates the result of the form submission, not the indiviual fields. usually for better user experience, **we should also validate each field** before submitting the form. this is important, especially when working with multiple fields that has different constraints. for example, we may need to set the limit of the title to 50 characters, and the body to 500 characters.
+this only validates the result of the form submission, not the indiviual fields. usually for better user experience and security, **we should also validate each field** before submitting the form. this is important, especially when working with multiple fields that has different constraints. for example, we may need to set the limit of the title to 50 characters, and the body to 500 characters.
 
-now we have to validate each fields, define our constraints, and set the error state for each field manually using **if else statement** and useState. if you have multiple fields, this would be a bit cumbersome.
+now we have to validate each fields, define our constraints, and set the error state for each field manually using **if else statement** and **useState**. if you have multiple fields, this would be a bit cumbersome.
 
-to make it a bit simple, we can skip manually defining outr constraints and use a library called **zod** to define the form schema. this will make it easier to validate the form fields.
+to make it a bit simple, we can skip manually defining our constraints and use a library called **zod** to define the form schema. this will make it easier to validate the form fields.
 
 ## using zod for form validation on the server
 
@@ -240,7 +240,7 @@ export async function createTodo(formData: FormData) {
 }
 ```
 
-this server action now returns an object with the success boolean and the errors object if the form validation fails. this errors object has the following shape:
+this server action now returns an object with the **success** boolean and the **errors** object if the form validation fails. this errors object has the following shape:
 
 ```ts
 const errors: {
@@ -396,7 +396,8 @@ export async function createTodo(prevState: any, formData: FormData) {
 you can just use any type for the prevState, but it's better to define a type for it.
 
 let's break down the changes:
-- define an **initialState** object that has a **success** boolean and an **errors** object, this will be the initial state of the form.
+
+- define an **initialState** object that has a **success** boolean and an **errors** object, this will be the **initial state** of the form.
 ```ts
 const initialState = {
   success: false,
@@ -423,7 +424,7 @@ const [state, formAction] = useActionState(createTodo, initialState);
 <p>{state.message}</p>
 ```
 
-now, instead of manually setting the error state for each field, we can use **useActionState** to handle the form action and update the state based on the result.
+now, instead of manually setting the error state for each field, we can use **useActionState** to handle the form action and **update the state based on the form result**.
 
 that's basically it! you can now validate your forms with **useActionState** and **zod**. this will make your form validation code cleaner and easier to maintain.
 
@@ -459,7 +460,7 @@ to recap, we've learned how to validate forms on the server with **zod** and ret
 
 note that this feature is still experimental and shouldn't really be used in production yet. but it's a good idea to learn it and see how it can simplify your form validation code.
 
-if you've made it this far, thank you for reading! i hope you find this article helpful. if you have any questions or feedback, feel free to leave a comment below. happy coding!
+if you've made it this far, thank you for reading! i hope you find this post helpful. if you have any questions or feedback, feel free to leave a comment below. happy coding!
 
 ## references
 
