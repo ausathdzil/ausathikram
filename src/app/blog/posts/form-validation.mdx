@@ -121,27 +121,22 @@ export async function createTodo(formData: FormData) {
   };
 
   try {
-    const res = await fetch('/api/todos', {
+    await fetch('/api/todos', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(rawFormData),
     });
-
-    if (!res.ok) {
-      throw new Error('Failed to create todo');
-    }
-
-    revalidatePath('/todos');
-    return { success: true, message: 'Todo created successfully' };
   } catch (error) {
-    if (error instanceof Error) {
-      return { success: false, message: error.message };
-    } else {
-      return { success: false, message: 'An error occurred' };
-    }
+    return {
+      success: false,
+      message: 'Failed to create todo',
+    };
   }
+
+  revalidatePath('/todos');
+  return { success: true, message: 'Todo created successfully' };
 }
 ```
 
@@ -149,10 +144,7 @@ now on the client component, we can use the success state to show the error mess
 
 ```tsx
 'use client';
-
-import { createTodo } from '@/lib/test';
-import { useState } from 'react';
-import { useFormStatus } from 'react-dom';
+//...
 
 export default function Form() {
   const { pending } = useFormStatus();
@@ -225,18 +217,16 @@ export async function createTodo(formData: FormData) {
     body: formData.get('body'),
   });
 
-  // this will validate the fields based on the schema
+  // validate the fields based on the schema
   if (!validatedFields.success) {
-    // flatten the error object defined by zod
-    const errors = validatedFields.error.flatten().fieldErrors;
     return {
       success: false,
-      // add the new errors object to the returned object
-      errors,
+      // add this new error object, this will be used to show the error message for each field
+      errors: validatedFields.error.flatten().fieldErrors,
     };
   }
 
-  // same as before
+  // ...
 }
 ```
 
@@ -254,6 +244,9 @@ notice how the type of each field is an array of strings, this is because each f
 now let's update the client component to show the error messages.
 
 ```tsx
+'use client';
+//...
+
 export default function Form() {
   const { pending } = useFormStatus();
   const [error, setError] = useState<string | null>(null);
@@ -304,6 +297,9 @@ this is already a good setup for form validation, but we still have to manually 
 first, let's see our previous code without **useActionState**. we're going to focus on the form component.
 
 ```tsx
+'use client';
+//...
+
 export default function Form() {
   const { pending } = useFormStatus();
   const [error, setError] = useState<string | null>(null);
@@ -350,6 +346,8 @@ we handle each state manually, **giving each field its own error state**.
 here's how we can simplify this with **useActionState**:
 
 ```tsx
+'use client';
+
 import { useActionState } from 'react';
 //...
 
@@ -377,7 +375,7 @@ export default function Form() {
 }
 ```
 
-and on the server action, we don't need to change anything, just add prevState to the function parameters.
+we don't need to change anything on the server action, just add prevState to the function parameters as this is required.
 
 ```ts
 export async function createTodo(prevState: any, formData: FormData) {
@@ -385,7 +383,7 @@ export async function createTodo(prevState: any, formData: FormData) {
 }
 ```
 
-you can just use any type for the prevState, but it's better to define a type for it.
+leave the type of prevState to any for now, we'll get back to this later.
 
 let's break down the changes:
 
@@ -398,12 +396,8 @@ const [state, formAction] = useActionState(createTodo, null);
 - show the error message for each field using **state.errors**.
 
 ```tsx
-{
-  state.errors?.title && <p>{state.errors.title}</p>;
-}
-{
-  state.errors?.body && <p>{state.errors.body}</p>;
-}
+{state.errors?.title && <p>{state.errors.title}</p>;}
+{state.errors?.body && <p>{state.errors.body}</p>;}
 ```
 
 - show the message returned from the server action.
@@ -419,10 +413,11 @@ that's basically it! you can now validate your forms with **useActionState** and
 oh and a bit of extra, useActionState returns another value called **pending** that you can use to disable the submit button while the form is submitting.
 
 ```tsx
+'use client';
+//...
+
 export default function Form() {
   const [state, formAction, pending] = useActionState(createTodo, null);
-
-  //...
 
   return (
     <form action={formAction}>
@@ -440,6 +435,45 @@ export default function Form() {
 
 this will disable the submit button while the form is submitting, and show a "Submitting..." text on the button, just like what we did before with **useFormStatus**. but now, it's more integrated with the form action.
 
+## state types
+
+you may have noticed that we left the type of **prevState** to **any**. let's define it now:
+
+```ts
+'use server';
+//...
+
+export type State = {
+  success: boolean;
+  message?: string | null;
+  errors?: {
+    title: string[];
+    body: string[];
+  };
+};
+
+export async function createTodo(prevState: State, formData: FormData) {
+  //...
+}
+```
+
+```tsx
+'use client';
+//...
+
+export default function Form() {
+  const initialState = {
+    success: false,
+    message: null,
+    errors: {},
+  };
+  const [state, formAction, pending] = useActionState(createTodo, initialState);
+  //...
+}
+```
+
+this will make the code more type-safe. and should be useful if you ever need to use the prevState in the server action.
+
 ## conclusion
 
 to recap, we've learned how to validate forms on the server with **zod** and return a **state object** from the server action, this lets us **show the error message for each field** using react useState. then we learned how to simplify the form validation code with **useActionState**, this will handle the form action and update the state based on the result instead of setting the state for each indiviual field manually.
@@ -455,6 +489,7 @@ you can find the full code for this implementation on this [github repo](https:/
 ## references
 
 - [next.js server-side form validation](https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations#server-side-form-validation)
+- [handling errors with useActionState](https://nextjs.org/learn/dashboard-app/improving-accessibility)
 - [useActionState](https://react.dev/reference/react/useActionState)
 - [useFormStatus](https://react.dev/reference/react-dom/hooks/useFormStatus)
 - [zod](https://github.com/colinhacks/zod)
