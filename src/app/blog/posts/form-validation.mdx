@@ -1,7 +1,7 @@
 ---
 title: form validation with next.js, react 19, server actions, and zod
 publishedAt: 2024-10-03
-summary: form validation
+summary: implementing efficient server-side form validation in React using the new useActionState hook combined with Zod, streamlining error handling and improving code maintainability.
 ---
 
 validating forms is an essential part of web development. react 19 has a new feature called [useActionState](https://react.dev/reference/react/useActionState) that will simplify how we handle server side form validation. combine it with [zod](https://github.com/colinhacks/zod) and server actions, we can create a powerful form validation system.
@@ -188,6 +188,9 @@ to make it a bit simple, we can skip manually defining our constraints and use a
 first, let's define our schema for the todo form, we will add this on the server action file.
 
 ```ts
+import { z } from 'zod';
+//...
+
 const formSchema = z.object({
   title: z
     .string()
@@ -206,6 +209,8 @@ const formSchema = z.object({
       message: 'Body must be less than 500 characters',
     }),
 });
+
+//...
 ```
 
 now we can use this schema to validate the form data before submitting the form.
@@ -221,19 +226,31 @@ export async function createTodo(formData: FormData) {
   if (!validatedFields.success) {
     return {
       success: false,
-      // add this new error object, this will be used to show the error message for each field
+      // add this new error object
       errors: validatedFields.error.flatten().fieldErrors,
     };
   }
 
-  // ...
+  try {
+    await fetch(process.env.NEXT_PUBLIC_API_URL!, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      // use the validated data
+      body: JSON.stringify(validatedFields.data),
+    });
+  } catch (error) {
+    //...
+  }
+  //...
 }
 ```
 
 this server action now returns an object with the **success** boolean and the **errors** object if the form validation fails. this errors object has the following shape:
 
 ```ts
-const errors: {
+errors: {
   title?: string[] | undefined;
   body?: string[] | undefined;
 };
@@ -250,100 +267,45 @@ now let's update the client component to show the error messages.
 export default function Form() {
   const { pending } = useFormStatus();
   const [error, setError] = useState<string | null>(null);
-  const [titleError, setTitleError] = useState<string[] | null>(null);
-  const [bodyError, setBodyError] = useState<string[] | null>(null);
+  const [fieldErros, setFieldErrors] = useState<{
+    title?: string[];
+    body?: string[];
+  } | null>(null);
 
   async function handleSubmit(formData: FormData) {
     const result = await createTodo(formData);
 
     if (!result.success) {
       setError(result.message ?? null);
-
-      if (result.errors?.title) {
-        setTitleError(result.errors.title);
-      }
-
-      if (result.errors?.body) {
-        setBodyError(result.errors.body);
-      }
+      setFieldErrors(result.errors ?? null);
     } else {
       setError(null);
+      setFieldErrors(null);
     }
   }
 
   return (
-    <form action={handleSubmit}>
-      <input name="title" type="text" />
-      {titleError && <p>{titleError.join(', ')}</p>}
+    <form className="space-y-2" action={handleSubmit}>
+      <Input name="title" type="text" />
+      {fieldErros?.title && <p>{fieldErros.title.join(', ')}</p>}
 
-      <input name="body" type="text" disabled={pending} />
-      {bodyError && <p>{bodyError.join(', ')}</p>}
+      <Input name="body" type="text" disabled={pending} />
+      {fieldErros?.body && <p>{fieldErros.body.join(', ')}</p>}
 
-      <button type="submit" disabled={pending}>
+      <Button type="submit" disabled={pending}>
         {pending ? 'Submitting...' : 'Submit'}
-      </button>
+      </Button>
       {error && <p>{error}</p>}
     </form>
   );
 }
 ```
 
-this is already a good setup for form validation, but we still have to manually set the error state for each field. imagine if we have more fields. this is where **useActionState** comes in.
+this is already a good setup for form validation, but we can simplify this even further with **useActionState**.
 
 ## form validation with useActionState
 
 [useActionState](https://react.dev/reference/react/useActionState) is a hook that allows you to update state based on the result of a form action. that's what the official docs says, let's see it in practice.
-
-first, let's see our previous code without **useActionState**. we're going to focus on the form component.
-
-```tsx
-'use client';
-//...
-
-export default function Form() {
-  const { pending } = useFormStatus();
-  const [error, setError] = useState<string | null>(null);
-  const [titleError, setTitleError] = useState<string[] | null>(null);
-  const [bodyError, setBodyError] = useState<string[] | null>(null);
-
-  async function handleSubmit(formData: FormData) {
-    const result = await createTodo(formData);
-
-    if (!result.success) {
-      setError(result.message ?? null);
-
-      if (result.errors?.title) {
-        setTitleError(result.errors.title);
-      }
-
-      if (result.errors?.body) {
-        setBodyError(result.errors.body);
-      }
-    } else {
-      setError(null);
-    }
-  }
-
-  return (
-    <form action={handleSubmit}>
-      <input name="title" type="text" />
-      {titleError && <p>{titleError.join(', ')}</p>}
-
-      <input name="body" type="text" disabled={pending} />
-      {bodyError && <p>{bodyError.join(', ')}</p>}
-
-      <button type="submit" disabled={pending}>
-        {pending ? 'Submitting...' : 'Submit'}
-      </button>
-      {error && <p>{error}</p>}
-    </form>
-  );
-}
-```
-
-we handle each state manually, **giving each field its own error state**.
-
-here's how we can simplify this with **useActionState**:
 
 ```tsx
 'use client';
@@ -369,7 +331,7 @@ export default function Form() {
         {pending ? 'Submitting...' : 'Submit'}
       </Button>
 
-      <p>{state.message}</p>
+      {state.message && <p>{state.message}</p>}
     </form>
   );
 }
@@ -393,20 +355,24 @@ let's break down the changes:
 const [state, formAction] = useActionState(createTodo, null);
 ```
 
+- instead of using a submit handler, we can call the formAction directly on the form action attribute.
+
+```html
+<form action="{formAction}"></form>
+```
+
 - show the error message for each field using **state.errors**.
 
 ```tsx
-{state.errors?.title && <p>{state.errors.title}</p>;}
-{state.errors?.body && <p>{state.errors.body}</p>;}
+{state.errors?.title && <p>{state.errors.title}</p>}
+{state.errors?.body && <p>{state.errors.body}</p>}
 ```
 
 - show the message returned from the server action.
 
 ```tsx
-<p>{state.message}</p>
+{state.message && <p>{state.message}</p>}
 ```
-
-now, instead of manually setting the error state for each field, we can use **useActionState** to handle the form action and **update the state based on the form result**.
 
 that's basically it! you can now validate your forms with **useActionState** and **zod**. this will make your form validation code cleaner and easier to maintain.
 
@@ -459,10 +425,12 @@ export async function createTodo(prevState: State, formData: FormData) {
 
 ```tsx
 'use client';
+
+import { State } from '@/lib/actions';
 //...
 
 export default function Form() {
-  const initialState = {
+  const initialState: State = {
     success: false,
     message: null,
     errors: {},
@@ -476,7 +444,7 @@ this will make the code more type-safe. and should be useful if you ever need to
 
 ## conclusion
 
-to recap, we've learned how to validate forms on the server with **zod** and return a **state object** from the server action, this lets us **show the error message for each field** using react useState. then we learned how to simplify the form validation code with **useActionState**, this will handle the form action and update the state based on the result instead of setting the state for each indiviual field manually.
+to recap, we've learned how to validate forms on the server with **zod** and return a **state object** from the server action, this lets us **show the error message for each field** using react useState. then we learned how to simplify the form validation code with **useActionState**, this will handle the form action and update the state based on the result of the action. we also learned how to define the **state type** for better type safety.
 
 note that this feature is only available on [react canary channel](https://react.dev/community/versioning-policy#canary-channel). but it's a good idea to learn it and see how it can simplify your form validation code.
 
