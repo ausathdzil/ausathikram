@@ -24,7 +24,7 @@ export default function Form() {
       body: formData.get('body'),
     };
 
-    await fetch('/api/todos', {
+    await fetch(process.env.NEXT_PUBLIC_API_URL!, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -61,7 +61,7 @@ export async function createTodo(formData: FormData) {
     body: formData.get('body'),
   };
 
-  await fetch('/api/todos', {
+  await fetch(process.env.NEXT_PUBLIC_API_URL!, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -121,7 +121,7 @@ export async function createTodo(formData: FormData) {
   };
 
   try {
-    await fetch('/api/todos', {
+    await fetch(process.env.NEXT_PUBLIC_API_URL!, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -357,8 +357,8 @@ const [state, formAction] = useActionState(createTodo, null);
 
 - instead of using a submit handler, we can call the formAction directly on the form action attribute.
 
-```html
-<form action="{formAction}"></form>
+```tsx
+<form action={formAction}></form>
 ```
 
 - show the error message for each field using **state.errors**.
