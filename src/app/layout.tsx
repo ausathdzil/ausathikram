@@ -2,11 +2,21 @@ import Footer from '@/components/layout/footer';
 import Header from '@/components/layout/header';
 import { ThemeProvider } from '@/components/theme-provider';
 import clsx from 'clsx';
-import { GeistMono } from 'geist/font/mono';
-import { GeistSans } from 'geist/font/sans';
 import type { Metadata } from 'next';
 import { ViewTransitions } from 'next-view-transitions';
+import localFont from 'next/font/local';
 import './globals.css';
+
+const geistSans = localFont({
+  src: './fonts/GeistVF.woff',
+  variable: '--font-geist-sans',
+  weight: '100 900',
+});
+const geistMono = localFont({
+  src: './fonts/GeistMonoVF.woff',
+  variable: '--font-geist-mono',
+  weight: '100 900',
+});
 
 export const metadata: Metadata = {
   title: {
@@ -23,21 +33,15 @@ export default function RootLayout({
 }>) {
   return (
     <ViewTransitions>
-      <html
-        lang="en"
-        suppressHydrationWarning
-      >
+      <html lang="en" suppressHydrationWarning>
         <head>
-          <link
-            rel="icon"
-            href="/skull.svg"
-          />
+          <link rel="icon" href="/skull.svg" />
         </head>
         <body
           className={clsx(
             'antialiased',
-            GeistSans.className,
-            GeistMono.variable,
+            geistSans.className,
+            geistMono.variable
           )}
         >
           <ThemeProvider
