@@ -25,8 +25,12 @@ export default function Home() {
           information systems. i&apos;m also a{' '}
           <strong className="text-foreground">web developer</strong>. i mainly
           work with <strong className="text-foreground">next.js</strong> as my
-          go to react framework. i&apos;m always looking for new opportunities
-          to learn and grow.
+          go to <strong className="text-foreground">react framework</strong>.
+          i&apos;m always{' '}
+          <strong className="text-foreground">
+            looking for new opportunities to learn and grow
+          </strong>{' '}
+          to become a better developer.
         </p>
       </article>
       <div className="space-y-2">
@@ -63,3 +67,4 @@ export default function Home() {
     </section>
   );
 }
+

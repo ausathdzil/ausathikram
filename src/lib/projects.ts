@@ -1,7 +1,8 @@
 import { StaticImageData } from 'next/image';
 import dignition from '../../public/projects/dignition.png';
 import bookshelf from '../../public/projects/bookshelf.png';
-import nasaApodGallery from '../../public/projects/nasa-apod-gallery.png';
+import memovies from '../../public/projects/memovies.png';
+import nasaApodGallery from '../../public/projects/apod-gallery-nasa.png';
 import moneasy from '../../public/projects/moneasy.png';
 import ausathikram from '../../public/projects/ausathikram.png';
 import reactCalculator from '../../public/projects/react-calculator.png';
@@ -29,13 +30,22 @@ export const projects: Project[] = [
     id: 2,
     title: 'bookshelf',
     slug: 'bookshelf',
-    description: 'my attempt at cloning goodreads',
+    description: 'goodreads clone',
     image: bookshelf,
     link: 'https://bookshelf-ausath.vercel.app/',
     repo: 'https://github.com/ausathdzil/bookshelf',
   },
   {
     id: 3,
+    title: 'memovies',
+    slug: 'memovies',
+    description: 'letterboxd clone',
+    image: memovies,
+    link: 'https://memovies.vercel.app/',
+    repo: 'https://github.com/ausathdzil/memovies',
+  },
+  {
+    id: 4,
     title: 'nasa apod gallery',
     slug: 'nasa-apod-gallery',
     description: 'collection of nasa astronomy picture of the day',
@@ -44,7 +54,7 @@ export const projects: Project[] = [
     repo: 'https://github.com/ausathdzil/nasa-apod-gallery',
   },
   {
-    id: 4,
+    id: 5,
     title: 'moneasy',
     slug: 'moneasy',
     description: 'msme financial management system',
@@ -53,42 +63,12 @@ export const projects: Project[] = [
     repo: 'https://github.com/valuin/moneasy',
   },
   {
-    id: 5,
+    id: 6,
     title: 'ausathikram',
     slug: 'ausathikram',
     description: 'this website :)',
     image: ausathikram,
     link: 'https://ausathikram.vercel.app/',
     repo: 'https://github.com/ausathdzil/ausathikram',
-  },
-  {
-    id: 6,
-    title: 'react calculator',
-    slug: 'react-calculator',
-    description: 'simple calculator using react',
-    image: reactCalculator,
-    link: 'https://react-calculator-ausath.vercel.app/',
-    repo: 'https://github.com/ausathdzil/react-calculator',
-  },
-  {
-    id: 7,
-    title: 'sea salon',
-    slug: 'sea-salon',
-    description: 'salon management system',
-    repo: 'https://github.com/ausathdzil/sea-salon',
-  },
-  {
-    id: 8,
-    title: 'hotel express',
-    slug: 'hotel-express',
-    description: 'hotel management system',
-    repo: 'https://github.com/ausathdzil/hotel-express',
-  },
-  {
-    id: 9,
-    title: 'bookshelf api',
-    slug: 'bookshelf-api',
-    description: 'simple bookshelf api',
-    repo: 'https://github.com/ausathdzil/bookshelf-api',
   },
 ];
