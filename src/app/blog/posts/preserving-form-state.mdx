@@ -1,6 +1,6 @@
 ---
 title: preserving form state
-published: 2024-10-10
+publishedAt: 2024-10-19
 summary: preserving form state after submission in next.js using event handlers and react's startTransition.
 ---
 
@@ -10,7 +10,7 @@ sometimes we don't want that to happen. for example, say the user submits a form
 
 ## event handler
 
-to preserve the form state, we need to use an event handler to call the action, we do this to utilize the **event.Preventdefault()** method to prevent the form from submitting and resetting the form.
+to preserve the form state, we need to use an event handler to call the action, we do this to utilize the **event.Preventdefault** method to prevent the form from submitting and resetting the form.
 
 ```tsx
 'use client';
@@ -57,9 +57,11 @@ bonus: it's a good practice to wrap the **formAction** call with [startTransitio
 
 ## startTransition
 
-from the official [react docs](https://react.dev/reference/react/startTransition#marking-a-state-update-as-a-non-blocking-transition): "Transitions let you keep the user interface updates responsive even on slow devices.
+from the official [react docs](https://react.dev/reference/react/startTransition#marking-a-state-update-as-a-non-blocking-transition):
 
-With a Transition, your UI stays responsive in the middle of a re-render. For example, if the user clicks a tab but then change their mind and click another tab, they can do that without waiting for the first re-render to finish."
+"Transitions let you keep the user interface updates responsive even on slow devices. With a Transition, your UI stays responsive in the middle of a re-render.
+
+For example, if the user clicks a tab but then change their mind and click another tab, they can do that without waiting for the first re-render to finish."
 
 **startTransition** is particularly useful in larger applications or when dealing with slower network conditions. this will lead to smoother user experience.
 
@@ -91,11 +93,11 @@ by wrapping the **formAction** call with **startTransition**, we tell react to w
 
 there's other solution to this, but i find this one to be the most straightforward.
 
+hope this helps!
+
 ## github repo
 
 you can find the full code for this implementation on this [github repo](https://github.com/ausathdzil/nextjs-15-mockapi-todo).
-
-hope this helps! let me know if you have any questions.
 
 ## references
 
