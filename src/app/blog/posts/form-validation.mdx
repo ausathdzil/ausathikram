@@ -413,8 +413,8 @@ export type State = {
   success: boolean;
   message?: string | null;
   errors?: {
-    title: string[];
-    body: string[];
+    title?: string[];
+    body?: string[];
   };
 };
 
@@ -433,7 +433,10 @@ export default function Form() {
   const initialState: State = {
     success: false,
     message: null,
-    errors: {},
+    errors: {
+      title: [],
+      body: [],
+    },
   };
   const [state, formAction, pending] = useActionState(createTodo, initialState);
   //...

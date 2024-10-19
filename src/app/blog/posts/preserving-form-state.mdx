@@ -1,0 +1,104 @@
+---
+title: preserving form state
+published: 2024-10-10
+summary: preserving form state after submission in next.js using event handlers and react's startTransition.
+---
+
+on my last post, we learned how to [validate forms](/blog/posts/form-validation) using **useActionState**. one problem that arises when submitting a form directly with the action attribute is that the form will be reset after submission.
+
+sometimes we don't want that to happen. for example, say the user submits a form with an error, but not all fields are filled incorrectly. we want to keep the user's input so they don't have to retype everything, even the correct fields.
+
+## event handler
+
+to preserve the form state, we need to use an event handler to call the action, we do this to utilize the **event.Preventdefault()** method to prevent the form from submitting and resetting the form.
+
+```tsx
+'use client';
+
+import { createTodo, State } from '@/app/test/action';
+import { useActionState } from 'react';
+
+export default function Form2() {
+  const initialState: State = {
+    success: false,
+    message: null,
+    errors: {
+      title: [],
+      body: [],
+    },
+  };
+  const [state, formAction, pending] = useActionState(createTodo, initialState);
+
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    formAction(new FormData(event.currentTarget));
+  }
+
+  return (
+    <form className="space-y-2" onSubmit={handleSubmit} />
+      <input name="title" type="text" />
+      {state.errors?.title && <p>{state.errors.title.join(', ')}</p>}
+
+      <input name="body" type="text" disabled={pending} />
+      {state.errors?.body && <p>{state.errors.body.join(', ')}</p>}
+
+      <button type="submit" disabled={pending}>
+        {pending ? 'Submitting...' : 'Submit'}
+      </button>
+      {state.message && <p>{state.message}</p>}
+    </form>
+  );
+}
+```
+
+that's... basically it! now the form will not reset after submission.
+
+bonus: it's a good practice to wrap the **formAction** call with [startTransition](ttps://react.dev/reference/react/startTransition). this tells react that the update is non-urgent.
+
+## startTransition
+
+from the official [react docs](https://react.dev/reference/react/startTransition#marking-a-state-update-as-a-non-blocking-transition): "Transitions let you keep the user interface updates responsive even on slow devices.
+
+With a Transition, your UI stays responsive in the middle of a re-render. For example, if the user clicks a tab but then change their mind and click another tab, they can do that without waiting for the first re-render to finish."
+
+**startTransition** is particularly useful in larger applications or when dealing with slower network conditions. this will lead to smoother user experience.
+
+let's see how we can use it:
+
+```tsx
+'use client';
+
+import { startTransition } from 'react';
+//...
+
+export default function Form() {
+  //...
+
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    startTransition(() => {
+      formAction(new FormData(event.currentTarget));
+    });
+  }
+
+  //...
+}
+```
+
+without **startTransition**, if the network is slow, react might try to update the UI based on the pending state of **formAction** before it completes, potentially causing visual inconsistencies.
+
+by wrapping the **formAction** call with **startTransition**, we tell react to wait for the action to complete before updating the UI, leading to a smoother user experience.
+
+there's other solution to this, but i find this one to be the most straightforward.
+
+## github repo
+
+you can find the full code for this implementation on this [github repo](https://github.com/ausathdzil/nextjs-15-mockapi-todo).
+
+hope this helps! let me know if you have any questions.
+
+## references
+
+- [react docs](https://react.dev/reference/react/startTransition)
+- [saas use case](<https://github.com/leerob/next-saas-starter/blob/main/app/(dashboard)/dashboard/general/page.tsx>) (thank you [leerob](https://leerob.com)!)
+- [previous post](/blog/posts/form-validation)
