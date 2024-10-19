@@ -18,7 +18,7 @@ to preserve the form state, we need to use an event handler to call the action, 
 import { createTodo, State } from '@/app/test/action';
 import { useActionState } from 'react';
 
-export default function Form2() {
+export default function Form() {
   const initialState: State = {
     success: false,
     message: null,
@@ -35,7 +35,7 @@ export default function Form2() {
   }
 
   return (
-    <form className="space-y-2" onSubmit={handleSubmit} />
+    <form onSubmit={handleSubmit} >
       <input name="title" type="text" />
       {state.errors?.title && <p>{state.errors.title.join(', ')}</p>}
 
@@ -103,4 +103,4 @@ you can find the full code for this implementation on this [github repo](https:/
 
 - [react docs](https://react.dev/reference/react/startTransition)
 - [saas use case](<https://github.com/leerob/next-saas-starter/blob/main/app/(dashboard)/dashboard/general/page.tsx>) (thank you [leerob](https://leerob.com)!)
-- [previous post](/blog/posts/form-validation)
+- [previous post](/blog/form-validation)
