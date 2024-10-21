@@ -10,11 +10,9 @@ export async function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata(
-  props: {
-    params: Promise<{ slug: string }>;
-  }
-) {
+export async function generateMetadata(props: {
+  params: Promise<{ slug: string }>;
+}) {
   const params = await props.params;
   let post = getBlogPosts().find((post) => post.slug === params.slug);
 
@@ -24,7 +22,9 @@ export async function generateMetadata(
   };
 }
 
-export default async function Page(props: { params: Promise<{ slug: string }> }) {
+export default async function Page(props: {
+  params: Promise<{ slug: string }>;
+}) {
   const params = await props.params;
   let post = getBlogPosts().find((post) => post.slug === params.slug);
 
@@ -33,7 +33,7 @@ export default async function Page(props: { params: Promise<{ slug: string }> })
   }
 
   return (
-    <section className="w-full max-w-2xl py-12 space-y-8 prose prose-zinc dark:prose-invert prose-sm sm:prose-base lg:prose-lg">
+    <section className="w-full max-w-3xl py-12 space-y-8 prose prose-zinc dark:prose-invert prose-sm sm:prose-base lg:prose-lg">
       <article className="not-prose">
         <h1 className="text-3xl md:text-5xl text-foreground font-bold">
           {post.metadata.title}
