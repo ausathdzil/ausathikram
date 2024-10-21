@@ -1,10 +1,10 @@
 import createMDX from '@next/mdx';
+import { NextConfig } from 'next';
 
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+const nextConfig: NextConfig = {
   pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
   reactStrictMode: true,
-  transpilePackages: ["geist"],
+  transpilePackages: ['geist'],
 };
 
 const withMDX = createMDX({});
