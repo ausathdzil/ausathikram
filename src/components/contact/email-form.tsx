@@ -41,7 +41,7 @@ export default function EmailForm() {
     <form className="space-y-6" onSubmit={handleSubmit}>
       <div className="flex gap-4">
         <div className="w-full space-y-1">
-          <Label htmlFor="firstName">First Name</Label>
+          <Label htmlFor="firstName">first name</Label>
           <Input
             className={
               state.error?.firstName &&
@@ -56,7 +56,7 @@ export default function EmailForm() {
           )}
         </div>
         <div className="w-full space-y-1">
-          <Label htmlFor="lastName">Last Name</Label>
+          <Label htmlFor="lastName">last name</Label>
           <Input
             className={
               state.error?.lastName &&
@@ -73,7 +73,7 @@ export default function EmailForm() {
       </div>
 
       <div className="space-y-1">
-        <Label htmlFor="email">Email</Label>
+        <Label htmlFor="email">email</Label>
         <Input
           className={
             state.error?.email &&
@@ -89,10 +89,10 @@ export default function EmailForm() {
       </div>
 
       <div className="space-y-1">
-        <Label htmlFor="message">Message</Label>
+        <Label htmlFor="message">message</Label>
         <Textarea
           className={clsx(
-            'resize-none min-h-24',
+            'resize-none',
             state.error?.message &&
               'border-destructive/80 text-destructive focus-visible:border-destructive/80 focus-visible:ring-destructive/30'
           )}
@@ -107,7 +107,7 @@ export default function EmailForm() {
       <div className="flex justify-end">
         <Button type="submit" disabled={pending}>
           {pending ? <Loader2 className="animate-spin" /> : <Mail />}
-          <span>Send</span>
+          <span>send</span>
         </Button>
       </div>
     </form>

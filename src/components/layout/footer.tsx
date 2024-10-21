@@ -1,6 +1,6 @@
 import { Separator } from '@/components/ui/separator';
 import { ArrowUpRight } from 'lucide-react';
-import Link from 'next/link';
+import { Link } from 'next-view-transitions';
 
 export default function Footer() {
   return (

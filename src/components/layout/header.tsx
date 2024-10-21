@@ -3,7 +3,7 @@
 import { ModeToggle } from '@/components/layout/mode-toggle';
 import { Separator } from '@/components/ui/separator';
 import clsx from 'clsx';
-import Link from 'next/link';
+import { Link } from 'next-view-transitions';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 

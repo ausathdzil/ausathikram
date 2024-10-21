@@ -39,7 +39,7 @@ export default function RootLayout({
         </head>
         <body
           className={clsx(
-            'antialiased',
+            'antialiased tracking',
             geistSans.className,
             geistMono.variable
           )}
