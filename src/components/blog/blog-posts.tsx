@@ -15,15 +15,15 @@ export default function BlogPosts() {
     <ul className="space-y-4">
       {sortedPosts.map((post) => (
         <li key={post.slug}>
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-8">
-            <Link href={`/blog/${post.slug}`}>
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center sm:gap-8">
+            <Link className="w-2/3" href={`/blog/${post.slug}`}>
               <h1 className="text-xl text-foreground hover:underline underline-offset-4">
                 {post.metadata.title}
               </h1>
             </Link>
             <p className="text-lg">{formatDate(post.metadata.publishedAt)}</p>
           </div>
-          <p className="w-2/3">{post.metadata.summary}</p>
+          <p className="hidden sm:block w-2/3">{post.metadata.summary}</p>
         </li>
       ))}
     </ul>

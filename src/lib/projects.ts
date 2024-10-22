@@ -1,11 +1,10 @@
 import { StaticImageData } from 'next/image';
-import dignition from '../../public/projects/dignition.png';
-import bookshelf from '../../public/projects/bookshelf.png';
-import memovies from '../../public/projects/memovies.png';
 import nasaApodGallery from '../../public/projects/apod-gallery-nasa.png';
-import moneasy from '../../public/projects/moneasy.png';
 import ausathikram from '../../public/projects/ausathikram.png';
-import reactCalculator from '../../public/projects/react-calculator.png';
+import bookshelf from '../../public/projects/bookshelf.png';
+import dignition from '../../public/projects/dignition.png';
+import memovies from '../../public/projects/memovies.png';
+import moneasy from '../../public/projects/moneasy.png';
 
 export type Project = {
   id: number;
@@ -28,21 +27,21 @@ export const projects: Project[] = [
   },
   {
     id: 2,
-    title: 'bookshelf',
-    slug: 'bookshelf',
-    description: 'goodreads clone',
-    image: bookshelf,
-    link: 'https://bookshelf-ausath.vercel.app/',
-    repo: 'https://github.com/ausathdzil/bookshelf',
-  },
-  {
-    id: 3,
     title: 'memovies',
     slug: 'memovies',
     description: 'letterboxd clone',
     image: memovies,
     link: 'https://memovies.vercel.app/',
     repo: 'https://github.com/ausathdzil/memovies',
+  },
+  {
+    id: 3,
+    title: 'bookshelf',
+    slug: 'bookshelf',
+    description: 'goodreads clone',
+    image: bookshelf,
+    link: 'https://bookshelf-ausath.vercel.app/',
+    repo: 'https://github.com/ausathdzil/bookshelf',
   },
   {
     id: 4,

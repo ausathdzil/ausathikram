@@ -15,7 +15,7 @@ to preserve the form state, we need to use an event handler to call the action, 
 ```tsx
 'use client';
 
-import { createTodo, State } from '@/app/test/action';
+import { createTodo, State } from '@/lib/actions';
 import { useActionState } from 'react';
 
 export default function Form() {
@@ -35,7 +35,7 @@ export default function Form() {
   }
 
   return (
-    <form onSubmit={handleSubmit} >
+    <form onSubmit={handleSubmit}>
       <input name="title" type="text" />
       {state.errors?.title && <p>{state.errors.title.join(', ')}</p>}
 

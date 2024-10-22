@@ -55,10 +55,13 @@ export default function Home() {
         </ul>
       </div>
       <div className="space-y-4">
-        <div className="flex text-muted-foreground gap-2">
+        <Link
+          className="flex text-muted-foreground gap-2 hover:underline underline-offset-4"
+          href="/contact"
+        >
           <MailIcon />
           <p>ausathdzil@gmail.com</p>
-        </div>
+        </Link>
         <div className="flex text-muted-foreground gap-2">
           <MapPinIcon />
           <p>jakarta, indonesia</p>

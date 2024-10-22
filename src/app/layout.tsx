@@ -1,7 +1,6 @@
 import Footer from '@/components/layout/footer';
 import Header from '@/components/layout/header';
-import { ThemeProvider } from '@/components/theme-provider';
-import clsx from 'clsx';
+import { ThemeProvider } from '@/components/layout/theme-provider';
 import type { Metadata } from 'next';
 import { ViewTransitions } from 'next-view-transitions';
 import localFont from 'next/font/local';
@@ -38,11 +37,7 @@ export default function RootLayout({
           <link rel="icon" href="/skull.svg" />
         </head>
         <body
-          className={clsx(
-            'antialiased tracking',
-            geistSans.className,
-            geistMono.variable
-          )}
+          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
           <ThemeProvider
             attribute="class"
@@ -51,7 +46,7 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <Header />
-            <main className="flex flex-col items-center min-h-[calc(100vh-178px)] text-muted-foreground mx-8 lg:mx-auto">
+            <main className="flex flex-col items-center min-h-[calc(100vh-178px)] mx-8 lg:mx-auto">
               {children}
             </main>
             <Footer />
