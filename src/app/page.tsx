@@ -3,9 +3,9 @@ import { MailIcon, MapPinIcon } from 'lucide-react';
 import { Link } from 'next-view-transitions';
 
 export default function Home() {
-  let posts = getBlogPosts();
+  const posts = getBlogPosts();
 
-  let recentPosts = posts
+  const recentPosts = posts
     .sort((a, b) => {
       return (
         new Date(b.metadata.publishedAt).getTime() -

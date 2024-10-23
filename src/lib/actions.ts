@@ -82,7 +82,13 @@ export async function sendEmail(prevState: State, formData: FormData) {
       message:
         'thank you for reaching out to me! i will get back to you as soon as possible.',
     };
-  } catch (error: any) {
+  } catch (error) {
+    if (error instanceof Error) {
+      return {
+        success: false,
+        message: error.message,
+      };
+    }
     return {
       success: false,
       message: 'failed to send email.',

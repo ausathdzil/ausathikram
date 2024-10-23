@@ -1,12 +1,12 @@
-import { MDXRemote } from 'next-mdx-remote/rsc';
+import { MDXRemote, MDXRemoteProps } from 'next-mdx-remote/rsc';
 import { Link } from 'next-view-transitions';
 import React, { Children } from 'react';
 import { codeToHtml } from 'shiki';
 
-function CustomLink(props: any) {
-  let href = props.href;
+function CustomLink(props: React.AnchorHTMLAttributes<HTMLAnchorElement>) {
+  const href = props.href;
 
-  if (href.startsWith('/')) {
+  if (href?.startsWith('/')) {
     return (
       <Link
         className="underline-offset-4 decoration-zinc-500 hover:decoration-zinc-950 dark:hover:decoration-zinc-50"
@@ -18,7 +18,7 @@ function CustomLink(props: any) {
     );
   }
 
-  if (href.startsWith('#')) {
+  if (href?.startsWith('#')) {
     return <a {...props} />;
   }
 
@@ -65,7 +65,11 @@ async function Pre({
   return <pre {...props}>{children}</pre>;
 }
 
-function BlueButton(props: any) {
+function BlueButton(
+  props: React.JSX.IntrinsicAttributes &
+    React.ClassAttributes<HTMLButtonElement> &
+    React.ButtonHTMLAttributes<HTMLButtonElement>
+) {
   return (
     <button className="bg-blue-500 text-white py-2 px-4 rounded-lg" {...props}>
       button
@@ -73,13 +77,15 @@ function BlueButton(props: any) {
   );
 }
 
-let components = {
+const components = {
   a: CustomLink,
   pre: Pre,
   BlueButton,
 };
 
-export default function CustomMDX(props: any) {
+export default function CustomMDX(
+  props: React.JSX.IntrinsicAttributes & MDXRemoteProps
+) {
   return (
     <MDXRemote
       {...props}

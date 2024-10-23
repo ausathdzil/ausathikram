@@ -1,5 +1,4 @@
 import EmailForm from '@/components/contact/email-form';
-import { Toaster } from '@/components/ui/sonner';
 
 export const metadata = {
   title: 'contact me',
@@ -14,7 +13,6 @@ export default function Page() {
         <p>feel free to reach out to me for any inquiries.</p>
       </article>
       <EmailForm />
-      <Toaster richColors />
     </section>
   );
 }

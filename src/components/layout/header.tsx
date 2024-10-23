@@ -22,7 +22,7 @@ export default function Header() {
   return (
     <header
       className={clsx(
-        'text-foreground sticky top-0 z-50 transition-all duration-200 border-b border-zinc-800',
+        'text-foreground sticky top-0 z-50 transition-all duration-200 border-b dark:border-zinc-800',
         {
           'bg-background/80 backdrop-blur-sm shadow-sm': isScrolled,
         }

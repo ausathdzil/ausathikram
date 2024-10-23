@@ -1,6 +1,7 @@
 import Footer from '@/components/layout/footer';
 import Header from '@/components/layout/header';
 import { ThemeProvider } from '@/components/layout/theme-provider';
+import { Toaster } from '@/components/ui/sonner';
 import type { Metadata } from 'next';
 import { ViewTransitions } from 'next-view-transitions';
 import localFont from 'next/font/local';
@@ -48,6 +49,7 @@ export default function RootLayout({
             <Header />
             <main className="flex flex-col items-center min-h-[calc(100vh-178px)] mx-8 lg:mx-auto">
               {children}
+              <Toaster richColors />
             </main>
             <Footer />
           </ThemeProvider>

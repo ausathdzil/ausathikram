@@ -2,9 +2,9 @@ import { formatDate, getBlogPosts } from '@/lib/blog';
 import { Link } from 'next-view-transitions';
 
 export default function BlogPosts() {
-  let posts = getBlogPosts();
+  const posts = getBlogPosts();
 
-  let sortedPosts = posts.sort((a, b) => {
+  const sortedPosts = posts.sort((a, b) => {
     return (
       new Date(b.metadata.publishedAt).getTime() -
       new Date(a.metadata.publishedAt).getTime()
