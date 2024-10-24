@@ -61,13 +61,4 @@ export const projects: Project[] = [
     link: 'https://moneasy.vercel.app/',
     repo: 'https://github.com/valuin/moneasy',
   },
-  {
-    id: 6,
-    title: 'ausathikram',
-    slug: 'ausathikram',
-    description: 'this website :)',
-    image: ausathikram,
-    link: 'https://ausathikram.vercel.app/',
-    repo: 'https://github.com/ausathdzil/ausathikram',
-  },
 ];
