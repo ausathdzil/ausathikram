@@ -285,16 +285,16 @@ export default function Form() {
   }
 
   return (
-    <form className="space-y-2" action={handleSubmit}>
-      <Input name="title" type="text" />
+    <form action={handleSubmit}>
+      <input name="title" type="text" />
       {fieldErros?.title && <p>{fieldErros.title.join(', ')}</p>}
 
-      <Input name="body" type="text" disabled={pending} />
+      <input name="body" type="text" disabled={pending} />
       {fieldErros?.body && <p>{fieldErros.body.join(', ')}</p>}
 
-      <Button type="submit" disabled={pending}>
+      <button type="submit" disabled={pending}>
         {pending ? 'Submitting...' : 'Submit'}
-      </Button>
+      </button>
       {error && <p>{error}</p>}
     </form>
   );
@@ -319,17 +319,15 @@ export default function Form() {
 
   return (
     <form action={formAction}>
-      <Label htmlFor="title">Title</Label>
-      <Input name="title" type="text" />
+      <input name="title" type="text" />
       {state.errors?.title && <p>{state.errors.title}</p>}
 
-      <Label htmlFor="body">Body</Label>
-      <Input name="body" type="text" disabled={pending} />
+      <input name="body" type="text" disabled={pending} />
       {state.errors?.body && <p>{state.errors.body}</p>}
 
-      <Button type="submit" disabled={pending}>
+      <button type="submit" disabled={pending}>
         {pending ? 'Submitting...' : 'Submit'}
-      </Button>
+      </button>
 
       {state.message && <p>{state.message}</p>}
     </form>
@@ -364,12 +362,8 @@ const [state, formAction] = useActionState(createTodo, null);
 - show the error message for each field using **state.errors**.
 
 ```tsx
-{
-  state.errors?.title && <p>{state.errors.title}</p>;
-}
-{
-  state.errors?.body && <p>{state.errors.body}</p>;
-}
+{state.errors?.title && <p>{state.errors.title}</p>;}
+{state.errors?.body && <p>{state.errors.body}</p>;}
 ```
 
 - show the message returned from the server action.
@@ -439,10 +433,7 @@ export default function Form() {
   const initialState: State = {
     success: false,
     message: null,
-    errors: {
-      title: [],
-      body: [],
-    },
+    errors: {},
   };
   const [state, formAction, pending] = useActionState(createTodo, initialState);
   //...

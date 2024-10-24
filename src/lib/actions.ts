@@ -32,16 +32,18 @@ const formSchema = z.object({
     }),
 });
 
-export type State = {
-  success: boolean;
-  message?: string | null;
-  error?: {
-    firstName?: string[];
-    lastName?: string[];
-    email?: string[];
-    message?: string[];
-  };
-};
+export type State =
+  | {
+      success: boolean;
+      message?: string | null;
+      error?: {
+        firstName?: string[];
+        lastName?: string[];
+        email?: string[];
+        message?: string[];
+      };
+    }
+  | undefined;
 
 const url =
   process.env.NODE_ENV === 'production'

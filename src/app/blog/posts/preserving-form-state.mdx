@@ -22,10 +22,7 @@ export default function Form() {
   const initialState: State = {
     success: false,
     message: null,
-    errors: {
-      title: [],
-      body: [],
-    },
+    errors: {},
   };
   const [state, formAction, pending] = useActionState(createTodo, initialState);
 

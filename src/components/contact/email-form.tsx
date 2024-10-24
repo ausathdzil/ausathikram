@@ -11,12 +11,7 @@ import { startTransition, useActionState, useEffect } from 'react';
 import { toast } from 'sonner';
 
 export default function EmailForm() {
-  const initialState: State = {
-    success: false,
-    error: {},
-    message: undefined,
-  };
-  const [state, formAction, pending] = useActionState(sendEmail, initialState);
+  const [state, formAction, pending] = useActionState(sendEmail, undefined);
 
   useEffect(() => {
     if (state && state.message) {
@@ -44,14 +39,14 @@ export default function EmailForm() {
           <Label htmlFor="firstName">first name</Label>
           <Input
             className={
-              state.error?.firstName &&
+              state?.error?.firstName &&
               'border-destructive/80 text-destructive focus-visible:border-destructive/80 focus-visible:ring-destructive/30'
             }
             type="text"
             id="firstName"
             name="firstName"
           />
-          {state.error?.firstName && (
+          {state?.error?.firstName && (
             <p className="text-destructive text-sm">{state.error.firstName}</p>
           )}
         </div>
@@ -59,7 +54,7 @@ export default function EmailForm() {
           <Label htmlFor="lastName">last name</Label>
           <Input
             className={
-              state.error?.lastName &&
+              state?.error?.lastName &&
               'border-destructive/80 text-destructive focus-visible:border-destructive/80 focus-visible:ring-destructive/30'
             }
             type="text"
@@ -76,14 +71,14 @@ export default function EmailForm() {
         <Label htmlFor="email">email</Label>
         <Input
           className={
-            state.error?.email &&
+            state?.error?.email &&
             'border-destructive/80 text-destructive focus-visible:border-destructive/80 focus-visible:ring-destructive/30'
           }
           type="email"
           id="email"
           name="email"
         />
-        {state.error?.email && (
+        {state?.error?.email && (
           <p className="text-destructive text-sm">{state.error.email}</p>
         )}
       </div>
@@ -93,13 +88,13 @@ export default function EmailForm() {
         <Textarea
           className={clsx(
             'resize-none',
-            state.error?.message &&
+            state?.error?.message &&
               'border-destructive/80 text-destructive focus-visible:border-destructive/80 focus-visible:ring-destructive/30'
           )}
           id="message"
           name="message"
         />
-        {state.error?.message && (
+        {state?.error?.message && (
           <p className="text-destructive text-sm">{state.error.message}</p>
         )}
       </div>
