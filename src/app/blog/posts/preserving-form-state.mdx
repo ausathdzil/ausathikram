@@ -4,7 +4,7 @@ publishedAt: 2024-10-19
 summary: preserving form state after submission in next.js using react's startTransition.
 ---
 
-on my last post, we learned how to [validate forms](/blog/posts/form-validation) using **useActionState**. one problem that arises when submitting a form directly with the action attribute is that the form will be reset after submission.
+on my last post, we learned how to [validate forms](/blog/form-validation) using **useActionState**. one problem that arises when submitting a form directly with the action attribute is that the form will be reset after submission.
 
 sometimes we don't want that to happen. for example, say the user submits a form with an error, but not all fields are filled incorrectly. we want to keep the user's input so they don't have to retype everything, even the correct fields.
 
