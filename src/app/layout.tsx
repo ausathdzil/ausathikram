@@ -20,10 +20,10 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: {
-    default: 'ausath ikram',
-    template: '%s | ausath ikram',
+    default: 'Ausath Ikram',
+    template: '%s | Ausath Ikram',
   },
-  description: 'web developer',
+  description: 'Web developer',
 };
 
 export default function RootLayout({

@@ -1,8 +1,8 @@
 import BlogPosts from '@/components/blog/blog-posts';
 
 export const metadata = {
-  title: 'blog',
-  description: 'ausath ikram blog.',
+  title: 'Blog',
+  description: 'Ausath Ikram blog.',
 };
 
 export default function Page() {

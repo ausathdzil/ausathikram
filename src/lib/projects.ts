@@ -44,7 +44,7 @@ export const projects: Project[] = [
   },
   {
     id: 4,
-    title: 'Nasa APOD gallery',
+    title: 'Nasa APOD Gallery',
     slug: 'nasa-apod-gallery',
     description: 'Collection of NASA Astronomy Picture of the Day',
     image: nasaApodGallery,
