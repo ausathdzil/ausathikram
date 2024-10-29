@@ -1,4 +1,3 @@
-import { ArrowUpRight } from 'lucide-react';
 import { Link } from 'next-view-transitions';
 
 export default function Footer() {
