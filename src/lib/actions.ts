@@ -6,29 +6,29 @@ const formSchema = z.object({
   firstName: z
     .string()
     .min(1, {
-      message: 'first name is required.',
+      message: 'First name is required.',
     })
     .max(20, {
-      message: 'character must be less than 30 characters,',
+      message: 'Character must be less than 30 characters,',
     }),
   lastName: z
     .string()
     .min(1, {
-      message: 'last name is required.',
+      message: 'Last name is required.',
     })
     .max(20, {
-      message: 'character must be less than 30 characters,',
+      message: 'Character must be less than 30 characters,',
     }),
   email: z.string().email({
-    message: 'please enter your email so I can get back to you.',
+    message: 'Please enter your email so I can get back to you.',
   }),
   message: z
     .string()
     .min(1, {
-      message: 'message is required.',
+      message: 'Message is required.',
     })
     .max(500, {
-      message: 'message must be less than 500 characters.',
+      message: 'Message must be less than 500 characters.',
     }),
 });
 
@@ -61,7 +61,7 @@ export async function sendEmail(prevState: State, formData: FormData) {
   if (!validatedFields.success) {
     return {
       success: false,
-      message: 'invalid form fields.',
+      message: 'Invalid form fields.',
       error: validatedFields.error.flatten().fieldErrors,
     };
   }
@@ -75,14 +75,14 @@ export async function sendEmail(prevState: State, formData: FormData) {
     if (!res.ok) {
       return {
         success: false,
-        message: 'failed to send email.',
+        message: 'Failed to send email.',
       };
     }
 
     return {
       success: true,
       message:
-        'thank you for reaching out to me! i will get back to you as soon as possible.',
+        'Thank you for reaching out to me! I will get back to you as soon as possible.',
     };
   } catch (error) {
     if (error instanceof Error) {
@@ -93,7 +93,7 @@ export async function sendEmail(prevState: State, formData: FormData) {
     }
     return {
       success: false,
-      message: 'failed to send email.',
+      message: 'Failed to send email.',
     };
   }
 }

@@ -34,8 +34,8 @@ export default async function Page(props: {
 
   return (
     <section className="w-full max-w-3xl py-12 space-y-8 prose prose-zinc dark:prose-invert prose-sm sm:prose-base lg:prose-lg">
-      <article className="not-prose">
-        <h1 className="text-3xl md:text-5xl text-foreground font-bold">
+      <article className="not-prose space-y-2">
+        <h1 className="text-3xl md:text-5xl text-foreground font-semibold">
           {post.metadata.title}
         </h1>
         <p>{formatDate(post.metadata.publishedAt)}</p>

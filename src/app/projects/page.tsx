@@ -2,16 +2,16 @@ import { projects } from '@/lib/projects';
 import { Link } from 'next-view-transitions';
 
 export const metadata = {
-  title: 'projects',
-  description: 'ausath ikram projects.',
+  title: 'Projects',
+  description: 'Ausath Ikram projects.',
 };
 
 export default function Page() {
   return (
     <section className="w-full max-w-3xl py-12 space-y-8">
       <article className="space-y-2">
-        <h1 className="text-2xl text-foreground font-bold">projects</h1>
-        <p>side projects i&apos;ve worked on.</p>
+        <h1 className="text-2xl text-foreground font-semibold">Projects</h1>
+        <p>Side projects I&apos;ve worked on.</p>
       </article>
       <ul className="space-y-4">
         {projects.map((project) => (

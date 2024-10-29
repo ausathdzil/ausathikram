@@ -16,11 +16,11 @@ export default function EmailForm() {
   useEffect(() => {
     if (state && state.message) {
       if (state.success) {
-        toast.success('email sent successfully.', {
+        toast.success('Email sent successfully.', {
           description: state.message,
         });
       } else {
-        toast.error('failed to send email.', {
+        toast.error('Failed to send email.', {
           description: state.message,
         });
       }
@@ -36,7 +36,7 @@ export default function EmailForm() {
     <form className="space-y-6" onSubmit={handleSubmit}>
       <div className="flex gap-4">
         <div className="w-full space-y-1">
-          <Label htmlFor="firstName">first name</Label>
+          <Label htmlFor="firstName">First Name</Label>
           <Input
             className={
               state?.error?.firstName &&
@@ -51,7 +51,7 @@ export default function EmailForm() {
           )}
         </div>
         <div className="w-full space-y-1">
-          <Label htmlFor="lastName">last name</Label>
+          <Label htmlFor="lastName">Last Name</Label>
           <Input
             className={
               state?.error?.lastName &&
@@ -68,7 +68,7 @@ export default function EmailForm() {
       </div>
 
       <div className="space-y-1">
-        <Label htmlFor="email">email</Label>
+        <Label htmlFor="email">Email</Label>
         <Input
           className={
             state?.error?.email &&
@@ -84,7 +84,7 @@ export default function EmailForm() {
       </div>
 
       <div className="space-y-1">
-        <Label htmlFor="message">message</Label>
+        <Label htmlFor="message">Message</Label>
         <Textarea
           className={clsx(
             'resize-none',
@@ -102,7 +102,7 @@ export default function EmailForm() {
       <div className="flex justify-end">
         <Button type="submit" disabled={pending}>
           {pending ? <Loader2 className="animate-spin" /> : <Mail />}
-          <span>send</span>
+          <span>Send</span>
         </Button>
       </div>
     </form>

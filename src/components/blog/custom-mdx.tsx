@@ -65,22 +65,9 @@ async function Pre({
   return <pre {...props}>{children}</pre>;
 }
 
-function BlueButton(
-  props: React.JSX.IntrinsicAttributes &
-    React.ClassAttributes<HTMLButtonElement> &
-    React.ButtonHTMLAttributes<HTMLButtonElement>
-) {
-  return (
-    <button className="bg-blue-500 text-white py-2 px-4 rounded-lg" {...props}>
-      button
-    </button>
-  );
-}
-
 const components = {
   a: CustomLink,
   pre: Pre,
-  BlueButton,
 };
 
 export default function CustomMDX(

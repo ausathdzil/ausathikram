@@ -59,13 +59,11 @@ export function formatDate(date: string) {
   }
   const targetDate = new Date(date);
 
-  const fullDate = targetDate
-    .toLocaleString('en-us', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric',
-    })
-    .toLowerCase();
+  const fullDate = targetDate.toLocaleString('en-us', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+  });
 
   return fullDate;
 }

@@ -1,16 +1,16 @@
 ---
-title: server-side form validation
+title: Server-side Form Validation
 publishedAt: 2024-10-03
-summary: implementing efficient server-side form validation in next.js with react's useActionState
+summary: Implementing efficient server-side form validation in Next.js with React's useActionState
 ---
 
-validating forms is an essential part of web development. react 19 has a new feature called [useActionState](https://react.dev/reference/react/useActionState) that will simplify how we handle server side form validation. combine it with [zod](https://github.com/colinhacks/zod) and server actions, we can create a powerful form validation system.
+Validating forms is an essential part of web development. [React 19](https://react.dev/blog/2024/04/25/react-19) has a new feature called [useActionState](https://react.dev/reference/react/useActionState) that will simplify how we handle server-side form validation. combine it with [Zod](https://github.com/colinhacks/zod) and server actions, we can create a powerful form validation system.
 
-## current state of making forms
+## Current state of making forms
 
-before useActionState, we usually use a combination of useState to manage error state and [useFormStatus](https://react.dev/reference/react-dom/hooks/useFormStatus) to manage the pending state, although the latter is only available on react canary channel based its latest docs (as of oct 2, 2024).
+Before useActionState, we usually use a combination of useState to manage error and pending state (or [useFormStatus](https://react.dev/reference/react-dom/hooks/useFormStatus) to manage the pending state, only available on React canary channel based its latest docs as of oct 2, 2024.).
 
-here's an example with next.js and server actions:
+Here's an example with Next.js and server actions:
 
 ```tsx
 import { revalidatePath } from 'next/cache';
@@ -45,9 +45,9 @@ export default function Form() {
 }
 ```
 
-now, let's add a pending state when the form is submitting with **useFormStatus**. this hook will return a **pending** boolean that we can use to modify the button for better user experience.
+Now, let's add a pending state when the form is submitting with **useFormStatus**. This hook will return a **pending** boolean that we can use to modify the button for better user experience.
 
-but we need to move the server action to a separate file to make it work.
+But we need to move the server action to a separate file to make it work.
 
 ```ts
 // actions.ts
@@ -96,18 +96,18 @@ export default function Form() {
 }
 ```
 
-at this point you can just add html `required` attribute for a simple **client-side validation**.
+At this point you can just add html `required` attribute for a simple **client-side validation**.
 
 ```html
 <input name="title" type="text" required />
 <input name="body" type="text" required />
 ```
 
-but what if you want to validate the form on the server? sometimes validating should be done both on the client **and** server to prevent malicious users from bypassing the client-side validation.
+But what if you want to validate the form on the server? sometimes validating should be done both on the client **and** server to prevent malicious users from bypassing the client-side validation.
 
-we can use **useState**, but now that the server action is on another file, we need to pass the error state back from the server action to the form component.
+We can use **useState**, but now that the server action is on another file, we need to pass the error state back from the server action to the form component.
 
-one way to do this is to return a success state from the server action.
+One way to do this is to return a success state from the server action.
 
 ```ts
 'use server';
@@ -140,7 +140,7 @@ export async function createTodo(formData: FormData) {
 }
 ```
 
-now on the client component, we can use the success state to show the error message.
+Now on the client component, we can use the success state to show the error message.
 
 ```tsx
 'use client';
@@ -173,19 +173,19 @@ export default function Form() {
 }
 ```
 
-note that now we use a **handleSubmit** function to call the server action, and we set the error state based on the result.
+Note that now we use a **handleSubmit** function to call the server action, and we set the error state based on the result.
 
-this only validates the result of the form submission, not the indiviual fields. usually for better user experience and security, **we should also validate each field** before submitting the form. this is important, especially when working with multiple fields that has different constraints. for example, we may need to set the limit of the title to 50 characters, and the body to 500 characters.
+This only validates the result of the form submission, not the indiviual fields. Usually for better user experience and security, **we should also validate each field** before submitting the form. This is important, especially when working with multiple fields that has different constraints. For example, we may need to set the limit of the title to 50 characters, and the body to 500 characters.
 
-now we have to validate each fields, define our constraints, and set the error state for each field manually using **if else statement** and **useState**. if you have multiple fields, this would be a bit cumbersome.
+Now we have to validate each fields, define our constraints, and set the error state for each field manually using **if else statement** and **useState**. If you have multiple fields, this would be a bit cumbersome.
 
-to make it a bit simple, we can skip manually defining our constraints and use a library called **zod** to define the form schema. this will make it easier to validate the form fields.
+To make it a bit simple, we can skip manually defining our constraints and use a library called [Zod](https://github.com/colinhacks/zod) to define the form schema. This will make it easier to validate the form fields.
 
-## using zod for form validation on the server
+## Using Zod for form validation on the server
 
-[zod](https://github.com/colinhacks/zod) is a schema definition library that can be used to validate data.
+**Zod** is a schema definition library that can be used to validate data.
 
-first, let's define our schema for the todo form, we will add this on the server action file.
+First, let's define our schema for the todo form, we will add this on the server action file.
 
 ```ts
 import { z } from 'zod';
@@ -213,7 +213,7 @@ const formSchema = z.object({
 //...
 ```
 
-now we can use this schema to validate the form data before submitting the form.
+Now we can use this schema to validate the form data before submitting the form.
 
 ```ts
 export async function createTodo(formData: FormData) {
@@ -247,7 +247,7 @@ export async function createTodo(formData: FormData) {
 }
 ```
 
-this server action now returns an object with the **success** boolean and the **errors** object if the form validation fails. this errors object has the following shape:
+This server action now returns an object with the **success** boolean and the **errors** object if the form validation fails. This errors object has the following shape:
 
 ```ts
 errors: {
@@ -256,9 +256,9 @@ errors: {
 };
 ```
 
-notice how the type of each field is an array of strings, this is because each field could have multiple errors. although in our case, we only have one error per field, either it's required or it's too long.
+Notice how the type of each field is an array of strings, this is because each field could have multiple errors. Although in our case, we only have one error per field, either it's required or it's too long.
 
-now let's update the client component to show the error messages.
+Now let's update the client component to show the error messages.
 
 ```tsx
 'use client';
@@ -301,11 +301,11 @@ export default function Form() {
 }
 ```
 
-this is already a good setup for form validation, but we can simplify this even further with **useActionState**.
+This is already a good setup for form validation, but we can simplify this even further with **useActionState**.
 
-## form validation with useActionState
+## Form validation with useActionState
 
-[useActionState](https://react.dev/reference/react/useActionState) is a hook that allows you to update state based on the result of a form action. that's what the official docs says, let's see it in practice.
+[useActionState](https://react.dev/reference/react/useActionState) is a hook that allows you to update state based on the result of a form action. That's what the official docs says, let's see it in practice.
 
 ```tsx
 'use client';
@@ -335,7 +335,7 @@ export default function Form() {
 }
 ```
 
-we don't need to change anything on the server action, just add prevState to the function parameters as this is required.
+We don't need to change anything on the server action, just add **prevState** to the function parameters as this is required.
 
 ```ts
 export async function createTodo(prevState: any, formData: FormData) {
@@ -343,40 +343,38 @@ export async function createTodo(prevState: any, formData: FormData) {
 }
 ```
 
-leave the type of prevState to any for now, we'll get back to this later.
+Leave the type of prevState to any for now, we'll get back to this later.
 
-let's break down the changes:
+Let's break down the changes:
 
-- handle the form action with **useActionState**. this hook takes the server action and the initial state as parameters, and will return the current state and the form action as value. i'll leave the initial state to null because this is the state before the form is submitted. but you can adjust it accordingly to your needs.
+- Handle the form action with **useActionState**. This hook takes the server action and the initial state as parameters, and will return the current state and the form action as value. I'll leave the initial state to undefined because this is the state before the form is submitted. but you can adjust it accordingly to your needs.
 
 ```tsx
-const [state, formAction] = useActionState(createTodo, null);
+const [state, formAction] = useActionState(createTodo, undefined);
 ```
 
-- instead of using a submit handler, we can call the formAction directly on the form action attribute.
+- Instead of using a submit handler, we can call the formAction directly on the form action attribute.
 
 ```tsx
 <form action={formAction}></form>
 ```
 
-- show the error message for each field using **state.errors**.
+- Show the error message for each field using **state.errors**.
 
 ```tsx
 {state.errors?.title && <p>{state.errors.title}</p>;}
 {state.errors?.body && <p>{state.errors.body}</p>;}
 ```
 
-- show the message returned from the server action.
+- Show the message returned from the server action.
 
 ```tsx
-{
-  state.message && <p>{state.message}</p>;
-}
+{state.message && <p>{state.message}</p>;}
 ```
 
-that's basically it! you can now validate your forms with **useActionState** and **zod**. this will make your form validation code cleaner and easier to maintain.
+That's basically it! you can now validate your forms with **useActionState** and **Zod**. This will make your form validation code cleaner and easier to maintain.
 
-oh and a bit of extra, useActionState returns another value called **pending** that you can use to disable the submit button while the form is submitting.
+Oh and a bit of extra, useActionState returns another value called **pending** that you can use to disable the submit button while the form is submitting.
 
 ```tsx
 'use client';
@@ -399,11 +397,11 @@ export default function Form() {
 }
 ```
 
-this will disable the submit button while the form is submitting, and show a "Submitting..." text on the button, just like what we did before with **useFormStatus**. but now, it's more integrated with the form action.
+This will disable the submit button while the form is submitting, and show a "Submitting..." text on the button, just like what we did before with **useFormStatus**. But now, it's more integrated with the form action.
 
-## state types
+## State types
 
-you may have noticed that we left the type of **prevState** to **any**. let's define it now:
+You may have noticed that we left the type of **prevState** to **any**. Let's define it now:
 
 ```ts
 'use server';
@@ -440,24 +438,24 @@ export default function Form() {
 }
 ```
 
-this will make the code more type-safe. and should be useful if you ever need to use the prevState in the server action.
+This will make the code more type-safe and should be useful if you ever need to use the prevState in the server action.
 
-## conclusion
+## Conclusion
 
-to recap, we've learned how to validate forms on the server with **zod** and return a **state object** from the server action, this lets us **show the error message for each field** using react useState. then we learned how to simplify the form validation code with **useActionState**, this will handle the form action and update the state based on the result of the action. we also learned how to define the **state type** for better type safety.
+To recap, we've learned how to validate forms on the server with **Zod** and return a **state object** from the server action, this lets us **show the error message for each field** using useState. Then we learned how to simplify the form validation code with **useActionState**, this will handle the form action and update the state based on the result of the action. We also learned how to define the **state type** for better type safety.
 
-note that this feature is only available on [react canary channel](https://react.dev/community/versioning-policy#canary-channel). but it's a good idea to learn it and see how it can simplify your form validation code.
+Note that this feature is only available on [React canary channel](https://react.dev/community/versioning-policy#canary-channel). But it's a good idea to learn it and see how it can simplify your form validation code.
 
-if you've made it this far, thank you for reading! i hope you find this post helpful. if you have any questions or feedback, feel free to leave a comment below.
+If you've made it this far, thank you for reading! I hope you find this post helpful. If you have any questions or feedback, feel free to leave a comment below.
 
-## github repo
+## GitHub repo
 
-you can find the full code for this implementation on this [github repo](https://github.com/ausathdzil/nextjs-15-mockapi-todo).
+You can find the full code for this implementation on my [GitHub](https://github.com/ausathdzil/nextjs-15-mockapi-todo).
 
-## references
+## References
 
-- [next.js server-side form validation](https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations#server-side-form-validation)
-- [handling errors with useActionState](https://nextjs.org/learn/dashboard-app/improving-accessibility)
+- [Next.js server-side form validation](https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations#server-side-form-validation)
+- [Handling errors with useActionState](https://nextjs.org/learn/dashboard-app/improving-accessibility)
 - [useActionState](https://react.dev/reference/react/useActionState)
 - [useFormStatus](https://react.dev/reference/react-dom/hooks/useFormStatus)
-- [zod](https://github.com/colinhacks/zod)
+- [Zod](https://github.com/colinhacks/zod)

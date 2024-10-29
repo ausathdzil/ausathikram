@@ -17,28 +17,21 @@ export default function Home() {
   return (
     <section className="max-w-3xl py-12 space-y-8">
       <article className="space-y-4 text-lg">
-        <h1 className="text-3xl text-foreground font-bold">ausath ikram</h1>
-        <p>
-          hi 👋 my name is{' '}
-          <strong className="text-foreground">ausath abdi dzil ikram</strong>.
-          i&apos;m an undergraduate computer science student majoring in
-          information systems. i&apos;m also a{' '}
-          <strong className="text-foreground">web developer</strong>. i mainly
-          work with <strong className="text-foreground">next.js</strong> as my
-          go to <strong className="text-foreground">react framework</strong>.
-          i&apos;m always{' '}
-          <strong className="text-foreground">
-            looking for new opportunities to learn and grow
-          </strong>{' '}
-          to become a better developer.
+        <h1 className="text-2xl text-foreground font-semibold">Ausath Ikram</h1>
+        <p className="[&>strong]:text-foreground [&>strong]:font-normal">
+          I&apos;m an undergraduate <strong>CS student</strong> majoring in
+          Information Systems. I&apos;m also a <strong>web developer</strong>{' '}
+          who mainly work with <strong>Next.js</strong>. I&apos;m always{' '}
+          <strong>looking for new opportunities to learn and grow</strong> to
+          become a better developer.
         </p>
       </article>
       <div className="space-y-2">
         <Link
           href="/blog"
-          className="text-2xl text-foreground font-bold hover:underline underline-offset-4"
+          className="text-xl text-foreground hover:underline underline-offset-4"
         >
-          blog
+          Blog
         </Link>
         <ul className="space-y-2">
           {recentPosts.map((post) => (
@@ -64,7 +57,7 @@ export default function Home() {
         </Link>
         <div className="flex text-muted-foreground gap-2">
           <MapPinIcon />
-          <p>jakarta, indonesia</p>
+          <p>Jakarta, Indonesia</p>
         </div>
       </div>
     </section>
