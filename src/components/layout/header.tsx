@@ -29,28 +29,21 @@ export default function Header() {
       )}
     >
       <nav className="flex justify-between items-center px-6 lg:px-0 py-6 max-w-3xl mx-auto">
-        <Link
-          className="flex gap-2 hover:underline underline-offset-4"
-          href="/"
-        >
-          <span className={pathname === '/' ? 'underline' : ''}>home</span>
+        <Link className={pathname === '/' ? 'underline' : ''} href="/">
+          Home
         </Link>
         <div className="flex items-center gap-4 sm:gap-8">
           <Link
-            className="flex gap-2 hover:underline underline-offset-4"
+            className={pathname === '/projects' ? 'underline' : ''}
             href="/projects"
           >
-            <span className={pathname === '/projects' ? 'underline' : ''}>
-              projects
-            </span>
+            Projects
           </Link>
           <Link
-            className="flex gap-2 hover:underline underline-offset-4"
+            className={pathname === '/blog' ? 'underline' : ''}
             href="/blog"
           >
-            <span className={pathname === '/blog' ? 'underline' : ''}>
-              blog
-            </span>
+            Blog
           </Link>
           <ModeToggle />
         </div>

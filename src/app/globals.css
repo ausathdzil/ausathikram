@@ -69,6 +69,9 @@
   pre {
     @apply font-mono;
   }
+  a {
+    @apply hover:underline underline-offset-4 dark:decoration-zinc-500 hover:decoration-zinc-950 dark:hover:decoration-zinc-500;
+  }
 }
 
 html {
@@ -86,3 +89,4 @@ html.dark .shiki span {
   color: var(--shiki-dark) !important;
   background-color: var(--shiki-dark-bg) !important;
 }
+

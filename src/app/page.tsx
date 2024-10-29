@@ -29,7 +29,7 @@ export default function Home() {
       <div className="space-y-2">
         <Link
           href="/blog"
-          className="text-xl text-foreground hover:underline underline-offset-4"
+          className="text-xl font-semibold text-foreground hover:underline underline-offset-4"
         >
           Blog
         </Link>
