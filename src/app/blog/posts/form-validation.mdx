@@ -1,12 +1,12 @@
 ---
 title: Server-side Form Validation
 publishedAt: 2024-10-03
-summary: Implementing efficient server-side form validation in Next.js with React's useActionState
+summary: Implementing efficient server-side form validation in Next.js with React's useActionState.
 ---
 
 Validating forms is an essential part of web development. [React 19](https://react.dev/blog/2024/04/25/react-19) has a new feature called [useActionState](https://react.dev/reference/react/useActionState) that will simplify how we handle server-side form validation. combine it with [Zod](https://github.com/colinhacks/zod) and server actions, we can create a powerful form validation system.
 
-## Current state of making forms
+## Current State of Making Forms
 
 Before useActionState, we usually use a combination of useState to manage error and pending state (or [useFormStatus](https://react.dev/reference/react-dom/hooks/useFormStatus) to manage the pending state, only available on React canary channel based its latest docs as of oct 2, 2024.).
 
@@ -181,7 +181,7 @@ Now we have to validate each fields, define our constraints, and set the error s
 
 To make it a bit simple, we can skip manually defining our constraints and use a library called [Zod](https://github.com/colinhacks/zod) to define the form schema. This will make it easier to validate the form fields.
 
-## Using Zod for form validation on the server
+## Using Zod for Form Validation on the Server
 
 **Zod** is a schema definition library that can be used to validate data.
 
@@ -303,7 +303,7 @@ export default function Form() {
 
 This is already a good setup for form validation, but we can simplify this even further with **useActionState**.
 
-## Form validation with useActionState
+## Form Validation with useActionState
 
 [useActionState](https://react.dev/reference/react/useActionState) is a hook that allows you to update state based on the result of a form action. That's what the official docs says, let's see it in practice.
 
@@ -399,7 +399,7 @@ export default function Form() {
 
 This will disable the submit button while the form is submitting, and show a "Submitting..." text on the button, just like what we did before with **useFormStatus**. But now, it's more integrated with the form action.
 
-## State types
+## State Types
 
 You may have noticed that we left the type of **prevState** to **any**. Let's define it now:
 
@@ -448,7 +448,7 @@ Note that this feature is only available on [React canary channel](https://react
 
 If you've made it this far, thank you for reading! I hope you find this post helpful. If you have any questions or feedback, feel free to leave a comment below.
 
-## GitHub repo
+## GitHub Repo
 
 You can find the full code for this implementation on my [GitHub](https://github.com/ausathdzil/nextjs-15-mockapi-todo).
 

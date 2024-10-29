@@ -8,9 +8,9 @@ On my last post, we learned how to [validate forms](/blog/form-validation) using
 
 Sometimes we don't want that to happen. For example, say the user submits a form with an error, but not all fields are filled incorrectly, we want to keep the user's input so they don't have to retype everything, even the correct fields.
 
-## Event handler
+## Event Handler
 
-To preserve the form state, we need to use an event handler to call the action, we do this to utilize the `event.preventDefault()` method to prevent the form from submitting and resetting the form.
+To preserve the form state, we need to use an event handler to call the action, we do this to utilize the `event.preventDefault()` method to prevent the form from resetting after submission, which is the default behavior of HTML forms.
 
 ```tsx
 'use client';
@@ -92,12 +92,12 @@ There's other solution to this, but I find this one to be the most straightforwa
 
 Hope this helps!
 
-## GitHub repo
+## GitHub Repo
 
 You can find the full code for this implementation on my [GitHub](https://github.com/ausathdzil/nextjs-15-mockapi-todo).
 
 ## References
 
 - [React startTransition](https://react.dev/reference/react/startTransition)
-- [SaaS use case](<https://github.com/leerob/next-saas-starter/blob/main/app/(dashboard)/dashboard/general/page.tsx>) (thank you [leerob](https://leerob.com)!)
+- [Using startTransition](<https://github.com/leerob/next-saas-starter/blob/main/app/(dashboard)/dashboard/general/page.tsx>) (Credit goes to [leerob](https://leerob.com))
 - [Previous post](/blog/form-validation)
