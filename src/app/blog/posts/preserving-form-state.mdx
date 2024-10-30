@@ -34,10 +34,10 @@ export default function Form() {
   return (
     <form onSubmit={handleSubmit}>
       <input name="title" type="text" />
-      {state.errors?.title && <p>{state.errors.title.join(', ')}</p>}
+      {state.errors?.title && <p>{state.errors.title[0]}</p>}
 
       <input name="body" type="text" disabled={pending} />
-      {state.errors?.body && <p>{state.errors.body.join(', ')}</p>}
+      {state.errors?.body && <p>{state.errors.body[0]}</p>}
 
       <button type="submit" disabled={pending}>
         {pending ? 'Submitting...' : 'Submit'}

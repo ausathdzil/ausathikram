@@ -15,13 +15,13 @@ export default function Page() {
       </article>
       <ul className="space-y-4">
         {projects.map((project) => (
-          <li key={project.id}>
+          <li className="w-3/4" key={project.id}>
             <Link href={`/projects/${project.slug}`}>
               <h1 className="text-xl text-foreground hover:underline underline-offset-4">
                 {project.title}
               </h1>
             </Link>
-            <p className="w-2/3">{project.description}</p>
+            <p>{project.description}</p>
           </li>
         ))}
       </ul>

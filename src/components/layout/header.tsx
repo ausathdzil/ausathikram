@@ -28,7 +28,7 @@ export default function Header() {
         }
       )}
     >
-      <nav className="flex justify-between items-center px-6 lg:px-0 py-6 max-w-3xl mx-auto">
+      <nav className="flex justify-between items-center p-8 lg:px-0 max-w-3xl mx-auto">
         <Link className={pathname === '/' ? 'underline' : ''} href="/">
           Home
         </Link>
