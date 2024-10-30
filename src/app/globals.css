@@ -72,6 +72,9 @@
   a {
     @apply hover:underline underline-offset-4 dark:decoration-zinc-500 hover:decoration-zinc-950 dark:hover:decoration-zinc-500;
   }
+  code {
+    @apply relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm
+  }
 }
 
 html {
@@ -89,4 +92,3 @@ html.dark .shiki span {
   color: var(--shiki-dark) !important;
   background-color: var(--shiki-dark-bg) !important;
 }
-

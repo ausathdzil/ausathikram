@@ -4,11 +4,11 @@ publishedAt: 2024-10-03
 summary: Implementing efficient server-side form validation in Next.js with React's useActionState.
 ---
 
-Validating forms is an essential part of web development. [React 19](https://react.dev/blog/2024/04/25/react-19) has a new feature called [useActionState](https://react.dev/reference/react/useActionState) that will simplify how we handle server-side form validation. combine it with [Zod](https://github.com/colinhacks/zod) and server actions, we can create a powerful form validation system.
+Validating forms is an essential part of web development. [React 19](https://react.dev/blog/2024/04/25/react-19) has a new feature called [useActionState](https://react.dev/reference/react/useActionState) that will simplify how we handle server-side form validation. Combine it with [Zod](https://github.com/colinhacks/zod) and server actions, we can create a powerful form validation system.
 
 ## Current State of Making Forms
 
-Before useActionState, we usually use a combination of useState to manage error and pending state (or [useFormStatus](https://react.dev/reference/react-dom/hooks/useFormStatus) to manage the pending state, only available on React canary channel based its latest docs as of oct 2, 2024.).
+Before useActionState, we usually use a combination of useState to manage error and pending state (or [useFormStatus](https://react.dev/reference/react-dom/hooks/useFormStatus) to manage the pending state, only available on React canary channel based its latest docs as of October 2 2024.).
 
 Here's an example with Next.js and server actions:
 
@@ -87,7 +87,7 @@ export default function Form() {
   return (
     <form action={createTodo}>
       <input name="title" type="text" />
-      <input name="body" type="text" disabled={pending} />
+      <input name="body" type="text" />
       <button type="submit" disabled={pending}>
         {pending ? 'Submitting...' : 'Submit'}
       </button>
@@ -103,7 +103,7 @@ At this point you can just add html `required` attribute for a simple **client-s
 <input name="body" type="text" required />
 ```
 
-But what if you want to validate the form on the server? sometimes validating should be done both on the client **and** server to prevent malicious users from bypassing the client-side validation.
+But what if you want to validate the form on the server? Sometimes validating should be done both on the client **and** server to prevent malicious users from bypassing the client-side validation.
 
 We can use **useState**, but now that the server action is on another file, we need to pass the error state back from the server action to the form component.
 
@@ -162,8 +162,8 @@ export default function Form() {
 
   return (
     <form action={handleSubmit}>
-      <input name="title" type="text" required />
-      <input name="body" type="text" disabled={pending} required />
+      <input name="title" type="text" />
+      <input name="body" type="text" />
       <button type="submit" disabled={pending}>
         {pending ? 'Submitting...' : 'Submit'}
       </button>
@@ -287,10 +287,10 @@ export default function Form() {
   return (
     <form action={handleSubmit}>
       <input name="title" type="text" />
-      {fieldErros?.title && <p>{fieldErros.title.join(', ')}</p>}
+      {fieldErros?.title && <p>{fieldErros.title[0]}</p>}
 
       <input name="body" type="text" disabled={pending} />
-      {fieldErros?.body && <p>{fieldErros.body.join(', ')}</p>}
+      {fieldErros?.body && <p>{fieldErros.body[0]}</p>}
 
       <button type="submit" disabled={pending}>
         {pending ? 'Submitting...' : 'Submit'}
@@ -320,10 +320,10 @@ export default function Form() {
   return (
     <form action={formAction}>
       <input name="title" type="text" />
-      {state.errors?.title && <p>{state.errors.title}</p>}
+      {state.errors?.title && <p>{state.errors.title[0]}</p>}
 
       <input name="body" type="text" disabled={pending} />
-      {state.errors?.body && <p>{state.errors.body}</p>}
+      {state.errors?.body && <p>{state.errors.body[0]}</p>}
 
       <button type="submit" disabled={pending}>
         {pending ? 'Submitting...' : 'Submit'}
@@ -359,11 +359,11 @@ const [state, formAction] = useActionState(createTodo, undefined);
 <form action={formAction}></form>
 ```
 
-- Show the error message for each field using **state.errors**.
+- Show the error message for each field using **state.errors**. Use the first error message for each field.
 
 ```tsx
-{state.errors?.title && <p>{state.errors.title}</p>;}
-{state.errors?.body && <p>{state.errors.body}</p>;}
+{state.errors?.title && <p>{state.errors.title[0]}</p>;}
+{state.errors?.body && <p>{state.errors.body[0]}</p>;}
 ```
 
 - Show the message returned from the server action.
@@ -397,7 +397,7 @@ export default function Form() {
 }
 ```
 
-This will disable the submit button while the form is submitting, and show a "Submitting..." text on the button, just like what we did before with **useFormStatus**. But now, it's more integrated with the form action.
+This will disable the submit button while the form is submitting, and show a "Submitting..." text on the button, just like what we did before with **useFormStatus**.
 
 ## State Types
 
