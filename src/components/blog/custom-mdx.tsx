@@ -1,3 +1,4 @@
+import CopyButton from '@/components/blog/copy-button';
 import { MDXRemote, MDXRemoteProps } from 'next-mdx-remote/rsc';
 import { Link } from 'next-view-transitions';
 import React, { Children } from 'react';
@@ -48,7 +49,12 @@ async function Pre({
     const lang = className.split(' ')[0]?.split('-')[1] ?? '';
 
     if (!lang) {
-      return <code {...props}>{children}</code>;
+      return (
+        <div className="relative">
+          <CopyButton codeElement={codeElement} />
+          <code {...props}>{children}</code>
+        </div>
+      );
     }
 
     const html = await codeToHtml(String(codeElement?.props.children), {
@@ -59,10 +65,20 @@ async function Pre({
       },
     });
 
-    return <div dangerouslySetInnerHTML={{ __html: html }} />;
+    return (
+      <div className="relative">
+        <CopyButton codeElement={codeElement} />
+        <div dangerouslySetInnerHTML={{ __html: html }} />
+      </div>
+    );
   }
 
-  return <pre {...props}>{children}</pre>;
+  return (
+    <div className="relative">
+      <CopyButton codeElement={codeElement} />
+      <pre {...props}>{children}</pre>
+    </div>
+  );
 }
 
 const components = {
