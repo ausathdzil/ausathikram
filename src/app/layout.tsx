@@ -4,18 +4,18 @@ import { ThemeProvider } from '@/components/layout/theme-provider';
 import { Toaster } from '@/components/ui/sonner';
 import type { Metadata } from 'next';
 import { ViewTransitions } from 'next-view-transitions';
-import localFont from 'next/font/local';
+import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 
-const geistSans = localFont({
-  src: './fonts/GeistVF.woff',
+const geistSans = Geist({
+  subsets: ['latin'],
+  display: 'swap',
   variable: '--font-geist-sans',
-  weight: '100 900',
 });
-const geistMono = localFont({
-  src: './fonts/GeistMonoVF.woff',
+const geistMono = Geist_Mono({
+  subsets: ['latin'],
+  display: 'swap',
   variable: '--font-geist-mono',
-  weight: '100 900',
 });
 
 export const metadata: Metadata = {
@@ -46,12 +46,14 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <Header />
-            <main className="flex flex-col items-center min-h-[calc(100vh-178px)] mx-8 lg:mx-auto">
-              {children}
+            <div className="max-w-2xl flex flex-col items-center mx-auto px-8 lg:px-0">
+              <Header />
+              <main className="w-full flex flex-col items-center min-h-[calc(100vh-178px)] py-4">
+                {children}
+              </main>
               <Toaster richColors />
-            </main>
-            <Footer />
+              <Footer />
+            </div>
           </ThemeProvider>
         </body>
       </html>

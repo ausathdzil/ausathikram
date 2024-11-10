@@ -22,13 +22,13 @@ export default function Header() {
   return (
     <header
       className={clsx(
-        'text-foreground sticky top-0 z-50 transition-all duration-200 border-b dark:border-zinc-800',
+        'w-full text-foreground sticky top-0 z-50 transition-all duration-20',
         {
           'bg-background/80 backdrop-blur-sm shadow-sm': isScrolled,
         }
       )}
     >
-      <nav className="flex justify-between items-center p-8 lg:px-0 max-w-3xl mx-auto">
+      <nav className="flex justify-between items-center py-8">
         <Link className={pathname === '/' ? 'underline' : ''} href="/">
           Home
         </Link>

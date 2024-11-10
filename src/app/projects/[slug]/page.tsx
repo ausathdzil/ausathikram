@@ -32,10 +32,10 @@ export default async function Page(props: {
   }
 
   return (
-    <section className="py-12 space-y-12">
+    <section className="w-full space-y-12">
       <div className="space-y-4">
         {project.image && (
-          <div className="relative w-[250px] h-[150px] sm:w-[400px] sm:h-[300px] lg:w-[700px] lg:h-[400px]">
+          <div className="relative w-[250px] h-[150px] sm:w-[400px] sm:h-[300px] lg:w-[672px] lg:h-[400px]">
             <Image
               className="object-cover object-top rounded-lg border-zinc-500 border-2"
               src={project.image}
@@ -60,7 +60,7 @@ export default async function Page(props: {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <span>View site</span>
+              <span>View Site</span>
               <ArrowUpRightIcon />
             </a>
           )}
@@ -71,7 +71,7 @@ export default async function Page(props: {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <span>GitHub repo</span>
+              <span>GitHub Repo</span>
               <ArrowUpRightIcon />
             </a>
           )}

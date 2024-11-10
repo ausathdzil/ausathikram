@@ -15,7 +15,7 @@ export default function Home() {
     .splice(0, 3);
 
   return (
-    <section className="max-w-3xl py-12 space-y-8">
+    <section className="space-y-8">
       <article className="space-y-4 text-lg">
         <h1 className="text-2xl text-foreground font-semibold">Ausath Ikram</h1>
         <p className="[&>strong]:text-foreground [&>strong]:font-normal">
