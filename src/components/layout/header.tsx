@@ -24,7 +24,7 @@ export default function Header() {
       className={clsx(
         'w-full text-foreground sticky top-0 z-50 transition-all duration-20',
         {
-          'bg-background/80 backdrop-blur-sm shadow-sm': isScrolled,
+          'bg-background/95 backdrop-blur-sm shadow-sm': isScrolled,
         }
       )}
     >
