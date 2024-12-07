@@ -1,10 +1,8 @@
 'use client';
 
 import { ModeToggle } from '@/components/layout/mode-toggle';
-import clsx from 'clsx';
 import { Link } from 'next-view-transitions';
 import { usePathname } from 'next/navigation';
-import { useEffect, useState } from 'react';
 
 export default function Header() {
   const pathname = usePathname();

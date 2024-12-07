@@ -1,6 +1,5 @@
 import { StaticImageData } from 'next/image';
 import nasaApodGallery from '../../public/projects/apod-gallery-nasa.png';
-import bookshelf from '../../public/projects/bookshelf.png';
 import critix from '../../public/projects/critix.jpeg';
 import dignition from '../../public/projects/dignition.png';
 import memovies from '../../public/projects/memovies.png';
