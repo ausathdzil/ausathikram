@@ -48,17 +48,17 @@ export default function Home() {
         </ul>
       </div>
       <div className="space-y-4">
+        <div className="flex text-muted-foreground gap-2">
+          <MapPinIcon />
+          <p>Jakarta, Indonesia</p>
+        </div>
         <Link
           className="flex text-muted-foreground gap-2 hover:underline underline-offset-4"
           href="/contact"
         >
           <MailIcon />
-          <p>ausathdzil@gmail.com</p>
+          <p>Email</p>
         </Link>
-        <div className="flex text-muted-foreground gap-2">
-          <MapPinIcon />
-          <p>Jakarta, Indonesia</p>
-        </div>
       </div>
     </section>
   );

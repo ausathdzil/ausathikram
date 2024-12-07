@@ -4,7 +4,7 @@ import { ThemeProvider } from '@/components/layout/theme-provider';
 import { Toaster } from '@/components/ui/sonner';
 import type { Metadata } from 'next';
 import { ViewTransitions } from 'next-view-transitions';
-import { Inter, Roboto_Mono } from 'next/font/google';
+import { Inter, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 
 const inter = Inter({
@@ -12,10 +12,10 @@ const inter = Inter({
   display: 'swap',
   variable: '--font-inter',
 });
-const robotoMono = Roboto_Mono({
+const jetBrainsMono = JetBrains_Mono({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-roboto-mono',
+  variable: '--font-jetbrains-mono',
 });
 
 export const metadata: Metadata = {
@@ -38,7 +38,7 @@ export default function RootLayout({
           <link rel="icon" href="/skull.svg" />
         </head>
         <body
-          className={`${inter.variable} ${robotoMono.variable} antialiased`}
+          className={`${inter.variable} ${jetBrainsMono.variable} antialiased tracking-tight`}
         >
           <ThemeProvider
             attribute="class"
@@ -46,9 +46,9 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <div className="max-w-2xl flex flex-col items-center mx-auto px-8 lg:px-2">
+            <div className="flex flex-col items-center min-h-screen max-w-2xl mx-auto px-2">
               <Header />
-              <main className="w-full flex flex-col items-center min-h-[calc(100vh-178px)] py-4">
+              <main className="w-full flex-1 flex flex-col items-center py-4">
                 {children}
               </main>
               <Toaster richColors />
