@@ -1,6 +1,7 @@
 import EmailForm from '@/components/contact/email-form';
+import { Metadata } from 'next';
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'Contact',
   description: 'Email me for any inquiries.',
 };

@@ -1,7 +1,8 @@
 import { projects } from '@/lib/projects';
+import { Metadata } from 'next';
 import { Link } from 'next-view-transitions';
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'Projects',
   description: 'Ausath Ikram projects.',
 };

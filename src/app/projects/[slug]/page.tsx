@@ -1,7 +1,12 @@
 import { projects } from '@/lib/projects';
 import { ArrowUpRightIcon } from 'lucide-react';
+import { Metadata } from 'next';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
+
+type ProjectPageProps = {
+  params: Promise<{ slug: string }>;
+};
 
 export async function generateStaticParams() {
   return projects.map((project) => ({
@@ -9,9 +14,9 @@ export async function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata(props: {
-  params: Promise<{ slug: string }>;
-}) {
+export async function generateMetadata(
+  props: ProjectPageProps
+): Promise<Metadata> {
   const params = await props.params;
   const project = projects.find((project) => project.slug === params.slug);
 
@@ -21,9 +26,7 @@ export async function generateMetadata(props: {
   };
 }
 
-export default async function Page(props: {
-  params: Promise<{ slug: string }>;
-}) {
+export default async function Page(props: ProjectPageProps) {
   const params = await props.params;
   const project = projects.find((project) => project.slug === params.slug);
 
@@ -35,9 +38,9 @@ export default async function Page(props: {
     <section className="w-full space-y-12">
       <div className="space-y-4">
         {project.image && (
-          <div className="relative w-[250px] h-[150px] sm:w-[400px] sm:h-[300px] lg:w-[672px] lg:h-[400px]">
+          <div className="relative w-[250px] h-[150px] sm:w-[350px] sm:h-[300px] lg:w-[600px] max-w-full lg:h-[400px]">
             <Image
-              className="object-cover object-top rounded-lg border-zinc-500 border-2"
+              className="object-cover object-top rounded-lg"
               src={project.image}
               alt={`${project.title} image preview`}
               priority={true}

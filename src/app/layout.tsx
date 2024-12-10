@@ -38,7 +38,7 @@ export default function RootLayout({
           <link rel="icon" href="/skull.svg" />
         </head>
         <body
-          className={`${inter.variable} ${jetBrainsMono.variable} antialiased tracking-tight`}
+          className={`${inter.variable} ${jetBrainsMono.variable} font-sans antialiased tracking-tight bg-background text-muted-foreground`}
         >
           <ThemeProvider
             attribute="class"
@@ -46,9 +46,9 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <div className="flex flex-col items-center min-h-screen max-w-2xl mx-auto px-2">
+            <div className="flex flex-col items-center min-h-screen max-w-2xl mx-auto px-8">
               <Header />
-              <main className="w-full flex-1 flex flex-col items-center py-4">
+              <main className="w-full flex-1 flex flex-col items-center pb-8">
                 {children}
               </main>
               <Toaster richColors />

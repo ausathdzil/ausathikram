@@ -1,5 +1,6 @@
 import CustomMDX from '@/components/blog/custom-mdx';
 import { formatDate, getBlogPosts } from '@/lib/blog';
+import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 export async function generateStaticParams() {
@@ -12,7 +13,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata(props: {
   params: Promise<{ slug: string }>;
-}) {
+}): Promise<Metadata> {
   const params = await props.params;
   const post = getBlogPosts().find((post) => post.slug === params.slug);
 
