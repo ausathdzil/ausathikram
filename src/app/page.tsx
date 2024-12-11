@@ -1,5 +1,5 @@
 import { formatDate, getBlogPosts } from '@/lib/blog';
-import { MailIcon, MapPinIcon } from 'lucide-react';
+import { AtSign, MapPinIcon } from 'lucide-react';
 import { Link } from 'next-view-transitions';
 
 export default function Home() {
@@ -48,16 +48,16 @@ export default function Home() {
         </ul>
       </div>
       <div className="space-y-4">
-        <div className="flex text-muted-foreground gap-2">
-          <MapPinIcon />
+        <div className="flex items-center text-muted-foreground gap-2">
+          <MapPinIcon size={16} />
           <p>Jakarta, Indonesia</p>
         </div>
         <Link
-          className="flex text-muted-foreground gap-2 hover:underline underline-offset-4"
+          className="flex items-center text-muted-foreground gap-2 hover:underline underline-offset-4"
           href="/contact"
         >
-          <MailIcon />
-          <p>Email</p>
+          <AtSign size={16} />
+          <p>Contact Me</p>
         </Link>
       </div>
     </section>

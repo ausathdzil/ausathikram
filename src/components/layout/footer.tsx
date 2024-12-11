@@ -1,18 +1,9 @@
-import { Mail } from 'lucide-react';
-import { Link } from 'next-view-transitions';
-
 export default function Footer() {
   return (
     <footer className="w-full text-foreground border-t dark:border-zinc-800">
       <div className="flex justify-between py-8 mx-auto">
         <p className="hidden sm:block">&copy; 2024 Ausath Ikram</p>
         <nav className="grow flex justify-start sm:justify-end items-center gap-8 text-right">
-          <Link
-            className="hover:scale-105 transition-transform"
-            href="/contact"
-          >
-            <Mail size={20} />
-          </Link>
           <a
             className="hover:scale-105 transition-transform"
             href="https://github.com/ausathdzil"
