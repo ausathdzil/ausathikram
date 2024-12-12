@@ -1,9 +1,9 @@
-my personal website.
+# My Personal Website
 
-## tech stack
+Tech Stacks:
 
-- [next.js](https://github.com/vercel/next.js)
-- [tailwindcss](https://github.com/tailwindlabs/tailwindcss)
-- [typescript](https://github.com/microsoft/TypeScript)
-- [shadcn-ui](https://github.com/shadcn-ui/ui)
-- [mdx](https://github.com/mdx-js/mdx/)
+- [Next.js](https://github.com/vercel/next.js)
+- [Talwind CSS](https://github.com/tailwindlabs/tailwindcss)
+- [TypeScript](https://github.com/microsoft/TypeScript)
+- [shadcn/ui](https://github.com/shadcn-ui/ui)
+- [MDX](https://github.com/mdx-js/mdx/)

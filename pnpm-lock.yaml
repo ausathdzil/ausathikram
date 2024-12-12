@@ -22,7 +22,7 @@ importers:
         specifier: 15.1.0
         version: 15.1.0(@mdx-js/loader@3.1.0(acorn@8.13.0))(@mdx-js/react@3.1.0(@types/react@19.0.1)(react@19.0.0))
       '@radix-ui/react-dropdown-menu':
-        specifier: ^2.1.1
+        specifier: ^2.1.2
         version: 2.1.2(@types/react-dom@19.0.2(@types/react@19.0.1))(@types/react@19.0.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@radix-ui/react-label':
         specifier: ^2.1.0
@@ -70,7 +70,7 @@ importers:
         specifier: ^1.5.0
         version: 1.5.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       tailwind-merge:
-        specifier: ^2.4.0
+        specifier: ^2.5.4
         version: 2.5.4
       tailwindcss-animate:
         specifier: ^1.0.7

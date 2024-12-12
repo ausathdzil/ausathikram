@@ -3,17 +3,6 @@ import { AtSign, MapPinIcon } from 'lucide-react';
 import { Link } from 'next-view-transitions';
 
 export default function Home() {
-  const posts = getBlogPosts();
-
-  const recentPosts = posts
-    .sort((a, b) => {
-      return (
-        new Date(b.metadata.publishedAt).getTime() -
-        new Date(a.metadata.publishedAt).getTime()
-      );
-    })
-    .splice(0, 3);
-
   return (
     <section className="space-y-8">
       <article className="space-y-4 text-lg">
@@ -33,19 +22,7 @@ export default function Home() {
         >
           Blog
         </Link>
-        <ul className="space-y-2">
-          {recentPosts.map((post) => (
-            <li key={post.slug}>
-              <Link
-                href={`/blog/${post.slug}`}
-                className="text-lg text-foreground hover:underline underline-offset-4"
-              >
-                {post.metadata.title}
-              </Link>
-              <p>{formatDate(post.metadata.publishedAt)}</p>
-            </li>
-          ))}
-        </ul>
+        <RecentPosts />
       </div>
       <div className="space-y-4">
         <div className="flex items-center text-muted-foreground gap-2">
@@ -61,5 +38,34 @@ export default function Home() {
         </Link>
       </div>
     </section>
+  );
+}
+
+function RecentPosts() {
+  const posts = getBlogPosts();
+
+  const recentPosts = posts
+    .sort((a, b) => {
+      return (
+        new Date(b.metadata.publishedAt).getTime() -
+        new Date(a.metadata.publishedAt).getTime()
+      );
+    })
+    .splice(0, 3);
+
+  return (
+    <ul className="space-y-2">
+      {recentPosts.map((post) => (
+        <li key={post.slug}>
+          <Link
+            href={`/blog/${post.slug}`}
+            className="text-lg text-foreground hover:underline underline-offset-4"
+          >
+            {post.metadata.title}
+          </Link>
+          <p>{formatDate(post.metadata.publishedAt)}</p>
+        </li>
+      ))}
+    </ul>
   );
 }

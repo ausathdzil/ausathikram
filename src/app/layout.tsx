@@ -38,7 +38,7 @@ export default function RootLayout({
           <link rel="icon" href="/skull.svg" />
         </head>
         <body
-          className={`${inter.variable} ${jetBrainsMono.variable} font-sans antialiased tracking-tight bg-background text-muted-foreground`}
+          className={`${inter.variable} ${jetBrainsMono.variable} font-sans antialiased tracking-tight`}
         >
           <ThemeProvider
             attribute="class"
