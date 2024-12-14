@@ -1,4 +1,5 @@
 import CopyButton from '@/components/blog/copy-button';
+import { slugify } from '@/lib/blog';
 import { MDXRemote, MDXRemoteProps } from 'next-mdx-remote/rsc';
 import { Link } from 'next-view-transitions';
 import React, { Children } from 'react';
@@ -7,30 +8,19 @@ import { codeToHtml } from 'shiki';
 function CustomLink(props: React.AnchorHTMLAttributes<HTMLAnchorElement>) {
   const href = props.href;
 
-  if (href?.startsWith('/')) {
+  if (!href || href.startsWith('#')) {
+    return <a {...props} />;
+  }
+
+  if (href.startsWith('/')) {
     return (
-      <Link
-        className="underline-offset-4 decoration-zinc-500 hover:decoration-zinc-950 dark:hover:decoration-zinc-50"
-        href={href}
-        {...props}
-      >
+      <Link href={href} {...props}>
         {props.children}
       </Link>
     );
   }
 
-  if (href?.startsWith('#')) {
-    return <a {...props} />;
-  }
-
-  return (
-    <a
-      className="underline-offset-4 decoration-zinc-500 hover:decoration-zinc-950 dark:hover:decoration-zinc-50"
-      target="_blank"
-      rel="noopener noreferrer"
-      {...props}
-    />
-  );
+  return <a target="_blank" rel="noopener noreferrer" {...props} />;
 }
 
 async function Pre({
@@ -61,7 +51,7 @@ async function Pre({
       lang,
       themes: {
         light: 'vitesse-light',
-        dark: 'vitesse-dark',
+        dark: 'vesper',
       },
     });
 
@@ -81,9 +71,37 @@ async function Pre({
   );
 }
 
+function createHeading(level: number) {
+  const Heading = ({ children }: { children: React.ReactNode }) => {
+    const slug = slugify(children);
+    return React.createElement(
+      `h${level}`,
+      { id: slug },
+      [
+        React.createElement('a', {
+          href: `#${slug}`,
+          key: `link-${slug}`,
+          className: 'anchor',
+        }),
+      ],
+      children
+    );
+  };
+
+  Heading.displayName = `Heading${level}`;
+
+  return Heading;
+}
+
 const components = {
   a: CustomLink,
   pre: Pre,
+  h1: createHeading(1),
+  h2: createHeading(2),
+  h3: createHeading(3),
+  h4: createHeading(4),
+  h5: createHeading(5),
+  h6: createHeading(6),
 };
 
 export default function CustomMDX(

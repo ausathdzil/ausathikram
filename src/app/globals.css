@@ -73,6 +73,33 @@
   code {
     @apply relative rounded bg-muted px-[0.3rem] py-[0.2rem] after:hidden before:hidden;
   }
+
+  .prose .anchor {
+    @apply absolute invisible no-underline;
+
+    margin-left: -1em;
+    padding-right: 0.5em;
+    width: 80%;
+    max-width: 700px;
+    cursor: pointer;
+  }
+
+  .anchor:hover {
+    @apply visible;
+  }
+
+  .prose .anchor:after {
+    @apply text-zinc-300 dark:text-zinc-700;
+    content: '#';
+  }
+
+  .prose *:hover > .anchor {
+    @apply visible;
+  }
+
+  .prose a {
+    @apply underline-offset-4 decoration-zinc-500 hover:decoration-zinc-950 dark:hover:decoration-zinc-50;
+  }
 }
 
 html.dark .shiki,

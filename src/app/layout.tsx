@@ -4,7 +4,7 @@ import { ThemeProvider } from '@/components/layout/theme-provider';
 import { Toaster } from '@/components/ui/sonner';
 import type { Metadata } from 'next';
 import { ViewTransitions } from 'next-view-transitions';
-import { Inter, JetBrains_Mono } from 'next/font/google';
+import { Fira_Code, Inter } from 'next/font/google';
 import './globals.css';
 
 const inter = Inter({
@@ -12,10 +12,10 @@ const inter = Inter({
   display: 'swap',
   variable: '--font-inter',
 });
-const jetBrainsMono = JetBrains_Mono({
+const firaCode = Fira_Code({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-jetbrains-mono',
+  variable: '--font-fira-code',
 });
 
 export const metadata: Metadata = {
@@ -38,7 +38,7 @@ export default function RootLayout({
           <link rel="icon" href="/skull.svg" />
         </head>
         <body
-          className={`${inter.variable} ${jetBrainsMono.variable} font-sans antialiased tracking-tight`}
+          className={`${inter.variable} ${firaCode.variable} font-sans antialiased tracking-tight`}
         >
           <ThemeProvider
             attribute="class"
