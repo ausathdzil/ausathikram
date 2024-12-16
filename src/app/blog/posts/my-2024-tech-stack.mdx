@@ -6,13 +6,13 @@ summary: A list of technologies I'm using in 2024.
 
 **TL;DR**:
 
-- **Framework**: Next.js
-- **Styling**: Tailwind CSS and shadcn/ui
-- **Language**: TypeScript
-- **Database**: Neon
-- **ORM**: Drizzle ORM
-- **Authentication**: Roll my own or Auth.js
-- **Other Tools**: Zod
+- **Framework**: [Next.js](https://github.com/vercel/next.js)
+- **Styling**: [Tailwind CSS](https://github.com/tailwindlabs/tailwindcss) and [shadcn/ui](https://github.com/shadcn-ui/ui)
+- **Language**: [TypeScript](https://github.com/microsoft/TypeScript)
+- **Database**: [Neon](https://github.com/neondatabase/neon)
+- **ORM**: [Drizzle ORM](https://github.com/drizzle-team/drizzle-orm)
+- **Authentication**: Roll my own or [Auth.js](https://github.com/nextauthjs/next-auth)
+- **Other Tools**: [Zod](https://github.com/colinhacks/zod)
 
 I started my journey in web development in 2023 with plain HTML, CSS, and JavaScript. In 2024, I began exploring [React](https://github.com/facebook/react) due to its popularity. I discovered more exciting technologies within its ecosystem. Here are the technologies I'm using in 2024.
 
@@ -30,6 +30,12 @@ Regardless, I still think Next.js is a great framework that solves many problems
 
 Same with Next.js, I started learning [Tailwind CSS](https://github.com/tailwindlabs/tailwindcss) because of the project I was working on. Without asking too much questions about Tailwind, I already know it is the perfect tool for me. Tailwind CSS is great and it helps me build applications faster.
 
+I also use [shadcn/ui](https://github.com/shadcn-ui/ui) because it's built on top of Tailwind and is highly customizable. Additionally, large language models (LLMs) understand shadcn/ui better compared to other UI libraries.
+
+<div className="not-prose">
+  <Tweet id="1867958324966343058" />
+</div>
+
 ## Language
 
 Once you start using [TypeScript](https://github.com/microsoft/TypeScript) (or any statically typed language, for that matter), it's hard to go back. I initially started programming with C in my college, so I'm already familiar with statically typed languages. Learning JavaScript for the first time was a bit challenging because of its error-prone nature. This is especially true when working with mid-to-large codebases, where errors sometimes only occur at runtime.
@@ -42,7 +48,7 @@ Postgres has always been my go-to database, although I started with MySQL in my 
 
 I don't think writing raw SQL queries is bad. There are security concerns, especially with SQL injections. Vercel Postgres SDK uses something called **parameterized queries** to prevent this. However, I still prefer using an ORM for my projects.
 
-I chose Drizzle because it strikes a great balance between being a full-featured ORM and maintaining SQL-like syntax. Here's an example of how I use Drizzle:
+I chose [Drizzle ORM](https://github.com/drizzle-team/drizzle-orm) because it strikes a great balance between being a full-featured ORM and maintaining SQL-like syntax. Here's an example of how I use Drizzle:
 
 ```typescript
 import { db } from '@/lib/db';
@@ -186,7 +192,3 @@ export default function LoginForm() {
 ## Conclusion
 
 I'm happy with the technologies I'm using in 2024. They help me build applications faster and more efficiently. I'm excited to see what new technologies will come out in the future and how they will change the way we build web applications. If you have any suggestions or feedback, feel free to [reach out to me](/contact). Happy holidays! 🎄
-
-```
-
-```

@@ -4,6 +4,7 @@ import { MDXRemote, MDXRemoteProps } from 'next-mdx-remote/rsc';
 import { Link } from 'next-view-transitions';
 import React, { Children } from 'react';
 import { codeToHtml } from 'shiki';
+import { Tweet } from 'react-tweet';
 
 function CustomLink(props: React.AnchorHTMLAttributes<HTMLAnchorElement>) {
   const href = props.href;
@@ -102,6 +103,7 @@ const components = {
   h4: createHeading(4),
   h5: createHeading(5),
   h6: createHeading(6),
+  Tweet,
 };
 
 export default function CustomMDX(
