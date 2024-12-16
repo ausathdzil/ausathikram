@@ -100,6 +100,14 @@
   .prose a {
     @apply underline-offset-4 decoration-zinc-500 hover:decoration-zinc-950 dark:hover:decoration-zinc-50;
   }
+
+  .prose blockquote *::before {
+    display: none;
+  }
+
+  .prose blockquote *::after {
+    display: none;
+  }
 }
 
 html.dark .shiki,

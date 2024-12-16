@@ -4,7 +4,7 @@ publishedAt: 2024-10-19
 summary: Preserving form state after submission in Next.js using React's startTransition.
 ---
 
-On my last post, we learned how to [validate forms](/blog/form-validation) using **useActionState**. One problem that arises when submitting a form directly with the action attribute is that the form will reset after submission.
+On my last post, we learned how to [validate forms](/blog/form-validation) using `useActionState`. One problem that arises when submitting a form directly with the action attribute is that the form will reset after submission.
 
 Sometimes we don't want that to happen. For example, say the user submits a form with an error, but not all fields are filled incorrectly, we want to keep the user's input so they don't have to retype everything, even the correct fields.
 
@@ -50,7 +50,7 @@ export default function Form() {
 
 That's... basically it! now the form will not reset after submission.
 
-Bonus: it's a good practice to wrap the **formAction** call with [startTransition](ttps://react.dev/reference/react/startTransition). This tells react that the update is non-urgent.
+Bonus: it's a good practice to wrap the `formAction` call with [`startTransition`](ttps://react.dev/reference/react/startTransition). This tells react that the update is non-urgent.
 
 ## startTransition
 
@@ -60,7 +60,7 @@ From the official [React docs](https://react.dev/reference/react/startTransition
 
 For example, if the user clicks a tab but then change their mind and click another tab, they can do that without waiting for the first re-render to finish."
 
-**startTransition** is particularly useful in larger applications or when dealing with slower network conditions. This will lead to smoother user experience.
+`startTransition` is particularly useful in larger applications or when dealing with slower network conditions. This will lead to smoother user experience.
 
 Let's see how we can use it:
 
@@ -84,9 +84,9 @@ export default function Form() {
 }
 ```
 
-Without **startTransition**, if the network is slow, React might try to update the UI based on the pending state of **formAction** before it completes, potentially causing visual inconsistencies.
+Without `startTransition`, if the network is slow, React might try to update the UI based on the pending state of `formAction` before it completes, potentially causing visual inconsistencies.
 
-By wrapping the **formAction** call with **startTransition**, we tell React to wait for the action to complete before updating the UI, leading to a smoother user experience.
+By wrapping the `formAction` call with `startTransition`, we tell React to wait for the action to complete before updating the UI, leading to a smoother user experience.
 
 There's other solution to this, but I find this one to be the most straightforward.
 

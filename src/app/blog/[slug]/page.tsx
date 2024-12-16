@@ -1,7 +1,8 @@
 import CustomMDX from '@/components/blog/custom-mdx';
 import { formatDate, getBlogPosts, getTableOfContents } from '@/lib/blog';
-import { ArrowUp } from 'lucide-react';
+import { ArrowLeft, ArrowUp } from 'lucide-react';
 import { Metadata } from 'next';
+import { Link } from 'next-view-transitions';
 import { notFound } from 'next/navigation';
 
 type PostPageProps = {
@@ -51,6 +52,10 @@ export default async function Page(props: PostPageProps) {
       <TableOfContents content={post.content} />
       <article className="prose prose-zinc dark:prose-invert prose-sm sm:prose-base">
         <CustomMDX source={post.content} />
+        <Link className="flex items-center gap-2" href="/blog">
+          <ArrowLeft size={16} />
+          <span>All posts</span>
+        </Link>
       </article>
     </section>
   );
