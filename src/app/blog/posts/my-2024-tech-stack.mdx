@@ -46,7 +46,7 @@ Postgres has always been my go-to database, although I started with MySQL in my 
 
 ## ORM
 
-I don't think writing raw SQL queries is bad. There are security concerns, especially with SQL injections. Vercel Postgres SDK uses something called **parameterized queries** to prevent this. However, I still prefer using an ORM for my projects.
+I don't think writing raw SQL queries is inherently bad. There are security concerns of course, especially with SQL injections, but modern tools usually prevent that from happening. For example, Vercel Postgres SDK uses something called **parameterized queries**. However, I still prefer using an ORM for my projects from some added benefits like type safety and easier query building.
 
 I chose [Drizzle ORM](https://github.com/drizzle-team/drizzle-orm) because it strikes a great balance between being a full-featured ORM and maintaining SQL-like syntax. Here's an example of how I use Drizzle:
 
@@ -62,12 +62,7 @@ export const getUser = cache(async () => {
   if (!session) return null;
 
   const data = await db
-    .select({
-      id: users.id,
-      name: users.name,
-      email: users.email,
-      createdAt: users.createdAt,
-    })
+    .select()
     .from(users)
     .where(eq(users.id, session.userId as string));
 
@@ -80,7 +75,7 @@ export const getUser = cache(async () => {
 Even without knowing Drizzle's syntax, you can tell what the code does:
 
 ```sql
-SELECT id, name, email, createdAt
+SELECT *
 FROM users
 WHERE id = ${session.userId}
 ```
@@ -88,7 +83,7 @@ WHERE id = ${session.userId}
 It also has a great migration system for easily managing database schema changes and handling type inference, which is a huge plus for me.
 
 ```typescript
-import { integer, pgTable, text, timestamp } from 'drizzle-orm/pg-core';
+import { pgTable, text, timestamp } from 'drizzle-orm/pg-core';
 
 export const users = pgTable('users', {
   id: text('id')
@@ -109,7 +104,7 @@ export type User = typeof users.$inferSelect;
 
 ## Authentication
 
-I like to use [Auth.js](https://github.com/nextauthjs/next-auth) when I need OAuth logins. It's easy to set up and has a lot of providers. However, it is still in beta and has some known issues. For my personal projects where I typically just need a simple email password login, I usually roll my own authentication system.
+I like to use [Auth.js](https://github.com/nextauthjs/next-auth) when I need OAuth logins. It's easy to set up and has a lot of providers. However, it's still in beta and has some known issues. For my personal projects where I typically just need a simple email password login, I usually roll my own authentication system.
 
 Next.js has great documentation on how to [set up authentication](https://nextjs.org/docs/app/building-your-application/authentication) with their framework.
 
@@ -165,7 +160,6 @@ export async function login(state: LoginFormState, formData: FormData) {
 'use client';
 
 import { login } from '@/lib/actions/auth';
-import { Loader2 } from 'lucide-react';
 import { useActionState } from 'react';
 
 export default function LoginForm() {
@@ -182,7 +176,7 @@ export default function LoginForm() {
       {state.errors?.password && <p>{state.errors.password[0]}</p>}
 
       <button type="submit" disabled={pending}>
-        {pending ? <Loader2 /> : 'Login'}
+        Login
       </button>
     </form>
   );
