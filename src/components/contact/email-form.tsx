@@ -39,30 +39,30 @@ export default function EmailForm() {
           <Label htmlFor="firstName">First Name</Label>
           <Input
             className={
-              state?.error?.firstName &&
+              state?.errors?.firstName &&
               'border-destructive/80 text-destructive focus-visible:border-destructive/80 focus-visible:ring-destructive/30'
             }
             type="text"
             id="firstName"
             name="firstName"
           />
-          {state?.error?.firstName && (
-            <p className="text-destructive text-sm">{state.error.firstName}</p>
+          {state?.errors?.firstName && (
+            <p className="text-destructive text-sm">{state.errors.firstName}</p>
           )}
         </div>
         <div className="w-full space-y-1">
           <Label htmlFor="lastName">Last Name</Label>
           <Input
             className={
-              state?.error?.lastName &&
+              state?.errors?.lastName &&
               'border-destructive/80 text-destructive focus-visible:border-destructive/80 focus-visible:ring-destructive/30'
             }
             type="text"
             id="lastName"
             name="lastName"
           />
-          {state?.error?.lastName && (
-            <p className="text-destructive text-sm">{state.error.lastName}</p>
+          {state?.errors?.lastName && (
+            <p className="text-destructive text-sm">{state.errors.lastName}</p>
           )}
         </div>
       </div>
@@ -71,15 +71,15 @@ export default function EmailForm() {
         <Label htmlFor="email">Email</Label>
         <Input
           className={
-            state?.error?.email &&
+            state?.errors?.email &&
             'border-destructive/80 text-destructive focus-visible:border-destructive/80 focus-visible:ring-destructive/30'
           }
           type="email"
           id="email"
           name="email"
         />
-        {state?.error?.email && (
-          <p className="text-destructive text-sm">{state.error.email}</p>
+        {state?.errors?.email && (
+          <p className="text-destructive text-sm">{state.errors.email}</p>
         )}
       </div>
 
@@ -88,14 +88,14 @@ export default function EmailForm() {
         <Textarea
           className={clsx(
             'resize-none',
-            state?.error?.message &&
+            state?.errors?.message &&
               'border-destructive/80 text-destructive focus-visible:border-destructive/80 focus-visible:ring-destructive/30'
           )}
           id="message"
           name="message"
         />
-        {state?.error?.message && (
-          <p className="text-destructive text-sm">{state.error.message}</p>
+        {state?.errors?.message && (
+          <p className="text-destructive text-sm">{state.errors.message}</p>
         )}
       </div>
 

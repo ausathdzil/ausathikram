@@ -36,7 +36,7 @@ export type State =
   | {
       success: boolean;
       message?: string | null;
-      error?: {
+      errors?: {
         firstName?: string[];
         lastName?: string[];
         email?: string[];
@@ -62,7 +62,7 @@ export async function sendEmail(prevState: State, formData: FormData) {
     return {
       success: false,
       message: 'Invalid form fields.',
-      error: validatedFields.error.flatten().fieldErrors,
+      errors: validatedFields.error.flatten().fieldErrors,
     };
   }
 

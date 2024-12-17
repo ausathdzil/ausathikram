@@ -166,7 +166,7 @@ export default function LoginForm() {
   const [state, action, pending] = useActionState(login, undefined);
 
   return (
-    <form action={login}>
+    <form action={action}>
       <label htmlFor="email">Email</label>
       <input type="email" name="email" id="email" />
       {state.errors?.email && <p>{state.errors.email[0]}</p>}
