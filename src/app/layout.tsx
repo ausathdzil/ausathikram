@@ -3,14 +3,7 @@ import Header from '@/components/layout/header';
 import { ThemeProvider } from '@/components/layout/theme-provider';
 import { Toaster } from '@/components/ui/sonner';
 import type { Metadata } from 'next';
-import { Inter as FontSans } from 'next/font/google';
 import './globals.css';
-
-const fontSans = FontSans({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-sans',
-});
 
 export const metadata: Metadata = {
   title: {
@@ -27,12 +20,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
-        <link rel="icon" href="/skull.svg" />
-      </head>
-      <body
-        className={`${fontSans.variable} font-sans antialiased tracking-tight`}
-      >
+      {/* <head>
+        <script
+          crossOrigin="anonymous"
+          src="//unpkg.com/react-scan/dist/auto.global.js"
+        />
+      </head> */}
+      <body className="antialiased tracking-tight">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

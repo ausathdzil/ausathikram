@@ -8,7 +8,7 @@ type ProjectPageProps = {
   params: Promise<{ slug: string }>;
 };
 
-export async function generateStaticParams() {
+export function generateStaticParams() {
   return projects.map((project) => ({
     slug: project.slug,
   }));
@@ -38,7 +38,7 @@ export default async function Page(props: ProjectPageProps) {
     <section className="w-full space-y-12">
       <div className="space-y-4">
         {project.image && (
-          <div className="relative w-[250px] h-[150px] sm:w-[350px] sm:h-[300px] lg:w-[600px] max-w-full lg:h-[400px]">
+          <div className="relative w-[250px] h-[150px] sm:w-[350px] sm:h-[300px] lg:w-[600px] max-w-full lg:h-[300px]">
             <Image
               className="object-cover object-top rounded-lg"
               src={project.image}
@@ -51,7 +51,7 @@ export default async function Page(props: ProjectPageProps) {
             />
           </div>
         )}
-        <article>
+        <article className="space-y-4">
           <h1 className="text-4xl text-primary font-bold">{project.title}</h1>
           <p className="text-lg">{project.description}</p>
         </article>
@@ -63,7 +63,7 @@ export default async function Page(props: ProjectPageProps) {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <span>View Site</span>
+              <span>View site</span>
               <ArrowUpRightIcon />
             </a>
           )}
@@ -74,7 +74,7 @@ export default async function Page(props: ProjectPageProps) {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <span>GitHub Repo</span>
+              <span>GitHub repo</span>
               <ArrowUpRightIcon />
             </a>
           )}
