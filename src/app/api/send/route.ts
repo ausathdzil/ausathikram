@@ -1,4 +1,5 @@
 import { EmailTemplate } from '@/components/contact/email-template';
+import React from 'react';
 import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -20,7 +21,7 @@ export async function POST(request: Request) {
         lastName: lastName,
         email: email,
         message: message,
-      }),
+      }) as React.ReactElement,
     });
 
     if (error) {

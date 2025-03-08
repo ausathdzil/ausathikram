@@ -2,14 +2,14 @@ import CustomMDX from '@/components/blog/custom-mdx';
 import { formatDate, getBlogPosts, getTableOfContents } from '@/lib/blog';
 import { ArrowLeft, ArrowUp } from 'lucide-react';
 import { Metadata } from 'next';
-import { Link } from 'next-view-transitions';
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
 type PostPageProps = {
   params: Promise<{ slug: string }>;
 };
 
-export async function generateStaticParams() {
+export function generateStaticParams() {
   const posts = getBlogPosts();
 
   return posts.map((post) => ({
@@ -65,8 +65,8 @@ function TableOfContents({ content }: { content: string }) {
   const tableOfContents = getTableOfContents(content);
 
   return (
-    <aside className="hidden xl:block fixed right-36 w-64 opacity-60 hover:opacity-100 transition-opacity duration-200">
-      <div className="bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 p-4 rounded-lg border border-border">
+    <aside className="hidden xl:block fixed right-36 top-16 w-64 opacity-60 hover:opacity-100 transition-opacity duration-200">
+      <div className="bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 p-4">
         <h2 className="text-lg font-semibold text-foreground mb-4">
           Table of Contents
         </h2>

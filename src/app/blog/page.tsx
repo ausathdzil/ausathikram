@@ -1,6 +1,6 @@
 import { formatDate, getBlogPosts } from '@/lib/blog';
 import { Metadata } from 'next';
-import { Link } from 'next-view-transitions';
+import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'Blog',

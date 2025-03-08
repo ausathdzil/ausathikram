@@ -1,6 +1,6 @@
 import { formatDate, getBlogPosts } from '@/lib/blog';
 import { AtSign, MapPinIcon } from 'lucide-react';
-import { Link } from 'next-view-transitions';
+import Link from 'next/link';
 
 export default function Home() {
   return (

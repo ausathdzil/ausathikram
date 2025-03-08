@@ -85,8 +85,8 @@ export function getTableOfContents(content: string) {
   if (!matches) return [];
 
   return matches.map((match) => {
-    const level = match.match(/^#+/)?.[0].length;
-    const title = match.replace(/^#+\s+/, '');
+    const level = match.match(/^#+/)?.[0].length; // Get the number of #s
+    const title = match.replace(/^#+\s+/, ''); // Remove the #s
     const slug = slugify(title);
 
     return {

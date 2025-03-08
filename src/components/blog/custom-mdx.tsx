@@ -1,10 +1,10 @@
 import CopyButton from '@/components/blog/copy-button';
 import { slugify } from '@/lib/blog';
 import { MDXRemote, MDXRemoteProps } from 'next-mdx-remote/rsc';
-import { Link } from 'next-view-transitions';
+import Link from 'next/link';
 import React, { Children } from 'react';
-import { codeToHtml } from 'shiki';
 import { Tweet } from 'react-tweet';
+import { codeToHtml } from 'shiki';
 
 function CustomLink(props: React.AnchorHTMLAttributes<HTMLAnchorElement>) {
   const href = props.href;

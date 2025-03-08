@@ -1,6 +1,6 @@
 import { projects } from '@/lib/projects';
 import { Metadata } from 'next';
-import { Link } from 'next-view-transitions';
+import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'Projects',

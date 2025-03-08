@@ -1,7 +1,7 @@
 'use client';
 
 import { ModeToggle } from '@/components/layout/mode-toggle';
-import { Link } from 'next-view-transitions';
+import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 export default function Header() {
