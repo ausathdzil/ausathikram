@@ -15,7 +15,7 @@ export default function Home() {
           become a better developer.
         </p>
       </article>
-      <div className="space-y-2">
+      <div className="flex flex-col gap-2">
         <Link
           href="/blog"
           className="text-xl font-semibold text-foreground hover:underline underline-offset-4"

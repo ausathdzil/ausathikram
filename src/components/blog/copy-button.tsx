@@ -22,7 +22,7 @@ export default function CopyButton({
   return (
     <button
       onClick={handleCopy}
-      className="hidden absolute top-4 right-2 end-0 sm:flex w-9 items-center justify-center rounded-e-lg border border-transparent text-muted-foreground/80 ring-offset-background transition-shadow hover:text-foreground focus-visible:border-ring focus-visible:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/30 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:cursor-not-allowed"
+      className="hidden absolute top-4 right-2 end-0 sm:flex w-9 items-center justify-center rounded-e-lg border border-transparent text-muted-foreground/80 ring-offset-background transition-shadow hover:text-foreground focus-visible:border-ring focus-visible:text-foreground focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring/30 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:cursor-not-allowed"
       aria-label={copied ? 'Copied' : 'Copy to clipboard'}
       disabled={copied}
     >

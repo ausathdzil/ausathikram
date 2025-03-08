@@ -3,18 +3,13 @@ import Header from '@/components/layout/header';
 import { ThemeProvider } from '@/components/layout/theme-provider';
 import { Toaster } from '@/components/ui/sonner';
 import type { Metadata } from 'next';
-import { Fira_Code, Inter } from 'next/font/google';
+import { Inter as FontSans } from 'next/font/google';
 import './globals.css';
 
-const inter = Inter({
+const fontSans = FontSans({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-inter',
-});
-const firaCode = Fira_Code({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-fira-code',
+  variable: '--font-sans',
 });
 
 export const metadata: Metadata = {
@@ -36,7 +31,7 @@ export default function RootLayout({
         <link rel="icon" href="/skull.svg" />
       </head>
       <body
-        className={`${inter.variable} ${firaCode.variable} font-sans antialiased tracking-tight`}
+        className={`${fontSans.variable} font-sans antialiased tracking-tight`}
       >
         <ThemeProvider
           attribute="class"

@@ -52,11 +52,14 @@ export default async function Page(props: PostPageProps) {
       <TableOfContents content={post.content} />
       <article className="prose prose-zinc dark:prose-invert prose-sm sm:prose-base">
         <CustomMDX source={post.content} />
-        <Link className="flex items-center gap-2" href="/blog">
-          <ArrowLeft size={16} />
-          <span>All posts</span>
-        </Link>
       </article>
+      <Link
+        className="flex items-center gap-2 text-muted-foreground hover:text-foreground"
+        href="/blog"
+      >
+        <ArrowLeft size={16} />
+        <span>All posts</span>
+      </Link>
     </section>
   );
 }
@@ -65,12 +68,12 @@ function TableOfContents({ content }: { content: string }) {
   const tableOfContents = getTableOfContents(content);
 
   return (
-    <aside className="hidden xl:block fixed right-36 top-16 w-64 opacity-60 hover:opacity-100 transition-opacity duration-200">
-      <div className="bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 p-4">
+    <aside className="hidden xl:block fixed right-36 top-28 w-64 opacity-60 hover:opacity-100 transition-opacity duration-200">
+      <div className="bg-background/95 backdrop-blur-sm supports-backdrop-filter:bg-background/60 p-4">
         <h2 className="text-lg font-semibold text-foreground mb-4">
           Table of Contents
         </h2>
-        <nav className="prose prose-zinc dark:prose-invert prose-sm prose-ul:space-y-2">
+        <nav className="prose prose-zinc dark:prose-invert prose-sm">
           <ul>
             {tableOfContents.map((heading) => (
               <li key={heading.slug}>
