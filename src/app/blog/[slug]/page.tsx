@@ -68,8 +68,8 @@ function TableOfContents({ content }: { content: string }) {
   const tableOfContents = getTableOfContents(content);
 
   return (
-    <aside className="hidden xl:block fixed right-36 top-28 w-64 opacity-60 hover:opacity-100 transition-opacity duration-200">
-      <div className="bg-background/95 backdrop-blur-sm supports-backdrop-filter:bg-background/60 p-4">
+    <aside className="hidden xl:block fixed right-36 top-24 w-64 opacity-60 hover:opacity-100 transition-opacity duration-200">
+      <div className="p-4">
         <h2 className="text-lg font-semibold text-foreground mb-4">
           Table of Contents
         </h2>
