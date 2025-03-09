@@ -35,8 +35,10 @@ export default function EmailForm() {
   return (
     <form className="space-y-6" onSubmit={handleSubmit}>
       <div className="flex gap-4">
-        <div className="w-full space-y-1">
-          <Label htmlFor="firstName">First Name</Label>
+        <div className="w-full space-y-2">
+          <Label className="text-foreground" htmlFor="firstName">
+            First Name
+          </Label>
           <Input
             className={
               state?.errors?.firstName &&
@@ -50,8 +52,10 @@ export default function EmailForm() {
             <p className="text-destructive text-sm">{state.errors.firstName}</p>
           )}
         </div>
-        <div className="w-full space-y-1">
-          <Label htmlFor="lastName">Last Name</Label>
+        <div className="w-full space-y-2">
+          <Label className="text-foreground" htmlFor="lastName">
+            Last Name
+          </Label>
           <Input
             className={
               state?.errors?.lastName &&
@@ -67,8 +71,10 @@ export default function EmailForm() {
         </div>
       </div>
 
-      <div className="space-y-1">
-        <Label htmlFor="email">Email</Label>
+      <div className="space-y-2">
+        <Label className="text-foreground" htmlFor="email">
+          Email
+        </Label>
         <Input
           className={
             state?.errors?.email &&
@@ -83,8 +89,10 @@ export default function EmailForm() {
         )}
       </div>
 
-      <div className="space-y-1">
-        <Label htmlFor="message">Message</Label>
+      <div className="space-y-2">
+        <Label className="text-foreground" htmlFor="message">
+          Message
+        </Label>
         <Textarea
           className={clsx(
             'resize-none',

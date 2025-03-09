@@ -38,7 +38,7 @@ function BlogPosts() {
         <li key={post.slug}>
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center sm:gap-8">
             <Link className="w-3/4" href={`/blog/${post.slug}`}>
-              <h1 className="text-lg sm:text-xl text-foreground hover:underline underline-offset-4">
+              <h1 className="text-lg sm:text-xl text-foreground">
                 {post.metadata.title}
               </h1>
             </Link>
