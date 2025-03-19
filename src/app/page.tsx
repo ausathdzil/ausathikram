@@ -1,16 +1,15 @@
-import { formatDate, getBlogPosts } from '@/lib/blog';
-import { AtSign, MapPinIcon } from 'lucide-react';
-import Link from 'next/link';
+import { formatDate, getBlogPosts } from "@/lib/blog";
+import { AtSign, MapPinIcon } from "lucide-react";
+import Link from "next/link";
 
 export default function Home() {
   return (
     <section className="space-y-8">
       <article className="space-y-4 text-lg">
-        <h1 className="text-2xl text-foreground font-semibold">Ausath Ikram</h1>
-        <p className="[&>strong]:text-foreground [&>strong]:font-normal">
-          I&apos;m an undergraduate <strong>CS student</strong> majoring in
-          Information Systems. I&apos;m also a <strong>web developer</strong>{' '}
-          who mainly work with <strong>Next.js</strong>. I&apos;m always{' '}
+        <h1 className="text-2xl text-primary font-semibold">Ausath Ikram</h1>
+        <p className="[&>strong]:text-primary [&>strong]:font-normal">
+          I&apos;m a <strong>Web Developer</strong> who mainly work with{" "}
+          <strong>Next.js</strong>. I&apos;m always{" "}
           <strong>looking for new opportunities to learn and grow</strong> to
           become a better developer.
         </p>
@@ -18,7 +17,7 @@ export default function Home() {
       <div className="flex flex-col gap-2">
         <Link
           href="/blog"
-          className="text-xl font-semibold text-foreground hover:underline underline-offset-4"
+          className="text-xl font-semibold text-primary hover:underline underline-offset-4"
         >
           Blog
         </Link>
@@ -59,7 +58,7 @@ function RecentPosts() {
         <li key={post.slug}>
           <Link
             href={`/blog/${post.slug}`}
-            className="text-lg text-foreground hover:underline underline-offset-4"
+            className="text-lg text-primary hover:underline underline-offset-4"
           >
             {post.metadata.title}
           </Link>

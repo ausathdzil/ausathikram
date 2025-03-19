@@ -1,14 +1,14 @@
-'use client';
+"use client";
 
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { sendEmail } from '@/lib/actions';
-import clsx from 'clsx';
-import { Loader2, Mail } from 'lucide-react';
-import { startTransition, useActionState, useEffect } from 'react';
-import { toast } from 'sonner';
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { sendEmail } from "@/lib/actions";
+import { cn } from "@/lib/utils";
+import { Loader, Mail } from "lucide-react";
+import { startTransition, useActionState, useEffect } from "react";
+import { toast } from "sonner";
 
 export default function EmailForm() {
   const [state, formAction, pending] = useActionState(sendEmail, undefined);
@@ -16,13 +16,9 @@ export default function EmailForm() {
   useEffect(() => {
     if (state && state.message) {
       if (state.success) {
-        toast.success('Email sent successfully.', {
-          description: state.message,
-        });
+        toast.success(state.message);
       } else {
-        toast.error('Failed to send email.', {
-          description: state.message,
-        });
+        toast.error(state.message);
       }
     }
   }, [state]);
@@ -34,15 +30,15 @@ export default function EmailForm() {
 
   return (
     <form className="space-y-6" onSubmit={handleSubmit}>
-      <div className="flex gap-4">
+      <div className="flex gap-8">
         <div className="w-full space-y-2">
-          <Label className="text-foreground" htmlFor="firstName">
+          <Label className="text-primary" htmlFor="firstName">
             First Name
           </Label>
           <Input
             className={
               state?.errors?.firstName &&
-              'border-destructive/80 text-destructive focus-visible:border-destructive/80 focus-visible:ring-destructive/30'
+              "border-destructive/80 text-destructive focus-visible:border-destructive/80 focus-visible:ring-destructive/30"
             }
             type="text"
             id="firstName"
@@ -53,13 +49,13 @@ export default function EmailForm() {
           )}
         </div>
         <div className="w-full space-y-2">
-          <Label className="text-foreground" htmlFor="lastName">
+          <Label className="text-primary" htmlFor="lastName">
             Last Name
           </Label>
           <Input
             className={
               state?.errors?.lastName &&
-              'border-destructive/80 text-destructive focus-visible:border-destructive/80 focus-visible:ring-destructive/30'
+              "border-destructive/80 text-destructive focus-visible:border-destructive/80 focus-visible:ring-destructive/30"
             }
             type="text"
             id="lastName"
@@ -72,13 +68,13 @@ export default function EmailForm() {
       </div>
 
       <div className="space-y-2">
-        <Label className="text-foreground" htmlFor="email">
+        <Label className="text-primary" htmlFor="email">
           Email
         </Label>
         <Input
           className={
             state?.errors?.email &&
-            'border-destructive/80 text-destructive focus-visible:border-destructive/80 focus-visible:ring-destructive/30'
+            "border-destructive/80 text-destructive focus-visible:border-destructive/80 focus-visible:ring-destructive/30"
           }
           type="email"
           id="email"
@@ -90,14 +86,14 @@ export default function EmailForm() {
       </div>
 
       <div className="space-y-2">
-        <Label className="text-foreground" htmlFor="message">
+        <Label className="text-primary" htmlFor="message">
           Message
         </Label>
         <Textarea
-          className={clsx(
-            'resize-none',
+          className={cn(
+            "resize-none",
             state?.errors?.message &&
-              'border-destructive/80 text-destructive focus-visible:border-destructive/80 focus-visible:ring-destructive/30'
+              "border-destructive/80 text-destructive focus-visible:border-destructive/80 focus-visible:ring-destructive/30"
           )}
           id="message"
           name="message"
@@ -109,7 +105,7 @@ export default function EmailForm() {
 
       <div className="flex justify-end">
         <Button type="submit" disabled={pending}>
-          {pending ? <Loader2 className="animate-spin" /> : <Mail />}
+          {pending ? <Loader className="animate-spin" /> : <Mail />}
           <span>Send</span>
         </Button>
       </div>

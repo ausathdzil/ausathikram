@@ -1,9 +1,9 @@
-import CustomMDX from '@/components/blog/custom-mdx';
-import { formatDate, getBlogPosts, getTableOfContents } from '@/lib/blog';
-import { ArrowLeft, ArrowUp } from 'lucide-react';
-import { Metadata } from 'next';
-import Link from 'next/link';
-import { notFound } from 'next/navigation';
+import CustomMDX from "@/components/blog/custom-mdx";
+import { formatDate, getBlogPosts, getTableOfContents } from "@/lib/blog";
+import { ArrowLeft, ArrowUp } from "lucide-react";
+import { Metadata } from "next";
+import Link from "next/link";
+import { notFound } from "next/navigation";
 
 type PostPageProps = {
   params: Promise<{ slug: string }>;
@@ -44,7 +44,7 @@ export default async function Page(props: PostPageProps) {
   return (
     <section className="w-full space-y-8">
       <article className="space-y-2">
-        <h1 className="text-4xl text-foreground font-semibold">
+        <h1 className="text-4xl text-primary font-semibold">
           {post.metadata.title}
         </h1>
         <p>{formatDate(post.metadata.publishedAt)}</p>
@@ -54,7 +54,7 @@ export default async function Page(props: PostPageProps) {
         <CustomMDX source={post.content} />
       </article>
       <Link
-        className="flex items-center gap-2 text-muted-foreground hover:text-foreground"
+        className="w-fit flex items-center gap-2 text-muted-foreground hover:text-primary"
         href="/blog"
       >
         <ArrowLeft size={16} />
@@ -70,7 +70,7 @@ function TableOfContents({ content }: { content: string }) {
   return (
     <aside className="hidden xl:block fixed right-36 top-24 w-64 opacity-60 hover:opacity-100 transition-opacity duration-200">
       <div className="p-4">
-        <h2 className="text-lg font-semibold text-foreground mb-4">
+        <h2 className="text-lg font-semibold text-primary mb-4">
           Table of Contents
         </h2>
         <nav className="prose prose-zinc dark:prose-invert prose-sm">

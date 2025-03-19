@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     default: 'Ausath Ikram',
     template: '%s | Ausath Ikram',
   },
-  description: 'Web developer',
+  description: 'Web Developer',
 };
 
 export default function RootLayout({

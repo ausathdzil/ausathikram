@@ -8,16 +8,16 @@ const formSchema = z.object({
     .min(1, {
       message: 'First name is required.',
     })
-    .max(20, {
-      message: 'Character must be less than 30 characters,',
+    .max(30, {
+      message: 'First name must be less than 30 characters,',
     }),
   lastName: z
     .string()
     .min(1, {
       message: 'Last name is required.',
     })
-    .max(20, {
-      message: 'Character must be less than 30 characters,',
+    .max(30, {
+      message: 'Last name must be less than 30 characters,',
     }),
   email: z.string().email({
     message: 'Please enter your email so I can get back to you.',
