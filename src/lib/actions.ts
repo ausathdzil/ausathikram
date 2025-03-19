@@ -2,7 +2,7 @@
 
 import { z } from 'zod';
 
-const formSchema = z.object({
+const emailFormSchema = z.object({
   firstName: z
     .string()
     .min(1, {
@@ -32,7 +32,7 @@ const formSchema = z.object({
     }),
 });
 
-export type State =
+export type EmailFormState =
   | {
       success: boolean;
       message?: string | null;
@@ -42,6 +42,12 @@ export type State =
         email?: string[];
         message?: string[];
       };
+      inputs?: {
+        firstName?: string;
+        lastName?: string;
+        email?: string;
+        message?: string;
+      };
     }
   | undefined;
 
@@ -50,33 +56,33 @@ const url =
     ? 'https://ausathikram.vercel.app'
     : 'http://localhost:3000';
 
-export async function sendEmail(prevState: State, formData: FormData) {
-  const validatedFields = formSchema.safeParse({
-    firstName: formData.get('firstName'),
-    lastName: formData.get('lastName'),
-    email: formData.get('email'),
-    message: formData.get('message'),
-  });
-
-  if (!validatedFields.success) {
-    return {
-      success: false,
-      message: 'Invalid form fields.',
-      errors: validatedFields.error.flatten().fieldErrors,
-    };
-  }
-
+export async function sendEmail(prevState: EmailFormState, formData: FormData) {
   try {
+    const rawData = {
+      firstName: formData.get('firstName') as string,
+      lastName: formData.get('lastName') as string,
+      email: formData.get('email') as string,
+      message: formData.get('message') as string,
+    };
+
+    const validatedFields = emailFormSchema.safeParse(rawData);
+
+    if (!validatedFields.success) {
+      return {
+        success: false,
+        message: 'Invalid form fields.',
+        errors: validatedFields.error.flatten().fieldErrors,
+        inputs: rawData,
+      };
+    }
+
     const res = await fetch(`${url}/api/send`, {
       method: 'POST',
       body: formData,
     });
 
     if (!res.ok) {
-      return {
-        success: false,
-        message: 'Failed to send email.',
-      };
+      throw new Error('Failed to send email.');
     }
 
     return {
@@ -93,7 +99,7 @@ export async function sendEmail(prevState: State, formData: FormData) {
     }
     return {
       success: false,
-      message: 'Failed to send email.',
+      message: 'An unknown error occurred.',
     };
   }
 }

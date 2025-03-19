@@ -1,105 +1,119 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { sendEmail } from "@/lib/actions";
-import { cn } from "@/lib/utils";
-import { Loader, Mail } from "lucide-react";
-import { startTransition, useActionState, useEffect } from "react";
-import { toast } from "sonner";
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { sendEmail, EmailFormState } from '@/lib/actions';
+import { cn } from '@/lib/utils';
+import { Loader, Mail } from 'lucide-react';
+import { useActionState, useEffect, useId } from 'react';
+import { toast } from 'sonner';
+
+const initialState: EmailFormState = {
+  success: false,
+  message: null,
+  errors: {},
+  inputs: {},
+};
 
 export default function EmailForm() {
-  const [state, formAction, pending] = useActionState(sendEmail, undefined);
+  const [state, formAction, pending] = useActionState(sendEmail, initialState);
+  const id = useId();
 
   useEffect(() => {
     if (state && state.message) {
       if (state.success) {
         toast.success(state.message);
-      } else {
+      } else if (state.errors) {
         toast.error(state.message);
       }
     }
   }, [state]);
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    startTransition(() => formAction(new FormData(event.currentTarget)));
-  }
-
   return (
-    <form className="space-y-6" onSubmit={handleSubmit}>
+    <form className="space-y-6 text-primary" action={formAction}>
       <div className="flex gap-8">
         <div className="w-full space-y-2">
-          <Label className="text-primary" htmlFor="firstName">
-            First Name
-          </Label>
+          <Label htmlFor={`${id}-firstName`}>First Name</Label>
           <Input
             className={
               state?.errors?.firstName &&
-              "border-destructive/80 text-destructive focus-visible:border-destructive/80 focus-visible:ring-destructive/30"
+              'border-destructive/80 text-destructive focus-visible:border-destructive/80 focus-visible:ring-destructive/30'
             }
             type="text"
-            id="firstName"
+            id={`${id}-firstName`}
             name="firstName"
+            defaultValue={state?.inputs?.firstName}
+            aria-describedby={`${id}-firstName-error`}
           />
           {state?.errors?.firstName && (
-            <p className="text-destructive text-sm">{state.errors.firstName}</p>
+            <p
+              id={`${id}-firstName-error`}
+              className="text-destructive text-sm"
+            >
+              {state.errors.firstName}
+            </p>
           )}
         </div>
         <div className="w-full space-y-2">
-          <Label className="text-primary" htmlFor="lastName">
-            Last Name
-          </Label>
+          <Label htmlFor={`${id}-lastName`}>Last Name</Label>
           <Input
             className={
               state?.errors?.lastName &&
-              "border-destructive/80 text-destructive focus-visible:border-destructive/80 focus-visible:ring-destructive/30"
+              'border-destructive/80 text-destructive focus-visible:border-destructive/80 focus-visible:ring-destructive/30'
             }
             type="text"
-            id="lastName"
+            id={`${id}-lastName`}
             name="lastName"
+            defaultValue={state?.inputs?.lastName}
+            aria-describedby={`${id}-lastName-error`}
           />
           {state?.errors?.lastName && (
-            <p className="text-destructive text-sm">{state.errors.lastName}</p>
+            <p id={`${id}-lastName-error`} className="text-destructive text-sm">
+              {state.errors.lastName}
+            </p>
           )}
         </div>
       </div>
 
       <div className="space-y-2">
-        <Label className="text-primary" htmlFor="email">
-          Email
-        </Label>
+        <Label htmlFor={`${id}-email`}>Email</Label>
         <Input
           className={
             state?.errors?.email &&
-            "border-destructive/80 text-destructive focus-visible:border-destructive/80 focus-visible:ring-destructive/30"
+            'border-destructive/80 text-destructive focus-visible:border-destructive/80 focus-visible:ring-destructive/30'
           }
           type="email"
-          id="email"
+          id={`${id}-email`}
           name="email"
+          defaultValue={state?.inputs?.email}
+          aria-describedby={`${id}-email-error`}
         />
         {state?.errors?.email && (
-          <p className="text-destructive text-sm">{state.errors.email}</p>
+          <p id={`${id}-email-error`} className="text-destructive text-sm">
+            {state.errors.email}
+          </p>
         )}
       </div>
 
       <div className="space-y-2">
-        <Label className="text-primary" htmlFor="message">
-          Message
-        </Label>
+        <Label htmlFor={`${id}-message`}>Message</Label>
         <Textarea
           className={cn(
-            "resize-none",
+            'resize-none',
             state?.errors?.message &&
-              "border-destructive/80 text-destructive focus-visible:border-destructive/80 focus-visible:ring-destructive/30"
+              'border-destructive/80 text-destructive focus-visible:border-destructive/80 focus-visible:ring-destructive/30'
           )}
-          id="message"
+          id={`${id}-message`}
           name="message"
+          defaultValue={state?.inputs?.message}
+          aria-describedby={`${id}-message-error`}
         />
         {state?.errors?.message && (
-          <p className="text-destructive text-sm">{state.errors.message}</p>
+          <p id={`${id}-message-error`} className="text-destructive text-sm">
+            {state.errors.message}
+          </p>
         )}
       </div>
 
