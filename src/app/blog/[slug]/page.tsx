@@ -30,6 +30,15 @@ export async function generateMetadata(
   return {
     title: post.metadata.title,
     description: post.metadata.summary,
+    authors: [{ url: "https://ausathikram.vercel.app", name: "Ausath Ikram" }],
+    openGraph: {
+      title: post.metadata.title,
+      description: post.metadata.summary,
+      url: `https://ausathikram.vercel.app/blog/${post.slug}`,
+      siteName: "Ausath Ikram",
+      locale: "en_US",
+      type: "article",
+    }
   };
 }
 
@@ -73,7 +82,7 @@ function TableOfContents({ content }: { content: string }) {
         <h2 className="text-lg font-semibold text-primary mb-4">
           Table of Contents
         </h2>
-        <nav className="prose prose-zinc dark:prose-invert prose-sm">
+        <nav className="prose prose-zinc dark:prose-invert prose-sm prose-li:mb-2">
           <ul>
             {tableOfContents.map((heading) => (
               <li key={heading.slug}>

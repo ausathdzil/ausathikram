@@ -3,7 +3,18 @@ import Header from '@/components/layout/header';
 import { ThemeProvider } from '@/components/layout/theme-provider';
 import { Toaster } from '@/components/ui/sonner';
 import type { Metadata } from 'next';
+import { Fira_Code, Inter } from 'next/font/google';
 import './globals.css';
+
+const inter = Inter({
+  variable: '--font-inter',
+  subsets: ['latin'],
+});
+
+const firaCode = Fira_Code({
+  variable: '--font-fira-code',
+  subsets: ['latin'],
+});
 
 export const metadata: Metadata = {
   title: {
@@ -11,6 +22,14 @@ export const metadata: Metadata = {
     template: '%s | Ausath Ikram',
   },
   description: 'Web Developer',
+  openGraph: {
+    title: 'Ausath Ikram',
+    description: 'Web Developer',
+    url: 'https://ausathikram.vercel.app',
+    siteName: 'Ausath Ikram',
+    locale: 'en_US',
+    type: 'website',
+  },
 };
 
 export default function RootLayout({
@@ -20,7 +39,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="antialiased tracking-tight">
+      <body
+        className={`${inter.variable} ${firaCode.variable} font-sans antialiased tracking-tight`}
+      >
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

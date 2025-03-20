@@ -35,8 +35,8 @@ export default async function Page(props: ProjectPageProps) {
   }
 
   return (
-    <section className="w-full space-y-12">
-      <div className="space-y-4">
+    <section className="w-full">
+      <div className="space-y-8">
         {project.image && (
           <div className="relative w-[250px] h-[150px] sm:w-[350px] sm:h-[300px] lg:w-[600px] max-w-full lg:h-[300px]">
             <Image
@@ -51,30 +51,30 @@ export default async function Page(props: ProjectPageProps) {
             />
           </div>
         )}
-        <article className="space-y-4">
-          <h1 className="text-4xl text-primary font-bold">{project.title}</h1>
-          <p className="text-lg">{project.description}</p>
+        <article className="space-y-2">
+          <h1 className="text-xl text-primary">{project.title}</h1>
+          <p>{project.description}</p>
         </article>
-        <div className="flex space-x-4">
+        <div className="flex items-center gap-4 text-primary">
           {project.link && (
             <a
-              className="flex gap-2 items-center text-primary hover:underline underline-offset-4"
+              className="flex gap-2 items-center"
               href={project.link}
               target="_blank"
               rel="noopener noreferrer"
             >
-              <span>View site</span>
+              <span>View Demo</span>
               <ArrowUpRightIcon />
             </a>
           )}
           {project.repo && (
             <a
-              className="flex gap-2 items-center text-primary hover:underline underline-offset-4"
+              className="flex gap-2 items-center"
               href={project.repo}
               target="_blank"
               rel="noopener noreferrer"
             >
-              <span>GitHub repo</span>
+              <span>GitHub Repo</span>
               <ArrowUpRightIcon />
             </a>
           )}

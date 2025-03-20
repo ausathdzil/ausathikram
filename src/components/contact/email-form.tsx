@@ -4,21 +4,14 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { sendEmail, EmailFormState } from '@/lib/actions';
+import { sendEmail } from '@/lib/actions';
 import { cn } from '@/lib/utils';
 import { Loader, Mail } from 'lucide-react';
 import { useActionState, useEffect, useId } from 'react';
 import { toast } from 'sonner';
 
-const initialState: EmailFormState = {
-  success: false,
-  message: null,
-  errors: {},
-  inputs: {},
-};
-
 export default function EmailForm() {
-  const [state, formAction, pending] = useActionState(sendEmail, initialState);
+  const [state, formAction, pending] = useActionState(sendEmail, undefined);
   const id = useId();
 
   useEffect(() => {
@@ -39,7 +32,7 @@ export default function EmailForm() {
           <Input
             className={
               state?.errors?.firstName &&
-              'border-destructive/80 text-destructive focus-visible:border-destructive/80 focus-visible:ring-destructive/30'
+              'border-destructive/80 focus-visible:border-destructive/80 focus-visible:ring-destructive/30'
             }
             type="text"
             id={`${id}-firstName`}
@@ -61,7 +54,7 @@ export default function EmailForm() {
           <Input
             className={
               state?.errors?.lastName &&
-              'border-destructive/80 text-destructive focus-visible:border-destructive/80 focus-visible:ring-destructive/30'
+              'border-destructive/80 focus-visible:border-destructive/80 focus-visible:ring-destructive/30'
             }
             type="text"
             id={`${id}-lastName`}
@@ -82,7 +75,7 @@ export default function EmailForm() {
         <Input
           className={
             state?.errors?.email &&
-            'border-destructive/80 text-destructive focus-visible:border-destructive/80 focus-visible:ring-destructive/30'
+            'border-destructive/80 focus-visible:border-destructive/80 focus-visible:ring-destructive/30'
           }
           type="email"
           id={`${id}-email`}
@@ -103,7 +96,7 @@ export default function EmailForm() {
           className={cn(
             'resize-none',
             state?.errors?.message &&
-              'border-destructive/80 text-destructive focus-visible:border-destructive/80 focus-visible:ring-destructive/30'
+              'border-destructive/80 focus-visible:border-destructive/80 focus-visible:ring-destructive/30'
           )}
           id={`${id}-message`}
           name="message"

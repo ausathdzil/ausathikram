@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <section className="space-y-8">
       <article className="space-y-4 text-lg">
-        <h1 className="text-2xl text-primary font-semibold">Ausath Ikram</h1>
+        <h1 className="text-xl text-primary">Ausath Ikram</h1>
         <p className="[&>strong]:text-primary [&>strong]:font-normal">
           I&apos;m a <strong>Web Developer</strong> who mainly work with{" "}
           <strong>Next.js</strong>. I&apos;m always{" "}
@@ -14,22 +14,22 @@ export default function Home() {
           become a better developer.
         </p>
       </article>
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 text-primary">
         <Link
           href="/blog"
-          className="text-xl font-semibold text-primary hover:underline underline-offset-4"
+          className="text-xl hover:underline underline-offset-4"
         >
           Blog
         </Link>
         <RecentPosts />
       </div>
-      <div className="space-y-4">
-        <div className="flex items-center text-muted-foreground gap-2">
+      <div className="space-y-4 text-muted-foreground">
+        <div className="flex items-center gap-2">
           <MapPinIcon size={16} />
           <p>Jakarta, Indonesia</p>
         </div>
         <Link
-          className="flex items-center text-muted-foreground gap-2 hover:underline underline-offset-4"
+          className="flex items-center gap-2 hover:underline underline-offset-4"
           href="/contact"
         >
           <AtSign size={16} />
@@ -50,7 +50,7 @@ function RecentPosts() {
         new Date(a.metadata.publishedAt).getTime()
       );
     })
-    .splice(0, 3);
+    .splice(0, 4);
 
   return (
     <ul className="space-y-2">
@@ -58,11 +58,11 @@ function RecentPosts() {
         <li key={post.slug}>
           <Link
             href={`/blog/${post.slug}`}
-            className="text-lg text-primary hover:underline underline-offset-4"
+            className="text-lg hover:underline underline-offset-4"
           >
             {post.metadata.title}
           </Link>
-          <p>{formatDate(post.metadata.publishedAt)}</p>
+          <p className="text-muted-foreground">{formatDate(post.metadata.publishedAt)}</p>
         </li>
       ))}
     </ul>
