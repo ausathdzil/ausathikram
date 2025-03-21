@@ -20,9 +20,20 @@ export async function generateMetadata(
   const params = await props.params;
   const project = projects.find((project) => project.slug === params.slug);
 
+  if (!project) {
+    notFound();
+  }
+
   return {
-    title: project?.title,
-    description: project?.description,
+    title: project.title,
+    description: project.description,
+    openGraph: {
+      title: project.title,
+      description: project.description,
+      url: `https://ausathikram.vercel.app/projects/${project.slug}`,
+      siteName: 'Ausath Ikram',
+      locale: 'en_US',
+    },
   };
 }
 

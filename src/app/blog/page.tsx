@@ -5,6 +5,13 @@ import Link from 'next/link';
 export const metadata: Metadata = {
   title: 'Blog',
   description: 'Ausath Ikram blog.',
+  openGraph: {
+    title: 'Blog | Ausath Ikram',
+    description: "Ausath Ikram's blog.",
+    url: 'https://ausathikram.vercel.app/blog',
+    siteName: 'Ausath Ikram',
+    locale: 'en_US',
+  },
 };
 
 export default function Page() {

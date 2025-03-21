@@ -22,10 +22,7 @@ export default function Footer() {
       >
         LinkedIn
       </a>
-      <Link
-        className={pathname === '/contact' ? 'underline' : ''}
-        href="/contact"
-      >
+      <Link className={pathname === '/email' ? 'underline' : ''} href="/email">
         Email
       </Link>
     </footer>

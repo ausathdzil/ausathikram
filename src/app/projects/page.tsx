@@ -4,7 +4,14 @@ import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'Projects',
-  description: 'Ausath Ikram projects.',
+  description: "Ausath Ikram's projects.",
+  openGraph: {
+    title: 'Projects | Ausath Ikram',
+    description: 'Ausath Ikram projects.',
+    url: 'https://ausathikram.vercel.app/projects',
+    siteName: 'Ausath Ikram',
+    locale: 'en_US',
+  },
 };
 
 export default function Page() {

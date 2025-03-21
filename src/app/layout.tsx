@@ -17,6 +17,7 @@ const firaCode = Fira_Code({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://ausathikram.vercel.app'),
   title: {
     default: 'Ausath Ikram',
     template: '%s | Ausath Ikram',
@@ -29,6 +30,13 @@ export const metadata: Metadata = {
     siteName: 'Ausath Ikram',
     locale: 'en_US',
     type: 'website',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    "max-video-preview": -1,
+    "max-image-preview": 'large',
+    "max-snippet": -1,
   },
 };
 

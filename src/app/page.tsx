@@ -30,10 +30,10 @@ export default function Home() {
         </div>
         <Link
           className="flex items-center gap-2 hover:underline underline-offset-4"
-          href="/contact"
+          href="/email"
         >
           <AtSign size={16} />
-          <p>Contact Me</p>
+          <p>Email Me</p>
         </Link>
       </div>
     </section>
