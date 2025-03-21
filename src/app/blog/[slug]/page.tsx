@@ -1,9 +1,9 @@
-import CustomMDX from "@/components/blog/custom-mdx";
-import { formatDate, getBlogPosts, getTableOfContents } from "@/lib/blog";
-import { ArrowLeft, ArrowUp } from "lucide-react";
-import { Metadata } from "next";
-import Link from "next/link";
-import { notFound } from "next/navigation";
+import CustomMDX from '@/components/blog/custom-mdx';
+import { formatDate, getBlogPosts, getTableOfContents } from '@/lib/blog';
+import { ArrowLeft, ArrowUp } from 'lucide-react';
+import { Metadata } from 'next';
+import Link from 'next/link';
+import { notFound } from 'next/navigation';
 
 type PostPageProps = {
   params: Promise<{ slug: string }>;
@@ -30,15 +30,15 @@ export async function generateMetadata(
   return {
     title: post.metadata.title,
     description: post.metadata.summary,
-    authors: [{ url: "https://ausathikram.vercel.app", name: "Ausath Ikram" }],
+    authors: [{ url: 'https://ausathikram.vercel.app', name: 'Ausath Ikram' }],
     openGraph: {
       title: post.metadata.title,
       description: post.metadata.summary,
       url: `https://ausathikram.vercel.app/blog/${post.slug}`,
-      siteName: "Ausath Ikram",
-      locale: "en_US",
-      type: "article",
-    }
+      siteName: 'Ausath Ikram',
+      locale: 'en_US',
+      type: 'article',
+    },
   };
 }
 
@@ -56,7 +56,7 @@ export default async function Page(props: PostPageProps) {
         <h1 className="text-4xl text-primary font-semibold">
           {post.metadata.title}
         </h1>
-        <p>{formatDate(post.metadata.publishedAt)}</p>
+        <p>{formatDate(post.metadata.publishedAt)} &bull; Ausath Ikram</p>
       </article>
       <TableOfContents content={post.content} />
       <article className="prose prose-zinc dark:prose-invert prose-sm sm:prose-base">

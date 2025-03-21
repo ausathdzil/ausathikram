@@ -1,3 +1,4 @@
+import Opengraph from '@/components/opengraph';
 import { ImageResponse } from 'next/og';
 
 export const runtime = 'edge';
@@ -11,25 +12,7 @@ export const size = {
 export const contentType = 'image/png';
 
 export default function Image() {
-  return new ImageResponse(
-    (
-      <div
-        style={{
-          fontSize: 64,
-          background: 'white',
-          width: '100%',
-          height: '100%',
-          display: 'flex',
-          alignItems: 'flex-end',
-          justifyContent: 'flex-start',
-          padding: '6rem 4rem',
-        }}
-      >
-        Blog
-      </div>
-    ),
-    {
-      ...size,
-    }
-  );
+  return new ImageResponse(<Opengraph title="Blog" />, {
+    ...size,
+  });
 }

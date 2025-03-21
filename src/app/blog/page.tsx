@@ -48,7 +48,7 @@ function BlogPosts() {
               {post.metadata.title}
             </Link>
             <p>{formatDate(post.metadata.publishedAt)}</p>
-            <p className="hidden md:block">{post.metadata.summary}</p>
+            <p className="hidden md:block text-sm">{post.metadata.summary}</p>
           </div>
         </li>
       ))}

@@ -1,6 +1,6 @@
-import { formatDate, getBlogPosts } from "@/lib/blog";
-import { AtSign, MapPinIcon } from "lucide-react";
-import Link from "next/link";
+import { formatDate, getBlogPosts } from '@/lib/blog';
+import { AtSignIcon, MapPinIcon } from 'lucide-react';
+import Link from 'next/link';
 
 export default function Home() {
   return (
@@ -8,17 +8,14 @@ export default function Home() {
       <article className="space-y-4 text-lg">
         <h1 className="text-xl text-primary">Ausath Ikram</h1>
         <p className="[&>strong]:text-primary [&>strong]:font-normal">
-          I&apos;m a <strong>Web Developer</strong> who mainly work with{" "}
-          <strong>Next.js</strong>. I&apos;m always{" "}
+          I&apos;m a <strong>Web Developer</strong> who mainly work with{' '}
+          <strong>Next.js</strong>. I&apos;m always{' '}
           <strong>looking for new opportunities to learn and grow</strong> to
           become a better developer.
         </p>
       </article>
       <div className="flex flex-col gap-2 text-primary">
-        <Link
-          href="/blog"
-          className="text-xl hover:underline underline-offset-4"
-        >
+        <Link className="w-fit text-xl" href="/blog">
           Blog
         </Link>
         <RecentPosts />
@@ -29,11 +26,11 @@ export default function Home() {
           <p>Jakarta, Indonesia</p>
         </div>
         <Link
-          className="flex items-center gap-2 hover:underline underline-offset-4"
+          className="w-fit flex items-center gap-2"
           href="/email"
         >
-          <AtSign size={16} />
-          <p>Email Me</p>
+          <AtSignIcon size={16} />
+          <span>Email Me</span>
         </Link>
       </div>
     </section>
@@ -56,13 +53,12 @@ function RecentPosts() {
     <ul className="space-y-2">
       {recentPosts.map((post) => (
         <li key={post.slug}>
-          <Link
-            href={`/blog/${post.slug}`}
-            className="text-lg hover:underline underline-offset-4"
-          >
+          <Link className="w-fit text-lg" href={`/blog/${post.slug}`}>
             {post.metadata.title}
           </Link>
-          <p className="text-muted-foreground">{formatDate(post.metadata.publishedAt)}</p>
+          <p className="text-muted-foreground">
+            {formatDate(post.metadata.publishedAt)}
+          </p>
         </li>
       ))}
     </ul>
