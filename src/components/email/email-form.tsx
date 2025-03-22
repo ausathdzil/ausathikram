@@ -26,7 +26,7 @@ export default function EmailForm() {
 
   return (
     <form className="space-y-6 text-primary" action={formAction}>
-      <div className="flex gap-8">
+      <div className="flex gap-4 lg:gap-8">
         <div className="w-full space-y-2">
           <Label htmlFor={`${id}-firstName`}>First Name</Label>
           <Input
@@ -43,7 +43,7 @@ export default function EmailForm() {
           {state?.errors?.firstName && (
             <p
               id={`${id}-firstName-error`}
-              className="text-destructive text-sm"
+              className="text-destructive text-xs lg:text-sm"
             >
               {state.errors.firstName}
             </p>
@@ -63,7 +63,7 @@ export default function EmailForm() {
             aria-describedby={`${id}-lastName-error`}
           />
           {state?.errors?.lastName && (
-            <p id={`${id}-lastName-error`} className="text-destructive text-sm">
+            <p id={`${id}-lastName-error`} className="text-destructive text-xs lg:text-sm">
               {state.errors.lastName}
             </p>
           )}
@@ -84,7 +84,7 @@ export default function EmailForm() {
           aria-describedby={`${id}-email-error`}
         />
         {state?.errors?.email && (
-          <p id={`${id}-email-error`} className="text-destructive text-sm">
+          <p id={`${id}-email-error`} className="text-destructive text-xs lg:text-sm">
             {state.errors.email}
           </p>
         )}
@@ -104,7 +104,7 @@ export default function EmailForm() {
           aria-describedby={`${id}-message-error`}
         />
         {state?.errors?.message && (
-          <p id={`${id}-message-error`} className="text-destructive text-sm">
+          <p id={`${id}-message-error`} className="text-destructive text-xs lg:text-sm">
             {state.errors.message}
           </p>
         )}

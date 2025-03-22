@@ -3,17 +3,20 @@ import Header from '@/components/layout/header';
 import { ThemeProvider } from '@/components/layout/theme-provider';
 import { Toaster } from '@/components/ui/sonner';
 import type { Metadata } from 'next';
-import { Fira_Code, Inter } from 'next/font/google';
+import { Roboto_Mono } from 'next/font/google';
+import localFont from 'next/font/local';
 import './globals.css';
 
-const inter = Inter({
+const inter = localFont({
+  src: './fonts/InterVariable.woff2',
+  display: 'swap',
   variable: '--font-inter',
-  subsets: ['latin'],
 });
 
-const firaCode = Fira_Code({
-  variable: '--font-fira-code',
+const robotoMono = Roboto_Mono({
   subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-roboto-mono',
 });
 
 export const metadata: Metadata = {
@@ -31,13 +34,6 @@ export const metadata: Metadata = {
     locale: 'en_US',
     type: 'website',
   },
-  robots: {
-    index: true,
-    follow: true,
-    "max-video-preview": -1,
-    "max-image-preview": 'large',
-    "max-snippet": -1,
-  },
 };
 
 export default function RootLayout({
@@ -48,7 +44,8 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${inter.variable} ${firaCode.variable} font-sans antialiased tracking-tight`}
+        className={`${inter.variable} ${robotoMono.variable} font-sans antialiased tracking-tight`}
+        style={{ fontFeatureSettings: "'ss01', 'cv11'" }}
       >
         <ThemeProvider
           attribute="class"

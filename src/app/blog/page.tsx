@@ -40,9 +40,9 @@ function BlogPosts() {
     <ul className="space-y-4">
       {sortedPosts.map((post) => (
         <li key={post.slug}>
-          <div className="grid grid-cols-[1fr_auto] gap-4 sm:gap-0">
+          <div className="grid grid-cols-[1fr_auto] gap-0">
             <Link
-              className="sm:text-lg text-primary"
+              className="w-fit sm:text-lg text-primary col-span-2 lg:col-span-1"
               href={`/blog/${post.slug}`}
             >
               {post.metadata.title}

@@ -30,7 +30,7 @@ export default function Page() {
             >
               {project.title}
             </Link>
-            <p>{project.description}</p>
+            <p className='text-sm'>{project.description}</p>
           </li>
         ))}
       </ul>

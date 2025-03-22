@@ -10,6 +10,9 @@ export const size = {
 
 export const contentType = 'image/png';
 
-export default function Image() {
-  return OpengraphImage({ title: 'Blog', size: size });
+export default function Image({ params }: { params: { slug: string } }) {
+  const { slug } = params;
+  const title = slug.replace(/-/g, ' ');
+
+  return OpengraphImage({ title: title, size: size });
 }

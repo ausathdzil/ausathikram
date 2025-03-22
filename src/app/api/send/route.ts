@@ -13,14 +13,12 @@ export async function POST(request: Request) {
 
   try {
     const { data, error } = await resend.emails.send({
-      from: `${firstName} <onboarding@resend.dev>`,
+      from: `${firstName} ${lastName} <onboarding@resend.dev>`,
       to: ['ausathdzil@gmail.com'],
       subject: 'Email from your website',
       react: EmailTemplate({
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
         message: message,
+        email: email,
       }) as React.ReactElement,
     });
 
