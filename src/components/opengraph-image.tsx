@@ -1,6 +1,26 @@
 import { ImageResponse } from 'next/og';
 
-export default function OpengraphImage({
+async function loadGoogleFont() {
+  const res = await fetch(
+    'https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,700&display=swap'
+  ).then((res) => res.text());
+
+  const fontUrlMatch = res.match(
+    /url\((https:\/\/fonts\.gstatic\.com[^)]+\.ttf)\)/
+  );
+
+  if (!fontUrlMatch) {
+    throw new Error('Could not find font URL');
+  }
+
+  const fontBuffer = await fetch(fontUrlMatch[1]).then((res) =>
+    res.arrayBuffer()
+  );
+
+  return fontBuffer;
+}
+
+export default async function OpengraphImage({
   title,
   size,
 }: {
@@ -27,6 +47,14 @@ export default function OpengraphImage({
     ),
     {
       ...size,
+      fonts: [
+        {
+          name: 'Inter',
+          data: await loadGoogleFont(),
+          style: 'normal',
+          weight: 700,
+        },
+      ],
     }
   );
 }
