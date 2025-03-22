@@ -1,4 +1,5 @@
 import { projects } from '@/lib/projects';
+import { url } from '@/lib/utils';
 import { ArrowUpRightIcon } from 'lucide-react';
 import { Metadata } from 'next';
 import Image from 'next/image';
@@ -33,6 +34,14 @@ export async function generateMetadata(
       url: `https://ausathikram.vercel.app/projects/${project.slug}`,
       siteName: 'Ausath Ikram',
       locale: 'en_US',
+      images: [
+        {
+          url: `${url}/api/og?title=${project.title}`,
+          width: 1200,
+          height: 630,
+          alt: `${project.title}`,
+        },
+      ],
     },
   };
 }

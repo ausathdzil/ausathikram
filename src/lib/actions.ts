@@ -1,6 +1,7 @@
 'use server';
 
 import { z } from 'zod';
+import { url } from './utils';
 
 const emailFormSchema = z.object({
   firstName: z
@@ -50,11 +51,6 @@ export type EmailFormState =
       };
     }
   | undefined;
-
-const url =
-  process.env.NODE_ENV === 'production'
-    ? 'https://ausathikram.vercel.app'
-    : 'http://localhost:3000';
 
 export async function sendEmail(prevState: EmailFormState, formData: FormData) {
   try {

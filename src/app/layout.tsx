@@ -6,6 +6,7 @@ import type { Metadata } from 'next';
 import { Roboto_Mono } from 'next/font/google';
 import localFont from 'next/font/local';
 import './globals.css';
+import { url } from '@/lib/utils';
 
 const inter = localFont({
   src: './fonts/InterVariable.woff2',
@@ -33,6 +34,15 @@ export const metadata: Metadata = {
     siteName: 'Ausath Ikram',
     locale: 'en_US',
     type: 'website',
+    images: [
+      {
+        url: `${url}/api/og?title=Ausath%20Ikram`,
+        alt: 'Ausath Ikram',
+        type: 'image/png',
+        width: 1200,
+        height: 630,
+      },
+    ],
   },
 };
 

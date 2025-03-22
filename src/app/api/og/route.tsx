@@ -1,8 +1,11 @@
 import { ImageResponse } from 'next/og';
+import { NextRequest } from 'next/server';
+
+export const runtime = 'edge';
 
 async function loadGoogleFont() {
   const res = await fetch(
-    'https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,700&display=swap'
+    'https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400&display=swap'
   ).then((res) => res.text());
 
   const fontUrlMatch = res.match(
@@ -20,13 +23,10 @@ async function loadGoogleFont() {
   return fontBuffer;
 }
 
-export default async function OpengraphImage({
-  title,
-  size,
-}: {
-  title: string;
-  size: { width: number; height: number };
-}) {
+export async function GET(request: NextRequest) {
+  const searchParams = request.nextUrl.searchParams;
+  const title = searchParams.get('title') || 'Ausath Ikram';
+
   return new ImageResponse(
     (
       <div
@@ -38,15 +38,13 @@ export default async function OpengraphImage({
           display: 'flex',
           alignItems: 'flex-end',
           justifyContent: 'flex-start',
-          padding: '6rem 4rem',
-          textTransform: 'capitalize',
+          padding: '6rem',
         }}
       >
         {title}
       </div>
     ),
     {
-      ...size,
       fonts: [
         {
           name: 'Inter',

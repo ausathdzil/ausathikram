@@ -1,4 +1,5 @@
 import EmailForm from '@/components/email/email-form';
+import { url } from '@/lib/utils';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -10,6 +11,14 @@ export const metadata: Metadata = {
     url: 'https://ausathikram.vercel.app/email',
     siteName: 'Ausath Ikram',
     locale: 'en_US',
+    images: [
+      {
+        url: `${url}/api/og?title=Email`,
+        width: 1200,
+        height: 630,
+        alt: 'Reach out to me for any inquiries.',
+      },
+    ],
   },
 };
 
