@@ -9,7 +9,7 @@ import './globals.css';
 import { url } from '@/lib/utils';
 
 const inter = localFont({
-  src: './fonts/InterVariable.woff2',
+  src: '../../public/fonts/InterVariable.woff2',
   display: 'swap',
   variable: '--font-inter',
 });
