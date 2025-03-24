@@ -8,24 +8,13 @@ export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const title = searchParams.get('title') || 'Ausath Ikram';
 
-  const inter = await fetch(url + '/fonts/Inter-Regular.ttf').then((res) =>
+  const inter = await fetch(url + '/fonts/Inter-SemiBold.ttf').then((res) =>
     res.arrayBuffer()
   );
 
   return new ImageResponse(
     (
-      <div
-        style={{
-          fontSize: 60,
-          background: 'white',
-          width: '100%',
-          height: '100%',
-          display: 'flex',
-          alignItems: 'flex-end',
-          justifyContent: 'flex-start',
-          padding: '6rem',
-        }}
-      >
+      <div tw="text-6xl bg-white w-full h-full flex items-end justify-start tracking-tight p-24">
         {title}
       </div>
     ),
@@ -34,7 +23,7 @@ export async function GET(request: NextRequest) {
         {
           data: inter,
           name: 'Inter',
-          weight: 400,
+          weight: 600,
           style: 'normal',
         },
       ],

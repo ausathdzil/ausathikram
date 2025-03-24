@@ -1,6 +1,10 @@
+'use client';
+
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 export default function Footer() {
+  const pathname = usePathname();
   return (
     <footer className="w-full border-t flex justify-start items-center gap-8 text-right py-8">
       <a
@@ -17,7 +21,12 @@ export default function Footer() {
       >
         LinkedIn
       </a>
-      <Link href="/email">Email</Link>
+      <Link
+        className={pathname === '/email' ? 'text-blue-400' : ''}
+        href="/email"
+      >
+        Email
+      </Link>
     </footer>
   );
 }
