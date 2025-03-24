@@ -1,7 +1,7 @@
 import CustomMDX from '@/components/blog/custom-mdx';
 import { formatDate, getBlogPosts, getTableOfContents } from '@/lib/blog';
 import { url } from '@/lib/utils';
-import { ArrowLeft, ArrowUp } from 'lucide-react';
+import { ArrowLeftIcon, ArrowUpIcon } from 'lucide-react';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -72,8 +72,8 @@ export default async function Page(props: PostPageProps) {
         <CustomMDX source={post.content} />
       </article>
       <Link className="w-fit flex items-center gap-2" href="/blog">
-        <ArrowLeft size={16} />
-        <span>All posts</span>
+        <ArrowLeftIcon size={16} />
+        <span>Blog</span>
       </Link>
     </section>
   );
@@ -83,10 +83,10 @@ function TableOfContents({ content }: { content: string }) {
   const tableOfContents = getTableOfContents(content);
 
   return (
-    <aside className="hidden xl:block fixed right-36 top-24 w-64 opacity-60 hover:opacity-100 transition-opacity duration-200">
-      <div className="p-4">
+    <aside className="hidden xl:block fixed right-36 top-24 w-64 opacity-60 hover:opacity-100 transition-opacity">
+      <div className="p-4 prose prose-zinc dark:prose-invert prose-sm prose-li:mb-2">
         <h2 className="text-lg font-semibold mb-4">Table of Contents</h2>
-        <nav className="prose prose-zinc dark:prose-invert prose-sm prose-li:mb-2">
+        <nav>
           <ul>
             {tableOfContents.map((heading) => (
               <li key={heading.slug}>
@@ -96,10 +96,10 @@ function TableOfContents({ content }: { content: string }) {
           </ul>
         </nav>
         <a
-          className="flex items-center gap-2 mt-4 prose prose-zinc dark:prose-invert prose-sm"
+          className="w-fit flex items-center gap-2 mt-4 hover:underline underline-offset-4"
           href="#top"
         >
-          <ArrowUp size={16} />
+          <ArrowUpIcon size={16} />
           <span>Back to top</span>
         </a>
       </div>

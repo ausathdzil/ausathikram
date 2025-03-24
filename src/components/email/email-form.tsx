@@ -6,7 +6,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { sendEmail } from '@/lib/actions';
 import { cn } from '@/lib/utils';
-import { Loader, Mail } from 'lucide-react';
+import { LoaderIcon, MailIcon } from 'lucide-react';
 import { useActionState, useEffect, useId } from 'react';
 import { toast } from 'sonner';
 
@@ -63,7 +63,10 @@ export default function EmailForm() {
             aria-describedby={`${id}-lastName-error`}
           />
           {state?.errors?.lastName && (
-            <p id={`${id}-lastName-error`} className="text-destructive text-xs lg:text-sm">
+            <p
+              id={`${id}-lastName-error`}
+              className="text-destructive text-xs lg:text-sm"
+            >
               {state.errors.lastName}
             </p>
           )}
@@ -84,7 +87,10 @@ export default function EmailForm() {
           aria-describedby={`${id}-email-error`}
         />
         {state?.errors?.email && (
-          <p id={`${id}-email-error`} className="text-destructive text-xs lg:text-sm">
+          <p
+            id={`${id}-email-error`}
+            className="text-destructive text-xs lg:text-sm"
+          >
             {state.errors.email}
           </p>
         )}
@@ -104,7 +110,10 @@ export default function EmailForm() {
           aria-describedby={`${id}-message-error`}
         />
         {state?.errors?.message && (
-          <p id={`${id}-message-error`} className="text-destructive text-xs lg:text-sm">
+          <p
+            id={`${id}-message-error`}
+            className="text-destructive text-xs lg:text-sm"
+          >
             {state.errors.message}
           </p>
         )}
@@ -112,7 +121,7 @@ export default function EmailForm() {
 
       <div className="flex justify-end">
         <Button type="submit" disabled={pending}>
-          {pending ? <Loader className="animate-spin" /> : <Mail />}
+          {pending ? <LoaderIcon className="animate-spin" /> : <MailIcon />}
           <span>Send</span>
         </Button>
       </div>

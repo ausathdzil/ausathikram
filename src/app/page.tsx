@@ -5,7 +5,7 @@ import Link from 'next/link';
 export default function Home() {
   return (
     <section className="space-y-8">
-      <article className="space-y-4 text-lg">
+      <article className="space-y-4">
         <h1 className="text-xl text-primary">Ausath Ikram</h1>
         <p className="text-muted-foreground [&>strong]:text-primary [&>strong]:font-normal">
           I&apos;m a <strong>Web Developer</strong> who mainly work with{' '}
@@ -50,7 +50,7 @@ function RecentPosts() {
     <ul className="space-y-2">
       {recentPosts.map((post) => (
         <li key={post.slug}>
-          <Link className="w-fit text-lg" href={`/blog/${post.slug}`}>
+          <Link className="w-fit" href={`/blog/${post.slug}`}>
             {post.metadata.title}
           </Link>
           <p className="text-muted-foreground">
