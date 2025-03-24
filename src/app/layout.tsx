@@ -66,7 +66,7 @@ export default function RootLayout({
         >
           <div className="flex flex-col items-center min-h-screen max-w-2xl mx-auto px-8">
             <Header />
-            <ViewTransition>
+            <ViewTransition name="crossfade">
               <main className="w-full grow flex flex-col items-center pb-8">
                 {children}
               </main>
