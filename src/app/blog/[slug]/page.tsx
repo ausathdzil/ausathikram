@@ -62,19 +62,16 @@ export default async function Page(props: PostPageProps) {
   return (
     <section className="w-full space-y-8">
       <article className="space-y-2">
-        <h1 className="text-4xl text-primary font-semibold">
-          {post.metadata.title}
-        </h1>
-        <p>{formatDate(post.metadata.publishedAt)} &bull; Ausath Ikram</p>
+        <h1 className="text-4xl font-semibold">{post.metadata.title}</h1>
+        <p className="text-muted-foreground">
+          {formatDate(post.metadata.publishedAt)} &bull; Ausath Ikram
+        </p>
       </article>
       <TableOfContents content={post.content} />
       <article className="prose prose-zinc dark:prose-invert prose-sm sm:prose-base">
         <CustomMDX source={post.content} />
       </article>
-      <Link
-        className="w-fit flex items-center gap-2 text-muted-foreground hover:text-primary"
-        href="/blog"
-      >
+      <Link className="w-fit flex items-center gap-2" href="/blog">
         <ArrowLeft size={16} />
         <span>All posts</span>
       </Link>
@@ -88,9 +85,7 @@ function TableOfContents({ content }: { content: string }) {
   return (
     <aside className="hidden xl:block fixed right-36 top-24 w-64 opacity-60 hover:opacity-100 transition-opacity duration-200">
       <div className="p-4">
-        <h2 className="text-lg font-semibold text-primary mb-4">
-          Table of Contents
-        </h2>
+        <h2 className="text-lg font-semibold mb-4">Table of Contents</h2>
         <nav className="prose prose-zinc dark:prose-invert prose-sm prose-li:mb-2">
           <ul>
             {tableOfContents.map((heading) => (

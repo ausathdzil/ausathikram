@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 
 export default function NotFound() {
   return (
-    <div className="flex-1 flex flex-col justify-center items-center text-center text-primary space-y-4">
+    <div className="flex-1 flex flex-col justify-center items-center text-center space-y-4">
       <FrownIcon size={64} />
       <h1 className="text-xl lg:text-4xl">404 Not Found</h1>
     </div>

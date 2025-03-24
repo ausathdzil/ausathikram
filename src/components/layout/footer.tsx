@@ -1,13 +1,8 @@
-'use client';
-
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 
 export default function Footer() {
-  const pathname = usePathname();
-
   return (
-    <footer className="w-full border-t flex justify-start items-center gap-8 text-right py-8 text-primary">
+    <footer className="w-full border-t flex justify-start items-center gap-8 text-right py-8">
       <a
         href="https://github.com/ausathdzil"
         rel="noopener noreferrer"
@@ -22,9 +17,7 @@ export default function Footer() {
       >
         LinkedIn
       </a>
-      <Link className={pathname === '/email' ? 'underline' : ''} href="/email">
-        Email
-      </Link>
+      <Link href="/email">Email</Link>
     </footer>
   );
 }

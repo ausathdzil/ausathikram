@@ -72,29 +72,29 @@ export default async function Page(props: ProjectPageProps) {
           </div>
         )}
         <article className="space-y-2">
-          <h1 className="text-xl text-primary">{project.title}</h1>
-          <p>{project.description}</p>
+          <h1 className="text-xl">{project.title}</h1>
+          <p className="text-muted-foreground">{project.description}</p>
         </article>
-        <div className="flex items-center gap-4 text-primary">
+        <div className="flex items-center gap-4">
           {project.link && (
             <a
-              className="flex gap-2 items-center"
+              className="flex gap-1 items-center"
               href={project.link}
               target="_blank"
               rel="noopener noreferrer"
             >
-              <span>View Demo</span>
+              <span>Demo</span>
               <ArrowUpRightIcon />
             </a>
           )}
           {project.repo && (
             <a
-              className="flex gap-2 items-center"
+              className="flex gap-1 items-center"
               href={project.repo}
               target="_blank"
               rel="noopener noreferrer"
             >
-              <span>GitHub Repo</span>
+              <span>GitHub</span>
               <ArrowUpRightIcon />
             </a>
           )}

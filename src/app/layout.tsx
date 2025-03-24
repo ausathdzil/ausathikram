@@ -2,11 +2,12 @@ import Footer from '@/components/layout/footer';
 import Header from '@/components/layout/header';
 import { ThemeProvider } from '@/components/layout/theme-provider';
 import { Toaster } from '@/components/ui/sonner';
+import { url } from '@/lib/utils';
 import type { Metadata } from 'next';
 import { Roboto_Mono } from 'next/font/google';
 import localFont from 'next/font/local';
+import { unstable_ViewTransition as ViewTransition } from 'react';
 import './globals.css';
-import { url } from '@/lib/utils';
 
 const inter = localFont({
   src: '../../public/fonts/InterVariable.woff2',
@@ -54,7 +55,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${inter.variable} ${robotoMono.variable} font-sans antialiased tracking-tight`}
+        className={`${inter.variable} ${robotoMono.variable}`}
         style={{ fontFeatureSettings: "'ss01', 'cv11'" }}
       >
         <ThemeProvider
@@ -65,9 +66,11 @@ export default function RootLayout({
         >
           <div className="flex flex-col items-center min-h-screen max-w-2xl mx-auto px-8">
             <Header />
-            <main className="w-full grow flex flex-col items-center pb-8">
-              {children}
-            </main>
+            <ViewTransition>
+              <main className="w-full grow flex flex-col items-center pb-8">
+                {children}
+              </main>
+            </ViewTransition>
             <Toaster richColors />
             <Footer />
           </div>

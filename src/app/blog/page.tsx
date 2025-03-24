@@ -17,7 +17,7 @@ export const metadata: Metadata = {
         url: `${url}/api/og?title=Blog%20|%20Ausath%20Ikram`,
         width: 1200,
         height: 630,
-        alt: "Things that interest me, mostly about web development.",
+        alt: 'Things that interest me, mostly about web development.',
       },
     ],
   },
@@ -27,8 +27,10 @@ export default function Page() {
   return (
     <section className="w-full space-y-8">
       <article className="space-y-2">
-        <h1 className="text-primary text-xl">Blog</h1>
-        <p>Things that interest me, mostly about web development.</p>
+        <h1 className="text-xl">Blog</h1>
+        <p className="text-muted-foreground">
+          Things that interest me, mostly about web development.
+        </p>
       </article>
       <BlogPosts />
     </section>
@@ -51,13 +53,17 @@ function BlogPosts() {
         <li key={post.slug}>
           <div className="grid grid-cols-[1fr_auto] gap-0">
             <Link
-              className="w-fit sm:text-lg text-primary col-span-2 lg:col-span-1"
+              className="w-fit sm:text-lg col-span-2 md:col-span-1"
               href={`/blog/${post.slug}`}
             >
               {post.metadata.title}
             </Link>
-            <p>{formatDate(post.metadata.publishedAt)}</p>
-            <p className="hidden md:block text-sm">{post.metadata.summary}</p>
+            <p className="text-muted-foreground">
+              {formatDate(post.metadata.publishedAt)}
+            </p>
+            <p className="hidden md:block text-sm text-muted-foreground">
+              {post.metadata.summary}
+            </p>
           </div>
         </li>
       ))}

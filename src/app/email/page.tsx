@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     locale: 'en_US',
     images: [
       {
-        url: `${url}/api/og?title=Email`,
+        url: `${url}/api/og?title=Email%20|%20Ausath%20Ikram`,
         width: 1200,
         height: 630,
         alt: 'Reach out to me for any inquiries.',
@@ -26,8 +26,10 @@ export default function Page() {
   return (
     <section className="w-full space-y-8">
       <article className="space-y-2">
-        <h1 className="text-2xl text-primary font-semibold">Email</h1>
-        <p>Feel free to reach out to me for any inquiries.</p>
+        <h1 className="text-2xl font-semibold">Email</h1>
+        <p className="text-muted-foreground">
+          Feel free to reach out to me for any inquiries.
+        </p>
       </article>
       <EmailForm />
     </section>

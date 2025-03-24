@@ -7,14 +7,14 @@ export default function Home() {
     <section className="space-y-8">
       <article className="space-y-4 text-lg">
         <h1 className="text-xl text-primary">Ausath Ikram</h1>
-        <p className="[&>strong]:text-primary [&>strong]:font-normal">
+        <p className="text-muted-foreground [&>strong]:text-primary [&>strong]:font-normal">
           I&apos;m a <strong>Web Developer</strong> who mainly work with{' '}
           <strong>Next.js</strong>. I&apos;m always{' '}
           <strong>looking for new opportunities to learn and grow</strong> to
           become a better developer.
         </p>
       </article>
-      <div className="flex flex-col gap-2 text-primary">
+      <div className="flex flex-col gap-2">
         <Link className="w-fit text-xl" href="/blog">
           Blog
         </Link>
@@ -25,10 +25,7 @@ export default function Home() {
           <MapPinIcon size={16} />
           <p>Jakarta, Indonesia</p>
         </div>
-        <Link
-          className="w-fit flex items-center gap-2"
-          href="/email"
-        >
+        <Link className="w-fit flex items-center gap-2" href="/email">
           <AtSignIcon size={16} />
           <span>Email Me</span>
         </Link>

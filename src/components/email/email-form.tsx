@@ -25,7 +25,7 @@ export default function EmailForm() {
   }, [state]);
 
   return (
-    <form className="space-y-6 text-primary" action={formAction}>
+    <form className="space-y-6" action={formAction}>
       <div className="flex gap-4 lg:gap-8">
         <div className="w-full space-y-2">
           <Label htmlFor={`${id}-firstName`}>First Name</Label>
