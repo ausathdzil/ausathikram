@@ -1,5 +1,5 @@
 import EmailForm from '@/components/email/email-form';
-import { url } from '@/lib/utils';
+import { baseUrl } from '@/lib/utils';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -8,12 +8,14 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Email | Ausath Ikram',
     description: 'Email me for any inquiries.',
-    url: 'https://ausathikram.vercel.app/email',
+    url: 'https://ausathikram.com/email',
     siteName: 'Ausath Ikram',
     locale: 'en_US',
     images: [
       {
-        url: `${url}/api/og?title=Email%20|%20Ausath%20Ikram`,
+        url: `${baseUrl}/api/og?title=${encodeURIComponent(
+          'Email | Ausath Ikram'
+        )}`,
         width: 1200,
         height: 630,
         alt: 'Reach out to me for any inquiries.',

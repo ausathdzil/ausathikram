@@ -1,7 +1,7 @@
 'use server';
 
 import { z } from 'zod';
-import { url } from './utils';
+import { baseUrl } from './utils';
 
 const emailFormSchema = z.object({
   firstName: z
@@ -72,7 +72,7 @@ export async function sendEmail(prevState: EmailFormState, formData: FormData) {
       };
     }
 
-    const res = await fetch(`${url}/api/send`, {
+    const res = await fetch(`${baseUrl}/api/send`, {
       method: 'POST',
       body: formData,
     });

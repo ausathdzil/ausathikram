@@ -1,4 +1,4 @@
-import { url } from '@/lib/utils';
+import { baseUrl } from '@/lib/utils';
 import { FrownIcon } from 'lucide-react';
 import { Metadata } from 'next';
 
@@ -8,12 +8,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: '404 Not Found | Ausath Ikram',
     description: 'Page not found.',
-    url: 'https://ausathikram.vercel.app/404',
     siteName: 'Ausath Ikram',
     locale: 'en_US',
     images: [
       {
-        url: `${url}/api/og?title=404%20Not%20Found`,
+        url: `${baseUrl}/api/og?title=${encodeURIComponent('404 Not Found')}`,
         width: 1200,
         height: 630,
         alt: '404 Not Found',

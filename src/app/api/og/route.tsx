@@ -1,4 +1,4 @@
-import { url } from '@/lib/utils';
+import { baseUrl } from '@/lib/utils';
 import { ImageResponse } from 'next/og';
 import { NextRequest } from 'next/server';
 
@@ -8,7 +8,7 @@ export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const title = searchParams.get('title') || 'Ausath Ikram';
 
-  const inter = await fetch(url + '/fonts/Inter-SemiBold.ttf').then((res) =>
+  const inter = await fetch(baseUrl + '/fonts/Inter-SemiBold.ttf').then((res) =>
     res.arrayBuffer()
   );
 

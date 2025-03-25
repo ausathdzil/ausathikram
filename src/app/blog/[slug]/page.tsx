@@ -1,6 +1,6 @@
 import CustomMDX from '@/components/blog/custom-mdx';
 import { formatDate, getBlogPosts, getTableOfContents } from '@/lib/blog';
-import { url } from '@/lib/utils';
+import { baseUrl } from '@/lib/utils';
 import { ArrowLeftIcon, ArrowUpIcon } from 'lucide-react';
 import { Metadata } from 'next';
 import Link from 'next/link';
@@ -31,22 +31,29 @@ export async function generateMetadata(
   return {
     title: post.metadata.title,
     description: post.metadata.summary,
-    authors: [{ url: 'https://ausathikram.vercel.app', name: 'Ausath Ikram' }],
+    authors: [{ url: 'https://ausathikram.com', name: 'Ausath Ikram' }],
     openGraph: {
       title: post.metadata.title,
       description: post.metadata.summary,
-      url: `https://ausathikram.vercel.app/blog/${post.slug}`,
+      url: `https://ausathikram.com/blog/${post.slug}`,
       siteName: 'Ausath Ikram',
       locale: 'en_US',
       type: 'article',
       images: [
         {
-          url: `${url}/api/og?title=${post.metadata.title}`,
+          url: `${baseUrl}/api/og?title=${encodeURIComponent(
+            post.metadata.title
+          )}`,
           width: 1200,
           height: 630,
           alt: post.metadata.title,
         },
       ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.metadata.title,
+      description: post.metadata.summary,
     },
   };
 }

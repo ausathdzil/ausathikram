@@ -22,7 +22,9 @@ export default function Footer() {
         LinkedIn
       </a>
       <Link
-        className={pathname === '/email' ? 'text-blue-400' : ''}
+        className={
+          pathname === '/email' ? 'text-blue-800 dark:text-blue-400' : ''
+        }
         href="/email"
       >
         Email

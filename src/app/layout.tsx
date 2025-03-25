@@ -2,7 +2,7 @@ import Footer from '@/components/layout/footer';
 import Header from '@/components/layout/header';
 import { ThemeProvider } from '@/components/layout/theme-provider';
 import { Toaster } from '@/components/ui/sonner';
-import { url } from '@/lib/utils';
+import { baseUrl } from '@/lib/utils';
 import type { Metadata } from 'next';
 import { Roboto_Mono } from 'next/font/google';
 import localFont from 'next/font/local';
@@ -22,7 +22,7 @@ const robotoMono = Roboto_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://ausathikram.vercel.app'),
+  metadataBase: new URL('https://ausathikram.com'),
   title: {
     default: 'Ausath Ikram',
     template: '%s | Ausath Ikram',
@@ -31,19 +31,30 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Ausath Ikram',
     description: 'Web Developer',
-    url: 'https://ausathikram.vercel.app',
+    url: 'https://ausathikram.com',
     siteName: 'Ausath Ikram',
     locale: 'en_US',
     type: 'website',
     images: [
       {
-        url: `${url}/api/og?title=Ausath%20Ikram`,
+        url: `${baseUrl}/api/og?title=${encodeURIComponent('Ausath Ikram')}`,
         alt: 'Ausath Ikram',
         type: 'image/png',
         width: 1200,
         height: 630,
       },
     ],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
 };
 

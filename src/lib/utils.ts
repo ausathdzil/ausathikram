@@ -1,11 +1,11 @@
-import { clsx, type ClassValue } from "clsx"
-import { twMerge } from "tailwind-merge"
+import { clsx, type ClassValue } from 'clsx';
+import { twMerge } from 'tailwind-merge';
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+  return twMerge(clsx(inputs));
 }
 
-export const url =
+export const baseUrl =
   process.env.NODE_ENV === 'production'
-    ? 'https://ausathikram.vercel.app'
+    ? 'https://ausathikram.com'
     : 'http://localhost:3000';

@@ -10,18 +10,25 @@ export default function Header() {
   return (
     <header className="w-full flex items-center gap-8 py-8">
       <nav className="w-full flex gap-8">
-        <Link className={pathname === '/' ? 'text-blue-400' : ''} href="/">
+        <Link
+          className={pathname === '/' ? 'text-blue-800 dark:text-blue-400' : ''}
+          href="/"
+        >
           About
         </Link>
         <div className="flex grow items-center justify-end gap-4 sm:gap-8">
           <Link
-            className={pathname === '/projects' ? 'text-blue-400' : ''}
+            className={
+              pathname === '/projects' ? 'text-blue-800 dark:text-blue-400' : ''
+            }
             href="/projects"
           >
             Projects
           </Link>
           <Link
-            className={pathname === '/blog' ? 'text-blue-400' : ''}
+            className={
+              pathname === '/blog' ? 'text-blue-800 dark:text-blue-400' : ''
+            }
             href="/blog"
           >
             Blog

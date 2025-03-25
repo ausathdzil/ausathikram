@@ -166,7 +166,7 @@
   }
 
   a {
-    @apply hover:text-blue-400 transition-colors;
+    @apply hover:text-blue-800 dark:hover:text-blue-400 transition-colors;
   }
 }
 

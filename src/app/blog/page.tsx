@@ -1,5 +1,5 @@
 import { formatDate, getBlogPosts } from '@/lib/blog';
-import { url } from '@/lib/utils';
+import { baseUrl } from '@/lib/utils';
 import { Metadata } from 'next';
 import Link from 'next/link';
 
@@ -9,12 +9,14 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Blog | Ausath Ikram',
     description: "Ausath Ikram's blog.",
-    url: 'https://ausathikram.vercel.app/blog',
+    url: 'https://ausathikram.com/blog',
     siteName: 'Ausath Ikram',
     locale: 'en_US',
     images: [
       {
-        url: `${url}/api/og?title=Blog%20|%20Ausath%20Ikram`,
+        url: `${baseUrl}/api/og?title=${encodeURIComponent(
+          'Blog | Ausath Ikram'
+        )}`,
         width: 1200,
         height: 630,
         alt: 'Things that interest me, mostly about web development.',
