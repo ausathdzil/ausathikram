@@ -91,9 +91,10 @@ export default async function Page(props: PostPageProps) {
         }}
       />
       <article className="space-y-2">
-        <h1 className="text-4xl font-semibold">{post.metadata.title}</h1>
+        <h1 className="text-xl">{post.metadata.title}</h1>
         <p className="text-muted-foreground">
-          {formatDate(post.metadata.publishedAt)} &bull; Ausath Ikram
+          Ausath Ikram <span className="text-primary">&bull;</span>{' '}
+          {formatDate(post.metadata.publishedAt)}{' '}
         </p>
       </article>
       <TableOfContents content={post.content} />
