@@ -68,6 +68,28 @@ export default async function Page(props: PostPageProps) {
 
   return (
     <section className="w-full space-y-8">
+      <script
+        type="application/ld+json"
+        suppressHydrationWarning
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'BlogPosting',
+            headline: post.metadata.title,
+            datePublished: post.metadata.publishedAt,
+            dateModified: post.metadata.publishedAt,
+            description: post.metadata.summary,
+            image: `${baseUrl}/api/og?title=${encodeURIComponent(
+              post.metadata.title
+            )}`,
+            url: `${baseUrl}/blog/${post.slug}`,
+            author: {
+              '@type': 'Person',
+              name: 'Ausath Ikram',
+            },
+          }),
+        }}
+      />
       <article className="space-y-2">
         <h1 className="text-4xl font-semibold">{post.metadata.title}</h1>
         <p className="text-muted-foreground">

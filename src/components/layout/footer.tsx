@@ -1,5 +1,6 @@
 'use client';
 
+import { baseUrl } from '@/lib/utils';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -20,6 +21,9 @@ export default function Footer() {
         target="_blank"
       >
         LinkedIn
+      </a>
+      <a href={`${baseUrl}/api/rss`} target="_blank">
+        RSS
       </a>
       <Link
         className={
