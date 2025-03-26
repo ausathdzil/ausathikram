@@ -6,11 +6,13 @@ summary: Thoughts regarding Next.js security vulnerability (CVE-2025-29927).
 
 There has been a drama going on lately with Next.js and Vercel after a security vulnerability [(CVE-2025-29927)](https://github.com/advisories/GHSA-f82v-jwr5-mffw) was discovered. Vercel has already posted a [blog post](https://nextjs.org/blog/cve-2025-29927) about it if you want more details.
 
-In short, this issue is about bypassing authorization in middleware by using a specific header (`x-middleware-subrequest`). Self-hosted applications using middleware were affected. Applications using auth libraries also [aren't immune](https://clerk.com/blog/cve-2025-29927).
-
 This security vulnerability has been patch for version `15.2.3`, `14.2.25`, `13.5.9`, and `12.3.5`. You should [upgrade](https://nextjs.org/docs/app/building-your-application/upgrading) immediately regardless of what major version you're using.
 
 There has also been concerns on how Vercel handles this situation which stirs up the drama. But I will not be covering it in this post and will focus on the main issue instead.
+
+In short, this issue is about bypassing authorization in middleware by using a specific header (`x-middleware-subrequest`). Self-hosted applications using middleware were affected. Applications using auth libraries also [aren't immune](https://clerk.com/blog/cve-2025-29927).
+
+Only using middleware for your authorization is not enough. This exploit has made it clear, I will explain about this shortly in this post.
 
 ### Middleware
 
