@@ -1,7 +1,5 @@
-import Footer from '@/components/layout/footer';
 import Header from '@/components/layout/header';
 import { ThemeProvider } from '@/components/layout/theme-provider';
-import { Toaster } from '@/components/ui/sonner';
 import { baseUrl } from '@/lib/utils';
 import type { Metadata } from 'next';
 import { Roboto_Mono } from 'next/font/google';
@@ -82,11 +80,35 @@ export default function RootLayout({
                 {children}
               </main>
             </ViewTransition>
-            <Toaster richColors />
             <Footer />
           </div>
         </ThemeProvider>
       </body>
     </html>
+  );
+}
+
+function Footer() {
+  return (
+    <footer className="w-full border-t flex justify-start items-center gap-8 text-right py-8">
+      <a href="/api/rss" target="_blank">
+        RSS
+      </a>
+      <a
+        href="https://github.com/ausathdzil"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        GitHub
+      </a>
+      <a
+        href="https://linkedin.com/in/ausathdzil"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        LinkedIn
+      </a>
+      <a href="mailto:mail@ausathikram.com">Email</a>
+    </footer>
   );
 }

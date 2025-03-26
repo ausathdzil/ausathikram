@@ -25,10 +25,13 @@ export default function Home() {
           <MapPinIcon size={16} />
           <p>Jakarta, Indonesia</p>
         </div>
-        <Link className="w-fit flex items-center gap-2" href="/email">
+        <a
+          className="w-fit flex items-center gap-2"
+          href="mailto:mail@ausathikram.com"
+        >
           <AtSignIcon size={16} />
-          <span>Email Me</span>
-        </Link>
+          <span>Email</span>
+        </a>
       </div>
     </section>
   );

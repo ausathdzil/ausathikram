@@ -3,7 +3,7 @@ import { projects } from '@/lib/projects';
 import { baseUrl } from '@/lib/utils';
 import { MetadataRoute } from 'next';
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+export default function sitemap(): MetadataRoute.Sitemap {
   const posts = getBlogPosts().map((post) => ({
     url: `${baseUrl}/blog/${post.slug}`,
     lastModified: post.metadata.publishedAt,
@@ -15,7 +15,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     lastModified: new Date().toISOString().split('T')[0],
   }));
 
-  const routes = ['', '/blog', '/projects', '/email'].map((route) => ({
+  const routes = ['', '/blog', '/projects'].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date().toISOString().split('T')[0],
   }));
