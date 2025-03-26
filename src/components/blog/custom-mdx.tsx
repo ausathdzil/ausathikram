@@ -52,7 +52,7 @@ async function Pre({
       lang,
       themes: {
         light: 'vitesse-light',
-        dark: 'vitesse-dark',
+        dark: 'vesper',
       },
     });
 

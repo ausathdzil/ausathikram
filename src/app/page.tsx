@@ -5,9 +5,9 @@ import Link from 'next/link';
 export default function Home() {
   return (
     <section className="space-y-8">
-      <article className="prose prose-zinc dark:prose-invert">
+      <article className="space-y-2">
         <h1 className="text-xl font-normal">Ausath Ikram</h1>
-        <p>
+        <p className="prose prose-zinc dark:prose-invert">
           I&apos;m a <strong>Web Developer</strong> who mainly work with{' '}
           <strong>Next.js</strong>. I&apos;m always{' '}
           <strong>looking for new opportunities to learn and grow</strong> to

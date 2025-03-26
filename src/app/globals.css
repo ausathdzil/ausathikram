@@ -196,6 +196,10 @@
   @apply hidden;
 }
 
+.prose pre {
+  @apply border text-xs lg:text-base;
+}
+
 .prose code {
   @apply font-mono relative;
 }
@@ -213,12 +217,12 @@ html.dark .shiki span {
 @supports (view-transition-name: none) {
   @media not (prefers-reduced-motion: reduce) {
     ::view-transition-old(crossfade) {
-      animation: hide 0.6s ease forwards;
+      animation: hide 0.4s ease forwards;
     }
 
     ::view-transition-new(crossfade) {
       opacity: 0;
-      animation: appear 0.6s ease forwards;
+      animation: appear 0.4s ease forwards;
     }
   }
 }

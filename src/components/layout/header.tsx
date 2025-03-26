@@ -19,7 +19,9 @@ export default function Header() {
         <div className="flex grow items-center justify-end gap-4 sm:gap-8">
           <Link
             className={
-              pathname === '/projects' ? 'text-blue-800 dark:text-blue-400' : ''
+              pathname.startsWith('/projects')
+                ? 'text-blue-800 dark:text-blue-400'
+                : ''
             }
             href="/projects"
           >
@@ -27,7 +29,9 @@ export default function Header() {
           </Link>
           <Link
             className={
-              pathname === '/blog' ? 'text-blue-800 dark:text-blue-400' : ''
+              pathname.startsWith('/blog')
+                ? 'text-blue-800 dark:text-blue-400'
+                : ''
             }
             href="/blog"
           >
