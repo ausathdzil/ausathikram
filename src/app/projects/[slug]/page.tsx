@@ -82,7 +82,7 @@ export default async function Page(props: ProjectPageProps) {
       </article>
       <div className="flex items-center gap-4">
         {project.link && (
-          <Button asChild>
+          <Button size="lg" asChild>
             <a href={project.link} target="_blank" rel="noopener noreferrer">
               <ArrowUpRightIcon />
               <span>Demo</span>
@@ -90,7 +90,7 @@ export default async function Page(props: ProjectPageProps) {
           </Button>
         )}
         {project.repo && (
-          <Button asChild variant="outline">
+          <Button size="lg" asChild variant="outline">
             <a href={project.repo} target="_blank" rel="noopener noreferrer">
               <ArrowUpRightIcon />
               <span>GitHub</span>

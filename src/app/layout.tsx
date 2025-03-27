@@ -65,7 +65,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${inter.variable} ${robotoMono.variable}`}
+        className={`${inter.variable} ${robotoMono.variable} antialiased tracking-tight`}
         style={{ fontFeatureSettings: "'ss01', 'cv11'" }}
       >
         <ThemeProvider

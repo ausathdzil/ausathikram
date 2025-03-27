@@ -1,6 +1,7 @@
 'use client';
 
 import { ModeToggle } from '@/components/layout/mode-toggle';
+import { Button } from '@/components/ui/button';
 import {
   Drawer,
   DrawerContent,
@@ -8,7 +9,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '@/components/ui/drawer';
-import { MenuIcon } from 'lucide-react';
+import { ChevronLeftIcon, MenuIcon } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useCallback, useState } from 'react';
@@ -28,6 +29,7 @@ export default function Header() {
         {navItems.map((item) => (
           <Link
             key={item.name}
+            href={item.href}
             className={
               (
                 item.href === '/'
@@ -37,21 +39,27 @@ export default function Header() {
                 ? 'text-blue-800 dark:text-blue-400'
                 : ''
             }
-            href={item.href}
           >
             {item.name}
           </Link>
         ))}
       </nav>
-      <div className="sm:hidden grow">
-        <MobileNav />
+      <div className="sm:hidden grow flex items-center gap-4">
+        <MobileNav pathname={pathname} />
+        {pathname.startsWith('/blog/') && (
+          <Button variant="ghost" size="icon">
+            <Link href="/blog">
+              <ChevronLeftIcon />
+            </Link>
+          </Button>
+        )}
       </div>
       <ModeToggle />
     </header>
   );
 }
 
-function MobileNav() {
+function MobileNav({ pathname }: { pathname: string }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleOpenChange = useCallback((open: boolean) => {
@@ -73,7 +81,20 @@ function MobileNav() {
         </DrawerHeader>
         <nav className="p-4 flex flex-col gap-4">
           {navItems.map((item) => (
-            <Link key={item.name} href={item.href} onClick={handleNavigation}>
+            <Link
+              key={item.name}
+              href={item.href}
+              className={
+                (
+                  item.href === '/'
+                    ? pathname === item.href
+                    : pathname.startsWith(item.href)
+                )
+                  ? 'text-blue-800 dark:text-blue-400'
+                  : ''
+              }
+              onClick={handleNavigation}
+            >
               {item.name}
             </Link>
           ))}
