@@ -91,7 +91,7 @@ export default function CommandButton() {
                   <NewspaperIcon />
                   <div className="flex w-full items-center justify-between">
                     {post.metadata.title}
-                    <span className="ml-2 text-sm text-muted-foreground">
+                    <span className="hidden sm:block text-sm  ml-2 text-muted-foreground">
                       {new Date(post.metadata.publishedAt).toLocaleDateString(
                         'en-US',
                         {
