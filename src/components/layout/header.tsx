@@ -13,6 +13,7 @@ import { ChevronLeftIcon, MenuIcon } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useCallback, useState } from 'react';
+import CommandButton from './command-button';
 
 const navItems = [
   { name: 'About', href: '/' },
@@ -54,6 +55,7 @@ export default function Header() {
           </Button>
         )}
       </div>
+      <CommandButton />
       <ModeToggle />
     </header>
   );
