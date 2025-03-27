@@ -1,3 +1,4 @@
+import Footer from '@/components/layout/footer';
 import Header from '@/components/layout/header';
 import { ThemeProvider } from '@/components/layout/theme-provider';
 import { baseUrl } from '@/lib/utils';
@@ -35,7 +36,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: `${baseUrl}/api/og?title=${encodeURIComponent('Ausath Ikram')}`,
+        url: `${baseUrl}/og?title=${encodeURIComponent('Ausath Ikram')}`,
         alt: 'Ausath Ikram',
         type: 'image/png',
         width: 1200,
@@ -76,7 +77,7 @@ export default function RootLayout({
           <div className="flex flex-col items-center min-h-screen max-w-2xl mx-auto px-8">
             <Header />
             <ViewTransition name="crossfade">
-              <main className="w-full grow flex flex-col items-center pb-8">
+              <main className="w-full grow flex flex-col pb-8 gap-8">
                 {children}
               </main>
             </ViewTransition>
@@ -85,30 +86,5 @@ export default function RootLayout({
         </ThemeProvider>
       </body>
     </html>
-  );
-}
-
-function Footer() {
-  return (
-    <footer className="w-full border-t flex justify-start items-center gap-8 text-right py-8">
-      <a href="/api/rss" target="_blank">
-        RSS
-      </a>
-      <a
-        href="https://github.com/ausathdzil"
-        rel="noopener noreferrer"
-        target="_blank"
-      >
-        GitHub
-      </a>
-      <a
-        href="https://linkedin.com/in/ausathdzil"
-        rel="noopener noreferrer"
-        target="_blank"
-      >
-        LinkedIn
-      </a>
-      <a href="mailto:mail@ausathikram.com">Email</a>
-    </footer>
   );
 }

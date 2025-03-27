@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     locale: 'en_US',
     images: [
       {
-        url: `${baseUrl}/api/og?title=${encodeURIComponent(
+        url: `${baseUrl}/og?title=${encodeURIComponent(
           'Blog | Ausath Ikram'
         )}`,
         width: 1200,
@@ -27,15 +27,15 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <section className="w-full space-y-8">
+    <>
       <article className="space-y-2">
         <h1 className="text-xl">Blog</h1>
-        <p className="text-muted-foreground">
+        <p className="prose prose-zinc dark:prose-invert">
           Things that interest me, mostly about web development.
         </p>
       </article>
       <BlogPosts />
-    </section>
+    </>
   );
 }
 

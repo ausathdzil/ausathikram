@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     locale: 'en_US',
     images: [
       {
-        url: `${baseUrl}/api/og?title=${encodeURIComponent('Projects')}`,
+        url: `${baseUrl}/og?title=${encodeURIComponent('Projects')}`,
         width: 1200,
         height: 630,
         alt: "Side projects I've worked on.",
@@ -25,10 +25,10 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <section className="w-full space-y-8">
+    <>
       <article className="space-y-2">
         <h1 className="text-xl">Projects</h1>
-        <p className="text-muted-foreground">
+        <p className="prose prose-zinc dark:prose-invert">
           Side projects I&apos;ve worked on.
         </p>
       </article>
@@ -44,6 +44,6 @@ export default function Page() {
           </li>
         ))}
       </ul>
-    </section>
+    </>
   );
 }

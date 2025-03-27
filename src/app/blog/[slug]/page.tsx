@@ -41,7 +41,7 @@ export async function generateMetadata(
       type: 'article',
       images: [
         {
-          url: `${baseUrl}/api/og?title=${encodeURIComponent(
+          url: `${baseUrl}/og?title=${encodeURIComponent(
             post.metadata.title
           )}`,
           width: 1200,
@@ -67,7 +67,7 @@ export default async function Page(props: PostPageProps) {
   }
 
   return (
-    <section className="w-full space-y-8">
+    <>
       <script
         type="application/ld+json"
         suppressHydrationWarning
@@ -90,22 +90,22 @@ export default async function Page(props: PostPageProps) {
           }),
         }}
       />
-      <article className="space-y-2">
-        <h1 className="text-xl">{post.metadata.title}</h1>
-        <p className="text-muted-foreground">
+      <article className="prose prose-zinc dark:prose-invert prose-sm sm:prose-base">
+        <h1 className="not-prose text-xl text-primary">
+          {post.metadata.title}
+        </h1>
+        <p className="mt-2 not-prose text-muted-foreground">
           Ausath Ikram <span className="text-primary">&bull;</span>{' '}
           {formatDate(post.metadata.publishedAt)}{' '}
         </p>
+        <CustomMDX source={post.content} />
+        <Link className="not-prose w-fit flex items-center gap-2" href="/blog">
+          <ArrowLeftIcon size={16} />
+          <span>Blog</span>
+        </Link>
       </article>
       <TableOfContents content={post.content} />
-      <article className="prose prose-zinc dark:prose-invert prose-sm sm:prose-base">
-        <CustomMDX source={post.content} />
-      </article>
-      <Link className="w-fit flex items-center gap-2" href="/blog">
-        <ArrowLeftIcon size={16} />
-        <span>Blog</span>
-      </Link>
-    </section>
+    </>
   );
 }
 
@@ -113,26 +113,23 @@ function TableOfContents({ content }: { content: string }) {
   const tableOfContents = getTableOfContents(content);
 
   return (
-    <aside className="hidden xl:block fixed right-36 top-24 w-64 opacity-60 hover:opacity-100 transition-opacity">
-      <div className="p-4 prose prose-zinc dark:prose-invert prose-sm prose-li:mb-2">
-        <h2 className="text-lg font-semibold mb-4">Table of Contents</h2>
-        <nav>
-          <ul>
-            {tableOfContents.map((heading) => (
-              <li key={heading.slug}>
-                <a href={`#${heading.slug}`}>{heading.title}</a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-        <a
-          className="w-fit flex items-center gap-2 mt-4 hover:underline underline-offset-4"
-          href="#top"
-        >
-          <ArrowUpIcon size={16} />
-          <span>Back to top</span>
-        </a>
-      </div>
+    <aside className="hidden xl:block fixed right-36 top-28 w-64 opacity-60 hover:opacity-100 transition-opacity  prose prose-zinc dark:prose-invert prose-sm prose-li:mb-2">
+      <p className="not-prose text-primary font-semibold mb-4">On this page</p>
+      <nav>
+        <ul>
+          {tableOfContents.map((heading) => (
+            <li key={heading.slug}>
+              <a key={heading.slug} href={`#${heading.slug}`}>
+                {heading.title}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+      <a className="not-prose w-fit flex items-center gap-2 mt-4" href="#top">
+        <ArrowUpIcon size={16} />
+        <span>Back to top</span>
+      </a>
     </aside>
   );
 }

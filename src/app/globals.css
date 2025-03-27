@@ -234,14 +234,14 @@ html.dark .shiki span {
   }
   100% {
     opacity: 0;
-    filter: blur(4px);
+    filter: blur(6px);
   }
 }
 
 @keyframes appear {
   0% {
     opacity: 0;
-    filter: blur(4px);
+    filter: blur(6px);
   }
   100% {
     opacity: 1;

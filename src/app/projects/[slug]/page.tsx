@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button';
 import { projects } from '@/lib/projects';
 import { baseUrl } from '@/lib/utils';
 import { ArrowUpRightIcon } from 'lucide-react';
@@ -36,7 +37,7 @@ export async function generateMetadata(
       locale: 'en_US',
       images: [
         {
-          url: `${baseUrl}/api/og?title=${encodeURIComponent(project.title)}`,
+          url: `${baseUrl}/og?title=${encodeURIComponent(project.title)}`,
           width: 1200,
           height: 630,
           alt: `${project.title}`,
@@ -60,51 +61,43 @@ export default async function Page(props: ProjectPageProps) {
   }
 
   return (
-    <section className="w-full">
-      <div className="space-y-8">
-        {project.image && (
-          <div className="relative w-[250px] h-[150px] sm:w-[350px] sm:h-[300px] lg:w-[600px] max-w-full lg:h-[300px]">
-            <Image
-              className="object-cover object-top rounded-lg"
-              src={project.image}
-              alt={`${project.title} image preview`}
-              priority={true}
-              placeholder="blur"
-              fill
-              sizes="(min-width: 1024px) 100vw, (min-width: 640px) 50vw, 33vw"
-              quality={100}
-            />
-          </div>
-        )}
-        <article className="space-y-2">
-          <h1 className="text-xl">{project.title}</h1>
-          <p className="text-muted-foreground">{project.description}</p>
-        </article>
-        <div className="flex items-center gap-4">
-          {project.link && (
-            <a
-              className="flex gap-1 items-center"
-              href={project.link}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span>Demo</span>
-              <ArrowUpRightIcon />
-            </a>
-          )}
-          {project.repo && (
-            <a
-              className="flex gap-1 items-center"
-              href={project.repo}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span>GitHub</span>
-              <ArrowUpRightIcon />
-            </a>
-          )}
+    <>
+      {project.image && (
+        <div className="relative w-[300px] h-[150px] md:w-[450px] md:h-[300px] lg:w-[600px] max-w-full lg:h-[300px]">
+          <Image
+            className="object-cover object-top rounded-lg"
+            src={project.image}
+            alt={`${project.title} image preview`}
+            priority={true}
+            placeholder="blur"
+            fill
+            sizes="(min-width: 1024px) 100vw, (min-width: 640px) 50vw, 33vw"
+            quality={100}
+          />
         </div>
+      )}
+      <article className="space-y-2">
+        <h1 className="text-xl">{project.title}</h1>
+        <p className="text-muted-foreground">{project.description}</p>
+      </article>
+      <div className="flex items-center gap-4">
+        {project.link && (
+          <Button asChild>
+            <a href={project.link} target="_blank" rel="noopener noreferrer">
+              <ArrowUpRightIcon />
+              <span>Demo</span>
+            </a>
+          </Button>
+        )}
+        {project.repo && (
+          <Button asChild variant="outline">
+            <a href={project.repo} target="_blank" rel="noopener noreferrer">
+              <ArrowUpRightIcon />
+              <span>GitHub</span>
+            </a>
+          </Button>
+        )}
       </div>
-    </section>
+    </>
   );
 }

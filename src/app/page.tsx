@@ -1,10 +1,11 @@
+import { Button } from '@/components/ui/button';
 import { formatDate, getBlogPosts } from '@/lib/blog';
-import { AtSignIcon, MapPinIcon } from 'lucide-react';
+import { RssIcon } from 'lucide-react';
 import Link from 'next/link';
 
 export default function Home() {
   return (
-    <section className="space-y-8">
+    <>
       <article className="space-y-2">
         <h1 className="text-xl font-normal">Ausath Ikram</h1>
         <p className="prose prose-zinc dark:prose-invert">
@@ -20,20 +21,13 @@ export default function Home() {
         </Link>
         <RecentPosts />
       </div>
-      <div className="space-y-4 text-muted-foreground">
-        <div className="flex items-center gap-2">
-          <MapPinIcon size={16} />
-          <p>Jakarta, Indonesia</p>
-        </div>
-        <a
-          className="w-fit flex items-center gap-2"
-          href="mailto:mail@ausathikram.com"
-        >
-          <AtSignIcon size={16} />
-          <span>Email</span>
+      <Button className="w-fit" size="lg" asChild>
+        <a href="/rss" target="_blank">
+          <RssIcon />
+          <span>RSS</span>
         </a>
-      </div>
-    </section>
+      </Button>
+    </>
   );
 }
 
@@ -50,7 +44,7 @@ function RecentPosts() {
     .splice(0, 4);
 
   return (
-    <ul className="space-y-2">
+    <ul className="space-y-2 text-sm sm:text-base">
       {recentPosts.map((post) => (
         <li key={post.slug}>
           <Link className="w-fit" href={`/blog/${post.slug}`}>
