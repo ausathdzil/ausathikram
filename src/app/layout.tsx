@@ -7,6 +7,7 @@ import { Roboto_Mono } from 'next/font/google';
 import localFont from 'next/font/local';
 import { unstable_ViewTransition as ViewTransition } from 'react';
 import './globals.css';
+import { getBlogPosts } from '@/lib/blog';
 
 const inter = localFont({
   src: '../../public/fonts/InterVariable.woff2',
@@ -62,6 +63,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const posts = getBlogPosts();
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body
@@ -75,7 +78,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <div className="flex flex-col items-center min-h-screen max-w-2xl mx-auto px-8">
-            <Header />
+            <Header posts={posts} />
             <ViewTransition name="crossfade">
               <main className="w-full grow flex flex-col pb-8 gap-8">
                 {children}
