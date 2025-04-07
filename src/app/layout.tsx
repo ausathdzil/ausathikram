@@ -9,10 +9,11 @@ import { unstable_ViewTransition as ViewTransition } from 'react';
 import './globals.css';
 import { getBlogPosts } from '@/lib/blog';
 
-const inter = localFont({
-  src: '../../public/fonts/InterVariable.woff2',
+const pretendard = localFont({
+  src: '../../public/fonts/PretendardVariable.woff2',
   display: 'swap',
-  variable: '--font-inter',
+  weight: '45 920',
+  variable: '--font-pretendard',
 });
 
 const robotoMono = Roboto_Mono({
@@ -68,8 +69,8 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${inter.variable} ${robotoMono.variable} antialiased tracking-tight`}
-        style={{ fontFeatureSettings: "'ss01', 'cv11'" }}
+        className={`${pretendard.variable} ${robotoMono.variable} antialiased`}
+        style={{ fontFeatureSettings: "'ss01', 'ss02', 'ss08', 'cv11'" }}
       >
         <ThemeProvider
           attribute="class"

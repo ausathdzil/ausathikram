@@ -8,21 +8,21 @@ export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const title = searchParams.get('title') || 'Ausath Ikram';
 
-  const inter = await fetch(baseUrl + '/fonts/Inter-SemiBold.ttf').then((res) =>
-    res.arrayBuffer()
-  );
+  const pretendard = await fetch(
+    baseUrl + '/fonts/Pretendard-SemiBold.otf'
+  ).then((res) => res.arrayBuffer());
 
   return new ImageResponse(
     (
-      <div tw="text-6xl bg-white w-full h-full flex items-end justify-start tracking-tight p-24">
+      <div tw="text-7xl bg-white w-full h-full flex items-end justify-start tracking-tight p-24">
         {title}
       </div>
     ),
     {
       fonts: [
         {
-          data: inter,
-          name: 'Inter',
+          data: pretendard,
+          name: 'Pretendard',
           weight: 600,
           style: 'normal',
         },
