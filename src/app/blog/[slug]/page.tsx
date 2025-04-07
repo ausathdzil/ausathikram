@@ -99,7 +99,7 @@ export default async function Page(props: PostPageProps) {
           {formatDate(post.metadata.publishedAt)}{' '}
         </p>
         <CustomMDX source={post.content} />
-        <Link className="not-prose mt-4 w-fit flex items-center gap-2" href="/blog">
+        <Link className="not-prose mt-8 w-fit flex items-center gap-2" href="/blog">
           <ArrowLeftIcon size={16} />
           <span>Blog</span>
         </Link>
