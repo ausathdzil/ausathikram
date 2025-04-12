@@ -1,5 +1,7 @@
-import { baseUrl } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
+import { HomeIcon } from 'lucide-react';
 import { Metadata } from 'next';
+import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: '404 Not Found',
@@ -9,21 +11,19 @@ export const metadata: Metadata = {
     description: 'Page not found.',
     siteName: 'Ausath Ikram',
     locale: 'en_US',
-    images: [
-      {
-        url: `${baseUrl}/api/og?title=${encodeURIComponent('404 Not Found')}`,
-        width: 1200,
-        height: 630,
-        alt: '404 Not Found',
-      },
-    ],
   },
 };
 
 export default function NotFound() {
   return (
     <div className="grow flex flex-col justify-center items-center text-center space-y-4">
-      <h1 className="text-xl lg:text-4xl">404 Not Found</h1>
+      <h1 className="text-xl lg:text-3xl">404 Not Found</h1>
+      <Button asChild className="rounded-full">
+        <Link href="/">
+          <HomeIcon />
+          Home
+        </Link>
+      </Button>
     </div>
   );
 }

@@ -1,16 +1,15 @@
 import Footer from '@/components/layout/footer';
 import Header from '@/components/layout/header';
 import { ThemeProvider } from '@/components/layout/theme-provider';
-import { baseUrl } from '@/lib/utils';
+import { getBlogPosts } from '@/lib/blog';
 import type { Metadata } from 'next';
 import { Roboto_Mono } from 'next/font/google';
 import localFont from 'next/font/local';
 import { unstable_ViewTransition as ViewTransition } from 'react';
 import './globals.css';
-import { getBlogPosts } from '@/lib/blog';
 
 const pretendard = localFont({
-  src: '../../public/fonts/PretendardVariable.woff2',
+  src: './fonts/PretendardVariable.woff2',
   display: 'swap',
   weight: '45 920',
   variable: '--font-pretendard',
@@ -36,15 +35,6 @@ export const metadata: Metadata = {
     siteName: 'Ausath Ikram',
     locale: 'en_US',
     type: 'website',
-    images: [
-      {
-        url: `${baseUrl}/og?title=${encodeURIComponent('Ausath Ikram')}`,
-        alt: 'Ausath Ikram',
-        type: 'image/png',
-        width: 1200,
-        height: 630,
-      },
-    ],
   },
   robots: {
     index: true,

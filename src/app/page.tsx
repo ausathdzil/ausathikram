@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button';
-import { formatDate, getBlogPosts } from '@/lib/blog';
+import { getBlogPosts } from '@/lib/blog';
+import { formatDate } from '@/lib/utils';
 import { RssIcon } from 'lucide-react';
 import Link from 'next/link';
 
@@ -7,7 +8,7 @@ export default function Home() {
   return (
     <>
       <article className="space-y-2">
-        <h1 className="text-xl font-normal">Ausath Ikram</h1>
+        <h1 className="text-xl">Ausath Ikram</h1>
         <p className="prose prose-zinc dark:prose-invert">
           I&apos;m a <strong>Web Developer</strong> who mainly work with{' '}
           <strong>Next.js</strong>. I&apos;m always{' '}
@@ -44,7 +45,7 @@ function RecentPosts() {
     .splice(0, 4);
 
   return (
-    <ul className="space-y-2 text-sm sm:text-base">
+    <ul className="space-y-2">
       {recentPosts.map((post) => (
         <li key={post.slug}>
           <Link className="w-fit" href={`/blog/${post.slug}`}>

@@ -1,5 +1,5 @@
-import { formatDate, getBlogPosts } from '@/lib/blog';
-import { baseUrl } from '@/lib/utils';
+import { getBlogPosts } from '@/lib/blog';
+import { formatDate } from '@/lib/utils';
 import { Metadata } from 'next';
 import Link from 'next/link';
 
@@ -12,16 +12,6 @@ export const metadata: Metadata = {
     url: 'https://ausathikram.com/blog',
     siteName: 'Ausath Ikram',
     locale: 'en_US',
-    images: [
-      {
-        url: `${baseUrl}/og?title=${encodeURIComponent(
-          'Blog | Ausath Ikram'
-        )}`,
-        width: 1200,
-        height: 630,
-        alt: 'Things that interest me, mostly about web development.',
-      },
-    ],
   },
 };
 

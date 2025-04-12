@@ -1,5 +1,4 @@
 import { projects } from '@/lib/projects';
-import { baseUrl } from '@/lib/utils';
 import { Metadata } from 'next';
 import Link from 'next/link';
 
@@ -12,14 +11,6 @@ export const metadata: Metadata = {
     url: 'https://ausathikram.com/projects',
     siteName: 'Ausath Ikram',
     locale: 'en_US',
-    images: [
-      {
-        url: `${baseUrl}/og?title=${encodeURIComponent('Projects')}`,
-        width: 1200,
-        height: 630,
-        alt: "Side projects I've worked on.",
-      },
-    ],
   },
 };
 

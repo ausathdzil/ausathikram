@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import { slugify } from './utils';
 
 export type Metadata = {
   title: string;
@@ -50,33 +51,6 @@ function getMDXData(dir: string) {
 
 export function getBlogPosts() {
   return getMDXData(path.join(process.cwd(), 'posts'));
-}
-
-export function formatDate(date: string) {
-  if (!date.includes('T')) {
-    date = `${date}T00:00:00`;
-  }
-  const targetDate = new Date(date);
-
-  const fullDate = targetDate.toLocaleString('en-us', {
-    month: 'short',
-    day: 'numeric',
-    year: 'numeric',
-  });
-
-  return fullDate;
-}
-
-/* eslint-disable @typescript-eslint/no-explicit-any */
-export function slugify(str: any) {
-  return str
-    .toString()
-    .toLowerCase()
-    .trim() // Remove whitespace from both ends of a string
-    .replace(/\s+/g, '-') // Replace spaces with -
-    .replace(/&/g, '-and-') // Replace & with 'and'
-    .replace(/[^\w\-]+/g, '') // Remove all non-word characters except for -
-    .replace(/\-\-+/g, '-'); // Replace multiple - with single -
 }
 
 export function getTableOfContents(content: string) {

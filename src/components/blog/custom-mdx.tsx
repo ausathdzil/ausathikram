@@ -1,5 +1,5 @@
 import CopyButton from '@/components/blog/copy-button';
-import { slugify } from '@/lib/blog';
+import { slugify } from '@/lib/utils';
 import { MDXRemote, MDXRemoteProps } from 'next-mdx-remote/rsc';
 import Link from 'next/link';
 import React, { Children } from 'react';

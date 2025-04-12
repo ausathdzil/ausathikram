@@ -1,6 +1,6 @@
 import CustomMDX from '@/components/blog/custom-mdx';
-import { formatDate, getBlogPosts, getTableOfContents } from '@/lib/blog';
-import { baseUrl } from '@/lib/utils';
+import { getBlogPosts, getTableOfContents } from '@/lib/blog';
+import { baseUrl, formatDate } from '@/lib/utils';
 import { ArrowLeftIcon, ArrowUpIcon } from 'lucide-react';
 import { Metadata } from 'next';
 import Link from 'next/link';
@@ -39,16 +39,6 @@ export async function generateMetadata(
       siteName: 'Ausath Ikram',
       locale: 'en_US',
       type: 'article',
-      images: [
-        {
-          url: `${baseUrl}/og?title=${encodeURIComponent(
-            post.metadata.title
-          )}`,
-          width: 1200,
-          height: 630,
-          alt: post.metadata.title,
-        },
-      ],
     },
     twitter: {
       card: 'summary_large_image',
@@ -99,7 +89,10 @@ export default async function Page(props: PostPageProps) {
           {formatDate(post.metadata.publishedAt)}{' '}
         </p>
         <CustomMDX source={post.content} />
-        <Link className="not-prose mt-8 w-fit flex items-center gap-2" href="/blog">
+        <Link
+          className="not-prose mt-8 w-fit flex items-center gap-2"
+          href="/blog"
+        >
           <ArrowLeftIcon size={16} />
           <span>Blog</span>
         </Link>

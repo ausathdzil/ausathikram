@@ -6,7 +6,7 @@ export default function Footer() {
   const pathname = usePathname();
 
   return (
-    <footer className="text-sm md:text-base w-full border-t flex justify-start items-center gap-4 sm:gap-8 text-right py-8">
+    <footer className="w-full border-t flex justify-start items-center gap-4 sm:gap-8 text-right py-8">
       <a
         href="https://github.com/ausathdzil"
         rel="noopener noreferrer"
