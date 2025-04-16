@@ -36,18 +36,9 @@ async function Pre({
   const isCodeBlock =
     typeof className === 'string' && className.startsWith('language-');
 
-  if (isCodeBlock) {
-    const lang = className.split(' ')[0]?.split('-')[1] ?? '';
+  const lang = className.split(' ')[0]?.split('-')[1] ?? '';
 
-    if (!lang) {
-      return (
-        <div className="relative">
-          <CopyButton codeElement={codeElement} />
-          <code {...props}>{children}</code>
-        </div>
-      );
-    }
-
+  if (isCodeBlock || lang) {
     const html = await codeToHtml(String(codeElement?.props.children), {
       lang,
       themes: {
@@ -64,17 +55,13 @@ async function Pre({
     );
   }
 
-  return (
-    <div className="relative">
-      <CopyButton codeElement={codeElement} />
-      <pre {...props}>{children}</pre>
-    </div>
-  );
+  return <pre {...props}>{children}</pre>;
 }
 
 function createHeading(level: number) {
   const Heading = ({ children }: { children: React.ReactNode }) => {
-    const slug = slugify(children);
+    const slug = slugify(String(children));
+
     return React.createElement(
       `h${level}`,
       { id: slug },
@@ -83,6 +70,7 @@ function createHeading(level: number) {
           href: `#${slug}`,
           key: `link-${slug}`,
           className: 'anchor',
+          'aria-hidden': true,
         }),
       ],
       children
@@ -106,7 +94,7 @@ const components = {
   Tweet,
 };
 
-export default function CustomMDX(
+export function CustomMDX(
   props: React.JSX.IntrinsicAttributes & MDXRemoteProps
 ) {
   return (

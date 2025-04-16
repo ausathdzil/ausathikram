@@ -1,5 +1,5 @@
 import Footer from '@/components/layout/footer';
-import Header from '@/components/layout/header';
+import { Header } from '@/components/layout/header';
 import { ThemeProvider } from '@/components/layout/theme-provider';
 import { getBlogPosts } from '@/lib/blog';
 import type { Metadata } from 'next';

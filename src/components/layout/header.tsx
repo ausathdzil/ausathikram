@@ -43,7 +43,7 @@ type Post = {
   content: string;
 };
 
-export default function Header({ posts }: { posts: Post[] }) {
+export function Header({ posts }: { posts: Post[] }) {
   const pathname = usePathname();
   const sortedPosts = posts.sort(
     (a, b) =>

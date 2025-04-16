@@ -174,17 +174,14 @@
   @apply absolute invisible no-underline -ml-[1em] pr-2 w-[80%] max-w-[700px];
 }
 
-.anchor:hover {
+.prose .anchor:hover,
+.prose *:hover > .anchor {
   @apply visible;
 }
 
 .prose .anchor:after {
   @apply text-muted-foreground;
   content: '#';
-}
-
-.prose *:hover > .anchor {
-  @apply visible;
 }
 
 .prose a {
@@ -197,14 +194,10 @@
 }
 
 .prose pre {
-  @apply border text-xs lg:text-base;
+  @apply font-mono bg-background text-foreground border text-xs sm:text-sm;
 }
 
-.prose code {
-  @apply font-mono relative;
-}
-
-.prose code:not(:has(*)) {
+.prose code:not(:has(*)):not(pre code) {
   @apply bg-muted rounded p-[0.2rem] after:hidden before:hidden;
 }
 

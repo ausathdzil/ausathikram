@@ -25,8 +25,7 @@ export function formatDate(date: string) {
   return fullDate;
 }
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
-export function slugify(str: any) {
+export function slugify(str: string) {
   return str
     .toString()
     .toLowerCase()

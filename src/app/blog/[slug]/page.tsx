@@ -1,4 +1,4 @@
-import CustomMDX from '@/components/blog/custom-mdx';
+import { CustomMDX } from '@/components/blog/custom-mdx';
 import { getBlogPosts, getTableOfContents } from '@/lib/blog';
 import { baseUrl, formatDate } from '@/lib/utils';
 import { ArrowLeftIcon, ArrowUpIcon } from 'lucide-react';
