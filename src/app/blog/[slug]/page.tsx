@@ -35,10 +35,18 @@ export async function generateMetadata(
     openGraph: {
       title: post.metadata.title,
       description: post.metadata.summary,
-      url: `https://ausathikram.com/blog/${post.slug}`,
+      url: `${baseUrl}/blog/${post.slug}`,
       siteName: 'Ausath Ikram',
       locale: 'en_US',
       type: 'article',
+      images: [
+        {
+          url: `${baseUrl}/og?title=${post.metadata.title}`,
+          width: 1200,
+          height: 630,
+          alt: post.metadata.title,
+        },
+      ],
     },
     twitter: {
       card: 'summary_large_image',

@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { projects } from '@/lib/projects';
+import { baseUrl } from '@/lib/utils';
 import { ArrowUpRightIcon } from 'lucide-react';
 import { Metadata } from 'next';
 import Image from 'next/image';
@@ -31,9 +32,17 @@ export async function generateMetadata(
     openGraph: {
       title: project.title,
       description: project.description,
-      url: `https://ausathikram.com/projects/${project.slug}`,
+      url: `${baseUrl}/projects/${project.slug}`,
       siteName: 'Ausath Ikram',
       locale: 'en_US',
+      images: [
+        {
+          url: `${baseUrl}/og?title=${project.title}`,
+          width: 1200,
+          height: 630,
+          alt: project.title,
+        },
+      ],
     },
   };
 }

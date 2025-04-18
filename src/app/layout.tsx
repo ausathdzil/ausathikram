@@ -2,6 +2,7 @@ import Footer from '@/components/layout/footer';
 import { Header } from '@/components/layout/header';
 import { ThemeProvider } from '@/components/layout/theme-provider';
 import { getBlogPosts } from '@/lib/blog';
+import { baseUrl } from '@/lib/utils';
 import type { Metadata } from 'next';
 import { Roboto_Mono } from 'next/font/google';
 import localFont from 'next/font/local';
@@ -22,7 +23,7 @@ const robotoMono = Roboto_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://ausathikram.com'),
+  metadataBase: new URL(baseUrl),
   title: {
     default: 'Ausath Ikram',
     template: '%s - Ausath Ikram',
@@ -31,7 +32,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Ausath Ikram',
     description: 'Web Developer',
-    url: 'https://ausathikram.com',
+    url: baseUrl,
     siteName: 'Ausath Ikram',
     locale: 'en_US',
     type: 'website',
