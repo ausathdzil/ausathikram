@@ -69,9 +69,6 @@ export default async function Page(props: PostPageProps) {
             datePublished: post.metadata.publishedAt,
             dateModified: post.metadata.publishedAt,
             description: post.metadata.summary,
-            image: `${baseUrl}/api/og?title=${encodeURIComponent(
-              post.metadata.title
-            )}`,
             url: `${baseUrl}/blog/${post.slug}`,
             author: {
               '@type': 'Person',

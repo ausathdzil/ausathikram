@@ -22,7 +22,7 @@ export default function CopyButton({
   return (
     <button
       onClick={handleCopy}
-      className="hidden absolute top-4 right-2 end-0 sm:flex w-9 items-center justify-center rounded-e-lg border border-transparent text-muted-foreground/80 ring-offset-background transition-shadow hover:text-primary focus-visible:border-ring focus-visible:text-primary focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring/30 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:cursor-not-allowed"
+      className="absolute top-2.5 sm:top-3.5 right-2 end-0 flex w-9 items-center justify-center rounded-e-lg border border-transparent text-muted-foreground/80 ring-offset-background transition-shadow hover:text-primary focus-visible:border-ring focus-visible:text-primary focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring/30 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:cursor-not-allowed"
       aria-label={copied ? 'Copied' : 'Copy to clipboard'}
       disabled={copied}
     >
@@ -33,8 +33,7 @@ export default function CopyButton({
         )}
       >
         <CheckIcon
-          className="stroke-emerald-500"
-          size={16}
+          className="stroke-emerald-500 size-3 sm:size-4"
           strokeWidth={2}
           aria-hidden="true"
         />
@@ -45,7 +44,11 @@ export default function CopyButton({
           copied ? 'scale-0 opacity-0' : 'scale-100 opacity-100'
         )}
       >
-        <CopyIcon size={16} strokeWidth={2} aria-hidden="true" />
+        <CopyIcon
+          className="size-3 sm:size-4"
+          strokeWidth={2}
+          aria-hidden="true"
+        />
       </div>
     </button>
   );

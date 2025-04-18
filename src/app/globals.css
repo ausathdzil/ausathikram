@@ -198,7 +198,7 @@
 }
 
 .prose code:not(:has(*)):not(pre code) {
-  @apply bg-muted rounded p-[0.2rem] after:hidden before:hidden;
+  @apply font-mono bg-muted rounded p-[0.2rem] after:hidden before:hidden;
 }
 
 html.dark .shiki,

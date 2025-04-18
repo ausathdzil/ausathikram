@@ -1,7 +1,7 @@
 ---
-title: Next.js Middleware and Authorization
+title: Next.js Middleware
 publishedAt: 2025-03-26
-summary: Thoughts regarding Next.js security vulnerability (CVE-2025-29927).
+summary: Thoughts regarding Next.js security vulnerability (CVE-2025-29927) and my approach on authorization using middleware.
 ---
 
 There has been a drama going on lately with Next.js and Vercel after a security vulnerability [(CVE-2025-29927)](https://github.com/advisories/GHSA-f82v-jwr5-mffw) was discovered. Vercel has already posted a [blog post](https://nextjs.org/blog/cve-2025-29927) about it if you want more details.
@@ -148,13 +148,13 @@ async function UserReviews() {
 
 I use this pattern on an app I made a while back for a [student study group final project](https://github.com/ausathdzil/critix). In my case I need to use the user data anyway, but it's still a good practice to have.
 
-Next.js 15 also has a new API called `forbidden` that's also useful for handling authorization at the page level. This function throws an error that renders a 403 error page. You can customize this error page using the `forbidden.tsx` file.
+Next.js 15 also has a new API called `unauthorized` that's also useful for handling authorization at the page level. This function throws an error that renders a 403 error page. You can customize this error page using the `unauthorized.tsx` file.
 
 ```tsx
 export default async function Page() {
   const user = await getUser();
   if (!user) {
-    forbidden();
+    unauthorized();
   }
 
   return (

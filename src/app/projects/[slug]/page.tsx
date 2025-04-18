@@ -49,16 +49,14 @@ export default async function Page(props: ProjectPageProps) {
   return (
     <>
       {project.image && (
-        <div className="relative w-[300px] h-[150px] md:w-[450px] md:h-[300px] lg:w-[600px] max-w-full lg:h-[300px]">
+        <div className="border rounded-lg relative w-[606px] max-w-full h-[200px] sm:h-[250px] md:h-[300px]">
           <Image
             className="object-cover object-top rounded-lg"
             src={project.image}
             alt={`${project.title} image preview`}
-            priority={true}
             placeholder="blur"
             fill
-            sizes="(min-width: 1024px) 100vw, (min-width: 640px) 50vw, 33vw"
-            quality={100}
+            sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
           />
         </div>
       )}

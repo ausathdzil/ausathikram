@@ -53,7 +53,7 @@ function BlogPosts() {
             <p className="text-muted-foreground">
               {formatDate(post.metadata.publishedAt)}
             </p>
-            <p className="hidden md:block text-sm text-muted-foreground">
+            <p className="hidden md:block text-sm text-muted-foreground max-w-[80%]">
               {post.metadata.summary}
             </p>
           </div>
