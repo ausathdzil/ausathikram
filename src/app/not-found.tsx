@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: '404 Not Found',
   description: 'Page not found.',
   openGraph: {
-    title: '404 Not Found | Ausath Ikram',
+    title: '404 Not Found - Ausath Ikram',
     description: 'Page not found.',
     siteName: 'Ausath Ikram',
     locale: 'en_US',

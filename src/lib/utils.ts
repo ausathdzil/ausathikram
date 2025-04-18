@@ -16,8 +16,8 @@ export function formatDate(date: string) {
   }
   const targetDate = new Date(date);
 
-  const fullDate = targetDate.toLocaleString('en-us', {
-    month: 'short',
+  const fullDate = targetDate.toLocaleString('en-US', {
+    month: 'long',
     day: 'numeric',
     year: 'numeric',
   });

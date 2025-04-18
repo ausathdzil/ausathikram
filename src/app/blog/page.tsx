@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: 'Blog',
   description: 'Ausath Ikram blog.',
   openGraph: {
-    title: 'Blog | Ausath Ikram',
+    title: 'Blog - Ausath Ikram',
     description: "Ausath Ikram's blog.",
     url: 'https://ausathikram.com/blog',
     siteName: 'Ausath Ikram',

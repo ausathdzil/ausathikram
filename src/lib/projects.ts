@@ -16,19 +16,19 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    title: 'Dignition',
+    slug: 'dignition',
+    description: "Student's study club learning management system.",
+    image: dignition,
+    link: 'https://dignition.androidupnvj.com/',
+  },
+  {
     title: 'Humi',
     slug: 'humi',
     description: 'AI music moodboard generator.',
     image: humi,
     link: 'https://humi.ausathikram.com/',
     repo: 'https://github.com/ausathdzil/humi',
-  },
-  {
-    title: 'Dignition',
-    slug: 'dignition',
-    description: "Student's study club learning management system.",
-    image: dignition,
-    // link: 'https://dignition.androidupnvj.com/',
   },
   {
     title: 'Critix',

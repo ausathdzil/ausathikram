@@ -18,7 +18,7 @@ export default async function Image() {
   return new ImageResponse(
     (
       <div tw="text-7xl bg-white w-full h-full flex items-end justify-start tracking-tight p-24">
-        Ausath Ikram | Blog
+        Blog - Ausath Ikram
       </div>
     ),
     {

@@ -57,6 +57,8 @@ export default async function Page(props: ProjectPageProps) {
             placeholder="blur"
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
+            quality={100}
+            priority
           />
         </div>
       )}

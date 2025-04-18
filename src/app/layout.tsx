@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://ausathikram.com'),
   title: {
     default: 'Ausath Ikram',
-    template: '%s | Ausath Ikram',
+    template: '%s - Ausath Ikram',
   },
   description: 'Web Developer',
   openGraph: {
