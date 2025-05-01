@@ -2,11 +2,10 @@ import Footer from '@/components/layout/footer';
 import { Header } from '@/components/layout/header';
 import { ThemeProvider } from '@/components/layout/theme-provider';
 import { getBlogPosts } from '@/lib/blog';
-import { baseUrl } from '@/lib/utils';
+import { baseUrl, cn } from '@/lib/utils';
 import type { Metadata } from 'next';
 import { Roboto_Mono } from 'next/font/google';
 import localFont from 'next/font/local';
-import { unstable_ViewTransition as ViewTransition } from 'react';
 import './globals.css';
 
 const pretendard = localFont({
@@ -60,8 +59,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${pretendard.variable} ${robotoMono.variable} antialiased`}
-        style={{ fontFeatureSettings: "'ss01', 'ss02', 'ss08', 'cv11'" }}
+        className={cn(pretendard.variable, robotoMono.variable, 'antialiased')}
       >
         <ThemeProvider
           attribute="class"
@@ -71,11 +69,9 @@ export default function RootLayout({
         >
           <div className="flex flex-col items-center min-h-screen max-w-2xl mx-auto px-8">
             <Header posts={posts} />
-            <ViewTransition name="crossfade">
-              <main className="w-full grow flex flex-col pb-16 gap-8">
-                {children}
-              </main>
-            </ViewTransition>
+            <main className="w-full grow flex flex-col pb-16 gap-8">
+              {children}
+            </main>
             <Footer />
           </div>
         </ThemeProvider>

@@ -42,7 +42,7 @@ async function Pre({
     const html = await codeToHtml(String(codeElement?.props.children), {
       lang,
       themes: {
-        light: 'vitesse-light',
+        light: 'github-light',
         dark: 'vesper',
       },
     });

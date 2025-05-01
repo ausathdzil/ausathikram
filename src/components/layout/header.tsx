@@ -100,7 +100,7 @@ function MobileNav({ pathname }: { pathname: string }) {
   }, []);
 
   return (
-    <Drawer open={isOpen} activeSnapPoint={0.5} onOpenChange={handleOpenChange}>
+    <Drawer open={isOpen} onOpenChange={handleOpenChange}>
       <DrawerTrigger asChild>
         <MenuIcon size={16} />
       </DrawerTrigger>

@@ -86,7 +86,7 @@ export default async function Page(props: PostPageProps) {
         }}
       />
       <article className="prose prose-zinc dark:prose-invert prose-sm sm:prose-base">
-        <h1 className="not-prose text-xl text-primary">
+        <h1 className="not-prose text-xl text-primary font-medium">
           {post.metadata.title}
         </h1>
         <p className="mt-2 not-prose text-muted-foreground">
