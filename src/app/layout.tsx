@@ -8,16 +8,13 @@ import { Roboto_Mono } from 'next/font/google';
 import localFont from 'next/font/local';
 import './globals.css';
 
-const pretendard = localFont({
-  src: './fonts/PretendardVariable.woff2',
-  display: 'swap',
-  weight: '45 920',
-  variable: '--font-pretendard',
+const inter = localFont({
+  src: './fonts/InterVariable.woff2',
+  variable: '--font-inter',
 });
 
 const robotoMono = Roboto_Mono({
   subsets: ['latin'],
-  display: 'swap',
   variable: '--font-roboto-mono',
 });
 
@@ -59,7 +56,11 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={cn(pretendard.variable, robotoMono.variable, 'antialiased')}
+        className={cn(
+          inter.variable,
+          robotoMono.variable,
+          'tracking-tight antialiased'
+        )}
       >
         <ThemeProvider
           attribute="class"

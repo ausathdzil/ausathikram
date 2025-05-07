@@ -19,7 +19,7 @@ export default function Page() {
   return (
     <>
       <article className="space-y-2">
-        <h1 className="text-xl">Blog</h1>
+        <h1 className="text-xl font-medium">Blog</h1>
         <p className="prose prose-zinc dark:prose-invert">
           Things that interest me, mostly about web development.
         </p>

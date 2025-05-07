@@ -18,7 +18,7 @@ export default function Page() {
   return (
     <>
       <article className="space-y-2">
-        <h1 className="text-xl">Projects</h1>
+        <h1 className="text-xl font-medium">Projects</h1>
         <p className="prose prose-zinc dark:prose-invert">
           Side projects I&apos;ve worked on.
         </p>

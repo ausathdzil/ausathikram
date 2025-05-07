@@ -72,7 +72,7 @@ export default async function Page(props: ProjectPageProps) {
         </div>
       )}
       <article className="space-y-2">
-        <h1 className="text-xl">{project.title}</h1>
+        <h1 className="text-xl font-medium">{project.title}</h1>
         <p className="text-muted-foreground">{project.description}</p>
       </article>
       <div className="flex items-center gap-4">

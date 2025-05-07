@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <>
       <article className="space-y-2">
-        <h1 className="text-xl">Ausath Ikram</h1>
+        <h1 className="text-xl font-medium">Ausath Ikram</h1>
         <p className="prose prose-zinc dark:prose-invert prose-strong:font-medium">
           I&apos;m a <strong>Web Developer</strong> who mainly work with{' '}
           <strong>Next.js</strong>. I&apos;m always{' '}
@@ -17,7 +17,7 @@ export default function Home() {
         </p>
       </article>
       <div className="flex flex-col gap-2">
-        <Link className="w-fit text-xl" href="/blog">
+        <Link className="w-fit text-xl font-medium" href="/blog">
           Blog
         </Link>
         <RecentPosts />

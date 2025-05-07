@@ -7,8 +7,8 @@ export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const title = searchParams.get('title') || 'Ausath Ikram';
 
-  const pretendardSemiBold = await readFile(
-    path.join(process.cwd(), 'src/app/fonts/Pretendard-SemiBold.otf')
+  const interSemiBold = await readFile(
+    path.join(process.cwd(), 'src/app/fonts/Inter-SemiBold.ttf')
   );
 
   return new ImageResponse(
@@ -20,8 +20,8 @@ export async function GET(request: NextRequest) {
     {
       fonts: [
         {
-          data: pretendardSemiBold,
-          name: 'Pretendard',
+          data: interSemiBold,
+          name: 'Inter',
           weight: 600,
           style: 'normal',
         },
