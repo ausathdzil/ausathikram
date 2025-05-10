@@ -1,5 +1,7 @@
-import Footer from '@/components/layout/footer';
-import { Header } from '@/components/layout/header';
+import CommandButton from '@/components/layout/command-button';
+import MobileNav from '@/components/layout/mobile-nav';
+import ModeToggle from '@/components/layout/mode-toggle';
+import NavLinks from '@/components/layout/nav-links';
 import { ThemeProvider } from '@/components/layout/theme-provider';
 import { getBlogPosts } from '@/lib/blog';
 import { baseUrl, cn } from '@/lib/utils';
@@ -51,8 +53,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const posts = getBlogPosts();
-
   return (
     <html lang="en" suppressHydrationWarning>
       <body
@@ -69,7 +69,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <div className="flex flex-col items-center min-h-screen max-w-2xl mx-auto px-8">
-            <Header posts={posts} />
+            <Header />
             <main className="w-full grow flex flex-col pb-16 gap-8">
               {children}
             </main>
@@ -78,5 +78,45 @@ export default function RootLayout({
         </ThemeProvider>
       </body>
     </html>
+  );
+}
+
+function Header() {
+  const posts = getBlogPosts();
+  const sortedPosts = posts.sort(
+    (a, b) =>
+      new Date(b.metadata.publishedAt).getTime() -
+      new Date(a.metadata.publishedAt).getTime()
+  );
+
+  return (
+    <header className="w-full flex items-center gap-4 py-8">
+      <NavLinks />
+      <MobileNav />
+      <CommandButton posts={sortedPosts} />
+      <ModeToggle />
+    </header>
+  );
+}
+
+function Footer() {
+  return (
+    <footer className="w-full border-t flex justify-start items-center gap-4 sm:gap-8 text-right py-8">
+      <a
+        href="https://github.com/ausathdzil"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        GitHub
+      </a>
+      <a
+        href="https://linkedin.com/in/ausathdzil"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        LinkedIn
+      </a>
+      <a href="mailto:mail@ausathikram.com">Email</a>
+    </footer>
   );
 }

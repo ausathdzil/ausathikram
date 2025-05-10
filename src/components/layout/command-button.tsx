@@ -1,6 +1,5 @@
 'use client';
 
-import { ModeToggle } from '@/components/layout/mode-toggle';
 import { Button } from '@/components/ui/button';
 import {
   CommandDialog,
@@ -11,25 +10,11 @@ import {
   CommandList,
   CommandSeparator,
 } from '@/components/ui/command';
-import {
-  Drawer,
-  DrawerContent,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from '@/components/ui/drawer';
 import { Metadata } from '@/lib/blog';
 import { projects } from '@/lib/projects';
-import {
-  ArrowUpRightIcon,
-  ChevronLeftIcon,
-  FolderIcon,
-  MenuIcon,
-  NewspaperIcon,
-} from 'lucide-react';
-import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
-import { useCallback, useEffect, useState } from 'react';
+import { ArrowUpRightIcon, FolderIcon, NewspaperIcon } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 const navItems = [
   { name: 'About', href: '/' },
@@ -43,97 +28,7 @@ type Post = {
   content: string;
 };
 
-export function Header({ posts }: { posts: Post[] }) {
-  const pathname = usePathname();
-  const sortedPosts = posts.sort(
-    (a, b) =>
-      new Date(b.metadata.publishedAt).getTime() -
-      new Date(a.metadata.publishedAt).getTime()
-  );
-
-  return (
-    <header className="w-full flex items-center gap-4 py-8">
-      <nav className="hidden sm:flex grow gap-8">
-        {navItems.map((item) => (
-          <Link
-            key={item.name}
-            href={item.href}
-            className={
-              (
-                item.href === '/'
-                  ? pathname === item.href
-                  : pathname.startsWith(item.href)
-              )
-                ? 'text-blue-800 dark:text-blue-400'
-                : ''
-            }
-          >
-            {item.name}
-          </Link>
-        ))}
-      </nav>
-      <div className="sm:hidden grow flex items-center gap-4">
-        <MobileNav pathname={pathname} />
-        {pathname.startsWith('/blog/') && (
-          <Button variant="ghost" size="icon">
-            <Link href="/blog">
-              <ChevronLeftIcon />
-            </Link>
-          </Button>
-        )}
-      </div>
-      <CommandButton posts={sortedPosts} />
-      <ModeToggle />
-    </header>
-  );
-}
-
-function MobileNav({ pathname }: { pathname: string }) {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const handleOpenChange = useCallback((open: boolean) => {
-    setIsOpen(open);
-  }, []);
-
-  const handleNavigation = useCallback(() => {
-    setIsOpen(false);
-  }, []);
-
-  return (
-    <Drawer open={isOpen} onOpenChange={handleOpenChange}>
-      <DrawerTrigger asChild>
-        <MenuIcon size={16} />
-      </DrawerTrigger>
-      <DrawerContent>
-        <DrawerHeader>
-          <DrawerTitle>Menu</DrawerTitle>
-        </DrawerHeader>
-        <nav className="p-4 flex flex-col gap-4">
-          {navItems.map((item) => (
-            <Link
-              key={item.name}
-              href={item.href}
-              className={
-                (
-                  item.href === '/'
-                    ? pathname === item.href
-                    : pathname.startsWith(item.href)
-                )
-                  ? 'text-blue-800 dark:text-blue-400'
-                  : ''
-              }
-              onClick={handleNavigation}
-            >
-              {item.name}
-            </Link>
-          ))}
-        </nav>
-      </DrawerContent>
-    </Drawer>
-  );
-}
-
-function CommandButton({ posts }: { posts?: Post[] }) {
+export default function CommandButton({ posts }: { posts?: Post[] }) {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState('');
   const router = useRouter();
@@ -148,12 +43,6 @@ function CommandButton({ posts }: { posts?: Post[] }) {
     document.addEventListener('keydown', down);
     return () => document.removeEventListener('keydown', down);
   }, []);
-
-  const sortedPosts = posts?.sort(
-    (a, b) =>
-      new Date(b.metadata.publishedAt).getTime() -
-      new Date(a.metadata.publishedAt).getTime()
-  );
 
   return (
     <>
@@ -170,7 +59,7 @@ function CommandButton({ posts }: { posts?: Post[] }) {
         <CommandList>
           <CommandEmpty>No results found.</CommandEmpty>
           <CommandGroup heading="Posts">
-            {sortedPosts
+            {posts
               ?.filter((post) =>
                 post.metadata.title.toLowerCase().includes(value.toLowerCase())
               )
