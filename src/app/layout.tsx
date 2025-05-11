@@ -26,10 +26,10 @@ export const metadata: Metadata = {
     default: 'Ausath Ikram',
     template: '%s - Ausath Ikram',
   },
-  description: 'Web Developer',
+  description: 'Web developer',
   openGraph: {
     title: 'Ausath Ikram',
-    description: 'Web Developer',
+    description: 'Web developer',
     url: baseUrl,
     siteName: 'Ausath Ikram',
     locale: 'en_US',
@@ -70,7 +70,7 @@ export default function RootLayout({
         >
           <div className="flex flex-col items-center min-h-screen max-w-2xl mx-auto px-8">
             <Header />
-            <main className="w-full grow flex flex-col pb-16 gap-8">
+            <main className="w-full flex flex-1 flex-col pb-16 gap-8">
               {children}
             </main>
             <Footer />
@@ -92,7 +92,7 @@ function Header() {
   return (
     <header className="w-full flex items-center gap-4 py-8">
       <NavLinks />
-      <MobileNav />
+      <MobileNav posts={sortedPosts} />
       <CommandButton posts={sortedPosts} />
       <ModeToggle />
     </header>
@@ -101,7 +101,7 @@ function Header() {
 
 function Footer() {
   return (
-    <footer className="w-full border-t flex justify-start items-center gap-4 sm:gap-8 text-right py-8">
+    <footer className="w-full border-t flex items-center gap-4 sm:gap-8 py-8">
       <a
         href="https://github.com/ausathdzil"
         rel="noopener noreferrer"

@@ -10,7 +10,7 @@ export default function Home() {
       <article className="space-y-2">
         <h1 className="text-xl font-medium">Ausath Ikram</h1>
         <p className="prose prose-zinc dark:prose-invert prose-strong:font-medium">
-          I&apos;m a <strong>Web Developer</strong> who mainly work with{' '}
+          I&apos;m a <strong>web developer</strong> who mainly work with{' '}
           <strong>Next.js</strong>. I&apos;m always{' '}
           <strong>looking for new opportunities to learn and grow</strong> to
           become a better developer.

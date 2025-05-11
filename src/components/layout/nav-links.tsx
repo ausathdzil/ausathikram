@@ -13,7 +13,7 @@ export default function NavLinks() {
   const pathname = usePathname();
 
   return (
-    <nav className="hidden sm:flex grow gap-8">
+    <nav className="hidden sm:flex flex-1 gap-8">
       {navItems.map((item) => (
         <Link
           key={item.name}
