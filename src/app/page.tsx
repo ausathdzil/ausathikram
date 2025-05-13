@@ -5,6 +5,17 @@ import { RssIcon } from 'lucide-react';
 import Link from 'next/link';
 
 export default function Home() {
+  const posts = getBlogPosts();
+
+  const recentPosts = posts
+    .sort((a, b) => {
+      return (
+        new Date(b.metadata.publishedAt).getTime() -
+        new Date(a.metadata.publishedAt).getTime()
+      );
+    })
+    .splice(0, 4);
+
   return (
     <>
       <article className="space-y-2">
@@ -20,7 +31,18 @@ export default function Home() {
         <Link className="w-fit text-xl font-medium" href="/blog">
           Blog
         </Link>
-        <RecentPosts />
+        <ul className="space-y-2">
+          {recentPosts.map((post) => (
+            <li key={post.slug}>
+              <Link className="w-fit" href={`/blog/${post.slug}`}>
+                {post.metadata.title}
+              </Link>
+              <p className="text-muted-foreground">
+                {formatDate(post.metadata.publishedAt)}
+              </p>
+            </li>
+          ))}
+        </ul>
       </div>
       <Button className="w-fit" size="lg" asChild>
         <a href="/rss" target="_blank">
@@ -29,33 +51,5 @@ export default function Home() {
         </a>
       </Button>
     </>
-  );
-}
-
-function RecentPosts() {
-  const posts = getBlogPosts();
-
-  const recentPosts = posts
-    .sort((a, b) => {
-      return (
-        new Date(b.metadata.publishedAt).getTime() -
-        new Date(a.metadata.publishedAt).getTime()
-      );
-    })
-    .splice(0, 4);
-
-  return (
-    <ul className="space-y-2">
-      {recentPosts.map((post) => (
-        <li key={post.slug}>
-          <Link className="w-fit" href={`/blog/${post.slug}`}>
-            {post.metadata.title}
-          </Link>
-          <p className="text-muted-foreground">
-            {formatDate(post.metadata.publishedAt)}
-          </p>
-        </li>
-      ))}
-    </ul>
   );
 }

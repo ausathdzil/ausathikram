@@ -14,7 +14,7 @@ In short, this issue is about bypassing authorization in middleware by using a s
 
 Only using middleware for your authorization is not enough. This exploit has made it clear, I will explain about this shortly.
 
-### Middleware
+## Middleware
 
 Middleware allows us to run a code before preceeding with a request and sending back (or even modifying) a response.
 
@@ -24,7 +24,7 @@ For example: if a user that isn't authenticated navigate to a protected route, y
 
 One of the most common use case is for authorization.
 
-### Authorization
+## Authorization
 
 Authorization is the process of deciding what part of your application the user can access.
 
@@ -180,13 +180,13 @@ const nextConfig: NextConfig = {
 export default nextConfig;
 ```
 
-### Security
+## Security
 
 [_Vibe Coding_](https://x.com/karpathy/status/1886192184808149383) has seen a lot of growth recently. While it's good that this means the barrier of entry for web development is lower, security still remains a huge concern without the proper knowledge to apply them.
 
 I hope this post helps you understand more about middleware and authorization.
 
-### References
+## References
 
 - [CVE-2025-29927 | Next.js](https://nextjs.org/blog/cve-2025-29927)
 - [Routing: Middleware | Next.js](https://nextjs.org/docs/app/building-your-application/routing/middleware)

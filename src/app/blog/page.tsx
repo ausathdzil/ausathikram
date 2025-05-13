@@ -16,20 +16,6 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return (
-    <>
-      <article className="space-y-2">
-        <h1 className="text-xl font-medium">Blog</h1>
-        <p className="prose prose-zinc dark:prose-invert">
-          Things that interest me, mostly about web development.
-        </p>
-      </article>
-      <BlogPosts />
-    </>
-  );
-}
-
-function BlogPosts() {
   const posts = getBlogPosts();
 
   const sortedPosts = posts.sort((a, b) => {
@@ -40,7 +26,14 @@ function BlogPosts() {
   });
 
   return (
-    <ul className="space-y-4">
+    <>
+      <article className="space-y-2">
+        <h1 className="text-xl font-medium">Blog</h1>
+        <p className="prose prose-zinc dark:prose-invert">
+          Things that interest me, mostly about web development.
+        </p>
+      </article>
+      <ul className="space-y-4">
       {sortedPosts.map((post) => (
         <li key={post.slug}>
           <div className="grid grid-cols-[1fr_auto] gap-0">
@@ -60,5 +53,6 @@ function BlogPosts() {
         </li>
       ))}
     </ul>
+    </>
   );
 }

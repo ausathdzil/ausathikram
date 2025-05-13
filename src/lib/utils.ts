@@ -29,9 +29,27 @@ export function slugify(str: string) {
   return str
     .toString()
     .toLowerCase()
-    .trim() // Remove whitespace from both ends of a string
+    .trim()
     .replace(/\s+/g, '-') // Replace spaces with -
     .replace(/&/g, '-and-') // Replace & with 'and'
     .replace(/[^\w\-]+/g, '') // Remove all non-word characters except for -
     .replace(/\-\-+/g, '-'); // Replace multiple - with single -
+}
+
+export function getTableOfContents(content: string) {
+  const headingRegex = /^#+\s+(.*)$/gm;
+  const matches = content.match(headingRegex);
+  if (!matches) return [];
+
+  return matches.map((match) => {
+    const level = match.match(/^#+/)?.[0].length; // Get the number of #s
+    const title = match.replace(/^#+\s+/, ''); // Remove the #s
+    const slug = slugify(title);
+
+    return {
+      level,
+      title,
+      slug,
+    };
+  });
 }

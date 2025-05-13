@@ -59,7 +59,7 @@ export default function RootLayout({
         className={cn(
           inter.variable,
           robotoMono.variable,
-          'tracking-tight antialiased'
+          'font-sans tracking-tight dark:antialiased'
         )}
       >
         <ThemeProvider
@@ -70,7 +70,7 @@ export default function RootLayout({
         >
           <div className="flex flex-col items-center min-h-screen max-w-2xl mx-auto px-8">
             <Header />
-            <main className="w-full flex flex-1 flex-col pb-16 gap-8">
+            <main className="w-full flex flex-1 flex-col pb-8 gap-8">
               {children}
             </main>
             <Footer />

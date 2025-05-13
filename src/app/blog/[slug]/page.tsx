@@ -1,6 +1,6 @@
 import { CustomMDX } from '@/components/blog/custom-mdx';
-import { getBlogPosts, getTableOfContents } from '@/lib/blog';
-import { baseUrl, formatDate } from '@/lib/utils';
+import { getBlogPosts } from '@/lib/blog';
+import { baseUrl, formatDate, getTableOfContents } from '@/lib/utils';
 import { ArrowLeftIcon, ArrowUpIcon } from 'lucide-react';
 import { Metadata } from 'next';
 import Link from 'next/link';
@@ -64,6 +64,8 @@ export default async function Page(props: PostPageProps) {
     notFound();
   }
 
+  const tableOfContents = getTableOfContents(post.content);
+
   return (
     <>
       <script
@@ -85,7 +87,7 @@ export default async function Page(props: PostPageProps) {
           }),
         }}
       />
-      <article className="prose prose-zinc dark:prose-invert prose-sm sm:prose-base">
+      <article className="prose prose-zinc dark:prose-invert prose-h2:font-semibold prose-h2:text-xl">
         <h1 className="not-prose text-xl text-primary font-medium">
           {post.metadata.title}
         </h1>
@@ -102,32 +104,26 @@ export default async function Page(props: PostPageProps) {
           <span>Blog</span>
         </Link>
       </article>
-      <TableOfContents content={post.content} />
+      <aside className="hidden xl:block fixed right-28 top-28 w-64 opacity-60 hover:opacity-100 transition-opacity  prose prose-zinc dark:prose-invert prose-li:mb-2">
+        <p className="not-prose text-primary font-semibold mb-4">
+          On this page
+        </p>
+        <nav>
+          <ul>
+            {tableOfContents.map((heading) => (
+              <li key={heading.slug}>
+                <a key={heading.slug} href={`#${heading.slug}`}>
+                  {heading.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        <a className="not-prose w-fit flex items-center gap-2 mt-4" href="#top">
+          <ArrowUpIcon size={16} />
+          <span>Back to top</span>
+        </a>
+      </aside>
     </>
-  );
-}
-
-function TableOfContents({ content }: { content: string }) {
-  const tableOfContents = getTableOfContents(content);
-
-  return (
-    <aside className="hidden xl:block fixed right-36 top-28 w-64 opacity-60 hover:opacity-100 transition-opacity  prose prose-zinc dark:prose-invert prose-sm prose-li:mb-2">
-      <p className="not-prose text-primary font-semibold mb-4">On this page</p>
-      <nav>
-        <ul>
-          {tableOfContents.map((heading) => (
-            <li key={heading.slug}>
-              <a key={heading.slug} href={`#${heading.slug}`}>
-                {heading.title}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </nav>
-      <a className="not-prose w-fit flex items-center gap-2 mt-4" href="#top">
-        <ArrowUpIcon size={16} />
-        <span>Back to top</span>
-      </a>
-    </aside>
   );
 }

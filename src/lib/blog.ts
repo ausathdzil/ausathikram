@@ -1,6 +1,5 @@
 import fs from 'fs';
 import path from 'path';
-import { slugify } from './utils';
 
 export type Metadata = {
   title: string;
@@ -51,22 +50,4 @@ function getMDXData(dir: string) {
 
 export function getBlogPosts() {
   return getMDXData(path.join(process.cwd(), 'posts'));
-}
-
-export function getTableOfContents(content: string) {
-  const headingRegex = /^#+\s+(.*)$/gm;
-  const matches = content.match(headingRegex);
-  if (!matches) return [];
-
-  return matches.map((match) => {
-    const level = match.match(/^#+/)?.[0].length; // Get the number of #s
-    const title = match.replace(/^#+\s+/, ''); // Remove the #s
-    const slug = slugify(title);
-
-    return {
-      level,
-      title,
-      slug,
-    };
-  });
 }
