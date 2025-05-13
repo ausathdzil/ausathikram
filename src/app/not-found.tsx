@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/button';
+import { buttonVariants } from '@/components/ui/button';
 import { HomeIcon } from 'lucide-react';
 import { Metadata } from 'next';
 import Link from 'next/link';
@@ -18,12 +18,10 @@ export default function NotFound() {
   return (
     <div className="flex flex-1 flex-col justify-center items-center text-center space-y-4">
       <h1 className="text-xl lg:text-3xl">404 Not Found</h1>
-      <Button asChild className="rounded-full">
-        <Link href="/">
-          <HomeIcon />
-          Home
-        </Link>
-      </Button>
+      <Link className={buttonVariants({ size: 'lg' })} href="/">
+        <HomeIcon />
+        Home
+      </Link>
     </div>
   );
 }

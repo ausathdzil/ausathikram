@@ -4,7 +4,7 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: 'Ausath Ikram',
     short_name: 'Ausath Ikram',
-    description: 'Web developer',
+    description: 'Web developer.',
     start_url: '/',
     display: 'standalone',
     background_color: '#fff',

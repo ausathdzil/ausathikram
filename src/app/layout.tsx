@@ -5,11 +5,13 @@ import NavLinks from '@/components/layout/nav-links';
 import { ThemeProvider } from '@/components/layout/theme-provider';
 import { getBlogPosts } from '@/lib/blog';
 import { baseUrl, cn } from '@/lib/utils';
+import { Analytics } from '@vercel/analytics/next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
+import { ArrowUpRightIcon } from 'lucide-react';
 import type { Metadata } from 'next';
 import { Roboto_Mono, Zilla_Slab } from 'next/font/google';
 import localFont from 'next/font/local';
 import './globals.css';
-import { ArrowUpRightIcon } from 'lucide-react';
 
 const inter = localFont({
   src: './fonts/InterVariable.woff2',
@@ -33,10 +35,10 @@ export const metadata: Metadata = {
     default: 'Ausath Ikram',
     template: '%s - Ausath Ikram',
   },
-  description: 'Web developer',
+  description: 'Web developer.',
   openGraph: {
     title: 'Ausath Ikram',
-    description: 'Web developer',
+    description: 'Web developer.',
     url: baseUrl,
     siteName: 'Ausath Ikram',
     locale: 'en_US',
@@ -84,6 +86,8 @@ export default function RootLayout({
             <Footer />
           </div>
         </ThemeProvider>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
