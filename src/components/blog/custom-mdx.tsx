@@ -15,13 +15,24 @@ function CustomLink(props: React.AnchorHTMLAttributes<HTMLAnchorElement>) {
 
   if (href.startsWith('/')) {
     return (
-      <Link href={href} {...props}>
+      <Link
+        className="underline-offset-4 decoration-muted-foreground hover:decoration-primary"
+        href={href}
+        {...props}
+      >
         {props.children}
       </Link>
     );
   }
 
-  return <a target="_blank" rel="noopener noreferrer" {...props} />;
+  return (
+    <a
+      className="underline-offset-4 decoration-muted-foreground hover:decoration-primary"
+      target="_blank"
+      rel="noopener noreferrer"
+      {...props}
+    />
+  );
 }
 
 async function Pre({
@@ -55,7 +66,12 @@ async function Pre({
     );
   }
 
-  return <pre {...props}>{children}</pre>;
+  return (
+    <div className="relative">
+      <CopyButton codeElement={codeElement} />
+      <pre {...props}>{children}</pre>
+    </div>
+  );
 }
 
 function createHeading(level: number) {
@@ -64,16 +80,29 @@ function createHeading(level: number) {
 
     return React.createElement(
       `h${level}`,
-      { id: slug },
+      { id: slug, className: 'group relative font-semibold text-xl' },
       [
-        React.createElement('a', {
-          href: `#${slug}`,
-          key: `link-${slug}`,
-          className: 'anchor',
-          'aria-hidden': true,
-        }),
-      ],
-      children
+        React.createElement(
+          'a',
+          {
+            href: `#${slug}`,
+            key: `link-${slug}`,
+            'aria-hidden': true,
+            tabIndex: -1,
+            className:
+              'absolute invisible no-underline -ml-[1em] pr-2 w-full group-hover:visible',
+          },
+          React.createElement(
+            'span',
+            {
+              className:
+                'text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100',
+            },
+            '#'
+          )
+        ),
+        children,
+      ]
     );
   };
 

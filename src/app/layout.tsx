@@ -6,13 +6,19 @@ import { ThemeProvider } from '@/components/layout/theme-provider';
 import { getBlogPosts } from '@/lib/blog';
 import { baseUrl, cn } from '@/lib/utils';
 import type { Metadata } from 'next';
-import { Roboto_Mono } from 'next/font/google';
+import { Roboto_Mono, Zilla_Slab } from 'next/font/google';
 import localFont from 'next/font/local';
 import './globals.css';
 
 const inter = localFont({
   src: './fonts/InterVariable.woff2',
   variable: '--font-inter',
+});
+
+const zillaSlab = Zilla_Slab({
+  subsets: ['latin'],
+  variable: '--font-zilla-slab',
+  weight: ['400', '500', '600', '700'],
 });
 
 const robotoMono = Roboto_Mono({
@@ -58,6 +64,7 @@ export default function RootLayout({
       <body
         className={cn(
           inter.variable,
+          zillaSlab.variable,
           robotoMono.variable,
           'font-sans tracking-tight dark:antialiased'
         )}

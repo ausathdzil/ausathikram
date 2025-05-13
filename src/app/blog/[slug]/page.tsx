@@ -87,7 +87,7 @@ export default async function Page(props: PostPageProps) {
           }),
         }}
       />
-      <article className="prose prose-zinc dark:prose-invert prose-h2:font-semibold prose-h2:text-xl">
+      <article className="prose prose-zinc dark:prose-invert">
         <h1 className="not-prose text-xl text-primary font-medium">
           {post.metadata.title}
         </h1>
@@ -104,7 +104,7 @@ export default async function Page(props: PostPageProps) {
           <span>Blog</span>
         </Link>
       </article>
-      <aside className="hidden xl:block fixed right-28 top-28 w-64 opacity-60 hover:opacity-100 transition-opacity  prose prose-zinc dark:prose-invert prose-li:mb-2">
+      <aside className="hidden xl:block fixed right-28 top-24 w-64 opacity-60 hover:opacity-100 transition-opacity  prose prose-zinc dark:prose-invert prose-li:mb-2">
         <p className="not-prose text-primary font-semibold mb-4">
           On this page
         </p>
