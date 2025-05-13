@@ -13,7 +13,7 @@ export async function GET(request: NextRequest) {
 
   return new ImageResponse(
     (
-      <div tw="text-7xl bg-white w-full h-full flex items-end justify-start tracking-tight p-24">
+      <div tw="text-7xl bg-white w-full h-full flex items-end justify-start p-24">
         {title}
       </div>
     ),

@@ -1,6 +1,6 @@
-import { Button } from '@/components/ui/button';
+import { buttonVariants } from '@/components/ui/button';
 import { projects } from '@/lib/projects';
-import { baseUrl } from '@/lib/utils';
+import { baseUrl, cn } from '@/lib/utils';
 import { ArrowUpRightIcon } from 'lucide-react';
 import { Metadata } from 'next';
 import Image from 'next/image';
@@ -58,16 +58,16 @@ export default async function Page(props: ProjectPageProps) {
   return (
     <>
       {project.image && (
-        <div className="border rounded-lg relative w-[606px] max-w-full h-[200px] sm:h-[250px] md:h-[300px]">
+        <div className="relative w-[500px] max-w-[80%] h-[150px] sm:h-[250px] border rounded-md">
           <Image
-            className="object-cover object-top rounded-lg"
+            className="object-cover object-top rounded-md"
             src={project.image}
-            alt={`${project.title} image preview`}
-            placeholder="blur"
+            alt={project.title}
             fill
-            sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
-            quality={100}
             priority
+            placeholder="blur"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            quality={100}
           />
         </div>
       )}
@@ -77,20 +77,26 @@ export default async function Page(props: ProjectPageProps) {
       </article>
       <div className="flex items-center gap-4">
         {project.link && (
-          <Button size="lg" asChild>
-            <a href={project.link} target="_blank" rel="noopener noreferrer">
-              <ArrowUpRightIcon />
-              <span>Demo</span>
-            </a>
-          </Button>
+          <a
+            className={cn(buttonVariants({ size: 'lg' }))}
+            href={project.link}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <ArrowUpRightIcon />
+            <span>Demo</span>
+          </a>
         )}
         {project.repo && (
-          <Button size="lg" asChild variant="outline">
-            <a href={project.repo} target="_blank" rel="noopener noreferrer">
-              <ArrowUpRightIcon />
-              <span>GitHub</span>
-            </a>
-          </Button>
+          <a
+            className={cn(buttonVariants({ variant: 'outline', size: 'lg' }))}
+            href={project.repo}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <ArrowUpRightIcon />
+            GitHub
+          </a>
         )}
       </div>
     </>

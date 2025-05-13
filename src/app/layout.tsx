@@ -9,6 +9,7 @@ import type { Metadata } from 'next';
 import { Roboto_Mono, Zilla_Slab } from 'next/font/google';
 import localFont from 'next/font/local';
 import './globals.css';
+import { ArrowUpRightIcon } from 'lucide-react';
 
 const inter = localFont({
   src: './fonts/InterVariable.woff2',
@@ -66,7 +67,7 @@ export default function RootLayout({
           inter.variable,
           zillaSlab.variable,
           robotoMono.variable,
-          'font-sans tracking-tight dark:antialiased'
+          'font-sans dark:antialiased'
         )}
       >
         <ThemeProvider
@@ -110,20 +111,40 @@ function Footer() {
   return (
     <footer className="w-full border-t flex items-center gap-4 sm:gap-8 py-8">
       <a
+        className="flex items-center gap-2"
+        href="/rss"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <ArrowUpRightIcon size={16} />
+        <span>RSS</span>
+      </a>
+      <a
+        className="flex items-center gap-2"
         href="https://github.com/ausathdzil"
         rel="noopener noreferrer"
         target="_blank"
       >
+        <ArrowUpRightIcon size={16} />
         GitHub
       </a>
       <a
+        className="flex items-center gap-2"
         href="https://linkedin.com/in/ausathdzil"
         rel="noopener noreferrer"
         target="_blank"
       >
+        <ArrowUpRightIcon size={16} />
         LinkedIn
       </a>
-      <a href="mailto:mail@ausathikram.com">Email</a>
+      <a
+        className="flex items-center gap-2"
+        href="mailto:mail@ausathikram.com"
+        rel="noopener noreferrer"
+      >
+        <ArrowUpRightIcon size={16} />
+        Email
+      </a>
     </footer>
   );
 }

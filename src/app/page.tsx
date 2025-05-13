@@ -1,6 +1,6 @@
-import { Button } from '@/components/ui/button';
+import { buttonVariants } from '@/components/ui/button';
 import { getBlogPosts } from '@/lib/blog';
-import { formatDate } from '@/lib/utils';
+import { cn, formatDate } from '@/lib/utils';
 import { RssIcon } from 'lucide-react';
 import Link from 'next/link';
 
@@ -44,12 +44,14 @@ export default function Home() {
           ))}
         </ul>
       </div>
-      <Button className="w-fit" size="lg" asChild>
-        <a href="/rss" target="_blank">
-          <RssIcon />
-          <span>RSS</span>
-        </a>
-      </Button>
+      <a
+        className={cn(buttonVariants({ size: 'lg' }), 'w-fit')}
+        href="/rss"
+        target="_blank"
+      >
+        <RssIcon />
+        RSS
+      </a>
     </>
   );
 }
