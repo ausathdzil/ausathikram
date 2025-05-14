@@ -1,5 +1,6 @@
 import { slugify } from '@/lib/utils';
 import { MDXRemote, MDXRemoteProps } from 'next-mdx-remote/rsc';
+import Image from 'next/image';
 import Link from 'next/link';
 import React, { Children } from 'react';
 import { Tweet } from 'react-tweet';
@@ -33,6 +34,11 @@ function CustomLink(props: React.AnchorHTMLAttributes<HTMLAnchorElement>) {
       {...props}
     />
   );
+}
+
+function CustomImage(props: React.ComponentProps<typeof Image>) {
+  /* eslint-disable-next-line jsx-a11y/alt-text */
+  return <Image className="rounded-md" width={608} height={250} {...props} />;
 }
 
 async function Pre({
@@ -113,6 +119,7 @@ function createHeading(level: number) {
 
 const components = {
   a: CustomLink,
+  img: CustomImage,
   pre: Pre,
   h1: createHeading(1),
   h2: createHeading(2),

@@ -112,7 +112,11 @@ export default async function Page(props: PostPageProps) {
           <ul>
             {tableOfContents.map((heading) => (
               <li key={heading.slug}>
-                <a key={heading.slug} href={`#${heading.slug}`}>
+                <a
+                  className="not-prose"
+                  key={heading.slug}
+                  href={`#${heading.slug}`}
+                >
                   {heading.title}
                 </a>
               </li>

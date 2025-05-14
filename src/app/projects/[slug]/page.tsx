@@ -58,7 +58,7 @@ export default async function Page(props: ProjectPageProps) {
   return (
     <>
       {project.image && (
-        <div className="relative w-[500px] max-w-[80%] h-[150px] sm:h-[250px] border rounded-md">
+        <div className="relative w-[608px] max-w-full h-[150px] sm:h-[300px] border rounded-md">
           <Image
             className="object-cover object-top rounded-md"
             src={project.image}
@@ -66,7 +66,7 @@ export default async function Page(props: ProjectPageProps) {
             fill
             priority
             placeholder="blur"
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 100vw"
             quality={100}
           />
         </div>

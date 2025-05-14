@@ -113,9 +113,9 @@ function Header() {
 
 function Footer() {
   return (
-    <footer className="w-full border-t flex items-center gap-4 sm:gap-8 py-8">
+    <footer className="w-full border-t flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-8 py-8 text-sm">
       <a
-        className="flex items-center gap-2"
+        className="flex items-center gap-1"
         href="/rss"
         target="_blank"
         rel="noopener noreferrer"
@@ -124,7 +124,7 @@ function Footer() {
         <span>RSS</span>
       </a>
       <a
-        className="flex items-center gap-2"
+        className="flex items-center gap-1"
         href="https://github.com/ausathdzil"
         rel="noopener noreferrer"
         target="_blank"
@@ -133,7 +133,7 @@ function Footer() {
         GitHub
       </a>
       <a
-        className="flex items-center gap-2"
+        className="flex items-center gap-1"
         href="https://linkedin.com/in/ausathdzil"
         rel="noopener noreferrer"
         target="_blank"
@@ -142,7 +142,7 @@ function Footer() {
         LinkedIn
       </a>
       <a
-        className="flex items-center gap-2"
+        className="flex items-center gap-1"
         href="mailto:mail@ausathikram.com"
         rel="noopener noreferrer"
       >

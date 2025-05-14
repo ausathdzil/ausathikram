@@ -41,7 +41,7 @@ export default function MobileNav({ posts }: { posts?: Post[] }) {
     <div className="sm:hidden grow flex items-center gap-4">
       <Drawer open={isOpen} onOpenChange={handleOpenChange}>
         <DrawerTrigger asChild>
-          <button>
+          <button aria-label="Menu">
             <MenuIcon size={16} />
           </button>
         </DrawerTrigger>
