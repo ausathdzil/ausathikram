@@ -113,16 +113,7 @@ function Header() {
 
 function Footer() {
   return (
-    <footer className="w-full border-t flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-8 py-8 text-sm">
-      <a
-        className="flex items-center gap-1"
-        href="/rss"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <ArrowUpRightIcon size={16} />
-        <span>RSS</span>
-      </a>
+    <footer className="w-full border-t flex items-center gap-4 sm:gap-8 py-8 text-sm sm:text-base">
       <a
         className="flex items-center gap-1"
         href="https://github.com/ausathdzil"
