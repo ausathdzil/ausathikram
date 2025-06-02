@@ -1,4 +1,6 @@
-# My Personal Website
+# ausathikram.com
+
+My personal web portfolio and blog.
 
 Tech Stack:
 
@@ -7,4 +9,4 @@ Tech Stack:
 - [TypeScript](https://github.com/microsoft/TypeScript)
 - [shadcn/ui](https://github.com/shadcn-ui/ui)
 - [MDX](https://github.com/mdx-js/mdx/)
-- [Resend](https://github.com/resend)
+- [Shiki](https://github.com/shikijs/shiki)
