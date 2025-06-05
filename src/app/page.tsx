@@ -44,13 +44,7 @@ export default function Home() {
           ))}
         </ul>
       </div>
-      <a
-        className={cn(
-          buttonVariants(),
-          'rounded-full max-w-fit bg-orange-500  hover:bg-orange-500/90 text-white'
-        )}
-        href="/rss"
-      >
+      <a className={cn(buttonVariants(), 'rounded-full max-w-fit')} href="/rss">
         <RssIcon />
         RSS
       </a>
