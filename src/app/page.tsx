@@ -31,15 +31,18 @@ export default function Home() {
         <Link className="w-fit text-xl font-medium" href="/blog">
           Blog
         </Link>
-        <ul className="space-y-2">
+        <ul className="space-y-1">
           {recentPosts.map((post) => (
             <li key={post.slug}>
-              <Link className="w-fit" href={`/blog/${post.slug}`}>
-                {post.metadata.title}
+              <Link
+                className="-mx-3 flex flex-col w-full px-3 py-2 hover:bg-muted/50 rounded-lg transition-colors"
+                href={`/blog/${post.slug}`}
+              >
+                <span>{post.metadata.title}</span>
+                <span className="text-muted-foreground">
+                  {formatDate(post.metadata.publishedAt)}
+                </span>
               </Link>
-              <p className="text-muted-foreground">
-                {formatDate(post.metadata.publishedAt)}
-              </p>
             </li>
           ))}
         </ul>

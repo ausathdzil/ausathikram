@@ -9,18 +9,23 @@ import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { ArrowUpRightIcon } from 'lucide-react';
 import type { Metadata } from 'next';
-import { Roboto_Mono } from 'next/font/google';
-import localFont from 'next/font/local';
+import { Inter, JetBrains_Mono, Zilla_Slab } from 'next/font/google';
 import './globals.css';
 
-const inter = localFont({
-  src: './fonts/InterVariable.woff2',
+const inter = Inter({
+  subsets: ['latin'],
   variable: '--font-inter',
 });
 
-const robotoMono = Roboto_Mono({
+const zillaSlab = Zilla_Slab({
   subsets: ['latin'],
-  variable: '--font-roboto-mono',
+  variable: '--font-zilla-slab',
+  weight: ['300', '400', '500', '600', '700'],
+});
+
+const jetBrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  variable: '--font-jetbrains-mono',
 });
 
 export const metadata: Metadata = {
@@ -61,7 +66,8 @@ export default function RootLayout({
       <body
         className={cn(
           inter.variable,
-          robotoMono.variable,
+          zillaSlab.variable,
+          jetBrainsMono.variable,
           'font-sans dark:antialiased'
         )}
       >

@@ -33,26 +33,21 @@ export default function Page() {
           Things that interest me, mostly about web development.
         </p>
       </article>
-      <ul className="space-y-4">
-      {sortedPosts.map((post) => (
-        <li key={post.slug}>
-          <div className="grid grid-cols-[1fr_auto] gap-0">
+      <ul className="space-y-1">
+        {sortedPosts.map((post) => (
+          <li key={post.slug}>
             <Link
-              className="w-fit sm:text-lg col-span-2 md:col-span-1"
+              className="-mx-3 flex flex-col w-full px-3 py-2 hover:bg-muted/50 rounded-lg transition-colors"
               href={`/blog/${post.slug}`}
             >
-              {post.metadata.title}
+              <span>{post.metadata.title}</span>
+              <span className="text-sm text-muted-foreground max-w-[80%]">
+                {post.metadata.summary}
+              </span>
             </Link>
-            <p className="text-muted-foreground">
-              {formatDate(post.metadata.publishedAt)}
-            </p>
-            <p className="hidden md:block text-sm text-muted-foreground max-w-[80%]">
-              {post.metadata.summary}
-            </p>
-          </div>
-        </li>
-      ))}
-    </ul>
+          </li>
+        ))}
+      </ul>
     </>
   );
 }
