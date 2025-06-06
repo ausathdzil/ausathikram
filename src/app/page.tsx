@@ -1,7 +1,5 @@
-import { buttonVariants } from '@/components/ui/button';
 import { getBlogPosts } from '@/lib/blog';
-import { cn, formatDate } from '@/lib/utils';
-import { RssIcon } from 'lucide-react';
+import { formatDate } from '@/lib/utils';
 import Link from 'next/link';
 
 export default function Home() {
@@ -28,9 +26,7 @@ export default function Home() {
         </p>
       </article>
       <div className="flex flex-col gap-2">
-        <Link className="w-fit text-xl font-medium" href="/blog">
-          Blog
-        </Link>
+        <span className="text-xl font-medium">Blog</span>
         <ul className="space-y-1">
           {recentPosts.map((post) => (
             <li key={post.slug}>
@@ -47,10 +43,6 @@ export default function Home() {
           ))}
         </ul>
       </div>
-      <a className={cn(buttonVariants(), 'rounded-full max-w-fit')} href="/rss">
-        <RssIcon />
-        RSS
-      </a>
     </>
   );
 }

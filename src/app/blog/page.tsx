@@ -1,5 +1,4 @@
 import { getBlogPosts } from '@/lib/blog';
-import { formatDate } from '@/lib/utils';
 import { Metadata } from 'next';
 import Link from 'next/link';
 
@@ -25,6 +24,15 @@ export default function Page() {
     );
   });
 
+  const groupedPosts = sortedPosts.reduce((acc, post) => {
+    const year = new Date(post.metadata.publishedAt).getFullYear();
+    if (!acc[year]) {
+      acc[year] = [];
+    }
+    acc[year].push(post);
+    return acc;
+  }, {} as Record<number, typeof posts>);
+
   return (
     <>
       <article className="space-y-2">
@@ -33,21 +41,30 @@ export default function Page() {
           Things that interest me, mostly about web development.
         </p>
       </article>
-      <ul className="space-y-1">
-        {sortedPosts.map((post) => (
-          <li key={post.slug}>
-            <Link
-              className="-mx-3 flex flex-col w-full px-3 py-2 hover:bg-muted/50 rounded-lg transition-colors"
-              href={`/blog/${post.slug}`}
-            >
-              <span>{post.metadata.title}</span>
-              <span className="text-sm text-muted-foreground max-w-[80%]">
-                {post.metadata.summary}
-              </span>
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <div className="space-y-4">
+        {Object.entries(groupedPosts)
+          .sort(([yearA], [yearB]) => Number(yearB) - Number(yearA))
+          .map(([year, posts]) => (
+            <div key={year} className="space-y-2">
+              <h2 className="text-lg font-medium">{year}</h2>
+              <ul className="space-y-1">
+                {posts.map((post) => (
+                  <li key={post.slug}>
+                    <Link
+                      className="-mx-3 flex flex-col w-full px-3 py-2 hover:bg-muted/50 rounded-lg transition-colors"
+                      href={`/blog/${post.slug}`}
+                    >
+                      <span>{post.metadata.title}</span>
+                      <span className="text-xs sm:text-sm text-muted-foreground line-clamp-1">
+                        {post.metadata.summary}
+                      </span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+      </div>
     </>
   );
 }

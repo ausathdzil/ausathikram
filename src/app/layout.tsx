@@ -3,11 +3,12 @@ import MobileNav from '@/components/layout/mobile-nav';
 import ModeToggle from '@/components/layout/mode-toggle';
 import NavLinks from '@/components/layout/nav-links';
 import { ThemeProvider } from '@/components/layout/theme-provider';
+import { buttonVariants } from '@/components/ui/button';
 import { getBlogPosts } from '@/lib/blog';
 import { baseUrl, cn } from '@/lib/utils';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
-import { ArrowUpRightIcon } from 'lucide-react';
+import { ArrowUpRightIcon, RssIcon } from 'lucide-react';
 import type { Metadata } from 'next';
 import { Inter, JetBrains_Mono, Zilla_Slab } from 'next/font/google';
 import './globals.css';
@@ -101,11 +102,21 @@ function Header() {
   );
 
   return (
-    <header className="w-full flex items-center gap-4 py-8">
+    <header className="w-full flex items-center gap-2 py-8">
       <NavLinks />
       <MobileNav posts={sortedPosts} />
-      <CommandButton posts={sortedPosts} />
-      <ModeToggle />
+      <div className="flex items-center gap-2">
+        <CommandButton posts={sortedPosts} />
+        
+        <a
+          className={buttonVariants({ variant: 'ghost', size: 'icon' })}
+          href="/rss"
+        >
+          <RssIcon />
+          <span className="sr-only">RSS Feed</span>
+        </a>
+        <ModeToggle />
+      </div>
     </header>
   );
 }

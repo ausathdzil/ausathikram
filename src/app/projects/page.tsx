@@ -23,15 +23,18 @@ export default function Page() {
           Side projects I&apos;ve worked on.
         </p>
       </article>
-      <ul className="space-y-4">
+      <ul className="space-y-1">
         {projects.map((project, i) => (
-          <li className="w-fit" key={i}>
-            <Link className="text-xl" href={`/projects/${project.slug}`}>
-              {project.title}
+          <li key={i}>
+            <Link
+              className="-mx-3 flex flex-col w-full px-3 py-2 hover:bg-muted/50 rounded-lg transition-colors"
+              href={`/projects/${project.slug}`}
+            >
+              <span>{project.title}</span>
+              <span className="text-xs sm:text-sm text-muted-foreground">
+                {project.description}
+              </span>
             </Link>
-            <p className="text-sm text-muted-foreground">
-              {project.description}
-            </p>
           </li>
         ))}
       </ul>

@@ -16,16 +16,23 @@ import { ArrowUpRightIcon, FolderIcon, NewspaperIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
+type Post = {
+  metadata: Metadata;
+  slug: string;
+  content: string;
+};
+
 const navItems = [
   { name: 'About', href: '/' },
   { name: 'Projects', href: '/projects' },
   { name: 'Blog', href: '/blog' },
 ];
 
-type Post = {
-  metadata: Metadata;
-  slug: string;
-  content: string;
+function getKeyboardShortcut() {
+  if (typeof window === 'undefined') return '⌘ K';
+  return /Mac|iPod|iPhone|iPad/.test(window.navigator.userAgent)
+    ? '⌘ K'
+    : 'Ctrl K';
 };
 
 export default function CommandButton({ posts }: { posts?: Post[] }) {
@@ -48,7 +55,7 @@ export default function CommandButton({ posts }: { posts?: Post[] }) {
     <>
       <Button onClick={() => setOpen(true)} variant="secondary" size="sm">
         <span className="sr-only">Search</span>
-        <kbd className="font-sans text-xs">⌘ K</kbd>
+        <kbd className="font-sans text-xs">{getKeyboardShortcut()}</kbd>
       </Button>
       <CommandDialog open={open} onOpenChange={setOpen}>
         <CommandInput
