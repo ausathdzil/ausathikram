@@ -12,7 +12,12 @@ import {
 } from '@/components/ui/command';
 import { Metadata } from '@/lib/blog';
 import { projects } from '@/lib/projects';
-import { ArrowUpRightIcon, FolderIcon, NewspaperIcon } from 'lucide-react';
+import {
+  ArrowUpRightIcon,
+  FolderIcon,
+  NewspaperIcon,
+  SearchIcon,
+} from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
@@ -28,19 +33,19 @@ const navItems = [
   { name: 'Blog', href: '/blog' },
 ];
 
-function getKeyboardShortcut() {
-  if (typeof window === 'undefined') return '⌘ K';
-  return /Mac|iPod|iPhone|iPad/.test(window.navigator.userAgent)
-    ? '⌘ K'
-    : 'Ctrl K';
-};
-
 export default function CommandButton({ posts }: { posts?: Post[] }) {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState('');
+  const [isMobile, setIsMobile] = useState(false);
+  const [isMac, setIsMac] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setIsMobile(window.innerWidth < 768);
+      setIsMac(/Mac/.test(window.navigator.userAgent));
+    }
+
     const down = (e: KeyboardEvent) => {
       if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
         e.preventDefault();
@@ -48,14 +53,23 @@ export default function CommandButton({ posts }: { posts?: Post[] }) {
       }
     };
     document.addEventListener('keydown', down);
+
     return () => document.removeEventListener('keydown', down);
   }, []);
 
   return (
     <>
-      <Button onClick={() => setOpen(true)} variant="secondary" size="sm">
+      <Button
+        onClick={() => setOpen(true)}
+        variant={isMobile ? 'ghost' : 'secondary'}
+        size="sm"
+      >
         <span className="sr-only">Search</span>
-        <kbd className="font-sans text-xs">{getKeyboardShortcut()}</kbd>
+        {isMobile ? (
+          <SearchIcon />
+        ) : (
+          <kbd className="font-sans text-xs">{isMac ? '⌘ K' : 'Ctrl K'}</kbd>
+        )}
       </Button>
       <CommandDialog open={open} onOpenChange={setOpen}>
         <CommandInput

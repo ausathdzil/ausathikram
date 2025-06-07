@@ -95,6 +95,7 @@ export default function RootLayout({
 
 function Header() {
   const posts = getBlogPosts();
+  
   const sortedPosts = posts.sort(
     (a, b) =>
       new Date(b.metadata.publishedAt).getTime() -
@@ -107,7 +108,6 @@ function Header() {
       <MobileNav posts={sortedPosts} />
       <div className="flex items-center gap-2">
         <CommandButton posts={sortedPosts} />
-        
         <a
           className={buttonVariants({ variant: 'ghost', size: 'icon' })}
           href="/rss"
