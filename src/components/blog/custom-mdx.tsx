@@ -1,4 +1,4 @@
-import { MDXRemote, MDXRemoteProps } from 'next-mdx-remote/rsc';
+import { MDXRemote, type MDXRemoteProps } from 'next-mdx-remote/rsc';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { Children } from 'react';

@@ -1,8 +1,8 @@
 import Link from 'next/link';
 
-import { formatDate } from '@/lib/utils';
 import { getBlogPosts } from '@/lib/blog';
 import { projects } from '@/lib/projects';
+import { formatDate } from '@/lib/utils';
 
 export default function Home() {
   const posts = getBlogPosts();
@@ -55,7 +55,7 @@ export default function Home() {
         </Link>
         <ul className="space-y-1">
           {recentProjects.map((project) => (
-            <li key={project.title}>
+            <li key={project.slug}>
               <Link
                 className="-mx-3 flex flex-col w-full px-3 py-2 hover:bg-muted/50 rounded-lg transition-colors ease-out"
                 href={`/projects/${project.slug}`}

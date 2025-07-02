@@ -1,6 +1,6 @@
 import { ArrowUpRightIcon } from 'lucide-react';
 
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 
@@ -22,7 +22,7 @@ export async function generateMetadata(
   props: ProjectPageProps
 ): Promise<Metadata> {
   const params = await props.params;
-  const project = projects.find((project) => project.slug === params.slug);
+  const project = projects.find((p) => p.slug === params.slug);
 
   if (!project) {
     notFound();
@@ -51,7 +51,7 @@ export async function generateMetadata(
 
 export default async function Page(props: ProjectPageProps) {
   const params = await props.params;
-  const project = projects.find((project) => project.slug === params.slug);
+  const project = projects.find((p) => p.slug === params.slug);
 
   if (!project) {
     notFound();

@@ -1,6 +1,6 @@
 import { ArrowLeftIcon, ArrowUpIcon } from 'lucide-react';
 
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
@@ -24,7 +24,7 @@ export async function generateMetadata(
   props: PostPageProps
 ): Promise<Metadata> {
   const params = await props.params;
-  const post = getBlogPosts().find((post) => post.slug === params.slug);
+  const post = getBlogPosts().find((p) => p.slug === params.slug);
 
   if (!post) {
     notFound();
@@ -60,7 +60,7 @@ export async function generateMetadata(
 
 export default async function Page(props: PostPageProps) {
   const params = await props.params;
-  const post = getBlogPosts().find((post) => post.slug === params.slug);
+  const post = getBlogPosts().find((p) => p.slug === params.slug);
 
   if (!post) {
     notFound();

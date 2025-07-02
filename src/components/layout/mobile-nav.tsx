@@ -14,7 +14,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '@/components/ui/drawer';
-import { Metadata } from '@/lib/blog';
+import type { Metadata } from '@/lib/blog';
 import { projects } from '@/lib/projects';
 
 interface Post {

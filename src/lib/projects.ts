@@ -1,4 +1,4 @@
-import { StaticImageData } from 'next/image';
+import type { StaticImageData } from 'next/image';
 
 import critix from '../../public/critix.png';
 import emergensee from '../../public/emergensee.png';

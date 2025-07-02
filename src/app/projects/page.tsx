@@ -1,4 +1,4 @@
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 
 import { projects } from '@/lib/projects';
@@ -25,8 +25,8 @@ export default function Page() {
         </p>
       </article>
       <ul className="space-y-1">
-        {projects.map((project, i) => (
-          <li key={i}>
+        {projects.map((project) => (
+          <li key={project.slug}>
             <Link
               className="-mx-3 flex flex-col w-full px-3 py-2 hover:bg-muted/50 rounded-lg transition-colors ease-out"
               href={`/projects/${project.slug}`}

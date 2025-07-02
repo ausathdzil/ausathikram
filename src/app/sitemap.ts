@@ -1,7 +1,7 @@
 import { getBlogPosts } from '@/lib/blog';
 import { projects } from '@/lib/projects';
 import { baseUrl } from '@/lib/utils';
-import { MetadataRoute } from 'next';
+import type { MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const posts = getBlogPosts().map((post) => ({

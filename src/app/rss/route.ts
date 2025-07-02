@@ -1,7 +1,7 @@
 import { getBlogPosts } from '@/lib/blog';
 import { baseUrl } from '@/lib/utils';
 
-export async function GET() {
+export function GET() {
   const posts = getBlogPosts();
 
   const items = posts

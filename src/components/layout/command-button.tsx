@@ -30,7 +30,7 @@ import {
   DrawerTrigger,
 } from '@/components/ui/drawer';
 import { useIsMobile } from '@/hooks/use-mobile';
-import { Metadata } from '@/lib/blog';
+import type { Metadata } from '@/lib/blog';
 import { projects } from '@/lib/projects';
 
 interface Post {

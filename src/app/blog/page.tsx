@@ -1,4 +1,4 @@
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 
 import { getBlogPosts } from '@/lib/blog';
@@ -16,9 +16,9 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  const posts = getBlogPosts();
+  const allPosts = getBlogPosts();
 
-  const sortedPosts = posts.sort((a, b) => {
+  const sortedPosts = allPosts.sort((a, b) => {
     return (
       new Date(b.metadata.publishedAt).getTime() -
       new Date(a.metadata.publishedAt).getTime()
@@ -32,7 +32,7 @@ export default function Page() {
     }
     acc[year].push(post);
     return acc;
-  }, {} as Record<number, typeof posts>);
+  }, {} as Record<number, typeof allPosts>);
 
   return (
     <>

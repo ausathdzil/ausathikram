@@ -1,7 +1,7 @@
-import { readFile } from 'fs/promises';
 import { ImageResponse } from 'next/og';
 import { NextRequest } from 'next/server';
-import path from 'path';
+import { readFile } from 'node:fs/promises';
+import path from 'node:path';
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;

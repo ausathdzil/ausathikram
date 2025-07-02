@@ -1,6 +1,6 @@
-import { readFile } from 'fs/promises';
 import { ImageResponse } from 'next/og';
-import path from 'path';
+import { readFile } from 'node:fs/promises';
+import path from 'node:path';
 
 export const alt = "Ausath Ikram's projects";
 export const size = {
