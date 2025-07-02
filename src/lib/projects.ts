@@ -2,7 +2,7 @@ import { StaticImageData } from 'next/image';
 
 import critix from '../../public/critix.png';
 import emergensee from '../../public/emergensee.png';
-import moneasy from '../../public/moneasy.png';
+import seaCatering from '../../public/sea-catering.png';
 import silatik from '../../public/silatik.png';
 
 export interface Project {
@@ -32,12 +32,12 @@ export const projects: Project[] = [
     repo: 'https://github.com/ausathdzil/emergensee',
   },
   {
-    title: 'Moneasy',
-    slug: 'moneasy',
-    description: 'Finance management platform integrated with AI.',
-    image: moneasy,
-    link: 'https://moneasy.vercel.app/',
-    repo: 'https://github.com/valuin/moneasy',
+    title: 'SEA Catering',
+    slug: 'sea-catering',
+    description: 'Web application for a catering business.',
+    image: seaCatering,
+    link: 'https://sea-catering.vercel.app/',
+    repo: 'https://github.com/ausathdzil/sea-catering',
   },
   {
     title: 'Critix',

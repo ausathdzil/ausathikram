@@ -175,7 +175,7 @@ function CommandMobile({ posts }: { posts?: Post[] }) {
   return (
     <Drawer open={open} onOpenChange={setOpen}>
       <DrawerTrigger asChild>
-        <Button onClick={() => setOpen(true)} variant="secondary" size="sm">
+        <Button onClick={() => setOpen(true)} variant="ghost" size="icon">
           <span className="sr-only">Search</span>
           <SearchIcon />
         </Button>

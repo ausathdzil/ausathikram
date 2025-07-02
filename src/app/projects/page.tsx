@@ -28,7 +28,7 @@ export default function Page() {
         {projects.map((project, i) => (
           <li key={i}>
             <Link
-              className="-mx-3 flex flex-col w-full px-3 py-2 hover:bg-muted/50 rounded-lg transition-colors"
+              className="-mx-3 flex flex-col w-full px-3 py-2 hover:bg-muted/50 rounded-lg transition-colors ease-out"
               href={`/projects/${project.slug}`}
             >
               <span>{project.title}</span>
