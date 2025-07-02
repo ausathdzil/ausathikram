@@ -1,6 +1,7 @@
-import { getBlogPosts } from '@/lib/blog';
 import { Metadata } from 'next';
 import Link from 'next/link';
+
+import { getBlogPosts } from '@/lib/blog';
 
 export const metadata: Metadata = {
   title: 'Blog',

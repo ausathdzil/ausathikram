@@ -1,17 +1,19 @@
-import CommandButton from '@/components/layout/command-button';
-import MobileNav from '@/components/layout/mobile-nav';
-import ModeToggle from '@/components/layout/mode-toggle';
-import NavLinks from '@/components/layout/nav-links';
+import { ArrowUpRightIcon, RssIcon } from 'lucide-react';
+
+import { Analytics } from '@vercel/analytics/next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
+import type { Metadata } from 'next';
+import { Inter, JetBrains_Mono, Zilla_Slab } from 'next/font/google';
+import './globals.css';
+
+import { CommandButton } from '@/components/layout/command-button';
+import { MobileNav } from '@/components/layout/mobile-nav';
+import { ModeToggle } from '@/components/layout/mode-toggle';
+import { NavLinks } from '@/components/layout/nav-links';
 import { ThemeProvider } from '@/components/layout/theme-provider';
 import { buttonVariants } from '@/components/ui/button';
 import { getBlogPosts } from '@/lib/blog';
 import { baseUrl, cn } from '@/lib/utils';
-import { Analytics } from '@vercel/analytics/next';
-import { SpeedInsights } from '@vercel/speed-insights/next';
-import { ArrowUpRightIcon, RssIcon } from 'lucide-react';
-import type { Metadata } from 'next';
-import { Inter, JetBrains_Mono, Zilla_Slab } from 'next/font/google';
-import './globals.css';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -78,7 +80,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="flex flex-col items-center min-h-screen max-w-2xl mx-auto px-8">
+          <div className="flex flex-col items-center min-h-screen max-w-3xl mx-auto px-8">
             <Header />
             <main className="w-full flex flex-1 flex-col pb-8 gap-8">
               {children}
@@ -95,7 +97,7 @@ export default function RootLayout({
 
 function Header() {
   const posts = getBlogPosts();
-  
+
   const sortedPosts = posts.sort(
     (a, b) =>
       new Date(b.metadata.publishedAt).getTime() -

@@ -1,11 +1,12 @@
-import { slugify } from '@/lib/utils';
 import { MDXRemote, MDXRemoteProps } from 'next-mdx-remote/rsc';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { Children } from 'react';
 import { Tweet } from 'react-tweet';
 import { codeToHtml } from 'shiki';
-import CopyButton from './copy-button';
+
+import { slugify } from '@/lib/utils';
+import { CopyButton } from './copy-button';
 
 function CustomLink(props: React.AnchorHTMLAttributes<HTMLAnchorElement>) {
   const href = props.href;
@@ -37,8 +38,16 @@ function CustomLink(props: React.AnchorHTMLAttributes<HTMLAnchorElement>) {
 }
 
 function CustomImage(props: React.ComponentProps<typeof Image>) {
-  /* eslint-disable-next-line jsx-a11y/alt-text */
-  return <Image className="rounded-md" width={608} height={250} {...props} />;
+  return (
+    /* eslint-disable-next-line jsx-a11y/alt-text */
+    <Image
+      className="rounded-md"
+      width={700}
+      height={300}
+      priority
+      {...props}
+    />
+  );
 }
 
 async function Pre({

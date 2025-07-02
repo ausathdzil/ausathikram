@@ -1,6 +1,7 @@
 'use client';
 
 import { MonitorIcon, MoonIcon, SunIcon } from 'lucide-react';
+
 import { useTheme } from 'next-themes';
 
 import { Button } from '@/components/ui/button';
@@ -11,7 +12,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 
-export default function ModeToggle() {
+export function ModeToggle() {
   const { setTheme } = useTheme();
 
   return (

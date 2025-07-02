@@ -1,14 +1,16 @@
-import { CustomMDX } from '@/components/blog/custom-mdx';
-import { getBlogPosts } from '@/lib/blog';
-import { baseUrl, formatDate, getTableOfContents } from '@/lib/utils';
 import { ArrowLeftIcon, ArrowUpIcon } from 'lucide-react';
+
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
-type PostPageProps = {
+import { CustomMDX } from '@/components/blog/custom-mdx';
+import { getBlogPosts } from '@/lib/blog';
+import { baseUrl, formatDate, getTableOfContents } from '@/lib/utils';
+
+interface PostPageProps {
   params: Promise<{ slug: string }>;
-};
+}
 
 export function generateStaticParams() {
   const posts = getBlogPosts();

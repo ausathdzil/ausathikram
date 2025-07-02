@@ -37,7 +37,7 @@ export function slugify(str: string) {
 }
 
 export function getTableOfContents(content: string) {
-  const headingRegex = /^#+\s+(.*)$/gm;
+  const headingRegex = /^#+\s+(.*)$/gm; // Match headings
   const matches = content.match(headingRegex);
   if (!matches) return [];
 

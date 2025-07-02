@@ -5,11 +5,10 @@ import { usePathname } from 'next/navigation';
 
 const navItems = [
   { name: 'About', href: '/' },
-  { name: 'Projects', href: '/projects' },
   { name: 'Blog', href: '/blog' },
 ];
 
-export default function NavLinks() {
+export function NavLinks() {
   const pathname = usePathname();
 
   return (

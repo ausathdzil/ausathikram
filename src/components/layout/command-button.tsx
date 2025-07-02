@@ -1,5 +1,15 @@
 'use client';
 
+import {
+  ArrowUpRightIcon,
+  FolderIcon,
+  NewspaperIcon,
+  SearchIcon,
+} from 'lucide-react';
+
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+
 import { Button } from '@/components/ui/button';
 import {
   CommandDialog,
@@ -10,22 +20,15 @@ import {
   CommandList,
   CommandSeparator,
 } from '@/components/ui/command';
+import { useIsMobile } from '@/hooks/use-mobile';
 import { Metadata } from '@/lib/blog';
 import { projects } from '@/lib/projects';
-import {
-  ArrowUpRightIcon,
-  FolderIcon,
-  NewspaperIcon,
-  SearchIcon,
-} from 'lucide-react';
-import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
 
-type Post = {
+interface Post {
   metadata: Metadata;
   slug: string;
   content: string;
-};
+}
 
 const navItems = [
   { name: 'About', href: '/' },
@@ -33,16 +36,16 @@ const navItems = [
   { name: 'Blog', href: '/blog' },
 ];
 
-export default function CommandButton({ posts }: { posts?: Post[] }) {
+export function CommandButton({ posts }: { posts?: Post[] }) {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState('');
-  const [isMobile, setIsMobile] = useState(false);
   const [isMac, setIsMac] = useState(false);
+
+  const isMobile = useIsMobile();
   const router = useRouter();
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      setIsMobile(window.innerWidth < 768);
       setIsMac(/Mac/.test(window.navigator.userAgent));
     }
 

@@ -1,14 +1,16 @@
-import { buttonVariants } from '@/components/ui/button';
-import { projects } from '@/lib/projects';
-import { baseUrl, cn } from '@/lib/utils';
 import { ArrowUpRightIcon } from 'lucide-react';
+
 import { Metadata } from 'next';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 
-type ProjectPageProps = {
+import { buttonVariants } from '@/components/ui/button';
+import { projects } from '@/lib/projects';
+import { baseUrl, cn } from '@/lib/utils';
+
+interface ProjectPageProps {
   params: Promise<{ slug: string }>;
-};
+}
 
 export function generateStaticParams() {
   return projects.map((project) => ({

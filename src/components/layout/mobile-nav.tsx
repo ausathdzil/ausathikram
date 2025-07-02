@@ -1,5 +1,11 @@
 'use client';
 
+import { ChevronLeftIcon, MenuIcon } from 'lucide-react';
+
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { useCallback, useState } from 'react';
+
 import { Button } from '@/components/ui/button';
 import {
   Drawer,
@@ -9,23 +15,19 @@ import {
   DrawerTrigger,
 } from '@/components/ui/drawer';
 import { Metadata } from '@/lib/blog';
-import { ChevronLeftIcon, MenuIcon } from 'lucide-react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { useCallback, useState } from 'react';
 
-type Post = {
+interface Post {
   metadata: Metadata;
   slug: string;
   content: string;
-};
+}
 
 const navItems = [
   { name: 'About', href: '/' },
   { name: 'Projects', href: '/projects' },
 ];
 
-export default function MobileNav({ posts }: { posts?: Post[] }) {
+export function MobileNav({ posts }: { posts?: Post[] }) {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -70,7 +72,9 @@ export default function MobileNav({ posts }: { posts?: Post[] }) {
             ))}
           </nav>
           <div className="px-4 py-2">
-            <h2 className="text-foreground font-semibold">Blog</h2>
+            <Link href="/blog" className="text-foreground font-semibold">
+              Blog
+            </Link>
           </div>
           <nav className="p-4 flex flex-col gap-4">
             {posts?.map((post) => (
