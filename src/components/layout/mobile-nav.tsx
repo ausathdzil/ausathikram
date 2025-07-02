@@ -15,17 +15,13 @@ import {
   DrawerTrigger,
 } from '@/components/ui/drawer';
 import { Metadata } from '@/lib/blog';
+import { projects } from '@/lib/projects';
 
 interface Post {
   metadata: Metadata;
   slug: string;
   content: string;
 }
-
-const navItems = [
-  { name: 'About', href: '/' },
-  { name: 'Projects', href: '/projects' },
-];
 
 export function MobileNav({ posts }: { posts?: Post[] }) {
   const pathname = usePathname();
@@ -51,47 +47,77 @@ export function MobileNav({ posts }: { posts?: Post[] }) {
           <DrawerHeader>
             <DrawerTitle className="sr-only">Menu</DrawerTitle>
           </DrawerHeader>
-          <nav className="p-4 flex flex-col gap-4">
-            {navItems.map((item) => (
+          <div className="p-4 flex-1 overflow-y-auto space-y-4">
+            <nav className="flex flex-col gap-4">
               <Link
-                key={item.name}
-                href={item.href}
                 className={
-                  (
-                    item.href === '/'
-                      ? pathname === item.href
-                      : pathname.startsWith(item.href)
-                  )
+                  pathname === '/' ? 'text-blue-800 dark:text-blue-400' : ''
+                }
+                href="/"
+                onClick={handleNavigation}
+              >
+                About
+              </Link>
+            </nav>
+            <div className="flex flex-col gap-4">
+              <Link
+                className={
+                  pathname.startsWith('/blog')
                     ? 'text-blue-800 dark:text-blue-400'
                     : ''
                 }
+                href="/blog"
                 onClick={handleNavigation}
               >
-                {item.name}
+                Blog
               </Link>
-            ))}
-          </nav>
-          <div className="px-4 py-2">
-            <Link href="/blog" className="text-foreground font-semibold">
-              Blog
-            </Link>
+              <nav className="flex flex-col gap-4 text-sm">
+                {posts?.map((post) => (
+                  <Link
+                    key={post.slug}
+                    href={`/blog/${post.slug}`}
+                    className={
+                      pathname.includes(post.slug)
+                        ? 'text-blue-800 dark:text-blue-400'
+                        : ''
+                    }
+                    onClick={handleNavigation}
+                  >
+                    {post.metadata.title}
+                  </Link>
+                ))}
+              </nav>
+            </div>
+            <div className="flex flex-col gap-4">
+              <Link
+                className={
+                  pathname.startsWith('/projects')
+                    ? 'text-blue-800 dark:text-blue-400'
+                    : ''
+                }
+                href="/projects"
+                onClick={handleNavigation}
+              >
+                Projects
+              </Link>
+              <nav className="flex flex-col gap-4 text-sm">
+                {projects?.map((project) => (
+                  <Link
+                    key={project.slug}
+                    href={`/projects/${project.slug}`}
+                    className={
+                      pathname.includes(project.slug)
+                        ? 'text-blue-800 dark:text-blue-400'
+                        : ''
+                    }
+                    onClick={handleNavigation}
+                  >
+                    {project.title}
+                  </Link>
+                ))}
+              </nav>
+            </div>
           </div>
-          <nav className="p-4 flex flex-col gap-4">
-            {posts?.map((post) => (
-              <Link
-                key={post.slug}
-                href={`/blog/${post.slug}`}
-                className={
-                  pathname.includes(post.slug)
-                    ? 'text-blue-800 dark:text-blue-400'
-                    : ''
-                }
-                onClick={handleNavigation}
-              >
-                {post.metadata.title}
-              </Link>
-            ))}
-          </nav>
         </DrawerContent>
       </Drawer>
       {pathname.startsWith('/blog/') && (
