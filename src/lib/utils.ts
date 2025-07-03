@@ -44,16 +44,17 @@ export function slugify(str: string) {
 
 export function getTableOfContents(content: string) {
   const headingRegex = /^#+\s+(.*)$/gm; // Match headings
+  const headingLevelRegex = /^#+/; // Match the number of #s
+  const headingTitleRegex = /^#+\s+/; // Match the title
+
   const matches = content.match(headingRegex);
   if (!matches) {
     return [];
   }
 
   return matches.map((match) => {
-    const levelRegex = /^#+/; // Match the number of #s
-    const titleRegex = /^#+\s+(.*)$/; // Match the title
-    const level = match.match(levelRegex)?.[0].length;
-    const title = match.replace(titleRegex, '');
+    const level = match.match(headingLevelRegex)?.[0].length;
+    const title = match.replace(headingTitleRegex, '');
     const slug = slugify(title);
 
     return {

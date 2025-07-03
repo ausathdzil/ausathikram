@@ -204,7 +204,7 @@ function CommandMobile({ posts }: { posts?: Post[] }) {
                   .map((post) => (
                     <CommandItem
                       key={post.slug}
-                      className="cursor-pointer"
+                      className="cursor-pointer mb-2"
                       onSelect={() => {
                         setOpen(false);
                         router.push(`/blog/${post.slug}`);
@@ -231,7 +231,7 @@ function CommandMobile({ posts }: { posts?: Post[] }) {
                 {projects.map((project) => (
                   <CommandItem
                     key={project.slug}
-                    className="cursor-pointer"
+                    className="cursor-pointer mb-2"
                     onSelect={() => {
                       setOpen(false);
                       router.push(`/projects/${project.slug}`);
@@ -247,7 +247,7 @@ function CommandMobile({ posts }: { posts?: Post[] }) {
                 {navItems.map((nav) => (
                   <CommandItem
                     key={nav.href}
-                    className="cursor-pointer"
+                    className="cursor-pointer mb-2"
                     onSelect={() => {
                       setOpen(false);
                       router.push(nav.href);

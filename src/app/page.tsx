@@ -22,7 +22,7 @@ export default function Home() {
     <>
       <article className="space-y-2">
         <h1 className="text-xl font-medium">Ausath Ikram</h1>
-        <p className="prose prose-zinc dark:prose-invert prose-strong:font-medium">
+        <p className="prose prose-zinc dark:prose-invert prose-strong:font-medium prose-sm md:prose-base">
           I&apos;m a highly motivated Information Systems undergraduate with a
           strong foundation in full-stack web development and hands-on
           experience in various projects. I like to build accessible, minimalist

@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button';
 import {
   Drawer,
   DrawerContent,
+  DrawerDescription,
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
@@ -44,8 +45,9 @@ export function MobileNav({ posts }: { posts?: Post[] }) {
           </button>
         </DrawerTrigger>
         <DrawerContent>
-          <DrawerHeader>
-            <DrawerTitle className="sr-only">Menu</DrawerTitle>
+          <DrawerHeader className="sr-only">
+            <DrawerTitle>Menu</DrawerTitle>
+            <DrawerDescription>Navigation menu</DrawerDescription>
           </DrawerHeader>
           <div className="p-4 flex-1 overflow-y-auto space-y-4">
             <nav className="flex flex-col gap-4">
