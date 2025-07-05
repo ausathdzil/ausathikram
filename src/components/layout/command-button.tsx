@@ -55,6 +55,8 @@ export function CommandButton({ posts }: { posts?: Post[] }) {
   );
 }
 
+const macRegex = /Mac/;
+
 function CommandDesktop({ posts }: { posts?: Post[] }) {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState('');
@@ -64,13 +66,13 @@ function CommandDesktop({ posts }: { posts?: Post[] }) {
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      setIsMac(/Mac/.test(window.navigator.userAgent));
+      setIsMac(macRegex.test(window.navigator.userAgent));
     }
 
     const down = (e: KeyboardEvent) => {
       if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
         e.preventDefault();
-        setOpen((open) => !open);
+        setOpen((prevOpen) => !prevOpen);
       }
     };
     document.addEventListener('keydown', down);
@@ -80,20 +82,20 @@ function CommandDesktop({ posts }: { posts?: Post[] }) {
 
   return (
     <>
-      <Button onClick={() => setOpen(true)} variant="secondary" size="sm">
+      <Button onClick={() => setOpen(true)} size="sm" variant="secondary">
         <span className="sr-only">Search</span>
         <kbd className="font-sans text-xs">{isMac ? '⌘ K' : 'Ctrl K'}</kbd>
       </Button>
       <CommandDialog
-        title="Search"
         description="Search anything on my website"
-        open={open}
         onOpenChange={setOpen}
+        open={open}
+        title="Search"
       >
         <CommandInput
-          value={value}
           onValueChange={setValue}
           placeholder="Search..."
+          value={value}
         />
         <CommandList>
           <CommandEmpty>No results found.</CommandEmpty>
@@ -104,8 +106,8 @@ function CommandDesktop({ posts }: { posts?: Post[] }) {
               )
               .map((post) => (
                 <CommandItem
-                  key={post.slug}
                   className="cursor-pointer"
+                  key={post.slug}
                   onSelect={() => {
                     setOpen(false);
                     router.push(`/blog/${post.slug}`);
@@ -114,7 +116,7 @@ function CommandDesktop({ posts }: { posts?: Post[] }) {
                   <NewspaperIcon />
                   <div className="flex w-full items-center justify-between">
                     {post.metadata.title}
-                    <span className="hidden sm:block text-sm  ml-2 text-muted-foreground">
+                    <span className="ml-2 hidden text-muted-foreground text-sm sm:block">
                       {new Date(post.metadata.publishedAt).toLocaleDateString(
                         'en-US',
                         {
@@ -132,8 +134,8 @@ function CommandDesktop({ posts }: { posts?: Post[] }) {
           <CommandGroup heading="Projects">
             {projects.map((project) => (
               <CommandItem
-                key={project.slug}
                 className="cursor-pointer"
+                key={project.slug}
                 onSelect={() => {
                   setOpen(false);
                   router.push(`/projects/${project.slug}`);
@@ -148,8 +150,8 @@ function CommandDesktop({ posts }: { posts?: Post[] }) {
           <CommandGroup heading="Navigation">
             {navItems.map((nav) => (
               <CommandItem
-                key={nav.href}
                 className="cursor-pointer"
+                key={nav.href}
                 onSelect={() => {
                   setOpen(false);
                   router.push(nav.href);
@@ -173,9 +175,9 @@ function CommandMobile({ posts }: { posts?: Post[] }) {
   const router = useRouter();
 
   return (
-    <Drawer open={open} onOpenChange={setOpen}>
+    <Drawer onOpenChange={setOpen} open={open}>
       <DrawerTrigger asChild>
-        <Button onClick={() => setOpen(true)} variant="ghost" size="icon">
+        <Button onClick={() => setOpen(true)} size="icon" variant="ghost">
           <span className="sr-only">Search</span>
           <SearchIcon />
         </Button>
@@ -188,9 +190,9 @@ function CommandMobile({ posts }: { posts?: Post[] }) {
         <div className="p-4">
           <Command>
             <CommandInput
-              value={value}
               onValueChange={setValue}
               placeholder="Search..."
+              value={value}
             />
             <CommandList>
               <CommandEmpty>No results found.</CommandEmpty>
@@ -203,8 +205,8 @@ function CommandMobile({ posts }: { posts?: Post[] }) {
                   )
                   .map((post) => (
                     <CommandItem
+                      className="mb-2 cursor-pointer"
                       key={post.slug}
-                      className="cursor-pointer mb-2"
                       onSelect={() => {
                         setOpen(false);
                         router.push(`/blog/${post.slug}`);
@@ -213,7 +215,7 @@ function CommandMobile({ posts }: { posts?: Post[] }) {
                       <NewspaperIcon />
                       <div className="flex w-full items-center justify-between">
                         {post.metadata.title}
-                        <span className="hidden sm:block text-sm  ml-2 text-muted-foreground">
+                        <span className="ml-2 hidden text-muted-foreground text-sm sm:block">
                           {new Date(
                             post.metadata.publishedAt
                           ).toLocaleDateString('en-US', {
@@ -230,8 +232,8 @@ function CommandMobile({ posts }: { posts?: Post[] }) {
               <CommandGroup heading="Projects">
                 {projects.map((project) => (
                   <CommandItem
+                    className="mb-2 cursor-pointer"
                     key={project.slug}
-                    className="cursor-pointer mb-2"
                     onSelect={() => {
                       setOpen(false);
                       router.push(`/projects/${project.slug}`);
@@ -246,8 +248,8 @@ function CommandMobile({ posts }: { posts?: Post[] }) {
               <CommandGroup heading="Navigation">
                 {navItems.map((nav) => (
                   <CommandItem
+                    className="mb-2 cursor-pointer"
                     key={nav.href}
-                    className="cursor-pointer mb-2"
                     onSelect={() => {
                       setOpen(false);
                       router.push(nav.href);

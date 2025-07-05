@@ -60,21 +60,21 @@ export default async function Page(props: ProjectPageProps) {
   return (
     <>
       {project.image && (
-        <div className="relative w-[700px] max-w-full h-[200px] sm:h-[350px] border rounded-md">
+        <div className="relative h-[200px] w-[700px] max-w-full rounded-md border sm:h-[350px]">
           <Image
-            className="object-cover object-top rounded-md"
-            src={project.image}
             alt={project.title}
+            className="rounded-md object-cover object-top"
             fill
-            priority
             placeholder="blur"
-            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 100vw"
+            priority
             quality={100}
+            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 100vw"
+            src={project.image}
           />
         </div>
       )}
       <article className="space-y-2">
-        <h1 className="text-xl font-medium">{project.title}</h1>
+        <h1 className="font-medium text-xl">{project.title}</h1>
         <p className="text-muted-foreground">{project.description}</p>
       </article>
       <div className="flex items-center gap-4">
@@ -82,8 +82,8 @@ export default async function Page(props: ProjectPageProps) {
           <a
             className={cn(buttonVariants({ size: 'lg' }))}
             href={project.link}
-            target="_blank"
             rel="noopener noreferrer"
+            target="_blank"
           >
             <ArrowUpRightIcon />
             <span>Demo</span>
@@ -93,8 +93,8 @@ export default async function Page(props: ProjectPageProps) {
           <a
             className={cn(buttonVariants({ variant: 'outline', size: 'lg' }))}
             href={project.repo}
-            target="_blank"
             rel="noopener noreferrer"
+            target="_blank"
           >
             <ArrowUpRightIcon />
             GitHub

@@ -1,4 +1,4 @@
-import { clsx, type ClassValue } from 'clsx';
+import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
 export function cn(...inputs: ClassValue[]) {
@@ -26,12 +26,12 @@ export function formatDate(date: string) {
   return fullDate;
 }
 
-export function slugify(str: string) {
-  const spaceRegex = /\s+/g; // Match spaces
-  const andRegex = /&/g; // Match &
-  const nonWordRegex = /[^\w\-]+/g; // Match all non-word characters except for -
-  const multipleDashRegex = /\-\-+/g; // Match multiple -
+const spaceRegex = /\s+/g; // Match spaces
+const andRegex = /&/g; // Match &
+const nonWordRegex = /[^\w-]+/g; // Match all non-word characters except for -
+const multipleDashRegex = /--+/g; // Match multiple -
 
+export function slugify(str: string) {
   return str
     .toString()
     .toLowerCase()
@@ -42,11 +42,11 @@ export function slugify(str: string) {
     .replace(multipleDashRegex, '-');
 }
 
-export function getTableOfContents(content: string) {
-  const headingRegex = /^#+\s+(.*)$/gm; // Match headings
-  const headingLevelRegex = /^#+/; // Match the number of #s
-  const headingTitleRegex = /^#+\s+/; // Match the title
+const headingLevelRegex = /^#+/; // Match the number of #s
+const headingRegex = /^#+\s+(.*)$/gm; // Match headings
+const headingTitleRegex = /^#+\s+/; // Match the title
 
+export function getTableOfContents(content: string) {
   const matches = content.match(headingRegex);
   if (!matches) {
     return [];

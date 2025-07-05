@@ -19,7 +19,7 @@ export default function Page() {
   return (
     <>
       <article className="space-y-2">
-        <h1 className="text-xl font-medium">Projects</h1>
+        <h1 className="font-medium text-xl">Projects</h1>
         <p className="prose prose-zinc dark:prose-invert">
           Side projects I&apos;ve worked on.
         </p>
@@ -28,11 +28,11 @@ export default function Page() {
         {projects.map((project) => (
           <li key={project.slug}>
             <Link
-              className="-mx-3 flex flex-col w-full px-3 py-2 hover:bg-muted/50 rounded-lg transition-colors ease-out"
+              className="-mx-3 flex w-full flex-col rounded-lg px-3 py-2 transition-colors ease-out hover:bg-muted/50"
               href={`/projects/${project.slug}`}
             >
               <span>{project.title}</span>
-              <span className="text-xs sm:text-sm text-muted-foreground">
+              <span className="text-muted-foreground text-xs sm:text-sm">
                 {project.description}
               </span>
             </Link>

@@ -13,11 +13,9 @@ export function NavLinks() {
   const pathname = usePathname();
 
   return (
-    <nav className="hidden sm:flex flex-1 gap-8">
+    <nav className="hidden flex-1 gap-8 sm:flex">
       {navItems.map((item) => (
         <Link
-          key={item.name}
-          href={item.href}
           className={
             (
               item.href === '/'
@@ -27,6 +25,8 @@ export function NavLinks() {
               ? 'text-blue-800 dark:text-blue-400'
               : ''
           }
+          href={item.href}
+          key={item.name}
         >
           {item.name}
         </Link>

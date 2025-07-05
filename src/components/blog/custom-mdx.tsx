@@ -1,6 +1,6 @@
-import { MDXRemote, type MDXRemoteProps } from 'next-mdx-remote/rsc';
 import Image from 'next/image';
 import Link from 'next/link';
+import { MDXRemote, type MDXRemoteProps } from 'next-mdx-remote/rsc';
 import React, { Children } from 'react';
 import { Tweet } from 'react-tweet';
 import { codeToHtml } from 'shiki';
@@ -18,7 +18,7 @@ function CustomLink(props: React.AnchorHTMLAttributes<HTMLAnchorElement>) {
   if (href.startsWith('/')) {
     return (
       <Link
-        className="underline-offset-4 decoration-muted-foreground hover:decoration-primary"
+        className="decoration-muted-foreground underline-offset-4 hover:decoration-primary"
         href={href}
         {...props}
       >
@@ -29,9 +29,9 @@ function CustomLink(props: React.AnchorHTMLAttributes<HTMLAnchorElement>) {
 
   return (
     <a
-      className="underline-offset-4 decoration-muted-foreground hover:decoration-primary"
-      target="_blank"
+      className="decoration-muted-foreground underline-offset-4 hover:decoration-primary"
       rel="noopener noreferrer"
+      target="_blank"
       {...props}
     />
   );
@@ -42,9 +42,9 @@ function CustomImage(props: React.ComponentProps<typeof Image>) {
     /* eslint-disable-next-line jsx-a11y/alt-text */
     <Image
       className="rounded-md"
-      width={700}
       height={300}
       priority
+      width={700}
       {...props}
     />
   );
@@ -76,6 +76,7 @@ async function Pre({
     return (
       <div className="relative">
         <CopyButton codeElement={codeElement} />
+        {/* biome-ignore lint/security/noDangerouslySetInnerHtml: Required for code highlighting */}
         <div dangerouslySetInnerHTML={{ __html: html }} />
       </div>
     );

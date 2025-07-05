@@ -21,8 +21,8 @@ export default function Home() {
   return (
     <>
       <article className="space-y-2">
-        <h1 className="text-xl font-medium">Ausath Ikram</h1>
-        <p className="prose prose-zinc dark:prose-invert prose-strong:font-medium prose-sm md:prose-base">
+        <h1 className="font-medium text-xl">Ausath Ikram</h1>
+        <p className="prose prose-zinc dark:prose-invert prose-sm md:prose-base prose-strong:font-medium">
           I&apos;m a highly motivated Information Systems undergraduate with a
           strong foundation in full-stack web development and hands-on
           experience in various projects. I like to build accessible, minimalist
@@ -30,14 +30,14 @@ export default function Home() {
         </p>
       </article>
       <div className="flex flex-col gap-2">
-        <Link className="text-xl font-medium" href="/blog">
+        <Link className="font-medium text-xl" href="/blog">
           Blog
         </Link>
         <ul className="space-y-1">
           {recentPosts.map((post) => (
             <li key={post.slug}>
               <Link
-                className="-mx-3 flex flex-col w-full px-3 py-2 hover:bg-muted/50 rounded-lg transition-colors ease-out"
+                className="-mx-3 flex w-full flex-col rounded-lg px-3 py-2 transition-colors ease-out hover:bg-muted/50"
                 href={`/blog/${post.slug}`}
               >
                 <span>{post.metadata.title}</span>
@@ -50,18 +50,18 @@ export default function Home() {
         </ul>
       </div>
       <div className="flex flex-col gap-2">
-        <Link className="text-xl font-medium" href="/projects">
+        <Link className="font-medium text-xl" href="/projects">
           Projects
         </Link>
         <ul className="space-y-1">
           {recentProjects.map((project) => (
             <li key={project.slug}>
               <Link
-                className="-mx-3 flex flex-col w-full px-3 py-2 hover:bg-muted/50 rounded-lg transition-colors ease-out"
+                className="-mx-3 flex w-full flex-col rounded-lg px-3 py-2 transition-colors ease-out hover:bg-muted/50"
                 href={`/projects/${project.slug}`}
               >
                 <span>{project.title}</span>
-                <span className="text-muted-foreground text-sm md:text-base line-clamp-1">
+                <span className="line-clamp-1 text-muted-foreground text-sm md:text-base">
                   {project.description}
                 </span>
               </Link>

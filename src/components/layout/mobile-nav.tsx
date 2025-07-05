@@ -37,10 +37,10 @@ export function MobileNav({ posts }: { posts?: Post[] }) {
   }, []);
 
   return (
-    <div className="sm:hidden grow flex items-center gap-4">
-      <Drawer open={isOpen} onOpenChange={handleOpenChange}>
+    <div className="flex grow items-center gap-4 sm:hidden">
+      <Drawer onOpenChange={handleOpenChange} open={isOpen}>
         <DrawerTrigger asChild>
-          <button aria-label="Menu">
+          <button aria-label="Menu" type="button">
             <MenuIcon size={16} />
           </button>
         </DrawerTrigger>
@@ -49,7 +49,7 @@ export function MobileNav({ posts }: { posts?: Post[] }) {
             <DrawerTitle>Menu</DrawerTitle>
             <DrawerDescription>Navigation menu</DrawerDescription>
           </DrawerHeader>
-          <div className="p-4 flex-1 overflow-y-auto space-y-4">
+          <div className="flex-1 space-y-4 overflow-y-auto p-4">
             <nav className="flex flex-col gap-4">
               <Link
                 className={
@@ -76,13 +76,13 @@ export function MobileNav({ posts }: { posts?: Post[] }) {
               <nav className="flex flex-col gap-4 text-sm">
                 {posts?.map((post) => (
                   <Link
-                    key={post.slug}
-                    href={`/blog/${post.slug}`}
                     className={
                       pathname.includes(post.slug)
                         ? 'text-blue-800 dark:text-blue-400'
                         : ''
                     }
+                    href={`/blog/${post.slug}`}
+                    key={post.slug}
                     onClick={handleNavigation}
                   >
                     {post.metadata.title}
@@ -105,13 +105,13 @@ export function MobileNav({ posts }: { posts?: Post[] }) {
               <nav className="flex flex-col gap-4 text-sm">
                 {projects?.map((project) => (
                   <Link
-                    key={project.slug}
-                    href={`/projects/${project.slug}`}
                     className={
                       pathname.includes(project.slug)
                         ? 'text-blue-800 dark:text-blue-400'
                         : ''
                     }
+                    href={`/projects/${project.slug}`}
+                    key={project.slug}
                     onClick={handleNavigation}
                   >
                     {project.title}
@@ -123,7 +123,7 @@ export function MobileNav({ posts }: { posts?: Post[] }) {
         </DrawerContent>
       </Drawer>
       {pathname.startsWith('/blog/') && (
-        <Button variant="ghost" size="sm" asChild>
+        <Button asChild size="sm" variant="ghost">
           <Link href="/blog">
             <ChevronLeftIcon />
           </Link>

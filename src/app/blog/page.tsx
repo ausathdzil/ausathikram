@@ -25,19 +25,22 @@ export default function Page() {
     );
   });
 
-  const groupedPosts = sortedPosts.reduce((acc, post) => {
-    const year = new Date(post.metadata.publishedAt).getFullYear();
-    if (!acc[year]) {
-      acc[year] = [];
-    }
-    acc[year].push(post);
-    return acc;
-  }, {} as Record<number, typeof allPosts>);
+  const groupedPosts = sortedPosts.reduce(
+    (acc, post) => {
+      const year = new Date(post.metadata.publishedAt).getFullYear();
+      if (!acc[year]) {
+        acc[year] = [];
+      }
+      acc[year].push(post);
+      return acc;
+    },
+    {} as Record<number, typeof allPosts>
+  );
 
   return (
     <>
       <article className="space-y-2">
-        <h1 className="text-xl font-medium">Blog</h1>
+        <h1 className="font-medium text-xl">Blog</h1>
         <p className="prose prose-zinc dark:prose-invert">
           Things that interest me, mostly about web development.
         </p>
@@ -46,17 +49,17 @@ export default function Page() {
         {Object.entries(groupedPosts)
           .sort(([yearA], [yearB]) => Number(yearB) - Number(yearA))
           .map(([year, posts]) => (
-            <div key={year} className="space-y-2">
-              <h2 className="text-lg font-medium">{year}</h2>
+            <div className="space-y-2" key={year}>
+              <h2 className="font-medium text-lg">{year}</h2>
               <ul className="space-y-1">
                 {posts.map((post) => (
                   <li key={post.slug}>
                     <Link
-                      className="-mx-3 flex flex-col w-full px-3 py-2 hover:bg-muted/50 rounded-lg transition-colors ease-out"
+                      className="-mx-3 flex w-full flex-col rounded-lg px-3 py-2 transition-colors ease-out hover:bg-muted/50"
                       href={`/blog/${post.slug}`}
                     >
                       <span>{post.metadata.title}</span>
-                      <span className="text-xs sm:text-sm text-muted-foreground line-clamp-1">
+                      <span className="line-clamp-1 text-muted-foreground text-xs sm:text-sm">
                         {post.metadata.summary}
                       </span>
                     </Link>

@@ -1,7 +1,6 @@
-import { ArrowUpRightIcon, RssIcon } from 'lucide-react';
-
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import { ArrowUpRightIcon, RssIcon } from 'lucide-react';
 import type { Metadata } from 'next';
 import { Inter, JetBrains_Mono, Zilla_Slab } from 'next/font/google';
 import './globals.css';
@@ -77,12 +76,12 @@ export default function RootLayout({
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
-          enableSystem
           disableTransitionOnChange
+          enableSystem
         >
-          <div className="flex flex-col items-center min-h-screen max-w-3xl mx-auto px-8">
+          <div className="mx-auto flex min-h-screen max-w-3xl flex-col items-center px-8">
             <Header />
-            <main className="w-full flex flex-1 flex-col pb-8 gap-8">
+            <main className="flex w-full flex-1 flex-col gap-8 pb-8">
               {children}
             </main>
             <Footer />
@@ -105,7 +104,7 @@ function Header() {
   );
 
   return (
-    <header className="w-full flex items-center gap-2 py-8">
+    <header className="flex w-full items-center gap-2 py-8">
       <NavLinks />
       <MobileNav posts={sortedPosts} />
       <div className="flex items-center gap-2">
@@ -125,7 +124,7 @@ function Header() {
 
 function Footer() {
   return (
-    <footer className="w-full border-t flex items-center gap-4 sm:gap-8 py-8 text-sm sm:text-base">
+    <footer className="flex w-full items-center gap-4 border-t py-8 text-sm sm:gap-8 sm:text-base">
       <a
         className="flex items-center gap-1"
         href="https://github.com/ausathdzil"
