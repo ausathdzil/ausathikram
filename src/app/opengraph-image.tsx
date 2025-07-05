@@ -1,6 +1,6 @@
-import { ImageResponse } from 'next/og';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
+import { ImageResponse } from 'next/og';
 
 export const alt = 'Ausath Ikram';
 export const size = {
@@ -16,11 +16,9 @@ export default async function Image() {
   );
 
   return new ImageResponse(
-    (
-      <div tw="text-7xl bg-white w-full h-full flex items-end justify-start p-24">
-        Ausath Ikram
-      </div>
-    ),
+    <div tw="text-7xl bg-white w-full h-full flex items-end justify-start p-24">
+      Ausath Ikram
+    </div>,
     {
       ...size,
       fonts: [

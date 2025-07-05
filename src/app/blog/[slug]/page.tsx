@@ -71,8 +71,7 @@ export default async function Page(props: PostPageProps) {
   return (
     <>
       <script
-        type="application/ld+json"
-        suppressHydrationWarning
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: Required for structured data JSON-LD
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             '@context': 'https://schema.org',
@@ -88,26 +87,28 @@ export default async function Page(props: PostPageProps) {
             },
           }),
         }}
+        suppressHydrationWarning
+        type="application/ld+json"
       />
       <article className="prose prose-zinc dark:prose-invert">
-        <h1 className="not-prose text-xl text-primary font-medium">
+        <h1 className="not-prose font-medium text-primary text-xl">
           {post.metadata.title}
         </h1>
-        <p className="mt-2 not-prose text-muted-foreground">
+        <p className="not-prose mt-2 text-muted-foreground">
           Ausath Ikram <span className="text-primary">&bull;</span>{' '}
           {formatDate(post.metadata.publishedAt)}{' '}
         </p>
         <CustomMDX source={post.content} />
         <Link
-          className="not-prose mt-8 w-fit flex items-center gap-2"
+          className="not-prose mt-8 flex w-fit items-center gap-2"
           href="/blog"
         >
           <ArrowLeftIcon size={16} />
           <span>Blog</span>
         </Link>
       </article>
-      <aside className="hidden xl:block fixed right-28 top-24 w-64 opacity-60 hover:opacity-100 transition-opacity  prose prose-zinc dark:prose-invert prose-li:mb-2">
-        <p className="not-prose text-primary font-semibold mb-4">
+      <aside className="prose prose-zinc dark:prose-invert fixed top-24 right-28 prose-li:mb-2 hidden w-64 opacity-60 transition-opacity hover:opacity-100 xl:block">
+        <p className="not-prose mb-4 font-semibold text-primary">
           On this page
         </p>
         <nav>
@@ -121,7 +122,7 @@ export default async function Page(props: PostPageProps) {
             ))}
           </ul>
         </nav>
-        <a className="not-prose w-fit flex items-center gap-2 mt-4" href="#top">
+        <a className="not-prose mt-4 flex w-fit items-center gap-2" href="#top">
           <ArrowUpIcon size={16} />
           <span>Back to top</span>
         </a>

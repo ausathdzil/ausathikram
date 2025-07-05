@@ -1,7 +1,9 @@
-import { buttonVariants } from '@/components/ui/button';
 import { HomeIcon } from 'lucide-react';
+
 import type { Metadata } from 'next';
 import Link from 'next/link';
+
+import { buttonVariants } from '@/components/ui/button';
 
 export const metadata: Metadata = {
   title: '404 Not Found',
@@ -16,7 +18,7 @@ export const metadata: Metadata = {
 
 export default function NotFound() {
   return (
-    <div className="flex flex-1 flex-col justify-center items-center text-center space-y-4">
+    <div className="flex flex-1 flex-col items-center justify-center space-y-4 text-center">
       <h1 className="text-xl lg:text-3xl">404 Not Found</h1>
       <Link className={buttonVariants({ size: 'lg' })} href="/">
         <HomeIcon />

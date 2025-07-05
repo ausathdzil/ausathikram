@@ -1,7 +1,7 @@
-import { ImageResponse } from 'next/og';
-import { NextRequest } from 'next/server';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
+import { ImageResponse } from 'next/og';
+import type { NextRequest } from 'next/server';
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
@@ -12,11 +12,9 @@ export async function GET(request: NextRequest) {
   );
 
   return new ImageResponse(
-    (
-      <div tw="text-7xl bg-white w-full h-full flex items-end justify-start p-24">
-        {title}
-      </div>
-    ),
+    <div tw="text-7xl bg-white w-full h-full flex items-end justify-start p-24">
+      {title}
+    </div>,
     {
       fonts: [
         {
