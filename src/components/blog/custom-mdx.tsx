@@ -39,7 +39,6 @@ function CustomLink(props: React.AnchorHTMLAttributes<HTMLAnchorElement>) {
 
 function CustomImage(props: React.ComponentProps<typeof Image>) {
   return (
-    /* eslint-disable-next-line jsx-a11y/alt-text */
     <Image
       className="rounded-md"
       height={300}
@@ -76,7 +75,7 @@ async function Pre({
     return (
       <div className="relative">
         <CopyButton codeElement={codeElement} />
-        {/* biome-ignore lint/security/noDangerouslySetInnerHtml: Required for code highlighting */}
+        {/* biome-ignore lint/security/noDangerouslySetInnerHtml: Required for Shiki code highlighting */}
         <div dangerouslySetInnerHTML={{ __html: html }} />
       </div>
     );

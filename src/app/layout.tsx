@@ -3,7 +3,6 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 import { ArrowUpRightIcon, RssIcon } from 'lucide-react';
 import type { Metadata } from 'next';
 import { Inter, JetBrains_Mono, Zilla_Slab } from 'next/font/google';
-import './globals.css';
 
 import { CommandButton } from '@/components/layout/command-button';
 import { MobileNav } from '@/components/layout/mobile-nav';
@@ -13,6 +12,7 @@ import { ThemeProvider } from '@/components/layout/theme-provider';
 import { buttonVariants } from '@/components/ui/button';
 import { getBlogPosts } from '@/lib/blog';
 import { baseUrl, cn } from '@/lib/utils';
+import './globals.css';
 
 const inter = Inter({
   subsets: ['latin'],

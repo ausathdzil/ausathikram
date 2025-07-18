@@ -8,7 +8,7 @@ export interface Metadata {
 }
 
 const frontmatterRegex = /---\s*([\s\S]*?)\s*---/; // Match frontmatter block
-const quotesRegex = /^['"](.*)['"]$/;
+const quotesRegex = /^['"](.*)['"]$/; // Match quotes
 
 function parseFrontmatter(fileContent: string) {
   const match = frontmatterRegex.exec(fileContent);
@@ -24,7 +24,7 @@ function parseFrontmatter(fileContent: string) {
   for (const line of frontMatterLines) {
     const [key, ...valueArr] = line.split(': ');
     let value = valueArr.join(': ').trim();
-    value = value.replace(quotesRegex, '$1'); // Remove quotes
+    value = value.replace(quotesRegex, '$1');
     metadata[key.trim() as keyof Metadata] = value;
   }
 
