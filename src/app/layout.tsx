@@ -22,7 +22,7 @@ const inter = Inter({
 const zillaSlab = Zilla_Slab({
   subsets: ['latin'],
   variable: '--font-zilla-slab',
-  weight: ['300', '400', '500', '600', '700'],
+  weight: ['500'],
 });
 
 const jetBrainsMono = JetBrains_Mono({

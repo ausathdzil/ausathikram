@@ -128,14 +128,11 @@ function createHeading(level: number) {
 
 const components = {
   a: CustomLink,
-  img: CustomImage,
-  pre: Pre,
   h1: createHeading(1),
   h2: createHeading(2),
   h3: createHeading(3),
-  h4: createHeading(4),
-  h5: createHeading(5),
-  h6: createHeading(6),
+  img: CustomImage,
+  pre: Pre,
   Tweet,
 };
 
