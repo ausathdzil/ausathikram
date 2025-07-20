@@ -19,15 +19,15 @@ const inter = Inter({
   variable: '--font-inter',
 });
 
+const jetBrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  variable: '--font-jetbrains-mono',
+});
+
 const zillaSlab = Zilla_Slab({
   subsets: ['latin'],
   variable: '--font-zilla-slab',
   weight: ['500'],
-});
-
-const jetBrainsMono = JetBrains_Mono({
-  subsets: ['latin'],
-  variable: '--font-jetbrains-mono',
 });
 
 export const metadata: Metadata = {
