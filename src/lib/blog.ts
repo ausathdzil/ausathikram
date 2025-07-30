@@ -12,7 +12,7 @@ const quotesRegex = /^['"](.*)['"]$/; // Match quotes
 
 function parseFrontmatter(fileContent: string) {
   const match = frontmatterRegex.exec(fileContent);
-  
+
   if (!match) {
     throw new Error('Frontmatter not found');
   }

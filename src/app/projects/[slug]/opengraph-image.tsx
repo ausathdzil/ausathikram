@@ -12,9 +12,18 @@ export const size = {
 
 export const contentType = 'image/png';
 
+export function generateStaticParams() {
+  return projects.map((project) => ({
+    slug: project.slug,
+  }));
+}
+
 export default async function Image({ params }: { params: { slug: string } }) {
-  const { slug } = await params;
-  const project = projects.find((p) => p.slug === slug);
+  const project = projects.find((p) => p.slug === params.slug);
+
+  if (!project) {
+    return new Response('Not found', { status: 404 });
+  }
 
   const interSemiBold = await readFile(
     path.join(process.cwd(), 'src/app/fonts/Inter-SemiBold.ttf')
@@ -34,7 +43,7 @@ export default async function Image({ params }: { params: { slug: string } }) {
         lineHeight: '1',
       }}
     >
-      {project?.title}
+      {project.title}
     </div>,
     {
       ...size,
