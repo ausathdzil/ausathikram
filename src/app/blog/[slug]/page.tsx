@@ -41,14 +41,6 @@ export async function generateMetadata(
       siteName: 'Ausath Ikram',
       locale: 'en_US',
       type: 'article',
-      images: [
-        {
-          url: `${baseUrl}/og?title=${post.metadata.title}`,
-          width: 1200,
-          height: 630,
-          alt: post.metadata.title,
-        },
-      ],
     },
     twitter: {
       card: 'summary_large_image',

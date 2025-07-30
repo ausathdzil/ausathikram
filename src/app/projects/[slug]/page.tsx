@@ -37,14 +37,6 @@ export async function generateMetadata(
       url: `${baseUrl}/projects/${project.slug}`,
       siteName: 'Ausath Ikram',
       locale: 'en_US',
-      images: [
-        {
-          url: `${baseUrl}/og?title=${project.title}`,
-          width: 1200,
-          height: 630,
-          alt: project.title,
-        },
-      ],
     },
   };
 }

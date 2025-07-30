@@ -2,7 +2,9 @@ import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { ImageResponse } from 'next/og';
 
-export const alt = 'Ausath Ikram';
+import { projects } from '@/lib/projects';
+
+export const alt = "Ausath Ikram's projects";
 export const size = {
   width: 1200,
   height: 630,
@@ -10,7 +12,10 @@ export const size = {
 
 export const contentType = 'image/png';
 
-export default async function Image() {
+export default async function Image({ params }: { params: { slug: string } }) {
+  const { slug } = await params;
+  const project = projects.find((p) => p.slug === slug);
+
   const interSemiBold = await readFile(
     path.join(process.cwd(), 'src/app/fonts/Inter-SemiBold.ttf')
   );
@@ -29,7 +34,7 @@ export default async function Image() {
         lineHeight: '1',
       }}
     >
-      Ausath Ikram
+      {project?.title}
     </div>,
     {
       ...size,

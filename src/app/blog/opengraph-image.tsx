@@ -16,7 +16,19 @@ export default async function Image() {
   );
 
   return new ImageResponse(
-    <div tw="text-7xl bg-white w-full h-full flex items-end justify-start p-24">
+    <div
+      style={{
+        display: 'flex',
+        height: '100%',
+        width: '100%',
+        alignItems: 'flex-end',
+        justifyContent: 'flex-start',
+        backgroundColor: '#fff',
+        padding: '96px',
+        fontSize: '72px',
+        lineHeight: '1',
+      }}
+    >
       Blog - Ausath Ikram
     </div>,
     {
