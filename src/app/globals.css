@@ -1,5 +1,4 @@
-/** biome-ignore-all lint/nursery/noUnknownAtRule: Required for Tailwind and custom at-rules */
-/** biome-ignore-all lint/nursery/noImportantStyles: Required for Shiki */
+/* biome-ignore-all lint/suspicious/noUnknownAtRules: Required for Tailwind */
 @import "tailwindcss";
 @import "tw-animate-css";
 

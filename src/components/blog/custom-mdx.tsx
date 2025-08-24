@@ -1,3 +1,4 @@
+// biome-ignore-all lint/nursery/useAnchorHref: Required for dynamic links
 import Image from 'next/image';
 import Link from 'next/link';
 import { MDXRemote, type MDXRemoteProps } from 'next-mdx-remote/rsc';
@@ -19,7 +20,8 @@ function CustomLink(props: React.AnchorHTMLAttributes<HTMLAnchorElement>) {
     return (
       <Link
         className="decoration-muted-foreground underline-offset-4 hover:decoration-primary"
-        href={href}
+        // biome-ignore lint/suspicious/noExplicitAny: Required for dynamic links
+        href={href as any}
         {...props}
       >
         {props.children}
@@ -130,6 +132,7 @@ const components = {
   a: CustomLink,
   h1: createHeading(1),
   h2: createHeading(2),
+  // biome-ignore lint/style/noMagicNumbers: Self-explanatory
   h3: createHeading(3),
   img: CustomImage,
   pre: Pre,

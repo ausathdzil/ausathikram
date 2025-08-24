@@ -4,6 +4,8 @@ import { getBlogPosts } from '@/lib/blog';
 import { projects } from '@/lib/projects';
 import { formatDate } from '@/lib/utils';
 
+const MAX_POSTS = 4;
+
 export default function Home() {
   const posts = getBlogPosts();
 
@@ -14,21 +16,25 @@ export default function Home() {
         new Date(a.metadata.publishedAt).getTime()
       );
     })
-    .splice(0, 4);
+    .splice(0, MAX_POSTS);
 
-  const recentProjects = projects.slice(0, 4);
+  const recentProjects = projects.slice(0, MAX_POSTS);
 
   return (
     <>
       <article className="space-y-2">
         <h1 className="font-medium text-xl">Ausath Ikram</h1>
-        <p className="prose prose-zinc dark:prose-invert prose-sm md:prose-base prose-strong:font-medium">
-          I&apos;m a highly motivated Information Systems undergraduate with a
-          strong foundation in full-stack web development and hands-on
-          experience in various projects. I like to build accessible, minimalist
-          and performant web applications.
+        <p className="text-muted-foreground">Frontend Developer</p>
+      </article>
+
+      <article className="space-y-2">
+        <h1 className="font-medium text-xl">Work</h1>
+        <p className="prose prose-zinc dark:prose-invert">
+          I&apos;m a Frontend Developer at eBdesk. I like to build accessible,
+          minimalist and performant web applications.
         </p>
       </article>
+
       <div className="flex flex-col gap-2">
         <Link className="font-medium text-xl" href="/blog">
           Blog
@@ -49,6 +55,7 @@ export default function Home() {
           ))}
         </ul>
       </div>
+
       <div className="flex flex-col gap-2">
         <Link className="font-medium text-xl" href="/projects">
           Projects

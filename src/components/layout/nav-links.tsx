@@ -1,5 +1,6 @@
 'use client';
 
+import type { Route } from 'next';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -25,7 +26,7 @@ export function NavLinks() {
               ? 'text-blue-800 dark:text-blue-400'
               : ''
           }
-          href={item.href}
+          href={item.href as Route}
           key={item.name}
         >
           {item.name}

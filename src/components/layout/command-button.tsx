@@ -7,6 +7,7 @@ import {
   SearchIcon,
 } from 'lucide-react';
 
+import type { Route } from 'next';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
@@ -154,7 +155,7 @@ function CommandDesktop({ posts }: { posts?: Post[] }) {
                 key={nav.href}
                 onSelect={() => {
                   setOpen(false);
-                  router.push(nav.href);
+                  router.push(nav.href as Route);
                 }}
               >
                 <ArrowUpRightIcon />
@@ -252,7 +253,7 @@ function CommandMobile({ posts }: { posts?: Post[] }) {
                     key={nav.href}
                     onSelect={() => {
                       setOpen(false);
-                      router.push(nav.href);
+                      router.push(nav.href as Route);
                     }}
                   >
                     <ArrowUpRightIcon />

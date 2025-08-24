@@ -5,6 +5,8 @@ import { useState } from 'react';
 
 import { cn } from '@/lib/utils';
 
+const COPIED_TIMEOUT = 1500;
+
 export function CopyButton({
   codeElement,
 }: {
@@ -16,7 +18,7 @@ export function CopyButton({
     if (codeElement) {
       await navigator.clipboard.writeText(String(codeElement.props.children));
       setCopied(true);
-      setTimeout(() => setCopied(false), 1500);
+      setTimeout(() => setCopied(false), COPIED_TIMEOUT);
     }
   };
 
