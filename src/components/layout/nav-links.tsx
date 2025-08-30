@@ -4,10 +4,15 @@ import type { Route } from 'next';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-const navItems = [
-  { name: 'About', href: '/' },
-  { name: 'Blog', href: '/blog' },
-  { name: 'Projects', href: '/projects' },
+interface NavItem<T extends string = string> {
+  href: T;
+  label: string;
+}
+
+const navItems: NavItem<Route>[] = [
+  { label: 'About', href: '/' },
+  { label: 'Blog', href: '/blog' },
+  { label: 'Projects', href: '/projects' },
 ];
 
 export function NavLinks() {
@@ -26,10 +31,10 @@ export function NavLinks() {
               ? 'text-blue-800 dark:text-blue-400'
               : ''
           }
-          href={item.href as Route}
-          key={item.name}
+          href={item.href}
+          key={item.label}
         >
-          {item.name}
+          {item.label}
         </Link>
       ))}
     </nav>

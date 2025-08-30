@@ -1,6 +1,6 @@
-// biome-ignore-all lint/nursery/useAnchorHref: Required for dynamic links
-import Image from 'next/image';
-import Link from 'next/link';
+import type { Route } from 'next';
+import NextImage from 'next/image';
+import NextLink from 'next/link';
 import { MDXRemote, type MDXRemoteProps } from 'next-mdx-remote/rsc';
 import React, { Children } from 'react';
 import { Tweet } from 'react-tweet';
@@ -9,29 +9,32 @@ import { codeToHtml } from 'shiki';
 import { slugify } from '@/lib/utils';
 import { CopyButton } from './copy-button';
 
-function CustomLink(props: React.AnchorHTMLAttributes<HTMLAnchorElement>) {
-  const href = props.href;
-
+function Link<T extends string>({
+  href,
+  ...props
+}: React.AnchorHTMLAttributes<HTMLAnchorElement> & {
+  href: Route<T> | URL | string;
+}) {
   if (!href || href.startsWith('#')) {
-    return <a {...props} />;
+    return <a href={href} {...props} />;
   }
 
   if (href.startsWith('/')) {
     return (
-      <Link
+      <NextLink
         className="decoration-muted-foreground underline-offset-4 hover:decoration-primary"
-        // biome-ignore lint/suspicious/noExplicitAny: Required for dynamic links
-        href={href as any}
+        href={href as Route<T>}
         {...props}
       >
         {props.children}
-      </Link>
+      </NextLink>
     );
   }
 
   return (
     <a
       className="decoration-muted-foreground underline-offset-4 hover:decoration-primary"
+      href={href}
       rel="noopener noreferrer"
       target="_blank"
       {...props}
@@ -39,9 +42,9 @@ function CustomLink(props: React.AnchorHTMLAttributes<HTMLAnchorElement>) {
   );
 }
 
-function CustomImage(props: React.ComponentProps<typeof Image>) {
+function Image(props: React.ComponentProps<typeof NextImage>) {
   return (
-    <Image
+    <NextImage
       className="rounded-md"
       height={300}
       priority
@@ -113,7 +116,7 @@ function createHeading(level: number) {
             'span',
             {
               className:
-                'text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100',
+                'text-muted-foreground opacity-0 group-hover:opacity-100',
             },
             '#'
           )
@@ -129,12 +132,12 @@ function createHeading(level: number) {
 }
 
 const components = {
-  a: CustomLink,
+  a: Link,
   h1: createHeading(1),
   h2: createHeading(2),
-  // biome-ignore lint/style/noMagicNumbers: Self-explanatory
+  // biome-ignore lint/style/noMagicNumbers: Level 3 heading
   h3: createHeading(3),
-  img: CustomImage,
+  img: Image,
   pre: Pre,
   Tweet,
 };

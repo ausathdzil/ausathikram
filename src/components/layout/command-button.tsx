@@ -40,10 +40,15 @@ interface Post {
   content: string;
 }
 
-const navItems = [
-  { name: 'About', href: '/' },
-  { name: 'Projects', href: '/projects' },
-  { name: 'Blog', href: '/blog' },
+interface NavItem<T extends string = string> {
+  href: T;
+  label: string;
+}
+
+const navItems: NavItem<Route>[] = [
+  { label: 'About', href: '/' },
+  { label: 'Blog', href: '/blog' },
+  { label: 'Projects', href: '/projects' },
 ];
 
 export function CommandButton({ posts }: { posts?: Post[] }) {
@@ -155,11 +160,11 @@ function CommandDesktop({ posts }: { posts?: Post[] }) {
                 key={nav.href}
                 onSelect={() => {
                   setOpen(false);
-                  router.push(nav.href as Route);
+                  router.push(nav.href);
                 }}
               >
                 <ArrowUpRightIcon />
-                {nav.name}
+                {nav.label}
               </CommandItem>
             ))}
           </CommandGroup>
@@ -253,11 +258,11 @@ function CommandMobile({ posts }: { posts?: Post[] }) {
                     key={nav.href}
                     onSelect={() => {
                       setOpen(false);
-                      router.push(nav.href as Route);
+                      router.push(nav.href);
                     }}
                   >
                     <ArrowUpRightIcon />
-                    {nav.name}
+                    {nav.label}
                   </CommandItem>
                 ))}
               </CommandGroup>

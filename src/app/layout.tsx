@@ -2,7 +2,8 @@ import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { ArrowUpRightIcon, RssIcon } from 'lucide-react';
 import type { Metadata } from 'next';
-import { Inter, JetBrains_Mono, Zilla_Slab } from 'next/font/google';
+import { JetBrains_Mono, Zilla_Slab } from 'next/font/google';
+import localFont from 'next/font/local';
 
 import { CommandButton } from '@/components/layout/command-button';
 import { MobileNav } from '@/components/layout/mobile-nav';
@@ -14,8 +15,8 @@ import { getBlogPosts } from '@/lib/blog';
 import { baseUrl, cn } from '@/lib/utils';
 import './globals.css';
 
-const inter = Inter({
-  subsets: ['latin'],
+const inter = localFont({
+  src: './fonts/InterVariable.woff2',
   variable: '--font-inter',
 });
 

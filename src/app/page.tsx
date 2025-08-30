@@ -43,7 +43,7 @@ export default function Home() {
           {recentPosts.map((post) => (
             <li key={post.slug}>
               <Link
-                className="-mx-3 flex w-full flex-col rounded-lg px-3 py-2 transition-colors ease-out hover:bg-muted/50"
+                className="-mx-3 flex w-full flex-col rounded-lg px-3 py-2 hover:bg-muted/50"
                 href={`/blog/${post.slug}`}
               >
                 <span>{post.metadata.title}</span>
@@ -64,7 +64,7 @@ export default function Home() {
           {recentProjects.map((project) => (
             <li key={project.slug}>
               <Link
-                className="-mx-3 flex w-full flex-col rounded-lg px-3 py-2 transition-colors ease-out hover:bg-muted/50"
+                className="-mx-3 flex w-full flex-col rounded-lg px-3 py-2 hover:bg-muted/50"
                 href={`/projects/${project.slug}`}
               >
                 <span>{project.title}</span>

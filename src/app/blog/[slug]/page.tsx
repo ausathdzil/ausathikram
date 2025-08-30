@@ -99,7 +99,7 @@ export default async function Page(props: PostPageProps) {
           <span>Blog</span>
         </Link>
       </article>
-      <aside className="prose prose-zinc dark:prose-invert fixed top-24 right-28 prose-li:mb-2 hidden w-64 opacity-60 transition-opacity hover:opacity-100 xl:block">
+      <aside className="prose prose-zinc dark:prose-invert fixed top-24 right-28 prose-li:mb-2 hidden w-64 opacity-60 hover:opacity-100 xl:block">
         <p className="not-prose mb-4 font-semibold text-primary">
           On this page
         </p>

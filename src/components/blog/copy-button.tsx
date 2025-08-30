@@ -32,7 +32,7 @@ export function CopyButton({
     >
       <div
         className={cn(
-          'transition-all',
+          'transition-transform',
           copied ? 'scale-100 opacity-100' : 'scale-0 opacity-0'
         )}
       >
@@ -44,7 +44,7 @@ export function CopyButton({
       </div>
       <div
         className={cn(
-          'absolute transition-all',
+          'absolute transition-transform',
           copied ? 'scale-0 opacity-0' : 'scale-100 opacity-100'
         )}
       >

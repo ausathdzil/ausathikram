@@ -21,7 +21,6 @@ export const projects: Project[] = [
     description: 'Client portal for silatik platform.',
     image: silatik,
     link: 'https://silatik-web.vercel.app/',
-    repo: 'https://github.com/ausathdzil/silatik-web',
   },
   {
     title: 'EmergenSee',
