@@ -131,7 +131,7 @@ function createHeading(level: number) {
   return Heading;
 }
 
-const components = {
+export const components = {
   a: Link,
   h1: createHeading(1),
   h2: createHeading(2),

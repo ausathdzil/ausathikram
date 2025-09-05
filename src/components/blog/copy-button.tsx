@@ -25,7 +25,7 @@ export function CopyButton({
   return (
     <button
       aria-label={copied ? 'Copied' : 'Copy to clipboard'}
-      className="righ-1.5 absolute end-0 top-2.5 flex w-9 items-center justify-center rounded-md border border-transparent text-muted-foreground/80 ring-offset-background transition-shadow hover:text-primary focus-visible:border-ring focus-visible:text-primary focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring/30 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:cursor-not-allowed sm:top-3.5 sm:right-2"
+      className="absolute top-3 right-3 flex items-center justify-center rounded-md border border-transparent text-muted-foreground/80 ring-offset-background transition-shadow hover:text-primary focus-visible:border-ring focus-visible:text-primary focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring/30 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:cursor-not-allowed sm:top-4 sm:right-4"
       disabled={copied}
       onClick={handleCopy}
       type="button"
