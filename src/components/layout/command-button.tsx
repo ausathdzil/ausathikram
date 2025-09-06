@@ -188,13 +188,13 @@ function CommandMobile({ posts }: { posts?: Post[] }) {
           <SearchIcon />
         </Button>
       </DrawerTrigger>
-      <DrawerContent className="bg-popover">
+      <DrawerContent>
         <DrawerHeader className="sr-only">
           <DrawerTitle>Search</DrawerTitle>
           <DrawerDescription>Search anything on my website</DrawerDescription>
         </DrawerHeader>
         <div className="p-4">
-          <Command>
+          <Command className="bg-background">
             <CommandInput
               onValueChange={setValue}
               placeholder="Search..."

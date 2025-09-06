@@ -1,127 +1,26 @@
 'use client';
 
-import { ChevronLeftIcon, MenuIcon } from 'lucide-react';
+import { ChevronLeftIcon, MenuIcon, XIcon } from 'lucide-react';
 
+import type { Route } from 'next';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { useCallback, useState } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 import { Button } from '@/components/ui/button';
 import {
-  Drawer,
-  DrawerContent,
-  DrawerDescription,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from '@/components/ui/drawer';
-import type { Metadata } from '@/lib/blog';
-import { projects } from '@/lib/projects';
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
+import { cn } from '@/lib/utils';
 
-interface Post {
-  metadata: Metadata;
-  slug: string;
-  content: string;
-}
-
-export function MobileNav({ posts }: { posts?: Post[] }) {
+export function MobileNav() {
   const pathname = usePathname();
-  const [isOpen, setIsOpen] = useState(false);
-
-  const handleOpenChange = useCallback((open: boolean) => {
-    setIsOpen(open);
-  }, []);
-
-  const handleNavigation = useCallback(() => {
-    setIsOpen(false);
-  }, []);
 
   return (
     <div className="flex grow items-center gap-4 sm:hidden">
-      <Drawer onOpenChange={handleOpenChange} open={isOpen}>
-        <DrawerTrigger asChild>
-          <button aria-label="Menu" type="button">
-            <MenuIcon size={16} />
-          </button>
-        </DrawerTrigger>
-        <DrawerContent>
-          <DrawerHeader className="sr-only">
-            <DrawerTitle>Menu</DrawerTitle>
-            <DrawerDescription>Navigation menu</DrawerDescription>
-          </DrawerHeader>
-          <div className="flex-1 space-y-4 overflow-y-auto p-4">
-            <nav className="flex flex-col gap-4">
-              <Link
-                className={
-                  pathname === '/' ? 'text-blue-800 dark:text-blue-400' : ''
-                }
-                href="/"
-                onClick={handleNavigation}
-              >
-                About
-              </Link>
-            </nav>
-            <div className="flex flex-col gap-4">
-              <Link
-                className={
-                  pathname.startsWith('/blog')
-                    ? 'text-blue-800 dark:text-blue-400'
-                    : ''
-                }
-                href="/blog"
-                onClick={handleNavigation}
-              >
-                Blog
-              </Link>
-              <nav className="flex flex-col gap-4 text-sm">
-                {posts?.map((post) => (
-                  <Link
-                    className={
-                      pathname.includes(post.slug)
-                        ? 'text-blue-800 dark:text-blue-400'
-                        : ''
-                    }
-                    href={`/blog/${post.slug}`}
-                    key={post.slug}
-                    onClick={handleNavigation}
-                  >
-                    {post.metadata.title}
-                  </Link>
-                ))}
-              </nav>
-            </div>
-            <div className="flex flex-col gap-4">
-              <Link
-                className={
-                  pathname.startsWith('/projects')
-                    ? 'text-blue-800 dark:text-blue-400'
-                    : ''
-                }
-                href="/projects"
-                onClick={handleNavigation}
-              >
-                Projects
-              </Link>
-              <nav className="flex flex-col gap-4 text-sm">
-                {projects?.map((project) => (
-                  <Link
-                    className={
-                      pathname.includes(project.slug)
-                        ? 'text-blue-800 dark:text-blue-400'
-                        : ''
-                    }
-                    href={`/projects/${project.slug}`}
-                    key={project.slug}
-                    onClick={handleNavigation}
-                  >
-                    {project.title}
-                  </Link>
-                ))}
-              </nav>
-            </div>
-          </div>
-        </DrawerContent>
-      </Drawer>
+      <NavPopover pathname={pathname} />
       {pathname.startsWith('/blog/') && (
         <Button asChild size="sm" variant="ghost">
           <Link href="/blog">
@@ -130,5 +29,73 @@ export function MobileNav({ posts }: { posts?: Post[] }) {
         </Button>
       )}
     </div>
+  );
+}
+
+interface NavItem<T extends string = string> {
+  href: T;
+  label: string;
+}
+
+const navItems: NavItem<Route>[] = [
+  { label: 'About', href: '/' },
+  { label: 'Blog', href: '/blog' },
+  { label: 'Projects', href: '/projects' },
+];
+
+function NavPopover({ pathname }: { pathname: string }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
+
+  const handleOpenChange = (open: boolean) => {
+    setIsOpen(open);
+    document.body.style.overflow = open ? 'hidden' : 'unset';
+  };
+
+  return (
+    <Popover onOpenChange={handleOpenChange} open={isOpen}>
+      <PopoverTrigger asChild>
+        <Button className="-ml-2.5" size="icon" variant="ghost">
+          <span className="sr-only">Menu</span>
+          <MenuIcon className={isOpen ? 'hidden' : 'block'} />
+          <XIcon className={isOpen ? 'block' : 'hidden'} />
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent
+        align="start"
+        alignOffset={-16}
+        className="no-scrollbar h-(--radix-popper-available-height) w-(--radix-popper-available-width) overflow-y-auto rounded-none border-none bg-background/90 p-0 shadow-none backdrop-blur duration-0"
+        side="bottom"
+        sideOffset={14}
+      >
+        <nav className="overflow-auto border-t p-8">
+          <ul className="flex flex-col gap-4">
+            {navItems.map((item) => (
+              <li key={item.href}>
+                <Link
+                  className={cn(
+                    'font-medium text-xl',
+                    (
+                      item.href === '/'
+                        ? pathname === item.href
+                        : pathname.startsWith(item.href)
+                    )
+                      ? 'text-blue-800 dark:text-blue-400'
+                      : ''
+                  )}
+                  href={item.href}
+                  onClick={() => {
+                    router.push(item.href);
+                    handleOpenChange(false);
+                  }}
+                >
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </PopoverContent>
+    </Popover>
   );
 }

@@ -80,7 +80,7 @@ export default function RootLayout({
           disableTransitionOnChange
           enableSystem
         >
-          <div className="mx-auto flex min-h-screen max-w-3xl flex-col items-center px-8">
+          <div className="mx-auto flex min-h-svh max-w-3xl flex-col items-center px-8">
             <Header />
             <main className="flex w-full flex-1 flex-col gap-8 pb-8">
               {children}
@@ -107,7 +107,7 @@ function Header() {
   return (
     <header className="flex w-full items-center gap-2 py-8">
       <NavLinks />
-      <MobileNav posts={sortedPosts} />
+      <MobileNav />
       <div className="flex items-center gap-2">
         <CommandButton posts={sortedPosts} />
         <a
