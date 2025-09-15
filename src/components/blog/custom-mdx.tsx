@@ -12,7 +12,7 @@ import { CopyButton } from './copy-button';
 function Link<T extends string>({
   href,
   ...props
-}: React.AnchorHTMLAttributes<HTMLAnchorElement> & {
+}: React.ComponentProps<'a'> & {
   href: Route<T> | URL | string;
 }) {
   if (!href || href.startsWith('#')) {
@@ -54,10 +54,7 @@ function Image(props: React.ComponentProps<typeof NextImage>) {
   );
 }
 
-async function Pre({
-  children,
-  ...props
-}: React.HtmlHTMLAttributes<HTMLPreElement>) {
+async function Pre({ children, ...props }: React.ComponentProps<'pre'>) {
   const codeElement = Children.toArray(children).find(
     (child) => React.isValidElement(child) && child.type === 'code'
   ) as React.ReactElement<HTMLPreElement> | undefined;

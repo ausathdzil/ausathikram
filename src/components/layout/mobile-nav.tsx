@@ -4,7 +4,7 @@ import { ChevronLeftIcon, MenuIcon, XIcon } from 'lucide-react';
 
 import type { Route } from 'next';
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 
 import { Button } from '@/components/ui/button';
@@ -45,7 +45,6 @@ const navItems: NavItem<Route>[] = [
 
 function NavPopover({ pathname }: { pathname: string }) {
   const [isOpen, setIsOpen] = useState(false);
-  const router = useRouter();
 
   const handleOpenChange = (open: boolean) => {
     setIsOpen(open);
@@ -55,11 +54,11 @@ function NavPopover({ pathname }: { pathname: string }) {
   return (
     <Popover onOpenChange={handleOpenChange} open={isOpen}>
       <PopoverTrigger asChild>
-        <Button className="-ml-2.5" size="icon" variant="ghost">
+        <button className="[&_svg]:size-4" type="button">
           <span className="sr-only">Menu</span>
           <MenuIcon className={isOpen ? 'hidden' : 'block'} />
           <XIcon className={isOpen ? 'block' : 'hidden'} />
-        </Button>
+        </button>
       </PopoverTrigger>
       <PopoverContent
         align="start"
@@ -85,7 +84,6 @@ function NavPopover({ pathname }: { pathname: string }) {
                   )}
                   href={item.href}
                   onClick={() => {
-                    router.push(item.href);
                     handleOpenChange(false);
                   }}
                 >
