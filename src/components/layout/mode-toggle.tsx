@@ -29,21 +29,21 @@ export function ModeToggle() {
           className="hover:cursor-pointer"
           onClick={() => setTheme('light')}
         >
-          <SunIcon className="mr-2 h-[1.2rem] w-[1.2rem]" />
+          <SunIcon className="size-[1.2rem]" />
           <span>Light</span>
         </DropdownMenuItem>
         <DropdownMenuItem
           className="hover:cursor-pointer"
           onClick={() => setTheme('dark')}
         >
-          <MoonIcon className="mr-2 h-[1.2rem] w-[1.2rem]" />
+          <MoonIcon className="size-[1.2rem]" />
           <span>Dark</span>
         </DropdownMenuItem>
         <DropdownMenuItem
           className="hover:cursor-pointer"
           onClick={() => setTheme('system')}
         >
-          <MonitorIcon className="mr-2 h-[1.2rem] w-[1.2rem]" />
+          <MonitorIcon className="size-[1.2rem]" />
           <span>System</span>
         </DropdownMenuItem>
       </DropdownMenuContent>

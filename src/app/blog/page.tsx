@@ -18,12 +18,11 @@ export const metadata: Metadata = {
 export default function Page() {
   const allPosts = getBlogPosts();
 
-  const sortedPosts = allPosts.sort((a, b) => {
-    return (
+  const sortedPosts = allPosts.sort(
+    (a, b) =>
       new Date(b.metadata.publishedAt).getTime() -
       new Date(a.metadata.publishedAt).getTime()
-    );
-  });
+  );
 
   const groupedPosts = sortedPosts.reduce(
     (acc, post) => {

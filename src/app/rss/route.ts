@@ -5,14 +5,13 @@ export function GET() {
   const posts = getBlogPosts();
 
   const items = posts
-    .sort((a, b) => {
-      return (
+    .sort(
+      (a, b) =>
         new Date(b.metadata.publishedAt).getTime() -
         new Date(a.metadata.publishedAt).getTime()
-      );
-    })
-    .map((post) => {
-      return `
+    )
+    .map(
+      (post) => `
         <item>
           <title>${post.metadata.title}</title>
           <link>${baseUrl}/blog/${post.slug}</link>
@@ -21,8 +20,8 @@ export function GET() {
             post.metadata.publishedAt
           ).toUTCString()}</pubDate>
         </item>
-      `;
-    })
+      `
+    )
     .join('');
 
   const rss = `<?xml version="1.0" encoding="UTF-8" ?>
