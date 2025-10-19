@@ -14,6 +14,7 @@ import { buttonVariants } from '@/components/ui/button';
 import { getBlogPosts } from '@/lib/blog';
 import { baseUrl, cn } from '@/lib/utils';
 import './globals.css';
+import type { ReactNode } from 'react';
 
 const inter = localFont({
   src: './fonts/InterVariable.woff2',
@@ -62,7 +63,7 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: ReactNode;
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>

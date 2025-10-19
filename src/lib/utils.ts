@@ -10,17 +10,17 @@ export const baseUrl =
     ? 'https://ausathikram.com'
     : 'http://localhost:3000';
 
-export function formatDate(date: string) {
+export function formatDate(date: string, showYear = true) {
   let formattedDate = date;
   if (!formattedDate.includes('T')) {
     formattedDate = `${formattedDate}T00:00:00`;
   }
   const targetDate = new Date(formattedDate);
 
-  const fullDate = targetDate.toLocaleString('en-US', {
+  const fullDate = targetDate.toLocaleString('en-ID', {
     month: 'long',
     day: 'numeric',
-    year: 'numeric',
+    year: showYear ? 'numeric' : undefined,
   });
 
   return fullDate;

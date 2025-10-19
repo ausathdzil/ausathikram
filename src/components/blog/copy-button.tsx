@@ -1,7 +1,7 @@
 'use client';
 
 import { CheckIcon, CopyIcon } from 'lucide-react';
-import { useState } from 'react';
+import { type ReactElement, useState } from 'react';
 
 import { cn } from '@/lib/utils';
 
@@ -10,7 +10,7 @@ const COPIED_TIMEOUT = 1500;
 export function CopyButton({
   codeElement,
 }: {
-  codeElement: React.ReactElement<HTMLPreElement> | undefined;
+  codeElement: ReactElement<HTMLPreElement> | undefined;
 }) {
   const [copied, setCopied] = useState<boolean>(false);
 

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 
 import { getBlogPosts } from '@/lib/blog';
+import { formatDate } from '@/lib/utils';
 
 export const metadata: Metadata = {
   title: 'Blog',
@@ -37,30 +38,36 @@ export default function Page() {
   );
 
   return (
-    <>
-      <article className="space-y-2">
-        <h1 className="font-medium text-xl">Blog</h1>
-        <p className="prose prose-zinc dark:prose-invert">
-          Things that interest me, mostly about web development.
-        </p>
-      </article>
+    <article className="prose prose-zinc dark:prose-invert">
+      <h1 className="not-prose font-medium text-primary text-xl">Blog</h1>
+      <p>Things that interest me, mostly about web development.</p>
       <div className="space-y-4">
         {Object.entries(groupedPosts)
           .sort(([yearA], [yearB]) => Number(yearB) - Number(yearA))
           .map(([year, posts]) => (
             <div className="space-y-2" key={year}>
-              <h2 className="font-medium text-lg">{year}</h2>
-              <ul className="space-y-1">
+              <h2 className="not-prose font-medium text-primary text-xl">
+                {year}
+              </h2>
+              <ul className="not-prose mt-2 space-y-1">
                 {posts.map((post) => (
-                  <li key={post.slug}>
-                    <Link
-                      className="-mx-3 flex w-full flex-col rounded-lg px-3 py-2 hover:bg-muted/50"
-                      href={`/blog/${post.slug}`}
-                    >
-                      <span>{post.metadata.title}</span>
-                      <span className="line-clamp-1 text-muted-foreground text-xs sm:text-sm">
+                  <li
+                    className="-mx-3 w-full rounded-lg px-3 py-2 hover:bg-muted/50"
+                    key={post.slug}
+                  >
+                    <Link className="flex flex-col" href={`/blog/${post.slug}`}>
+                      <div className="flex justify-between">
+                        <p>{post.metadata.title}</p>
+                        <time
+                          className="hidden text-muted-foreground text-sm sm:block"
+                          dateTime={post.metadata.publishedAt}
+                        >
+                          {formatDate(post.metadata.publishedAt, false)}
+                        </time>
+                      </div>
+                      <p className="line-clamp-1 text-muted-foreground text-xs sm:text-sm">
                         {post.metadata.summary}
-                      </span>
+                      </p>
                     </Link>
                   </li>
                 ))}
@@ -68,6 +75,6 @@ export default function Page() {
             </div>
           ))}
       </div>
-    </>
+    </article>
   );
 }

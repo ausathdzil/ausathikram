@@ -1,8 +1,17 @@
+import type { MDXComponents } from 'mdx/types';
 import type { Route } from 'next';
 import NextImage from 'next/image';
 import NextLink from 'next/link';
 import { MDXRemote, type MDXRemoteProps } from 'next-mdx-remote/rsc';
-import React, { Children } from 'react';
+import {
+  Children,
+  type ComponentProps,
+  createElement,
+  isValidElement,
+  type JSX,
+  type ReactElement,
+  type ReactNode,
+} from 'react';
 import { Tweet } from 'react-tweet';
 import { codeToHtml } from 'shiki';
 
@@ -12,7 +21,7 @@ import { CopyButton } from './copy-button';
 function Link<T extends string>({
   href,
   ...props
-}: React.ComponentProps<'a'> & {
+}: ComponentProps<'a'> & {
   href: Route<T> | URL | string;
 }) {
   if (!href || href.startsWith('#')) {
@@ -42,7 +51,7 @@ function Link<T extends string>({
   );
 }
 
-function Image(props: React.ComponentProps<typeof NextImage>) {
+function Image(props: ComponentProps<typeof NextImage>) {
   return (
     <NextImage
       className="rounded-md"
@@ -54,10 +63,10 @@ function Image(props: React.ComponentProps<typeof NextImage>) {
   );
 }
 
-async function Pre({ children, ...props }: React.ComponentProps<'pre'>) {
+async function Pre({ children, ...props }: ComponentProps<'pre'>) {
   const codeElement = Children.toArray(children).find(
-    (child) => React.isValidElement(child) && child.type === 'code'
-  ) as React.ReactElement<HTMLPreElement> | undefined;
+    (child) => isValidElement(child) && child.type === 'code'
+  ) as ReactElement<HTMLPreElement> | undefined;
 
   const className = codeElement?.props?.className ?? '';
   const isCodeBlock =
@@ -92,14 +101,14 @@ async function Pre({ children, ...props }: React.ComponentProps<'pre'>) {
 }
 
 function createHeading(level: number) {
-  const Heading = ({ children }: { children: React.ReactNode }) => {
+  const Heading = ({ children }: { children: ReactNode }) => {
     const slug = slugify(String(children));
 
-    return React.createElement(
+    return createElement(
       `h${level}`,
       { id: slug, className: 'group relative font-semibold text-xl' },
       [
-        React.createElement(
+        createElement(
           'a',
           {
             href: `#${slug}`,
@@ -109,7 +118,7 @@ function createHeading(level: number) {
             className:
               'absolute invisible no-underline -ml-[1em] pr-2 w-full group-hover:visible',
           },
-          React.createElement(
+          createElement(
             'span',
             {
               className:
@@ -128,7 +137,7 @@ function createHeading(level: number) {
   return Heading;
 }
 
-export const components = {
+export const components: MDXComponents = {
   a: Link,
   h1: createHeading(1),
   h2: createHeading(2),
@@ -139,9 +148,7 @@ export const components = {
   Tweet,
 };
 
-export function CustomMDX(
-  props: React.JSX.IntrinsicAttributes & MDXRemoteProps
-) {
+export function CustomMDX(props: JSX.IntrinsicAttributes & MDXRemoteProps) {
   return (
     <MDXRemote
       {...props}

@@ -18,11 +18,11 @@ export function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata(
-  props: ProjectPageProps
-): Promise<Metadata> {
-  const params = await props.params;
-  const project = projects.find((p) => p.slug === params.slug);
+export async function generateMetadata({
+  params,
+}: ProjectPageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const project = projects.find((p) => p.slug === slug);
 
   if (!project) {
     notFound();
@@ -41,9 +41,9 @@ export async function generateMetadata(
   };
 }
 
-export default async function Page(props: ProjectPageProps) {
-  const params = await props.params;
-  const project = projects.find((p) => p.slug === params.slug);
+export default async function Page({ params }: ProjectPageProps) {
+  const { slug } = await params;
+  const project = projects.find((p) => p.slug === slug);
 
   if (!project) {
     notFound();
@@ -78,7 +78,7 @@ export default async function Page(props: ProjectPageProps) {
             target="_blank"
           >
             <ArrowUpRightIcon />
-            <span>Demo</span>
+            Demo
           </a>
         )}
         {project.repo && (

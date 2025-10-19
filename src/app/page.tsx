@@ -17,37 +17,35 @@ export default function Home() {
     .splice(0, MAX_POSTS);
 
   return (
-    <>
-      <article className="space-y-2">
-        <h1 className="font-medium text-xl">Ausath Ikram</h1>
-        <p className="text-muted-foreground">Frontend Developer</p>
-        <h1 className="mt-6 font-medium text-xl">Work</h1>
-        <p className="prose prose-zinc dark:prose-invert">
-          I&apos;m a Frontend Developer at eBdesk. I like to build accessible,
-          minimalist and performant web applications.
-        </p>
-      </article>
-
-      <div className="flex flex-col gap-2">
-        <Link className="font-medium text-xl" href="/blog">
-          Blog
-        </Link>
-        <ul className="space-y-1">
-          {recentPosts.map((post) => (
-            <li key={post.slug}>
-              <Link
-                className="-mx-3 flex w-full flex-col rounded-lg px-3 py-2 hover:bg-muted/50"
-                href={`/blog/${post.slug}`}
+    <article className="prose prose-zinc dark:prose-invert">
+      <h1 className="not-prose font-medium text-primary text-xl">
+        Ausath Ikram
+      </h1>
+      <p>Frontend Developer</p>
+      <h2 className="not-prose font-medium text-primary text-xl">Work</h2>
+      <p>
+        I&apos;m a Frontend Developer at eBdesk. I like to build accessible,
+        minimalist and performant web applications.
+      </p>
+      <h2 className="not-prose font-medium text-primary text-xl">Blog</h2>
+      <ul className="not-prose mt-2 space-y-1">
+        {recentPosts.map((post) => (
+          <li
+            className="-mx-3 w-full rounded-lg px-3 py-2 hover:bg-muted/50"
+            key={post.slug}
+          >
+            <Link className="flex flex-col" href={`/blog/${post.slug}`}>
+              <p>{post.metadata.title}</p>
+              <time
+                className="text-muted-foreground text-sm md:text-base"
+                dateTime={post.metadata.publishedAt}
               >
-                <span>{post.metadata.title}</span>
-                <span className="text-muted-foreground text-sm md:text-base">
-                  {formatDate(post.metadata.publishedAt)}
-                </span>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </>
+                {formatDate(post.metadata.publishedAt)}
+              </time>
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </article>
   );
 }

@@ -20,11 +20,11 @@ export function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata(
-  props: PostPageProps
-): Promise<Metadata> {
-  const params = await props.params;
-  const post = getBlogPosts().find((p) => p.slug === params.slug);
+export async function generateMetadata({
+  params,
+}: PostPageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const post = getBlogPosts().find((p) => p.slug === slug);
 
   if (!post) {
     notFound();
@@ -50,9 +50,9 @@ export async function generateMetadata(
   };
 }
 
-export default async function Page(props: PostPageProps) {
-  const params = await props.params;
-  const post = getBlogPosts().find((p) => p.slug === params.slug);
+export default async function Page({ params }: PostPageProps) {
+  const { slug } = await params;
+  const post = getBlogPosts().find((p) => p.slug === slug);
 
   if (!post) {
     notFound();
@@ -86,19 +86,25 @@ export default async function Page(props: PostPageProps) {
         <h1 className="not-prose font-medium text-primary text-xl">
           {post.metadata.title}
         </h1>
-        <p className="not-prose mt-2 text-muted-foreground">
-          Ausath Ikram <span className="text-primary">&bull;</span>{' '}
-          {formatDate(post.metadata.publishedAt)}{' '}
-        </p>
+        <div className="not-prose mt-2 flex items-center gap-2">
+          <p className="text-muted-foreground">Ausath Ikram</p>
+          <span className="text-primary">&bull;</span>
+          <time
+            className="text-muted-foreground"
+            dateTime={post.metadata.publishedAt}
+          >
+            {formatDate(post.metadata.publishedAt)}
+          </time>
+        </div>
         <CustomMDX source={post.content} />
-        <Link
-          className="not-prose mt-8 flex w-fit items-center gap-2"
-          href="/blog"
-        >
-          <ArrowLeftIcon size={16} />
-          <span>Blog</span>
-        </Link>
       </article>
+      <Link
+        className="not-prose mt-8 flex w-fit items-center gap-2"
+        href="/blog"
+      >
+        <ArrowLeftIcon size={16} />
+        <span>Blog</span>
+      </Link>
       <aside className="prose prose-zinc dark:prose-invert fixed top-24 right-28 prose-li:mb-2 hidden w-64 opacity-60 hover:opacity-100 xl:block">
         <p className="not-prose mb-4 font-semibold text-primary">
           On this page
