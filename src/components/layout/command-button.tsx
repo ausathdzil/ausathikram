@@ -9,7 +9,7 @@ import {
 
 import type { Route } from 'next';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -33,6 +33,7 @@ import {
 import { useIsMobile } from '@/hooks/use-mobile';
 import type { Metadata } from '@/lib/blog';
 import { projects } from '@/lib/projects';
+import { formatDate } from '@/lib/utils';
 
 interface Post {
   metadata: Metadata;
@@ -86,6 +87,14 @@ function CommandDesktop({ posts }: { posts?: Post[] }) {
     return () => document.removeEventListener('keydown', down);
   }, []);
 
+  const handleSelect = useCallback(
+    (href: Route) => {
+      setOpen(false);
+      router.push(href);
+    },
+    [router]
+  );
+
   return (
     <>
       <Button onClick={() => setOpen(true)} size="sm" variant="secondary">
@@ -114,24 +123,17 @@ function CommandDesktop({ posts }: { posts?: Post[] }) {
                 <CommandItem
                   className="cursor-pointer"
                   key={post.slug}
-                  onSelect={() => {
-                    setOpen(false);
-                    router.push(`/blog/${post.slug}`);
-                  }}
+                  onSelect={() => handleSelect(`/blog/${post.slug}` as Route)}
                 >
                   <NewspaperIcon />
                   <div className="flex w-full items-center justify-between">
-                    {post.metadata.title}
-                    <span className="ml-2 hidden text-muted-foreground text-sm sm:block">
-                      {new Date(post.metadata.publishedAt).toLocaleDateString(
-                        'en-US',
-                        {
-                          year: 'numeric',
-                          month: 'short',
-                          day: 'numeric',
-                        }
-                      )}
-                    </span>
+                    <p>{post.metadata.title}</p>
+                    <time
+                      className="ml-2 hidden text-muted-foreground text-sm sm:block"
+                      dateTime={post.metadata.publishedAt}
+                    >
+                      {formatDate(post.metadata.publishedAt)}
+                    </time>
                   </div>
                 </CommandItem>
               ))}
@@ -142,10 +144,9 @@ function CommandDesktop({ posts }: { posts?: Post[] }) {
               <CommandItem
                 className="cursor-pointer"
                 key={project.slug}
-                onSelect={() => {
-                  setOpen(false);
-                  router.push(`/projects/${project.slug}`);
-                }}
+                onSelect={() =>
+                  handleSelect(`/project/${project.slug}` as Route)
+                }
               >
                 <FolderIcon />
                 {project.title}
@@ -158,10 +159,7 @@ function CommandDesktop({ posts }: { posts?: Post[] }) {
               <CommandItem
                 className="cursor-pointer"
                 key={nav.href}
-                onSelect={() => {
-                  setOpen(false);
-                  router.push(nav.href);
-                }}
+                onSelect={() => handleSelect(nav.href)}
               >
                 <ArrowUpRightIcon />
                 {nav.label}

@@ -23,7 +23,7 @@ export default function Home() {
       </h1>
       <p>Frontend Developer</p>
       <h2 className="not-prose font-medium text-primary text-xl">Work</h2>
-      <p>
+      <p className="mt-5">
         I&apos;m a Frontend Developer at eBdesk. I like to build accessible,
         minimalist and performant web applications.
       </p>
