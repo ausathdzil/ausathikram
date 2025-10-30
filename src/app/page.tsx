@@ -1,12 +1,12 @@
 import Link from 'next/link';
 
-import { getBlogPosts } from '@/lib/blog';
+import { getBlogPostsMetadata } from '@/lib/blog';
 import { formatDate } from '@/lib/utils';
 
 const MAX_POSTS = 10;
 
 export default function Home() {
-  const posts = getBlogPosts();
+  const posts = getBlogPostsMetadata();
 
   const recentPosts = posts
     .sort(

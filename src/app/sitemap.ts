@@ -7,7 +7,7 @@ import { baseUrl } from '@/lib/utils';
 export default function sitemap(): MetadataRoute.Sitemap {
   const posts = getBlogPosts().map((post) => ({
     url: `${baseUrl}/blog/${post.slug}`,
-    lastModified: post.metadata.publishedAt,
+    lastModified: post.metadata.updatedAt || post.metadata.publishedAt,
   }));
 
   const projectsRoute = projects.map((project) => ({

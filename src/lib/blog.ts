@@ -1,3 +1,4 @@
+import { cache } from 'react';
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -5,6 +6,13 @@ export interface Metadata {
   title: string;
   publishedAt: string;
   summary: string;
+  updatedAt?: string;
+}
+
+export interface BlogPost {
+  metadata: Metadata;
+  slug: string;
+  content: string;
 }
 
 const frontmatterRegex = /---\s*([\s\S]*?)\s*---/; // Match frontmatter block
@@ -55,6 +63,26 @@ function getMDXData(dir: string) {
   });
 }
 
-export function getBlogPosts() {
-  return getMDXData(path.join(process.cwd(), 'posts'));
+// Cache the file system reads during build/request
+const getCachedMDXData = cache((dir: string) => {
+  return getMDXData(dir);
+});
+
+// Primary function: returns all blog posts with full content
+export function getBlogPosts(): BlogPost[] {
+  return getCachedMDXData(path.join(process.cwd(), 'posts'));
+}
+
+// Lightweight function: returns only metadata (no content string)
+// Use this when you don't need the full MDX content
+export function getBlogPostsMetadata() {
+  return getBlogPosts().map(({ metadata, slug }) => ({
+    metadata,
+    slug,
+  }));
+}
+
+// Get a single blog post by slug
+export function getBlogPost(slug: string): BlogPost | undefined {
+  return getBlogPosts().find((post) => post.slug === slug);
 }

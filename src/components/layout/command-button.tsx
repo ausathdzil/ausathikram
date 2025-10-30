@@ -38,7 +38,6 @@ import { formatDate } from '@/lib/utils';
 interface Post {
   metadata: Metadata;
   slug: string;
-  content: string;
 }
 
 interface NavItem<T extends string = string> {
@@ -145,7 +144,7 @@ function CommandDesktop({ posts }: { posts?: Post[] }) {
                 className="cursor-pointer"
                 key={project.slug}
                 onSelect={() =>
-                  handleSelect(`/project/${project.slug}` as Route)
+                  handleSelect(`/projects/${project.slug}` as Route)
                 }
               >
                 <FolderIcon />

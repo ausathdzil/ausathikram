@@ -2,7 +2,7 @@ import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { ImageResponse } from 'next/og';
 
-import { getBlogPosts } from '@/lib/blog';
+import { getBlogPost, getBlogPostsMetadata } from '@/lib/blog';
 
 export const alt = "Ausath Ikram's blog";
 export const size = {
@@ -13,7 +13,7 @@ export const size = {
 export const contentType = 'image/png';
 
 export function generateStaticParams() {
-  const posts = getBlogPosts();
+  const posts = getBlogPostsMetadata();
 
   return posts.map((post) => ({
     slug: post.slug,
@@ -21,7 +21,7 @@ export function generateStaticParams() {
 }
 
 export default async function Image({ params }: { params: { slug: string } }) {
-  const post = getBlogPosts().find((p) => p.slug === params.slug);
+  const post = getBlogPost(params.slug);
 
   if (!post) {
     return new Response('Not found', { status: 404 });

@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
 import { CustomMDX } from '@/components/blog/custom-mdx';
-import { getBlogPosts } from '@/lib/blog';
+import { getBlogPost, getBlogPostsMetadata } from '@/lib/blog';
 import { baseUrl, formatDate, getTableOfContents } from '@/lib/utils';
 
 interface PostPageProps {
@@ -13,7 +13,7 @@ interface PostPageProps {
 }
 
 export function generateStaticParams() {
-  const posts = getBlogPosts();
+  const posts = getBlogPostsMetadata();
 
   return posts.map((post) => ({
     slug: post.slug,
@@ -24,7 +24,7 @@ export async function generateMetadata({
   params,
 }: PostPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const post = getBlogPosts().find((p) => p.slug === slug);
+  const post = getBlogPost(slug);
 
   if (!post) {
     notFound();
@@ -52,7 +52,7 @@ export async function generateMetadata({
 
 export default async function Page({ params }: PostPageProps) {
   const { slug } = await params;
-  const post = getBlogPosts().find((p) => p.slug === slug);
+  const post = getBlogPost(slug);
 
   if (!post) {
     notFound();
@@ -70,7 +70,7 @@ export default async function Page({ params }: PostPageProps) {
             '@type': 'BlogPosting',
             headline: post.metadata.title,
             datePublished: post.metadata.publishedAt,
-            dateModified: post.metadata.publishedAt,
+            dateModified: post.metadata.updatedAt || post.metadata.publishedAt,
             description: post.metadata.summary,
             url: `${baseUrl}/blog/${post.slug}`,
             author: {

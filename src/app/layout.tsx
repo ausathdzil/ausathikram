@@ -11,7 +11,7 @@ import { ModeToggle } from '@/components/layout/mode-toggle';
 import { NavLinks } from '@/components/layout/nav-links';
 import { ThemeProvider } from '@/components/layout/theme-provider';
 import { buttonVariants } from '@/components/ui/button';
-import { getBlogPosts } from '@/lib/blog';
+import { getBlogPostsMetadata } from '@/lib/blog';
 import { baseUrl, cn } from '@/lib/utils';
 import './globals.css';
 import type { ReactNode } from 'react';
@@ -97,7 +97,7 @@ export default function RootLayout({
 }
 
 function Header() {
-  const posts = getBlogPosts();
+  const posts = getBlogPostsMetadata();
 
   const sortedPosts = posts.sort(
     (a, b) =>
