@@ -1,6 +1,6 @@
-import { cache } from 'react';
 import fs from 'node:fs';
 import path from 'node:path';
+import { cache } from 'react';
 
 export interface Metadata {
   title: string;
@@ -63,18 +63,12 @@ function getMDXData(dir: string) {
   });
 }
 
-// Cache the file system reads during build/request
-const getCachedMDXData = cache((dir: string) => {
-  return getMDXData(dir);
-});
+const getCachedMDXData = cache((dir: string) => getMDXData(dir));
 
-// Primary function: returns all blog posts with full content
 export function getBlogPosts(): BlogPost[] {
   return getCachedMDXData(path.join(process.cwd(), 'posts'));
 }
 
-// Lightweight function: returns only metadata (no content string)
-// Use this when you don't need the full MDX content
 export function getBlogPostsMetadata() {
   return getBlogPosts().map(({ metadata, slug }) => ({
     metadata,
@@ -82,7 +76,6 @@ export function getBlogPostsMetadata() {
   }));
 }
 
-// Get a single blog post by slug
 export function getBlogPost(slug: string): BlogPost | undefined {
   return getBlogPosts().find((post) => post.slug === slug);
 }
