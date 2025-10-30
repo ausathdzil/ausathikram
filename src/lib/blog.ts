@@ -63,11 +63,9 @@ function getMDXData(dir: string) {
   });
 }
 
-const getCachedMDXData = cache((dir: string) => getMDXData(dir));
-
-export function getBlogPosts(): BlogPost[] {
-  return getCachedMDXData(path.join(process.cwd(), 'posts'));
-}
+export const getBlogPosts = cache((): BlogPost[] =>
+  getMDXData(path.join(process.cwd(), 'posts'))
+);
 
 export function getBlogPostsMetadata() {
   return getBlogPosts().map(({ metadata, slug }) => ({
@@ -76,6 +74,17 @@ export function getBlogPostsMetadata() {
   }));
 }
 
-export function getBlogPost(slug: string): BlogPost | undefined {
-  return getBlogPosts().find((post) => post.slug === slug);
-}
+export const getBlogPost = cache((slug: string): BlogPost | undefined => {
+  const filePath = path.join(process.cwd(), 'posts', `${slug}.mdx`);
+
+  if (!fs.existsSync(filePath)) {
+    return;
+  }
+
+  const { metadata, content } = readMDXFile(filePath);
+  return {
+    metadata,
+    slug,
+    content,
+  };
+});
