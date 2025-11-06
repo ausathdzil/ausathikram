@@ -20,8 +20,9 @@ export function generateStaticParams() {
   }));
 }
 
-export default async function Image({ params }: { params: { slug: string } }) {
-  const post = getBlogPost(params.slug);
+export default async function Image({ params }: PageProps<'/blog/[slug]'>) {
+  const { slug } = await params;
+  const post = getBlogPost(slug);
 
   if (!post) {
     return new Response('Not found', { status: 404 });
