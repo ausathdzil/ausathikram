@@ -141,7 +141,6 @@ export const components: MDXComponents = {
   a: Link,
   h1: createHeading(1),
   h2: createHeading(2),
-  // biome-ignore lint/style/noMagicNumbers: Level 3 heading
   h3: createHeading(3),
   img: Image,
   pre: Pre,
