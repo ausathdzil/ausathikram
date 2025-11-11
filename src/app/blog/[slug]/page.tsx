@@ -8,10 +8,6 @@ import { CustomMDX } from '@/components/blog/custom-mdx';
 import { getBlogPost, getBlogPostsMetadata } from '@/lib/blog';
 import { baseUrl, formatDate, getTableOfContents } from '@/lib/utils';
 
-interface PostPageProps {
-  params: Promise<{ slug: string }>;
-}
-
 export function generateStaticParams() {
   const posts = getBlogPostsMetadata();
 
@@ -22,7 +18,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata({
   params,
-}: PostPageProps): Promise<Metadata> {
+}: PageProps<'/blog/[slug]'>): Promise<Metadata> {
   const { slug } = await params;
   const post = getBlogPost(slug);
 
@@ -50,7 +46,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function Page({ params }: PostPageProps) {
+export default async function Page({ params }: PageProps<'/blog/[slug]'>) {
   const { slug } = await params;
   const post = getBlogPost(slug);
 

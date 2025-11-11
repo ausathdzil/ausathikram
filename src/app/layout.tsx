@@ -4,6 +4,7 @@ import { ArrowUpRightIcon, RssIcon } from 'lucide-react';
 import type { Metadata } from 'next';
 import { JetBrains_Mono, Zilla_Slab } from 'next/font/google';
 import localFont from 'next/font/local';
+import type { ReactNode } from 'react';
 
 import { CommandButton } from '@/components/layout/command-button';
 import { MobileNav } from '@/components/layout/mobile-nav';
@@ -14,7 +15,6 @@ import { buttonVariants } from '@/components/ui/button';
 import { getBlogPostsMetadata } from '@/lib/blog';
 import { baseUrl, cn } from '@/lib/utils';
 import './globals.css';
-import type { ReactNode } from 'react';
 
 const inter = localFont({
   src: './fonts/InterVariable.woff2',

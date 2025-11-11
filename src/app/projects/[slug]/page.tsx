@@ -8,10 +8,6 @@ import { buttonVariants } from '@/components/ui/button';
 import { projects } from '@/lib/projects';
 import { baseUrl, cn } from '@/lib/utils';
 
-interface ProjectPageProps {
-  params: Promise<{ slug: string }>;
-}
-
 export function generateStaticParams() {
   return projects.map((project) => ({
     slug: project.slug,
@@ -20,7 +16,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata({
   params,
-}: ProjectPageProps): Promise<Metadata> {
+}: PageProps<'/projects/[slug]'>): Promise<Metadata> {
   const { slug } = await params;
   const project = projects.find((p) => p.slug === slug);
 
@@ -41,7 +37,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function Page({ params }: ProjectPageProps) {
+export default async function Page({ params }: PageProps<'/projects/[slug]'>) {
   const { slug } = await params;
   const project = projects.find((p) => p.slug === slug);
 
