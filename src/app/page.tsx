@@ -21,11 +21,8 @@ export default function Home() {
       <h1 className="not-prose font-medium text-primary text-xl">
         Ausath Ikram
       </h1>
-      <p>Frontend Developer</p>
-      <h2 className="not-prose font-medium text-primary text-xl">Work</h2>
       <p className="mt-5">
-        I&apos;m a Frontend Developer at eBdesk. I like to build accessible,
-        minimalist and performant web applications.
+        I&apos;m a Frontend Developer at eBdesk. I like to build websites.
       </p>
       <h2 className="not-prose font-medium text-primary text-xl">Blog</h2>
       <ul className="not-prose mt-2 space-y-1">

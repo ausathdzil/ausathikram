@@ -35,5 +35,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# claude code
+# ultracite
 .claude
+.cursor
+.husky
+.vscode
+.zed

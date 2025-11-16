@@ -12,7 +12,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const projectsRoute = projects.map((project) => ({
     url: `${baseUrl}/projects/${project.slug}`,
-    images: [`${baseUrl}/${project.slug}.png`],
     lastModified: new Date().toISOString().split('T')[0],
   }));
 

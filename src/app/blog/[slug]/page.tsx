@@ -3,6 +3,7 @@ import { ArrowLeftIcon, ArrowUpIcon } from 'lucide-react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import type { BlogPosting, WithContext } from 'schema-dts';
 
 import { CustomMDX } from '@/components/blog/custom-mdx';
 import { getBlogPost, getBlogPostsMetadata } from '@/lib/blog';
@@ -33,6 +34,7 @@ export async function generateMetadata({
     openGraph: {
       title: post.metadata.title,
       description: post.metadata.summary,
+      publishedTime: post.metadata.publishedAt,
       url: `${baseUrl}/blog/${post.slug}`,
       siteName: 'Ausath Ikram',
       locale: 'en_US',
@@ -56,24 +58,29 @@ export default async function Page({ params }: PageProps<'/blog/[slug]'>) {
 
   const tableOfContents = getTableOfContents(post.content);
 
+  const jsonLd: WithContext<BlogPosting> = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.metadata.title,
+    datePublished: new Date(post.metadata.publishedAt).toISOString(),
+    dateModified: new Date(
+      post.metadata.updatedAt || post.metadata.publishedAt
+    ).toISOString(),
+    description: post.metadata.summary,
+    url: `${baseUrl}/blog/${post.slug}`,
+    author: {
+      '@type': 'Person',
+      name: 'Ausath Ikram',
+      url: baseUrl,
+    },
+  };
+
   return (
     <>
       <script
         // biome-ignore lint/security/noDangerouslySetInnerHtml: Required for structured data JSON-LD
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'BlogPosting',
-            headline: post.metadata.title,
-            datePublished: post.metadata.publishedAt,
-            dateModified: post.metadata.updatedAt || post.metadata.publishedAt,
-            description: post.metadata.summary,
-            url: `${baseUrl}/blog/${post.slug}`,
-            author: {
-              '@type': 'Person',
-              name: 'Ausath Ikram',
-            },
-          }),
+          __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
         }}
         suppressHydrationWarning
         type="application/ld+json"

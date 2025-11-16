@@ -11,6 +11,6 @@ const nextConfig: NextConfig = {
   typedRoutes: true,
 };
 
-const withMDX = createMDX({});
+const withMDX = createMDX();
 
 export default withMDX(nextConfig);

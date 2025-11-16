@@ -1,19 +1,9 @@
 'use client';
 
-import type { Route } from 'next';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-interface NavItem<T extends string = string> {
-  href: T;
-  label: string;
-}
-
-const navItems: NavItem<Route>[] = [
-  { label: 'About', href: '/' },
-  { label: 'Blog', href: '/blog' },
-  { label: 'Projects', href: '/projects' },
-];
+import { navItems } from '@/lib/utils';
 
 export function NavLinks() {
   const pathname = usePathname();

@@ -1,6 +1,6 @@
 import type { MDXComponents } from 'mdx/types';
 import type { Route } from 'next';
-import NextImage from 'next/image';
+import Image from 'next/image';
 import NextLink from 'next/link';
 import { MDXRemote, type MDXRemoteProps } from 'next-mdx-remote/rsc';
 import {
@@ -32,7 +32,7 @@ function Link<T extends string>({
     return (
       <NextLink
         className="decoration-muted-foreground underline-offset-4 hover:decoration-primary"
-        href={href as Route<T>}
+        href={href as Route}
         {...props}
       >
         {props.children}
@@ -46,18 +46,6 @@ function Link<T extends string>({
       href={href}
       rel="noopener noreferrer"
       target="_blank"
-      {...props}
-    />
-  );
-}
-
-function Image(props: ComponentProps<typeof NextImage>) {
-  return (
-    <NextImage
-      className="rounded-md"
-      height={300}
-      priority
-      width={700}
       {...props}
     />
   );
@@ -142,8 +130,8 @@ export const components: MDXComponents = {
   h1: createHeading(1),
   h2: createHeading(2),
   h3: createHeading(3),
-  img: Image,
   pre: Pre,
+  Image,
   Tweet,
 };
 

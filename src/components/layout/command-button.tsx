@@ -33,23 +33,12 @@ import {
 import { useIsMobile } from '@/hooks/use-mobile';
 import type { Metadata } from '@/lib/blog';
 import { projects } from '@/lib/projects';
-import { formatDate } from '@/lib/utils';
+import { formatDate, navItems } from '@/lib/utils';
 
 interface Post {
   metadata: Metadata;
   slug: string;
 }
-
-interface NavItem<T extends string = string> {
-  href: T;
-  label: string;
-}
-
-const navItems: NavItem<Route>[] = [
-  { label: 'About', href: '/' },
-  { label: 'Blog', href: '/blog' },
-  { label: 'Projects', href: '/projects' },
-];
 
 export function CommandButton({ posts }: { posts?: Post[] }) {
   const isMobile = useIsMobile();

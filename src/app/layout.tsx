@@ -70,8 +70,8 @@ export default function RootLayout({
       <body
         className={cn(
           inter.variable,
-          zillaSlab.variable,
           jetBrainsMono.variable,
+          zillaSlab.variable,
           'font-sans dark:antialiased'
         )}
       >
@@ -112,11 +112,11 @@ function Header() {
       <div className="flex items-center gap-2">
         <CommandButton posts={sortedPosts} />
         <a
+          aria-label="RSS"
           className={buttonVariants({ variant: 'ghost', size: 'icon' })}
           href="/rss"
         >
           <RssIcon />
-          <span className="sr-only">RSS Feed</span>
         </a>
         <ModeToggle />
       </div>

@@ -1,4 +1,5 @@
 import { type ClassValue, clsx } from 'clsx';
+import type { Route } from 'next';
 import { twMerge } from 'tailwind-merge';
 
 export function cn(...inputs: ClassValue[]) {
@@ -9,6 +10,17 @@ export const baseUrl =
   process.env.NODE_ENV === 'production'
     ? 'https://ausathikram.com'
     : 'http://localhost:3000';
+
+export interface NavItem<T extends string = string> {
+  href: T;
+  label: string;
+}
+
+export const navItems: NavItem<Route>[] = [
+  { label: 'About', href: '/' },
+  { label: 'Blog', href: '/blog' },
+  { label: 'Projects', href: '/projects' },
+];
 
 export function formatDate(date: string, showYear = true) {
   let formattedDate = date;
