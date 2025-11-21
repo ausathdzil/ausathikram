@@ -104,12 +104,22 @@
   }
 }
 
+.prose h1,
+h2,
+h3 {
+  @apply font-medium;
+}
+
+.prose a {
+  @apply decoration-muted-foreground hover:decoration-foreground underline-offset-4;
+}
+
 .prose blockquote {
   @apply font-serif not-italic text-lg;
 }
 
 .prose pre {
-  @apply font-mono bg-background text-foreground border text-xs sm:text-sm;
+  @apply font-mono bg-background text-foreground border;
 }
 
 .prose code:not(:has(*)):not(pre code) {

@@ -39,16 +39,14 @@ export default function Page() {
 
   return (
     <article className="prose prose-zinc dark:prose-invert">
-      <h1 className="not-prose font-medium text-primary text-xl">Blog</h1>
+      <h1 className="font-medium text-xl">Blog</h1>
       <p>Things that interest me, mostly about web development.</p>
       <div className="space-y-4">
         {Object.entries(groupedPosts)
           .sort(([yearA], [yearB]) => Number(yearB) - Number(yearA))
           .map(([year, posts]) => (
             <div className="space-y-2" key={year}>
-              <h2 className="not-prose font-medium text-primary text-xl">
-                {year}
-              </h2>
+              <h2 className="font-medium text-xl">{year}</h2>
               <ul className="not-prose mt-2 space-y-1">
                 {posts.map((post) => (
                   <li
@@ -59,7 +57,7 @@ export default function Page() {
                       <div className="flex justify-between">
                         <p>{post.metadata.title}</p>
                         <time
-                          className="hidden text-muted-foreground text-sm sm:block"
+                          className="hidden text-muted-foreground text-sm tabular-nums sm:block"
                           dateTime={post.metadata.publishedAt}
                         >
                           {formatDate(post.metadata.publishedAt, false)}

@@ -37,7 +37,7 @@ export function MobileNav() {
           side="bottom"
           sideOffset={14}
         >
-          <nav className="p-8">
+          <nav className="px-8 py-6">
             <ul className="flex flex-col gap-4">
               {navItems.map((item) => (
                 <li key={item.href}>

@@ -1,6 +1,6 @@
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
-import { ArrowUpRightIcon, RssIcon } from 'lucide-react';
+import { RssIcon } from 'lucide-react';
 import type { Metadata } from 'next';
 import { JetBrains_Mono, Zilla_Slab } from 'next/font/google';
 import localFont from 'next/font/local';
@@ -81,12 +81,9 @@ export default function RootLayout({
           disableTransitionOnChange
           enableSystem
         >
-          <div className="mx-auto flex min-h-svh max-w-3xl flex-col items-center px-8">
+          <div className="mx-auto flex min-h-screen max-w-3xl flex-col items-center px-8 pb-32">
             <Header />
-            <main className="flex w-full flex-1 flex-col gap-8 pb-8">
-              {children}
-            </main>
-            <Footer />
+            <main className="flex w-full flex-1 flex-col">{children}</main>
           </div>
         </ThemeProvider>
         <Analytics />
@@ -113,7 +110,7 @@ function Header() {
         <CommandButton posts={sortedPosts} />
         <a
           aria-label="RSS"
-          className={buttonVariants({ variant: 'ghost', size: 'icon' })}
+          className={buttonVariants({ variant: 'ghost', size: 'icon-sm' })}
           href="/rss"
         >
           <RssIcon />
@@ -121,38 +118,5 @@ function Header() {
         <ModeToggle />
       </div>
     </header>
-  );
-}
-
-function Footer() {
-  return (
-    <footer className="flex w-full items-center gap-4 border-t py-8 text-sm sm:gap-8 sm:text-base">
-      <a
-        className="flex items-center gap-1"
-        href="https://github.com/ausathdzil"
-        rel="noopener noreferrer"
-        target="_blank"
-      >
-        <ArrowUpRightIcon size={16} />
-        GitHub
-      </a>
-      <a
-        className="flex items-center gap-1"
-        href="https://linkedin.com/in/ausathdzil"
-        rel="noopener noreferrer"
-        target="_blank"
-      >
-        <ArrowUpRightIcon size={16} />
-        LinkedIn
-      </a>
-      <a
-        className="flex items-center gap-1"
-        href="mailto:mail@ausathikram.com"
-        rel="noopener noreferrer"
-      >
-        <ArrowUpRightIcon size={16} />
-        Email
-      </a>
-    </footer>
   );
 }

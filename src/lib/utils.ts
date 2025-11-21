@@ -19,7 +19,6 @@ export interface NavItem<T extends string = string> {
 export const navItems: NavItem<Route>[] = [
   { label: 'About', href: '/' },
   { label: 'Blog', href: '/blog' },
-  { label: 'Projects', href: '/projects' },
 ];
 
 export function formatDate(date: string, showYear = true) {

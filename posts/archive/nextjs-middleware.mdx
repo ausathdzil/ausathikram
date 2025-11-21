@@ -1,0 +1,194 @@
+---
+title: Next.js Middleware
+publishedAt: 2025-03-26
+summary: My approach on authorization with Next.js.
+---
+
+There has been a drama going on lately with Next.js and Vercel after a security vulnerability [(CVE-2025-29927)](https://github.com/advisories/GHSA-f82v-jwr5-mffw) was discovered. Vercel has already posted a [blog post](https://nextjs.org/blog/cve-2025-29927) about it if you want more details.
+
+This security vulnerability has been patch for version `15.2.3`, `14.2.25`, `13.5.9`, and `12.3.5`. You should [upgrade](https://nextjs.org/docs/app/building-your-application/upgrading) immediately regardless of what major version you're using.
+
+There are also concerns on how Vercel handles this situation which stirs up the drama. But I will not be covering it in this post and will focus on the main issue instead.
+
+In short, this issue is about bypassing authorization in middleware by using a specific header (`x-middleware-subrequest`). Self-hosted applications using middleware were affected. Applications using auth libraries also [aren't immune](https://clerk.com/blog/cve-2025-29927).
+
+Only using middleware for your authorization is not enough. This exploit has made it clear, I will explain about this shortly.
+
+## Middleware
+
+Middleware allows us to run a code before preceeding with a request and sending back (or even modifying) a response.
+
+The middleware runs on every route, enabling us to perform what's called an optimistic checks.
+
+For example: if a user that isn't authenticated navigate to a protected route, you can redirect them to a another route (login page for example) based on the condition you wrote in the middleware.
+
+One of the most common use case is for authorization.
+
+## Authorization
+
+Authorization is the process of deciding what part of your application the user can access.
+
+Authorization in middleware usually only check the session cookie, not database. This prevents performance issues because the middleware runs on every route, except the one you specifies, as mentioned before.
+
+Here's an example:
+
+```ts
+// middleware.ts
+import { decrypt } from '@/lib/session';
+import { cookies } from 'next/headers';
+import { NextRequest, NextResponse } from 'next/server';
+
+const protectedRoutes = ['/profile'];
+const publicRoutes = ['/login', '/signup'];
+
+export default async function middleware(req: NextRequest) {
+  const path = req.nextUrl.pathname;
+  const isProtectedRoute = protectedRoutes.includes(path);
+  const isPublicRoute = publicRoutes.includes(path);
+
+  const cookieStore = await cookies();
+  const cookie = cookieStore.get('session')?.value;
+  const session = await decrypt(cookie);
+
+  if (isProtectedRoute && !session?.userId) {
+    return NextResponse.redirect(new URL('/login', req.nextUrl));
+  }
+
+  if (isPublicRoute && session?.userId && !path.startsWith('/profile')) {
+    return NextResponse.redirect(new URL('/profile', req.nextUrl));
+  }
+
+  return NextResponse.next();
+}
+
+// Routes your middleware shouldn't run on
+export const config = {
+  matcher: ['/((?!api|_next/static|_next/image|.*\\.png$).*)'],
+};
+```
+
+Authorization in middleware alone is not enough to protect your page. I think it's better to also check again inside the route that needs it. This is especially true if you roll your own authentication system.
+
+Next.js also made it clear about this in their [documentation](https://nextjs.org/docs/app/building-your-application/authentication#optimistic-checks-with-middleware-optional:~:text=While%20Middleware%20can%20be%20useful%20for%20initial%20checks%2C%20it%20should%20not%20be%20your%20only%20line%20of%20defense%20in%20protecting%20your%20data.%20The%20majority%20of%20security%20checks%20should%20be%20performed%20as%20close%20as%20possible%20to%20your%20data%20source):
+
+> While Middleware can be useful for initial checks, it should not be your only line of defense in protecting your data. The majority of security checks should be performed as close as possible to your data source...
+
+In the example below, I'll show you how I check both from cookies and database:
+
+```ts
+// session.ts
+export const verifySession = cache(async () => {
+  const cookieStore = await cookies();
+  const cookie = cookieStore.get('session')?.value;
+  const session = await decrypt(cookie);
+
+  if (!session?.userId) {
+    return { isAuth: false };
+  }
+
+  return { isAuth: true, userId: session.userId };
+});
+```
+
+```ts
+// data.ts
+export const getUser = cache(async () => {
+  const session = await verifySession();
+  if (!session) return null;
+
+  const data = await db
+    .select({
+      id: users.id,
+      name: users.name,
+      email: users.email,
+      createdAt: users.createdAt,
+    })
+    .from(users)
+    .where(eq(users.id, session.userId as string));
+
+  const user = data[0];
+
+  return user;
+});
+```
+
+You can use this function on every route that needs authorization to add another layer of security.
+
+```tsx
+export default async function Page() {
+  const user = await getUser();
+  return (
+    <main>
+      <h1>My Reviews</h1>
+      <UserReviews user={user} />
+    </main>
+  );
+}
+```
+
+Or move it down to the component that needs it.
+
+```tsx
+export default function Page() {
+  return (
+    <main>
+      <h1>My Reviews</h1>
+      <Suspense fallback={<UserReviewsSkeleton />}>
+        <UserReviews />
+      </Suspense>
+    </main>
+  );
+}
+
+async function UserReviews() {
+  const user = await getUser();
+  // ...
+}
+```
+
+I use this pattern on an app I made a while back for a [student study group final project](https://github.com/ausathdzil/critix). In my case I need to use the user data anyway, but it's still a good practice to have.
+
+Next.js 15 also has a new API called `unauthorized` that's also useful for handling authorization at the page level. This function throws an error that renders a 403 error page. You can customize this error page using the `unauthorized.tsx` file.
+
+```tsx
+export default async function Page() {
+  const user = await getUser();
+  if (!user) {
+    unauthorized();
+  }
+
+  return (
+    <main>
+      <h1>My Reviews</h1>
+      <UserReviews user={user} />
+    </main>
+  );
+}
+```
+
+This feature is still experimental, so you need to enable it in your `next.config.ts` file:
+
+```ts
+import type { NextConfig } from 'next';
+
+const nextConfig: NextConfig = {
+  experimental: {
+    authInterrupts: true,
+  },
+};
+
+export default nextConfig;
+```
+
+## Security
+
+[_Vibe Coding_](https://x.com/karpathy/status/1886192184808149383) has seen a lot of growth recently. While it's good that this means the barrier of entry for web development is lower, security still remains a huge concern without the proper knowledge to apply them.
+
+I hope this post helps you understand more about middleware and authorization.
+
+## References
+
+- [CVE-2025-29927 | Next.js](https://nextjs.org/blog/cve-2025-29927)
+- [Routing: Middleware | Next.js](https://nextjs.org/docs/app/building-your-application/routing/middleware)
+- [Building Your Application: Authentication | Next.js](https://nextjs.org/docs/app/building-your-application/authentication)
+- [ausathdzil/critix](https://github.com/ausathdzil/critix/)

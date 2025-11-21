@@ -1,0 +1,117 @@
+---
+title: Generative User Interfaces
+publishedAt: 2025-04-18
+summary: Experimenting with generative UI.
+---
+
+It started with [v0 announcement](https://vercel.com/blog/announcing-v0-generative-ui) back in late 2023. I was really interested in the tool itself and how it could impact web development. It was really nice for prototyping. v0 has come so far since then, now being able to build full stack applications.
+
+With the release of [AI SDK 3.0](https://vercel.com/blog/ai-sdk-3-generative-ui) last year, Vercel open sourced generative UI technology used in v0. This opens up new and exciting possibilities.
+
+I've been wanting to experiment on using AI SDK and try out generative UI. I have an experience developing websites that uses AI SDK, but it wasn't really my part that did the AI thing.
+
+Me and my friends built [Moneasy](https://github.com/valuin/moneasy), a simple chatbot to manage financial transactions for small businesses. We built this for a hackathon last year and got a spot in the finals.
+
+## AI SDK
+
+AI SDK makes it easy to start building AI apps as you don't have to go through different API documentation with different models. It also has a [UI toolkit](https://sdk.vercel.ai/docs/ai-sdk-ui/overview) that can help build interactive chat interfaces.
+
+I haven't touch AI SDK since then, until Next.js Global Hackathon 2025.
+
+<Tweet id="1907878486636675413" />
+
+This motivates me to try out building something with AI SDK and generative UI technology, and so right now I'm building [Humi](https://github.com/ausathdzil/humi).
+
+The idea is simple: generate a music mood board using track metadata from [Spotify Web API](https://developer.spotify.com/documentation/web-api).
+
+## Streaming RSC
+
+My initial approach for this was to stream React Server Components using `streamUI`. With this function, you can call a model that responds with React Server Components.
+
+```js
+const result = await streamUI({
+  model: google('gemini-2.0-flash-001'),
+  prompt: '...',
+  tools: {
+    createMoodboard: {
+      description: 'Create a mood board for a track',
+      parameters: z.object({...}),
+      generate: async function* () {
+        yield <MoodboardSkeleton />;
+        return <Moodboard />;
+      }
+    },
+  },
+});
+```
+
+You can also use external API to fetch datas the AI don't have, and then pass that said data as props to the returned component.
+
+```js
+generate: async function* ({ location }) {
+  yield <LoadingComponent />;
+  const weather = await getWeather(location);
+  return <WeatherComponent weather={weather} location={location} />;
+},
+```
+
+This is mostly what I think is the main idea behind generative UI, combining the power of tool calling with RSC. Its particularly good to build more useful chatbots since AI models aren't really up to date with its data. For example: displaying the current weather, sport news, etc.
+
+## Discoveries
+
+Streaming RSC with `streamUI` is currently still experimental, so there are issues.
+
+I found that it doesn't renders tailwind colors properly, so I prompt the AI specifically to use hex color codes only. This works but there is also another problem.
+
+I need the generated data to be stored in a database so users can save their mood boards. This requires a structured data, but `streamUI` **ONLY** returns a React Component.
+
+Maybe I could store it to db during the function call:
+
+```js
+const result = await streamUI({
+  // ...
+  tools: {
+    createMoodboard: {
+      // ...
+      generate: async function* ({ moodTags, colors, theme }) {
+        yield <MoodboardSkeleton />;
+        await saveMoodboardData(moodTags, colors, theme);
+        return <Moodboard moodTags={moodTags} colors={colors} theme={theme} />;
+      },
+    },
+  },
+});
+```
+
+But I decided to just refactor it with structured output since it was more stable (I also didn't think of this during development, might experiment again later).
+
+This is my current approach as of right now:
+
+```js
+const { object } = await generateObject({
+  model: google('gemini-2.0-flash-001'),
+  prompt: '...'
+  schema: z.object({
+    // ...
+  }),
+});
+```
+
+It may or may not change in the future.
+
+## Outcome
+
+This project is not perfect, there are a lot of flaws on my approach. Despite that, I decided to make this post to share what I've discovered. As with every project I made in the past, I also learned lots of things with this one.
+
+Generative UI is such an interesting topic to deep dive in and I will be experimenting with it more in the future.
+
+Feel free to give me [feedback](mailto:mail@ausathikram.com).
+
+Check out my project repo if you're interested: [humi](https://github.com/ausathdzil/humi)
+
+## References
+
+- [Announcing v0: Generative UI - Vercel](https://vercel.com/blog/announcing-v0-generative-ui)
+- [Introducing AI SDK 3.0 with Generative UI support - Vercel](https://vercel.com/blog/ai-sdk-3-generative-ui)
+- [AI SDK RSC: Overview](https://sdk.vercel.ai/docs/ai-sdk-rsc/overview)
+- [AI SDK RSC: Streaming React Components](https://sdk.vercel.ai/docs/ai-sdk-rsc/streaming-react-components)

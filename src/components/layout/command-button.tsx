@@ -1,11 +1,6 @@
 'use client';
 
-import {
-  ArrowUpRightIcon,
-  FolderIcon,
-  NewspaperIcon,
-  SearchIcon,
-} from 'lucide-react';
+import { ArrowUpRightIcon, NewspaperIcon, SearchIcon } from 'lucide-react';
 
 import type { Route } from 'next';
 import { useRouter } from 'next/navigation';
@@ -32,7 +27,6 @@ import {
 } from '@/components/ui/drawer';
 import { useIsMobile } from '@/hooks/use-mobile';
 import type { Metadata } from '@/lib/blog';
-import { projects } from '@/lib/projects';
 import { formatDate, navItems } from '@/lib/utils';
 
 interface Post {
@@ -85,19 +79,23 @@ function CommandDesktop({ posts }: { posts?: Post[] }) {
 
   return (
     <>
-      <Button onClick={() => setOpen(true)} size="sm" variant="secondary">
-        <span className="sr-only">Search</span>
+      <Button
+        aria-label="Search"
+        onClick={() => setOpen(true)}
+        size="sm"
+        variant="secondary"
+      >
         <kbd className="font-sans text-xs">{isMac ? '⌘ K' : 'Ctrl K'}</kbd>
       </Button>
       <CommandDialog
-        description="Search anything on my website"
+        description="Search anything…"
         onOpenChange={setOpen}
         open={open}
         title="Search"
       >
         <CommandInput
           onValueChange={setValue}
-          placeholder="Search..."
+          placeholder="Search…"
           value={value}
         />
         <CommandList>
@@ -127,21 +125,6 @@ function CommandDesktop({ posts }: { posts?: Post[] }) {
               ))}
           </CommandGroup>
           <CommandSeparator />
-          <CommandGroup heading="Projects">
-            {projects.map((project) => (
-              <CommandItem
-                className="cursor-pointer"
-                key={project.slug}
-                onSelect={() =>
-                  handleSelect(`/projects/${project.slug}` as Route)
-                }
-              >
-                <FolderIcon />
-                {project.title}
-              </CommandItem>
-            ))}
-          </CommandGroup>
-          <CommandSeparator />
           <CommandGroup heading="Navigation">
             {navItems.map((nav) => (
               <CommandItem
@@ -169,21 +152,25 @@ function CommandMobile({ posts }: { posts?: Post[] }) {
   return (
     <Drawer onOpenChange={setOpen} open={open}>
       <DrawerTrigger asChild>
-        <Button onClick={() => setOpen(true)} size="icon" variant="ghost">
-          <span className="sr-only">Search</span>
+        <Button
+          aria-label="Search"
+          onClick={() => setOpen(true)}
+          size="icon-sm"
+          variant="ghost"
+        >
           <SearchIcon />
         </Button>
       </DrawerTrigger>
       <DrawerContent>
         <DrawerHeader className="sr-only">
           <DrawerTitle>Search</DrawerTitle>
-          <DrawerDescription>Search anything on my website</DrawerDescription>
+          <DrawerDescription>Search anything…</DrawerDescription>
         </DrawerHeader>
         <div className="p-4">
           <Command className="bg-background">
             <CommandInput
               onValueChange={setValue}
-              placeholder="Search..."
+              placeholder="Search…"
               value={value}
             />
             <CommandList>
@@ -219,22 +206,6 @@ function CommandMobile({ posts }: { posts?: Post[] }) {
                       </div>
                     </CommandItem>
                   ))}
-              </CommandGroup>
-              <CommandSeparator />
-              <CommandGroup heading="Projects">
-                {projects.map((project) => (
-                  <CommandItem
-                    className="mb-2 cursor-pointer"
-                    key={project.slug}
-                    onSelect={() => {
-                      setOpen(false);
-                      router.push(`/projects/${project.slug}`);
-                    }}
-                  >
-                    <FolderIcon />
-                    {project.title}
-                  </CommandItem>
-                ))}
               </CommandGroup>
               <CommandSeparator />
               <CommandGroup heading="Navigation">
