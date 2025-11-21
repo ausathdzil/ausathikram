@@ -51,11 +51,5 @@
     "*.{js,jsx,ts,tsx,json,jsonc,css,scss,md,mdx}": [
       "pnpm dlx ultracite fix"
     ]
-  },
-  "pnpm": {
-    "overrides": {
-      "@types/react": "19.2.5",
-      "@types/react-dom": "19.2.3"
-    }
   }
 }
