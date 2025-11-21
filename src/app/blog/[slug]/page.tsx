@@ -86,19 +86,13 @@ export default async function Page({ params }: PageProps<'/blog/[slug]'>) {
         type="application/ld+json"
       />
       <article className="prose prose-zinc dark:prose-invert">
-        <h1 className="not-prose font-medium text-primary text-xl">
-          {post.metadata.title}
-        </h1>
-        <div className="not-prose mt-2 flex items-center gap-2">
-          <p className="text-muted-foreground">Ausath Ikram</p>
-          <span className="text-primary">&bull;</span>
-          <time
-            className="text-muted-foreground"
-            dateTime={post.metadata.publishedAt}
-          >
+        <h1 className="text-xl">{post.metadata.title}</h1>
+        <p>
+          Ausath Ikram <span className="text-primary">&bull;</span>{' '}
+          <time dateTime={post.metadata.publishedAt}>
             {formatDate(post.metadata.publishedAt)}
           </time>
-        </div>
+        </p>
         <CustomMDX source={post.content} />
       </article>
       <Link

@@ -1,5 +1,6 @@
 import { ArrowRightIcon } from 'lucide-react';
 import Link from 'next/link';
+
 import { getBlogPostsMetadata } from '@/lib/blog';
 
 const MAX_POSTS = 5;
