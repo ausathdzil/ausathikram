@@ -304,9 +304,9 @@ export function FilterSelect({ opts, ...props }: FilterSelectProps) {
   const handleChange = (opt: string) => {
     const params = new URLSearchParams(searchParams);
     if (opt) {
-      params.set(name, opt);
+      params.set(props.name, opt);
     } else {
-      params.delete(name);
+      params.delete(props.name);
     }
     router.replace(`${pathname}?${params.toString()}`);
   }
@@ -373,9 +373,9 @@ export function SearchInput(props: React.ComponentProps<'input'>) {
   const handleSearch = useDebouncedCallback((term: string) => {
     const params = new URLSearchParams(searchParams);
     if (term) {
-      params.set('q', term);
+      params.set(props.name, term);
     } else {
-      params.delete('q');
+      params.delete(props.name);
     }
     setSearchParams(params);
   }, DEBOUNCE_MS);
@@ -383,7 +383,7 @@ export function SearchInput(props: React.ComponentProps<'input'>) {
   return (
     <input 
       {...props}
-      defaultValue={searchParams.get('q')?.toString()}
+      defaultValue={searchParams.get(props.name)?.toString()}
       onChange={(e) => handleSearch(e.target.value)}
       type="search"
     />
