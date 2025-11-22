@@ -49,11 +49,11 @@ export default function Page() {
               <h2 className="font-medium text-xl">{year}</h2>
               <ul className="not-prose mt-2 space-y-1">
                 {posts.map((post) => (
-                  <li
-                    className="-mx-3 w-full rounded-lg px-3 py-2 hover:bg-muted/50"
-                    key={post.slug}
-                  >
-                    <Link className="flex flex-col" href={`/blog/${post.slug}`}>
+                  <li key={post.slug}>
+                    <Link
+                      className="-mx-3 flex w-full flex-col rounded-lg px-3 py-2 hover:bg-muted/50"
+                      href={`/blog/${post.slug}`}
+                    >
                       <div className="flex justify-between">
                         <p>{post.metadata.title}</p>
                         <time

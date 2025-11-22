@@ -3,6 +3,8 @@ import { ArrowLeftIcon, ArrowUpIcon } from 'lucide-react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import type { MDXRemoteOptions } from 'next-mdx-remote-client/rsc';
+import remarkGfm from 'remark-gfm';
 import type { BlogPosting, WithContext } from 'schema-dts';
 
 import { CustomMDX } from '@/components/blog/custom-mdx';
@@ -75,6 +77,12 @@ export default async function Page({ params }: PageProps<'/blog/[slug]'>) {
     },
   };
 
+  const options: MDXRemoteOptions = {
+    mdxOptions: {
+      remarkPlugins: [remarkGfm],
+    },
+  };
+
   return (
     <>
       <script
@@ -93,7 +101,7 @@ export default async function Page({ params }: PageProps<'/blog/[slug]'>) {
             {formatDate(post.metadata.publishedAt)}
           </time>
         </p>
-        <CustomMDX source={post.content} />
+        <CustomMDX options={options} source={post.content} />
       </article>
       <Link
         className="not-prose mt-8 flex w-fit items-center gap-2"
