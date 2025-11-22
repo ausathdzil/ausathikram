@@ -62,7 +62,7 @@ For the second approach, we want to sync the URL with our `<input>`. To do that 
 
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 
-export function SearchInput(props: React.ComponentProps<'input'>) {
+export function SearchInput({ name, ...props }: React.ComponentProps<'input'>) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
@@ -70,9 +70,9 @@ export function SearchInput(props: React.ComponentProps<'input'>) {
   const handleSearch = (term: string) => {
     const params = new URLSearchParams(searchParams);
     if (term) {
-      params.set(props.name, term);
+      params.set(name, term);
     } else {
-      params.delete(props.name);
+      params.delete(name);
     }
     router.replace(`${pathname}?${params.toString()}`);
   }
@@ -80,7 +80,8 @@ export function SearchInput(props: React.ComponentProps<'input'>) {
   return (
     <input 
       {...props}
-      defaultValue={searchParams.get(props.name)?.toString()}
+      defaultValue={searchParams.get(name) ?? ''}
+      name={name}
       onChange={(e) => handleSearch(e.target.value)}
       type="search"
     />
@@ -118,7 +119,7 @@ import { useDebouncedCallback } from 'use-debounce';
 
 const DEBOUNCE_MS = 300;
 
-export function SearchInput(props: React.ComponentProps<'input'>) {
+export function SearchInput({ name, ...props }: React.ComponentProps<'input'>) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
@@ -126,9 +127,9 @@ export function SearchInput(props: React.ComponentProps<'input'>) {
   const handleSearch = useDebouncedCallback((term: string) => {
     const params = new URLSearchParams(searchParams);
     if (term) {
-      params.set(props.name, term);
+      params.set(name, term);
     } else {
-      params.delete(props.name);
+      params.delete(name);
     }
     router.replace(`${pathname}?${params.toString()}`);
   }, DEBOUNCE_MS);
@@ -136,7 +137,8 @@ export function SearchInput(props: React.ComponentProps<'input'>) {
   return (
     <input 
       {...props}
-      defaultValue={searchParams.get(props.name)?.toString()}
+      defaultValue={searchParams.get(name) ?? ''}
+      name={name}
       onChange={(e) => handleSearch(e.target.value)}
       type="search"
     />
@@ -219,18 +221,17 @@ export function Pagination({ paginationMeta, ...props }: PaginationProps) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   
-  const currentPage = Number(searchParams.get('page')) || 1;
+  const currentPage = Number(searchParams.get('page') ?? '1');
   const allPages = generatePagination(currentPage, paginationMeta.totalPages);
   
   const createPageUrl = (page: number | string) => {
     const params = new URLSearchParams(searchParams);
   
     if (typeof page === 'number') {
-      let safePage = page;
-    
-      if (page < 1 || page > paginationMeta.totalPages) {
-        safePage = currentPage;
-      }
+      const safePage = Math.min(
+        Math.max(page, 1),
+        paginationMeta.totalPages
+      )
     
       params.set('page', safePage.toString());
     }
@@ -250,7 +251,7 @@ export function Pagination({ paginationMeta, ...props }: PaginationProps) {
           </a>
         )
       )}
-      <a href={createPageUrl(currentPage - 1)}>Next</a>
+      <a href={createPageUrl(currentPage + 1)}>Next</a>
     </div>
   );
 }
@@ -293,10 +294,11 @@ type Option = {
 }
 
 type FilterSelectProps = {
+  name: string;
   opts: Option[];
 } & React.ComponentProps<'select'>;
 
-export function FilterSelect({ opts, ...props }: FilterSelectProps) {
+export function FilterSelect({ name, opts, ...props }: FilterSelectProps) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
@@ -304,9 +306,9 @@ export function FilterSelect({ opts, ...props }: FilterSelectProps) {
   const handleChange = (opt: string) => {
     const params = new URLSearchParams(searchParams);
     if (opt) {
-      params.set(props.name, opt);
+      params.set(name, opt);
     } else {
-      params.delete(props.name);
+      params.delete(name);
     }
     router.replace(`${pathname}?${params.toString()}`);
   }
@@ -314,7 +316,8 @@ export function FilterSelect({ opts, ...props }: FilterSelectProps) {
   return (
     <select
       {...props}
-      defaultValue={searchParams.get(name) ?? undefined}
+      defaultValue={searchParams.get(name) ?? ''}
+      name={name}
       onChange={(e) => handleChange(e.target.value)}
     >
       {opts.map((opt) => (
@@ -367,15 +370,15 @@ import { useDebouncedCallback } from 'use-debounce';
 
 const DEBOUNCE_MS = 300;
 
-export function SearchInput(props: React.ComponentProps<'input'>) {
+export function SearchInput({ name, ...props }: React.ComponentProps<'input'>) {
   const [searchParams, setSearchParams] = useSearchParams();
   
   const handleSearch = useDebouncedCallback((term: string) => {
     const params = new URLSearchParams(searchParams);
     if (term) {
-      params.set(props.name, term);
+      params.set(name, term);
     } else {
-      params.delete(props.name);
+      params.delete(name);
     }
     setSearchParams(params);
   }, DEBOUNCE_MS);
@@ -383,7 +386,8 @@ export function SearchInput(props: React.ComponentProps<'input'>) {
   return (
     <input 
       {...props}
-      defaultValue={searchParams.get(props.name)?.toString()}
+      defaultValue={searchParams.get(name) ?? ''}
+      name={name}
       onChange={(e) => handleSearch(e.target.value)}
       type="search"
     />
@@ -400,19 +404,17 @@ You are also most likely be able to implement this components in your codebase w
 
 import { useQueryState } from 'nuqs';
 
-export function SearchInput(props: React.ComponentProps<'input'>) {
+export function SearchInput({ name, ...props }: React.ComponentProps<'input'>) {
   // Create a query state for `q`, with default as empty string or null
   const [q, setQ] = useQueryState('q', { defaultValue: '' });
 
   return (
     <input
       {...props}
-      value={q ?? ''}               // sync input value to query state
-      onChange={(e) => {
-        setQ(e.target.value || null);  
-        // Passing `null` removes the param from URL
-      }}
+      name={name}
+      onChange={(e) => setQ(e.target.value)}
       type="search"
+      value={q}               // sync input value to query state
     />
   );
 }
