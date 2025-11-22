@@ -115,7 +115,7 @@ function CommandDesktop({ posts }: { posts?: Post[] }) {
                   <div className="flex w-full items-center justify-between">
                     <p>{post.metadata.title}</p>
                     <time
-                      className="ml-2 hidden text-muted-foreground text-sm sm:block"
+                      className="ml-2 hidden text-muted-foreground text-sm tabular-nums sm:block"
                       dateTime={post.metadata.publishedAt}
                     >
                       {formatDate(post.metadata.publishedAt)}
@@ -194,15 +194,12 @@ function CommandMobile({ posts }: { posts?: Post[] }) {
                       <NewspaperIcon />
                       <div className="flex w-full items-center justify-between">
                         {post.metadata.title}
-                        <span className="ml-2 hidden text-muted-foreground text-sm sm:block">
-                          {new Date(
-                            post.metadata.publishedAt
-                          ).toLocaleDateString('en-US', {
-                            year: 'numeric',
-                            month: 'short',
-                            day: 'numeric',
-                          })}
-                        </span>
+                        <time
+                          className="ml-2 hidden text-muted-foreground text-sm tabular-nums sm:block"
+                          dateTime={post.metadata.publishedAt}
+                        >
+                          {formatDate(post.metadata.publishedAt)}
+                        </time>
                       </div>
                     </CommandItem>
                   ))}

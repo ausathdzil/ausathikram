@@ -2,7 +2,7 @@ import type { MDXComponents } from 'mdx/types';
 import type { Route } from 'next';
 import Image from 'next/image';
 import NextLink from 'next/link';
-import { MDXRemote, type MDXRemoteProps } from 'next-mdx-remote/rsc';
+import { MDXRemote, type MDXRemoteProps } from 'next-mdx-remote-client/rsc';
 import {
   Children,
   type ComponentProps,
@@ -25,7 +25,7 @@ function Link<T extends string>({
   href: Route<T> | URL | string;
 }) {
   if (!href || href.startsWith('#')) {
-    return <a href={href} {...props} />;
+    return <a className="scroll-m-10" href={href} {...props} />;
   }
 
   if (href.startsWith('/')) {
@@ -66,7 +66,7 @@ async function Pre({ children, ...props }: ComponentProps<'pre'>) {
     const html = await codeToHtml(String(codeElement?.props.children), {
       lang,
       themes: {
-        light: 'github-light',
+        light: 'one-light',
         dark: 'vesper',
       },
     });
@@ -94,7 +94,10 @@ function createHeading(level: number) {
 
     return createElement(
       `h${level}`,
-      { id: slug, className: 'group relative font-semibold text-xl' },
+      {
+        id: slug,
+        className: 'group relative font-semibold text-xl scroll-m-10',
+      },
       [
         createElement(
           'a',
@@ -104,7 +107,7 @@ function createHeading(level: number) {
             'aria-hidden': true,
             tabIndex: -1,
             className:
-              'absolute invisible no-underline -ml-[1em] pr-2 w-full group-hover:visible',
+              'absolute invisible no-underline -ml-[1em] pr-2 w-full group-hover:visibles',
           },
           createElement(
             'span',
