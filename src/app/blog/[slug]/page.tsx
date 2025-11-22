@@ -93,8 +93,8 @@ export default async function Page({ params }: PageProps<'/blog/[slug]'>) {
         suppressHydrationWarning
         type="application/ld+json"
       />
-      <article className="prose prose-zinc dark:prose-invert">
-        <h1 className="text-xl">{post.metadata.title}</h1>
+      <article className="prose prose-neutral dark:prose-invert">
+        <h1 className="font-medium text-xl">{post.metadata.title}</h1>
         <p>
           Ausath Ikram <span className="text-primary">&bull;</span>{' '}
           <time dateTime={post.metadata.publishedAt}>
@@ -110,7 +110,7 @@ export default async function Page({ params }: PageProps<'/blog/[slug]'>) {
         <ArrowLeftIcon size={16} />
         <span>Blog</span>
       </Link>
-      <aside className="prose prose-zinc dark:prose-invert fixed top-24 right-28 prose-li:mb-2 hidden w-64 opacity-60 hover:opacity-100 xl:block">
+      <aside className="prose prose-neutral dark:prose-invert fixed top-24 right-28 prose-li:mb-2 hidden w-64 opacity-60 hover:opacity-100 xl:block">
         <p className="not-prose mb-4 font-semibold text-primary">
           On this page
         </p>

@@ -10,7 +10,6 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-inter), ui-sans-serif;
   --font-mono: var(--font-jetbrains-mono), ui-monospace;
-  --font-serif: var(--font-zilla-slab), ui-serif;
   --color-ring: var(--ring);
   --color-input: var(--input);
   --color-border: var(--border);
@@ -104,22 +103,21 @@
   }
 }
 
-.prose h1,
-h2,
-h3 {
-  @apply font-medium;
+.prose a {
+  @apply decoration-muted-foreground underline-offset-4 hover:decoration-primary;
 }
 
-.prose a {
-  @apply decoration-muted-foreground hover:decoration-foreground underline-offset-4;
+.prose abbr:where([title]) {
+  @apply underline-offset-4;
 }
 
 .prose blockquote {
   @apply font-serif not-italic text-lg;
 }
 
-.prose pre {
-  @apply font-mono bg-background text-foreground border;
+.prose blockquote p:first-of-type::before,
+.prose blockquote p:last-of-type::after {
+  @apply content-none } .prose pre { @apply font-mono bg-background text-foreground border;
 }
 
 .prose code:not(:has(*)):not(pre code) {

@@ -30,25 +30,13 @@ function Link<T extends string>({
 
   if (href.startsWith('/')) {
     return (
-      <NextLink
-        className="decoration-muted-foreground underline-offset-4 hover:decoration-primary"
-        href={href as Route}
-        {...props}
-      >
+      <NextLink href={href as Route} {...props}>
         {props.children}
       </NextLink>
     );
   }
 
-  return (
-    <a
-      className="decoration-muted-foreground underline-offset-4 hover:decoration-primary"
-      href={href}
-      rel="noopener noreferrer"
-      target="_blank"
-      {...props}
-    />
-  );
+  return <a href={href} rel="noopener noreferrer" target="_blank" {...props} />;
 }
 
 async function Pre({ children, ...props }: ComponentProps<'pre'>) {
@@ -96,7 +84,7 @@ function createHeading(level: number) {
       `h${level}`,
       {
         id: slug,
-        className: 'group relative font-semibold text-xl scroll-m-10',
+        className: 'group relative font-medium text-xl scroll-m-10',
       },
       [
         createElement(
@@ -133,8 +121,8 @@ export const components: MDXComponents = {
   h1: createHeading(1),
   h2: createHeading(2),
   h3: createHeading(3),
-  pre: Pre,
   Image,
+  pre: Pre,
   Tweet,
 };
 

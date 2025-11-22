@@ -38,7 +38,7 @@ export default function Page() {
   );
 
   return (
-    <article className="prose prose-zinc dark:prose-invert">
+    <article className="prose prose-neutral dark:prose-invert">
       <h1 className="font-medium text-xl">Blog</h1>
       <p>Things that interest me, mostly about web development.</p>
       <div className="space-y-4">

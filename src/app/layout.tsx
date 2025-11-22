@@ -2,7 +2,7 @@ import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { RssIcon } from 'lucide-react';
 import type { Metadata } from 'next';
-import { JetBrains_Mono, Zilla_Slab } from 'next/font/google';
+import { JetBrains_Mono } from 'next/font/google';
 import localFont from 'next/font/local';
 import type { ReactNode } from 'react';
 
@@ -24,12 +24,6 @@ const inter = localFont({
 const jetBrainsMono = JetBrains_Mono({
   subsets: ['latin'],
   variable: '--font-jetbrains-mono',
-});
-
-const zillaSlab = Zilla_Slab({
-  subsets: ['latin'],
-  variable: '--font-zilla-slab',
-  weight: ['500'],
 });
 
 export const metadata: Metadata = {
@@ -71,7 +65,6 @@ export default function RootLayout({
         className={cn(
           inter.variable,
           jetBrainsMono.variable,
-          zillaSlab.variable,
           'font-sans dark:antialiased'
         )}
       >

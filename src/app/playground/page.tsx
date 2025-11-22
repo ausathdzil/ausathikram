@@ -3,7 +3,7 @@ import { components } from '@/components/blog/custom-mdx';
 
 export default function Page() {
   return (
-    <article className="prose prose-zinc dark:prose-invert">
+    <article className="prose prose-neutral dark:prose-invert">
       <Playground components={components} />
     </article>
   );

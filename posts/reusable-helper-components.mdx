@@ -1,0 +1,429 @@
+---
+title: Reusable Components with Search Params as State
+publishedAt: 2025-11-22
+summary: Using URL search params as state for common UI patterns.
+---
+
+I often find myself building these components so many times for so many use cases:
+
+- Search input
+- Pagination
+- Filter select
+
+All of them utilizes <abbr title="Uniform Resource Locator">URL</abbr> search params as a state manager.
+
+There are a lot of reasons why and it probably needs a blog post on its own, but I like this one the most:
+
+> “The URL is the first UI your users will see”
+>
+> — Francois Best, nuqs
+
+Other reasons includes sharing, bookmarks, browser history, back/forward navigations, and more.[^1]
+
+Combining HTML form elements (`<input>` and `<select>`) with APIs that exposes search params are a great way to implement state management with search params.
+
+With these 3 Next.js client component hooks:
+
+- `useSearchParams` lets us read the current URL's query string. It returns a read-only version of the [`URLSearchParams`](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams) interace.[^2]
+- `usePathname` lets us read the current URl's pathname.[^3]
+- `useRouter` allows us to programmatically change routes inside client component.[^4]
+
+We can build a reusable React client components that manages their state with URL search params.
+
+I found this pattern for the first time when learning Next.js in [Learn Next.js](https://nextjs.org/learn/dashboard-app/adding-search-and-pagination) and have been using it ever since.
+
+## Search Input
+
+There are two ways to implement this: updating the state when input changes (with debounce) and form submittion.
+
+The latter is more straight forward. We can use the `<Form>` component from `next/form`.
+
+```tsx
+import Form from 'next/form';
+
+export default function Page() {
+  return (
+    <Form action="/explore">
+      <input name="q" type="search" />
+      <button type="submit">Search</button>
+    </Form>
+  );
+}
+```
+
+The `name` attribute of the `<input>` element is important here. On form submission (hitting enter or clicking the submit button), this will do a client-side navigation and append the value of your input to the URL (e.g. `/explore?q=anything`).[^5]
+
+Next.js `<Form>` also prefetch the loading UIs for that route when the component is within the user's viewport.[^5]
+
+For the second approach, we want to sync the URL with our `<input>`. To do that we will need to use some hooks.
+
+```tsx
+'use client';
+
+import { useSearchParams, usePathname, useRouter } from 'next/navigation';
+
+export function SearchInput(props: React.ComponentProps<'input'>) {
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const router = useRouter();
+  
+  const handleSearch = (term: string) => {
+    const params = new URLSearchParams(searchParams);
+    if (term) {
+      params.set(props.name, term);
+    } else {
+      params.delete(props.name);
+    }
+    router.replace(`${pathname}?${params.toString()}`);
+  }
+  
+  return (
+    <input 
+      {...props}
+      defaultValue={searchParams.get(props.name)?.toString()}
+      onChange={(e) => handleSearch(e.target.value)}
+      type="search"
+    />
+  );
+} 
+```
+
+This will update the URL everytime the input value changes, but most of the time we don't want that. A quick fix is to use debouncing. 
+
+You can make a custom hook yourself, but I usually just use [`use-debounce`](https://github.com/xnimorz/use-debounce) because of its small size (< 1kb)[^6] and avoid writing more boilerplates.
+
+```tsx
+import { useDebouncedCallback } from 'use-debounce';
+
+const DEBOUNCE_MS = 300;
+
+const handleSearch = useDebouncedCallback((term: string) => {
+  const params = new URLSearchParams(searchParams);
+  if (term) {
+    params.set(props.name, term);
+  } else {
+    params.delete(props.name);
+  }
+  router.replace(`${pathname}?${params.toString()}`);
+}, DEBOUNCE_MS);
+```
+
+Final code:
+
+```tsx
+'use client';
+
+import { useSearchParams, usePathname, useRouter } from 'next/navigation';
+import { useDebouncedCallback } from 'use-debounce';
+
+const DEBOUNCE_MS = 300;
+
+export function SearchInput(props: React.ComponentProps<'input'>) {
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const router = useRouter();
+  
+  const handleSearch = useDebouncedCallback((term: string) => {
+    const params = new URLSearchParams(searchParams);
+    if (term) {
+      params.set(props.name, term);
+    } else {
+      params.delete(props.name);
+    }
+    router.replace(`${pathname}?${params.toString()}`);
+  }, DEBOUNCE_MS);
+  
+  return (
+    <input 
+      {...props}
+      defaultValue={searchParams.get(props.name)?.toString()}
+      onChange={(e) => handleSearch(e.target.value)}
+      type="search"
+    />
+  );
+} 
+```
+
+A slight delay can make a huge difference in user experience.
+
+Using it:
+
+```tsx
+import { Table } from '@/components/table';
+import { getItems } from '@/lib/data';
+
+export async function Page({ searchParams }: PageProps<'/explore'>) {
+  const { q } = await searchParams;
+  const data = await getItems(q);
+  
+  return (
+    <div>
+      <SearchInput name="q" />
+      <Table data={data} />
+    </div>
+  );
+}
+```
+
+Remember to set the name props to whatever you want as the query key.
+
+## Pagination
+
+Start by creating this helper function:
+
+```ts
+function generatePagination(currentPage: number, totalPages: number) {
+  if (totalPages <= 7) {
+    return Array.from({ length: totalPages }, (_, i) => i + 1);
+  }
+
+  if (currentPage <= 3) {
+    return [1, 2, 3, '…', totalPages - 1, totalPages];
+  }
+
+  if (currentPage >= totalPages - 2) {
+    return [1, 2, '…', totalPages - 2, totalPages - 1, totalPages];
+  }
+
+  return [
+    1,
+    '…',
+    currentPage - 1,
+    currentPage,
+    currentPage + 1,
+    '…',
+    totalPages,
+  ];
+}
+```
+
+This will be useful to make the component reusable.
+
+```tsx
+'use client';
+
+import { useSearchParams, usePathname } from 'next/navigation';
+
+function generatePagination(currentPage: number, totalPages: number) {
+  // Previous logic goes here…
+}
+
+type PaginationProps = {
+  paginationMeta: {
+    // Other meta like hasNext, hasPrev, etc. would also be useful…
+    totalPages: number;
+  }
+} & React.ComponentProps<'div'>;
+
+export function Pagination({ paginationMeta, ...props }: PaginationProps) {
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  
+  const currentPage = Number(searchParams.get('page')) || 1;
+  const allPages = generatePagination(currentPage, paginationMeta.totalPages);
+  
+  const createPageUrl = (page: number | string) => {
+    const params = new URLSearchParams(searchParams);
+  
+    if (typeof page === 'number') {
+      let safePage = page;
+    
+      if (page < 1 || page > paginationMeta.totalPages) {
+        safePage = currentPage;
+      }
+    
+      params.set('page', safePage.toString());
+    }
+  
+    return `${pathname}?${params.toString()}`;
+  }
+  
+  return (
+    <div {...props}>
+      <a href={createPageUrl(currentPage - 1)}>Previous</a>
+      {allPages.map((page) =>
+        page === '…' ? (
+          <div key={`ellipsis-${page}`}>{page}</div>
+        ) : (
+          <a href={createPageUrl(page)} key={page}>
+            {page}
+          </a>
+        )
+      )}
+      <a href={createPageUrl(currentPage - 1)}>Next</a>
+    </div>
+  );
+}
+```
+
+A caveat to this is that you need to make sure and adjust your pagination meta so it matches what you actually have from your data source.
+
+```tsx
+import { Pagination } from '@/components/pagination';
+import { Table } from '@/components/table';
+import { getItems } from '@/lib/data';
+
+export default async function Page({ searchParams }: PageProps<'/explore'>) {
+  const { page } = await searchParams;
+  
+  // Make sure this returns all the pagination meta we need
+  const { data, meta } = await getItems(page);
+  
+  return (
+    <div>
+      <Table data={data} />
+      <Pagination paginationMeta={meta} />
+    </div>
+  );
+}
+```
+
+You can also use other variables from your `paginationMeta` to disable the previous and next link. See the full example [here](https://github.com/ausathdzil/veteran-market/blob/main/web/src/components/merchant-pagination.tsx).
+
+## Filter Select
+
+This one uses the same pattern as search input.
+
+```tsx
+'use client';
+
+type Option = {
+  value: string;
+  label: string;
+}
+
+type FilterSelectProps = {
+  opts: Option[];
+} & React.ComponentProps<'select'>;
+
+export function FilterSelect({ opts, ...props }: FilterSelectProps) {
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const router = useRouter();
+  
+  const handleChange = (opt: string) => {
+    const params = new URLSearchParams(searchParams);
+    if (opt) {
+      params.set(name, opt);
+    } else {
+      params.delete(name);
+    }
+    router.replace(`${pathname}?${params.toString()}`);
+  }
+  
+  return (
+    <select
+      {...props}
+      defaultValue={searchParams.get(name) ?? undefined}
+      onChange={(e) => handleChange(e.target.value)}
+    >
+      {opts.map((opt) => (
+        <option key={opt.value} value={opt.value}>
+          {opt.label}
+        </option>
+      ))}
+    </select>
+  );
+}
+```
+
+You can use it like this:
+
+```tsx
+export default function Page() {
+  const statusOpts = [
+    { label: 'Select Status', value: ''  },
+    { label: 'All', value: 'all'  },
+    { label: 'Todo', value: 'todo'  },
+    { label: 'Pending', value: 'pending'  },
+    { label: 'Completed', value: 'completed'  },
+  ];
+  
+  const sortOpts = [
+    { label: 'Sort By', value: ''  },
+    { label: 'ID', value: 'id'  },
+    { label: 'Title', value: 'title'  },
+    { label: 'Date Completed', value: 'completed_at'  },
+  ];
+  
+  return (
+    <div>
+      <FilterSelect name="status" opts={statusOpts} />;
+      <FilterSelect name="sort_by" opts={sortOpts} />;
+    </div>
+  );
+}
+```
+
+Like the first Search Input we made using the `<Form>` component [earlier](#search-input), the `name` attribute is important here as it determines what type of filter we want to append to the URL.
+
+## Other Frameworks
+
+The technique here is not unique to Next.js, you can apply the same thing with other frameworks (given a similar API). For example, the same code but with [`react-router`](https://reactrouter.com/):
+
+```tsx
+import { useSearchParams } from 'react-router';
+import { useDebouncedCallback } from 'use-debounce';
+
+const DEBOUNCE_MS = 300;
+
+export function SearchInput(props: React.ComponentProps<'input'>) {
+  const [searchParams, setSearchParams] = useSearchParams();
+  
+  const handleSearch = useDebouncedCallback((term: string) => {
+    const params = new URLSearchParams(searchParams);
+    if (term) {
+      params.set('q', term);
+    } else {
+      params.delete('q');
+    }
+    setSearchParams(params);
+  }, DEBOUNCE_MS);
+  
+  return (
+    <input 
+      {...props}
+      defaultValue={searchParams.get('q')?.toString()}
+      onChange={(e) => handleSearch(e.target.value)}
+      type="search"
+    />
+  );
+} 
+```
+
+## nuqs
+
+You are also most likely be able to implement this components in your codebase with [`nuqs`](https://nuqs.dev) as it is a dedicated, type-safe search params state management library for React.[^7]
+
+```tsx
+'use client';
+
+import { useQueryState } from 'nuqs';
+
+export function SearchInput(props: React.ComponentProps<'input'>) {
+  // Create a query state for `q`, with default as empty string or null
+  const [q, setQ] = useQueryState('q', { defaultValue: '' });
+
+  return (
+    <input
+      {...props}
+      value={q ?? ''}               // sync input value to query state
+      onChange={(e) => {
+        setQ(e.target.value || null);  
+        // Passing `null` removes the param from URL
+      }}
+      type="search"
+    />
+  );
+}
+```
+
+I haven't tried it so I asked [ChatGPT](https://chatgpt.com/share/69213ead-3740-8002-bc49-1e2b8c661f82) to do it and it does look way more simpler.
+
+[^1]: [Francois Best on Next.js Conf 2025](https://youtu.be/qpczQVJMG1Y?t=209)
+[^2]: [Next.js useSearchParams](https://nextjs.org/docs/app/api-reference/functions/use-search-params).
+[^3]: [Next.js usePathname](https://nextjs.org/docs/app/api-reference/functions/use-pathname).
+[^4]: [Next.js useRouter](https://nextjs.org/docs/app/api-reference/functions/use-router).
+[^5]: [Next.js Form](https://nextjs.org/docs/app/api-reference/components/form).
+[^6]: [xnimorz/use-debounce](https://github.com/xnimorz/use-debounce)
+[^7]: [47ng/nuqs](https://github.com/47ng/nuqs)
