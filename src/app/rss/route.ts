@@ -1,4 +1,4 @@
-import { format, parseISO } from 'date-fns';
+import { format } from 'date-fns';
 
 import { getBlogPosts } from '@/lib/blog';
 import { baseUrl, sortByDateDesc } from '@/lib/utils';
@@ -17,7 +17,7 @@ export function GET() {
           <link>${baseUrl}/blog/${post.slug}</link>
           <guid>${baseUrl}/blog/${post.slug}</guid>
           <description>${post.metadata.summary}</description>
-          <pubDate>${format(parseISO(post.metadata.publishedAt), RSS_DATE_FORMAT)}</pubDate>
+          <pubDate>${format(new Date(post.metadata.publishedAt), RSS_DATE_FORMAT)}</pubDate>
         </item>
       `
     )
@@ -26,7 +26,7 @@ export function GET() {
   const lastBuildDate =
     sortedPosts.length > 0
       ? format(
-          parseISO(
+          new Date(
             sortedPosts[0].metadata.updatedAt ||
               sortedPosts[0].metadata.publishedAt
           ),
