@@ -26,7 +26,12 @@ export function MobileNav() {
     <div className="flex flex-1 items-center gap-4 sm:hidden">
       <Popover onOpenChange={handleOpenChange} open={isOpen}>
         <PopoverTrigger asChild>
-          <button aria-label="Menu" className="[&_svg]:size-4" type="button">
+          <button
+            aria-label="Menu"
+            className="[&_svg]:size-4"
+            title="Menu"
+            type="button"
+          >
             {isOpen ? <XIcon /> : <MenuIcon />}
           </button>
         </PopoverTrigger>

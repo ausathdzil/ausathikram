@@ -102,6 +102,7 @@ function Header() {
           aria-label="RSS"
           className={buttonVariants({ variant: 'ghost', size: 'icon-sm' })}
           href="/rss"
+          title="RSS"
         >
           <RssIcon />
         </a>

@@ -83,6 +83,7 @@ function CommandDesktop({ posts }: { posts?: Post[] }) {
         aria-label="Search"
         onClick={() => setOpen(true)}
         size="sm"
+        title="Search"
         variant="secondary"
       >
         <kbd className="font-sans text-xs">{isMac ? '⌘ K' : 'Ctrl K'}</kbd>
@@ -148,6 +149,7 @@ function CommandMobile({ posts }: { posts?: Post[] }) {
           aria-label="Search"
           onClick={() => setOpen(true)}
           size="icon-sm"
+          title="Search"
           variant="ghost"
         >
           <SearchIcon />
