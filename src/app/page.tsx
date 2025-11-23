@@ -1,6 +1,11 @@
-import { ArrowRightIcon } from 'lucide-react';
 import Link from 'next/link';
-
+import {
+  Item,
+  ItemContent,
+  ItemDescription,
+  ItemGroup,
+  ItemTitle,
+} from '@/components/ui/item';
 import { getBlogPostsMetadata } from '@/lib/blog';
 import { sortByDateDesc } from '@/lib/utils';
 
@@ -37,27 +42,22 @@ export default function Home() {
         .
       </p>
       <h2 className="font-medium text-xl">Blog</h2>
-      <ul className="not-prose">
+      <ItemGroup className="not-prose list-none">
         {recentPosts.map((post) => (
           <li key={post.slug}>
-            <Link
-              className="-ml-3 flex w-full flex-col rounded-lg px-3 py-2 hover:bg-muted/50"
-              href={`/blog/${post.slug}`}
-            >
-              <p>{post.metadata.title}</p>
-              <p className="text-muted-foreground">{post.metadata.summary}</p>
-            </Link>
+            <Item asChild className="-ml-4" size="sm">
+              <Link href={`/blog/${post.slug}`}>
+                <ItemContent>
+                  <ItemTitle className="text-base">
+                    {post.metadata.title}
+                  </ItemTitle>
+                  <ItemDescription>{post.metadata.summary}</ItemDescription>
+                </ItemContent>
+              </Link>
+            </Item>
           </li>
         ))}
-      </ul>
-      {recentPosts.length < posts.length && (
-        <Link
-          className="not-prose -mx-3 flex w-full items-center gap-2 rounded-lg px-3 py-2 font-medium hover:bg-muted/50"
-          href="/blog"
-        >
-          More <ArrowRightIcon size={16} />
-        </Link>
-      )}
+      </ItemGroup>
     </article>
   );
 }

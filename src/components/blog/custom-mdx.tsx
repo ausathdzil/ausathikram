@@ -3,15 +3,7 @@ import type { Route } from 'next';
 import Image from 'next/image';
 import NextLink from 'next/link';
 import { MDXRemote, type MDXRemoteProps } from 'next-mdx-remote-client/rsc';
-import {
-  Children,
-  type ComponentProps,
-  createElement,
-  isValidElement,
-  type JSX,
-  type ReactElement,
-  type ReactNode,
-} from 'react';
+import React from 'react';
 import { Tweet } from 'react-tweet';
 import { codeToHtml } from 'shiki';
 
@@ -21,11 +13,11 @@ import { CopyButton } from './copy-button';
 function Link<T extends string>({
   href,
   ...props
-}: ComponentProps<'a'> & {
+}: React.ComponentProps<'a'> & {
   href: Route<T> | URL | string;
 }) {
   if (!href || href.startsWith('#')) {
-    return <a className="scroll-m-10" href={href} {...props} />;
+    return <a className="scroll-m-10" {...props} />;
   }
 
   if (href.startsWith('/')) {
@@ -36,22 +28,23 @@ function Link<T extends string>({
     );
   }
 
-  return <a href={href} rel="noopener noreferrer" target="_blank" {...props} />;
+  return <a rel="noopener noreferrer" target="_blank" {...props} />;
 }
 
-async function Pre({ children, ...props }: ComponentProps<'pre'>) {
-  const codeElement = Children.toArray(children).find(
-    (child) => isValidElement(child) && child.type === 'code'
-  ) as ReactElement<HTMLPreElement> | undefined;
+async function Pre({ children, ...props }: React.ComponentProps<'pre'>) {
+  const codeElement = React.Children.toArray(children).find(
+    (child) => React.isValidElement(child) && child.type === 'code'
+  ) as React.ReactElement<HTMLPreElement> | undefined;
 
-  const className = codeElement?.props?.className ?? '';
+  const className = codeElement?.props.className ?? '';
   const isCodeBlock =
     typeof className === 'string' && className.startsWith('language-');
 
-  const lang = className.split(' ')[0]?.split('-')[1] ?? '';
+  const lang = className.split(' ')[0].split('-')[1] ?? '';
+  const code = String(codeElement?.props.children);
 
   if (isCodeBlock || lang) {
-    const html = await codeToHtml(String(codeElement?.props.children), {
+    const html = await codeToHtml(code, {
       lang,
       themes: {
         light: 'one-light',
@@ -61,7 +54,7 @@ async function Pre({ children, ...props }: ComponentProps<'pre'>) {
 
     return (
       <div className="relative">
-        <CopyButton codeElement={codeElement} />
+        <CopyButton code={code} />
         {/* biome-ignore lint/security/noDangerouslySetInnerHtml: Required for Shiki code highlighting */}
         <div dangerouslySetInnerHTML={{ __html: html }} />
       </div>
@@ -70,24 +63,24 @@ async function Pre({ children, ...props }: ComponentProps<'pre'>) {
 
   return (
     <div className="relative">
-      <CopyButton codeElement={codeElement} />
+      <CopyButton code={code} />
       <pre {...props}>{children}</pre>
     </div>
   );
 }
 
 function createHeading(level: number) {
-  const Heading = ({ children }: { children: ReactNode }) => {
+  const Heading = ({ children }: { children: React.ReactNode }) => {
     const slug = slugify(String(children));
 
-    return createElement(
+    return React.createElement(
       `h${level}`,
       {
         id: slug,
         className: 'group relative font-medium text-xl scroll-m-10',
       },
       [
-        createElement(
+        React.createElement(
           'a',
           {
             href: `#${slug}`,
@@ -97,7 +90,7 @@ function createHeading(level: number) {
             className:
               'absolute invisible no-underline -ml-[1em] pr-2 w-full group-hover:visibles',
           },
-          createElement(
+          React.createElement(
             'span',
             {
               className:
@@ -126,7 +119,7 @@ export const components: MDXComponents = {
   Tweet,
 };
 
-export function CustomMDX(props: JSX.IntrinsicAttributes & MDXRemoteProps) {
+export function CustomMDX(props: MDXRemoteProps) {
   return (
     <MDXRemote
       {...props}

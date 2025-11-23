@@ -11,6 +11,8 @@ import { CustomMDX } from '@/components/blog/custom-mdx';
 import { getBlogPost, getBlogPostsMetadata } from '@/lib/blog';
 import { baseUrl, formatDate, getTableOfContents } from '@/lib/utils';
 
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   const posts = getBlogPostsMetadata();
 

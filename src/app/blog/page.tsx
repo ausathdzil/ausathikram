@@ -2,6 +2,14 @@ import { getYear } from 'date-fns';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 
+import {
+  Item,
+  ItemActions,
+  ItemContent,
+  ItemDescription,
+  ItemGroup,
+  ItemTitle,
+} from '@/components/ui/item';
 import { getBlogPostsMetadata } from '@/lib/blog';
 import { formatDate, sortByDateDesc } from '@/lib/utils';
 
@@ -43,29 +51,27 @@ export default function Page() {
           .map(([year, posts]) => (
             <div className="space-y-2" key={year}>
               <h2 className="font-medium text-xl">{year}</h2>
-              <ul className="not-prose mt-2 space-y-1">
+              <ItemGroup className="not-prose mt-2 list-none space-y-1">
                 {posts.map((post) => (
                   <li key={post.slug}>
-                    <Link
-                      className="-ml-3 flex w-full flex-col rounded-lg px-3 py-2 hover:bg-muted/50"
-                      href={`/blog/${post.slug}`}
-                    >
-                      <div className="flex justify-between">
-                        <p>{post.metadata.title}</p>
-                        <time
-                          className="hidden text-muted-foreground text-sm tabular-nums sm:block"
-                          dateTime={post.metadata.publishedAt}
-                        >
-                          {formatDate(post.metadata.publishedAt, false)}
-                        </time>
-                      </div>
-                      <p className="line-clamp-1 text-muted-foreground text-xs sm:text-sm">
-                        {post.metadata.summary}
-                      </p>
-                    </Link>
+                    <Item asChild className="-ml-4" size="sm">
+                      <Link href={`/blog/${post.slug}`}>
+                        <ItemContent>
+                          <ItemTitle>{post.metadata.title}</ItemTitle>
+                          <ItemDescription>
+                            {post.metadata.summary}
+                          </ItemDescription>
+                        </ItemContent>
+                        <ItemActions className="hidden self-start tabular-nums sm:block">
+                          <time dateTime={post.metadata.publishedAt}>
+                            {formatDate(post.metadata.publishedAt, false)}
+                          </time>
+                        </ItemActions>
+                      </Link>
+                    </Item>
                   </li>
                 ))}
-              </ul>
+              </ItemGroup>
             </div>
           ))}
       </div>

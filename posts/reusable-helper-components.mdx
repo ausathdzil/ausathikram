@@ -63,7 +63,11 @@ For the second approach, we want to sync the URL with our `<input>`. To do that 
 
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 
-export function SearchInput({ name, ...props }: React.ComponentProps<'input'>) {
+type SearchInputProps = {
+  name: string;
+} & React.ComponentProps<'input'>;
+
+export function SearchInput({ name, ...props }: SearchInputProps) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
@@ -102,9 +106,9 @@ const DEBOUNCE_MS = 300;
 const handleSearch = useDebouncedCallback((term: string) => {
   const params = new URLSearchParams(searchParams);
   if (term) {
-    params.set(props.name, term);
+    params.set(name, term);
   } else {
-    params.delete(props.name);
+    params.delete(name);
   }
   router.replace(`${pathname}?${params.toString()}`);
 }, DEBOUNCE_MS);
@@ -118,9 +122,13 @@ Final code:
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import { useDebouncedCallback } from 'use-debounce';
 
+type SearchInputProps = {
+  name: string;
+} & React.ComponentProps<'input'>;
+
 const DEBOUNCE_MS = 300;
 
-export function SearchInput({ name, ...props }: React.ComponentProps<'input'>) {
+export function SearchInput({ name, ...props }: SearchInputProps) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
@@ -136,7 +144,7 @@ export function SearchInput({ name, ...props }: React.ComponentProps<'input'>) {
   }, DEBOUNCE_MS);
   
   return (
-    <input 
+    <input
       {...props}
       defaultValue={searchParams.get(name) ?? ''}
       name={name}
@@ -144,7 +152,7 @@ export function SearchInput({ name, ...props }: React.ComponentProps<'input'>) {
       type="search"
     />
   );
-} 
+}
 ```
 
 A slight delay can make a huge difference in user experience.
@@ -289,12 +297,15 @@ This one uses the same pattern as search input.
 ```tsx
 'use client';
 
+import { useSearchParams, usePathname, useRouter } from 'next/navigation';
+
 type Option = {
   value: string;
   label: string;
 }
 
 type FilterSelectProps = {
+  name: string;
   opts: Option[];
 } & React.ComponentProps<'select'>;
 
@@ -370,7 +381,11 @@ import { useDebouncedCallback } from 'use-debounce';
 
 const DEBOUNCE_MS = 300;
 
-export function SearchInput({ name, ...props }: React.ComponentProps<'input'>) {
+type SearchInputProps = {
+  name: string;
+} & React.ComponentProps<'input'>;
+
+export function SearchInput({ name, ...props }: SearchInputProps) {
   const [searchParams, setSearchParams] = useSearchParams();
   
   const handleSearch = useDebouncedCallback((term: string) => {
@@ -404,8 +419,12 @@ You are also most likely be able to implement this components in your codebase w
 
 import { useQueryState } from 'nuqs';
 
-export function SearchInput({ name, ...props }: React.ComponentProps<'input'>) {
-  // Create a query state for `q`, with default as empty string or null
+type SearchInputProps = {
+  name: string;
+} & React.ComponentProps<'input'>;
+
+export function SearchInput({ name, ...props }: SearchInputProps) {
+  // Create a query state for `q`, with default as empty string
   const [q, setQ] = useQueryState('q', { defaultValue: '' });
 
   return (
