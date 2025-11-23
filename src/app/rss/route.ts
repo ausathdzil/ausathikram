@@ -1,14 +1,13 @@
+import { format, parseISO } from 'date-fns';
+
 import { getBlogPosts } from '@/lib/blog';
-import { baseUrl } from '@/lib/utils';
+import { baseUrl, sortByDateDesc } from '@/lib/utils';
+
+const RSS_DATE_FORMAT = "EEE, dd MMM yyyy HH:mm:ss 'GMT'";
 
 export function GET() {
   const posts = getBlogPosts();
-
-  const sortedPosts = posts.sort(
-    (a, b) =>
-      new Date(b.metadata.publishedAt).getTime() -
-      new Date(a.metadata.publishedAt).getTime()
-  );
+  const sortedPosts = sortByDateDesc(posts);
 
   const items = sortedPosts
     .map(
@@ -18,9 +17,7 @@ export function GET() {
           <link>${baseUrl}/blog/${post.slug}</link>
           <guid>${baseUrl}/blog/${post.slug}</guid>
           <description>${post.metadata.summary}</description>
-          <pubDate>${new Date(
-            post.metadata.publishedAt
-          ).toUTCString()}</pubDate>
+          <pubDate>${format(parseISO(post.metadata.publishedAt), RSS_DATE_FORMAT)}</pubDate>
         </item>
       `
     )
@@ -28,11 +25,14 @@ export function GET() {
 
   const lastBuildDate =
     sortedPosts.length > 0
-      ? new Date(
-          sortedPosts[0].metadata.updatedAt ||
-            sortedPosts[0].metadata.publishedAt
-        ).toUTCString()
-      : new Date().toUTCString();
+      ? format(
+          parseISO(
+            sortedPosts[0].metadata.updatedAt ||
+              sortedPosts[0].metadata.publishedAt
+          ),
+          RSS_DATE_FORMAT
+        )
+      : format(new Date(), RSS_DATE_FORMAT);
 
   const rss = `<?xml version="1.0" encoding="UTF-8" ?>
     <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">

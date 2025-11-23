@@ -27,7 +27,7 @@ import {
 } from '@/components/ui/drawer';
 import { useIsMobile } from '@/hooks/use-mobile';
 import type { Metadata } from '@/lib/blog';
-import { formatDate, navItems } from '@/lib/utils';
+import { navItems } from '@/lib/utils';
 
 interface Post {
   metadata: Metadata;
@@ -112,15 +112,7 @@ function CommandDesktop({ posts }: { posts?: Post[] }) {
                   onSelect={() => handleSelect(`/blog/${post.slug}` as Route)}
                 >
                   <NewspaperIcon />
-                  <div className="flex w-full items-center justify-between">
-                    <p>{post.metadata.title}</p>
-                    <time
-                      className="ml-2 hidden text-muted-foreground text-sm tabular-nums sm:block"
-                      dateTime={post.metadata.publishedAt}
-                    >
-                      {formatDate(post.metadata.publishedAt)}
-                    </time>
-                  </div>
+                  <p>{post.metadata.title}</p>
                 </CommandItem>
               ))}
           </CommandGroup>
@@ -192,15 +184,7 @@ function CommandMobile({ posts }: { posts?: Post[] }) {
                       }}
                     >
                       <NewspaperIcon />
-                      <div className="flex w-full items-center justify-between">
-                        {post.metadata.title}
-                        <time
-                          className="ml-2 hidden text-muted-foreground text-sm tabular-nums sm:block"
-                          dateTime={post.metadata.publishedAt}
-                        >
-                          {formatDate(post.metadata.publishedAt)}
-                        </time>
-                      </div>
+                      {post.metadata.title}
                     </CommandItem>
                   ))}
               </CommandGroup>

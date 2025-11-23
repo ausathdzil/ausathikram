@@ -13,7 +13,7 @@ import { NavLinks } from '@/components/layout/nav-links';
 import { ThemeProvider } from '@/components/layout/theme-provider';
 import { buttonVariants } from '@/components/ui/button';
 import { getBlogPostsMetadata } from '@/lib/blog';
-import { baseUrl, cn } from '@/lib/utils';
+import { baseUrl, cn, sortByDateDesc } from '@/lib/utils';
 import './globals.css';
 
 const inter = localFont({
@@ -90,12 +90,7 @@ export default function RootLayout({
 
 function Header() {
   const posts = getBlogPostsMetadata();
-
-  const sortedPosts = posts.sort(
-    (a, b) =>
-      new Date(b.metadata.publishedAt).getTime() -
-      new Date(a.metadata.publishedAt).getTime()
-  );
+  const sortedPosts = sortByDateDesc(posts);
 
   return (
     <header className="flex w-full items-center gap-2 py-8">

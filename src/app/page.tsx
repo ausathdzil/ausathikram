@@ -2,19 +2,13 @@ import { ArrowRightIcon } from 'lucide-react';
 import Link from 'next/link';
 
 import { getBlogPostsMetadata } from '@/lib/blog';
+import { sortByDateDesc } from '@/lib/utils';
 
 const MAX_POSTS = 5;
 
 export default function Home() {
   const posts = getBlogPostsMetadata();
-
-  const recentPosts = posts
-    .sort(
-      (a, b) =>
-        new Date(b.metadata.publishedAt).getTime() -
-        new Date(a.metadata.publishedAt).getTime()
-    )
-    .splice(0, MAX_POSTS);
+  const recentPosts = sortByDateDesc(posts).slice(0, MAX_POSTS);
 
   return (
     <article className="prose prose-neutral dark:prose-invert">
@@ -47,7 +41,7 @@ export default function Home() {
         {recentPosts.map((post) => (
           <li key={post.slug}>
             <Link
-              className="-mx-3 flex w-full flex-col rounded-lg px-3 py-2 hover:bg-muted/50"
+              className="-ml-3 flex w-full flex-col rounded-lg px-3 py-2 hover:bg-muted/50"
               href={`/blog/${post.slug}`}
             >
               <p>{post.metadata.title}</p>

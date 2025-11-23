@@ -1,3 +1,4 @@
+import { format } from 'date-fns';
 import type { MetadataRoute } from 'next';
 
 import { getBlogPosts } from '@/lib/blog';
@@ -11,7 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const routes = ['', '/blog', '/projects'].map((route) => ({
     url: `${baseUrl}${route}`,
-    lastModified: new Date().toISOString().split('T')[0],
+    lastModified: format(new Date(), 'yyyy-MM-dd'),
   }));
 
   return [...routes, ...posts];

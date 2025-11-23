@@ -1,4 +1,5 @@
 import { type ClassValue, clsx } from 'clsx';
+import { compareDesc, format } from 'date-fns';
 import type { Route } from 'next';
 import { twMerge } from 'tailwind-merge';
 
@@ -22,19 +23,18 @@ export const navItems: NavItem<Route>[] = [
 ];
 
 export function formatDate(date: string, showYear = true) {
-  let formattedDate = date;
-  if (!formattedDate.includes('T')) {
-    formattedDate = `${formattedDate}T00:00:00`;
-  }
-  const targetDate = new Date(formattedDate);
+  return format(new Date(date), showYear ? 'MMMM d, yyyy' : 'MMMM d');
+}
 
-  const fullDate = targetDate.toLocaleString('en-ID', {
-    month: 'long',
-    day: 'numeric',
-    year: showYear ? 'numeric' : undefined,
-  });
-
-  return fullDate;
+export function sortByDateDesc<T extends { metadata: { publishedAt: string } }>(
+  items: T[]
+): T[] {
+  return items.sort((a, b) =>
+    compareDesc(
+      new Date(a.metadata.publishedAt),
+      new Date(b.metadata.publishedAt)
+    )
+  );
 }
 
 const spaceRegex = /\s+/g; // Match spaces

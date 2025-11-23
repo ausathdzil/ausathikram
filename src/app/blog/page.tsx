@@ -1,8 +1,9 @@
+import { getYear } from 'date-fns';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 
 import { getBlogPostsMetadata } from '@/lib/blog';
-import { formatDate } from '@/lib/utils';
+import { formatDate, sortByDateDesc } from '@/lib/utils';
 
 export const metadata: Metadata = {
   title: 'Blog',
@@ -18,16 +19,11 @@ export const metadata: Metadata = {
 
 export default function Page() {
   const allPosts = getBlogPostsMetadata();
-
-  const sortedPosts = allPosts.sort(
-    (a, b) =>
-      new Date(b.metadata.publishedAt).getTime() -
-      new Date(a.metadata.publishedAt).getTime()
-  );
+  const sortedPosts = sortByDateDesc(allPosts);
 
   const groupedPosts = sortedPosts.reduce(
     (acc, post) => {
-      const year = new Date(post.metadata.publishedAt).getFullYear();
+      const year = getYear(post.metadata.publishedAt);
       if (!acc[year]) {
         acc[year] = [];
       }
@@ -51,7 +47,7 @@ export default function Page() {
                 {posts.map((post) => (
                   <li key={post.slug}>
                     <Link
-                      className="-mx-3 flex w-full flex-col rounded-lg px-3 py-2 hover:bg-muted/50"
+                      className="-ml-3 flex w-full flex-col rounded-lg px-3 py-2 hover:bg-muted/50"
                       href={`/blog/${post.slug}`}
                     >
                       <div className="flex justify-between">
