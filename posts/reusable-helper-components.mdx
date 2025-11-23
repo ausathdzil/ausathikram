@@ -2,6 +2,7 @@
 title: Reusable Components with Search Params as State
 publishedAt: 2025-11-22
 summary: Using URL search params as state for common UI patterns.
+updatedAt: 2025-11-23
 ---
 
 I often find myself building these components so many times for so many use cases:
@@ -34,7 +35,7 @@ I found this pattern for the first time when learning Next.js in [Learn Next.js]
 
 ## Search Input
 
-There are two ways to implement this: updating the state when input changes (with debounce) and form submittion.
+There are two ways to implement this: updating the state when input changes (with debounce) and form submission.
 
 The latter is more straight forward. We can use the `<Form>` component from `next/form`.
 
@@ -294,7 +295,6 @@ type Option = {
 }
 
 type FilterSelectProps = {
-  name: string;
   opts: Option[];
 } & React.ComponentProps<'select'>;
 

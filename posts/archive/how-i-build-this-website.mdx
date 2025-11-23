@@ -1,0 +1,67 @@
+---
+title: How I Build This Website
+publishedAt: 2024-09-20
+summary: Tech stack used to build this website.
+---
+
+The first thing to do when building a website is **choosing the right stack**. How do I choose it? By knowing what type of website I want to build. In this case, I want to build a **personal blog**, so a static site generator could be a good choice. Examples are [Hugo](https://gohugo.io/), [Gatsby](https://www.gatsbyjs.com/), [Astro](https://astro.build/), or [Next.js](https://nextjs.org/) with SSG mode.
+
+## Frameworks
+
+Sometimes you don't even need a framework. plain **HTML**, **CSS**, and a little bit of **JavaScript** for interactivity could be enough depending on what you want to build, or just pick a small framework like [Alpine.js](https://alpinejs.dev/). This could be a topic on its own, and I might make a blog post about it in the future.
+
+On the other hand, choosing something you already know is almost always a good choice. For this website, I chose **Next.js** because I am already familiar with it. I have built a few websites using Next.js before, so I know what to expect.
+
+## Next.js
+
+Other than being familiar with it, making a blog using Next.js is easy. Rather than using a **Content Management System** to manage my blog posts, I can just write my posts in **Markdown** format, upload them to my repository, and Next.js will take care of the rest. Of course there's more to it than that, but that's the basic idea.
+
+## Styling
+
+I almost always use [Tailwind CSS](https://tailwindcss.com/) for styling any type of websites. It's a utility-first CSS framework that makes styling a breeze. What I like about Tailwind is there's no need to write your own custom classes for components. Just use their utility classes and you're good to go.
+
+```jsx
+<button className="bg-blue-500 text-white py-2 px-4 rounded-lg">Button</button>
+```
+
+Here's what the button component looks like:
+
+<button className="not-prose bg-blue-500 text-white py-2 px-4 rounded-lg">
+  Button
+</button>
+
+This might look a bit weird at first, but once you get used to it, you'll find it's much faster than writing your own CSS.
+
+I also use a little bit of [shadcn/ui](https://ui.shadcn.com/) for some components. It's a copy and paste component library built on top of [Radix UI](https://www.radix-ui.com/) and Tailwind CSS. It's highly customizable and easy to use.
+
+## TypeScript
+
+When building websites with Next.js, I always use [TypeScript](https://www.typescriptlang.org/). It's a superset of JavaScript that adds static typing to the language. What I really like about TypeScript is using **VSCode's IntelliSense** with it. You get suggestions and type checking as you type. It helps me catch errors before they happen, and makes my code more readable. Although sometimes it can be a bit annoying when you're just starting out or when you don't know what type to use and just use `any` everywhere.
+
+## Deployment
+
+Right now I'm using [Vercel](https://vercel.com/home) to deploy this website. It's a cloud platform that specializes in serverless deployment. It's easy to use, and it's free for personal projects. I just connect my github repository to vercel, and it will automatically deploy my website whenever I push new changes to the repository.
+
+Because this is just a personal blog, I don't really need to worry about scaling or performance. Vercel takes care of that for me. There are other options like Vercel to host your small side projects so you don't have to worry about setting up a server and focus on building your project in the meantime. [GitHub Pages](https://pages.github.com/), [Netlify](https://www.netlify.com/), [Heroku](https://www.heroku.com/), [DigitalOcean App Platform](https://www.digitalocean.com/products/app-platform) are some of the examples.
+
+If you're building something bigger and need more control, you might want to consider other options or host it on your own VPS.
+
+## Markdowns
+
+Lastly, I wrote all my posts using [MDX](https://mdxjs.com/). It's a markdown format that allows you to write **JSX** in markdown. It's great for writing blog posts like this one. It's easy to use, and it's easy to embed React components in it.
+
+## Conclusion
+
+Building this website has been a great learning experience, especially in writing markdowns. I've learned a lot in the process. I'm happy with the result, and I hope you enjoy reading my blog posts as much as I enjoy writing them.
+
+## Tech Stacks
+
+- [Next.js](https://github.com/vercel/next.js)
+- [Tailwind CSS](https://github.com/tailwindlabs/tailwindcss)
+- [TypeScript](https://github.com/microsoft/TypeScript)
+- [shadcn/ui](https://github.com/shadcn-ui/ui)
+- [MDX](https://github.com/mdx-js/mdx/)
+
+## Repo
+
+Feel free to checkout this website's repository on [GitHub](https://github.com/ausathdzil/ausathikram) and give me a feedback or suggestions {':)'}
