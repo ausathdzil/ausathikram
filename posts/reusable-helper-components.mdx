@@ -163,7 +163,7 @@ Using it:
 import { Table } from '@/components/table';
 import { getItems } from '@/lib/data';
 
-export async function Page({ searchParams }: PageProps<'/explore'>) {
+export default async function Page({ searchParams }: PageProps<'/explore'>) {
   const { q } = await searchParams;
   const data = await getItems(q);
   

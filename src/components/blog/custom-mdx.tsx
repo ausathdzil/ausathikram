@@ -17,7 +17,7 @@ function Link<T extends string>({
   href: Route<T> | URL | string;
 }) {
   if (!href || href.startsWith('#')) {
-    return <a className="scroll-m-10" {...props} />;
+    return <a className="scroll-m-10" href={href} {...props} />;
   }
 
   if (href.startsWith('/')) {
@@ -28,7 +28,7 @@ function Link<T extends string>({
     );
   }
 
-  return <a rel="noopener noreferrer" target="_blank" {...props} />;
+  return <a href={href} rel="noopener noreferrer" target="_blank" {...props} />;
 }
 
 async function Pre({ children, ...props }: React.ComponentProps<'pre'>) {
