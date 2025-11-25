@@ -379,11 +379,11 @@ The technique here is not unique to Next.js, you can apply the same thing with o
 import { useSearchParams } from 'react-router';
 import { useDebouncedCallback } from 'use-debounce';
 
-const DEBOUNCE_MS = 300;
-
 type SearchInputProps = {
   name: string;
 } & React.ComponentProps<'input'>;
+
+const DEBOUNCE_MS = 300;
 
 export function SearchInput({ name, ...props }: SearchInputProps) {
   const [searchParams, setSearchParams] = useSearchParams();

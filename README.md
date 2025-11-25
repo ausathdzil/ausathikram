@@ -9,6 +9,7 @@ Contents in this website are stored inside `/posts` folder (including archived a
 Inspirations:
 
 - [Emil Kowalski](https://emilkowal.ski/)
+- [Shoubhit Dash](https://www.nexxel.dev/)
 - [Shu Ding](https://shud.in/)
 - [Lee Robinson](https://leerob.com/)
 

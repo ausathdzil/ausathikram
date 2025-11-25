@@ -47,8 +47,8 @@ async function Pre({ children, ...props }: React.ComponentProps<'pre'>) {
     const html = await codeToHtml(code, {
       lang,
       themes: {
-        light: 'one-light',
-        dark: 'vesper',
+        light: 'vitesse-light',
+        dark: 'vitesse-dark',
       },
     });
 
