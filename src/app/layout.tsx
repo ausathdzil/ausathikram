@@ -2,7 +2,6 @@ import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { RssIcon } from 'lucide-react';
 import type { Metadata, Viewport } from 'next';
-import { JetBrains_Mono } from 'next/font/google';
 import localFont from 'next/font/local';
 import type { ReactNode } from 'react';
 
@@ -22,9 +21,9 @@ const inter = localFont({
   display: 'swap',
 });
 
-const jetBrainsMono = JetBrains_Mono({
-  subsets: ['latin'],
-  variable: '--font-jetbrains-mono',
+const commitMono = localFont({
+  src: './fonts/CommitMono VariableFont.woff2',
+  variable: '--font-commit-mono',
   display: 'swap',
 });
 
@@ -70,7 +69,7 @@ export default function RootLayout({
       <body
         className={cn(
           inter.variable,
-          jetBrainsMono.variable,
+          commitMono.variable,
           'font-sans dark:antialiased'
         )}
       >
