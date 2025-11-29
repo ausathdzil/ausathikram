@@ -23,7 +23,8 @@ export function CopyButton({ code }: { code: string }) {
     <Button
       aria-label={copied ? 'Copied' : 'Copy to clipboard'}
       className="absolute top-2 right-2 active:scale-[0.97]"
-      onClick={copied ? undefined : handleCopy}
+      disabled={copied}
+      onClick={handleCopy}
       size="icon-sm"
       title={copied ? 'Copied' : 'Copy to clipboard'}
       type="button"
