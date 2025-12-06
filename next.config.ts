@@ -10,6 +10,7 @@ const nextConfig: NextConfig = {
     turbopackFileSystemCacheForDev: true,
   },
   pageExtensions: ['md', 'mdx', 'ts', 'tsx'],
+  reactCompiler: true,
   typedRoutes: true,
 };
 
