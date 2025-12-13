@@ -31,7 +31,7 @@ function Link<T extends string>({
   return <a href={href} rel="noopener noreferrer" target="_blank" {...props} />;
 }
 
-async function Pre({ children, ...props }: React.ComponentProps<'pre'>) {
+async function CodeBlock({ children, ...props }: React.ComponentProps<'pre'>) {
   const codeElement = React.Children.toArray(children).find(
     (child) => React.isValidElement(child) && child.type === 'code'
   ) as React.ReactElement<HTMLPreElement> | undefined;
@@ -77,7 +77,7 @@ function createHeading(level: number) {
       `h${level}`,
       {
         id: slug,
-        className: 'group relative font-medium text-xl scroll-m-10',
+        className: 'group relative font-medium scroll-m-10',
       },
       [
         React.createElement(
@@ -88,7 +88,7 @@ function createHeading(level: number) {
             'aria-hidden': true,
             tabIndex: -1,
             className:
-              'absolute invisible no-underline -ml-[1em] pr-2 w-full group-hover:visibles',
+              'absolute invisible no-underline -ml-[1em] pr-2 w-full group-hover:visible',
           },
           React.createElement(
             'span',
@@ -115,7 +115,7 @@ export const components: MDXComponents = {
   h2: createHeading(2),
   h3: createHeading(3),
   Image,
-  pre: Pre,
+  pre: CodeBlock,
   Tweet,
 };
 

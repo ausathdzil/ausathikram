@@ -54,20 +54,22 @@ export default function Page() {
               <ItemGroup className="not-prose mt-2 list-none space-y-1">
                 {posts.map((post) => (
                   <li key={post.slug}>
-                    <Item asChild className="-ml-4" size="sm">
-                      <Link href={`/blog/${post.slug}`}>
-                        <ItemContent>
-                          <ItemTitle>{post.metadata.title}</ItemTitle>
-                          <ItemDescription>
-                            {post.metadata.summary}
-                          </ItemDescription>
-                        </ItemContent>
-                        <ItemActions className="hidden self-start tabular-nums sm:block">
-                          <time dateTime={post.metadata.publishedAt}>
-                            {formatDate(post.metadata.publishedAt, false)}
-                          </time>
-                        </ItemActions>
-                      </Link>
+                    <Item
+                      className="-ml-3"
+                      render={<Link href={`/blog/${post.slug}`} />}
+                      size="sm"
+                    >
+                      <ItemContent>
+                        <ItemTitle>{post.metadata.title}</ItemTitle>
+                        <ItemDescription>
+                          {post.metadata.summary}
+                        </ItemDescription>
+                      </ItemContent>
+                      <ItemActions className="hidden self-start tabular-nums sm:block">
+                        <time dateTime={post.metadata.publishedAt}>
+                          {formatDate(post.metadata.publishedAt, false)}
+                        </time>
+                      </ItemActions>
                     </Item>
                   </li>
                 ))}

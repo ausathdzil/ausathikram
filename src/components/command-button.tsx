@@ -4,9 +4,12 @@ import { ArrowUpRightIcon, NewspaperIcon, SearchIcon } from 'lucide-react';
 
 import type { Route } from 'next';
 import { useRouter } from 'next/navigation';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import { Button } from '@/components/ui/button';
+import { useIsMobile } from '@/hooks/use-mobile';
+import type { Metadata } from '@/lib/blog';
+import { navItems } from '@/lib/utils';
+import { Button } from './ui/button';
 import {
   Command,
   CommandDialog,
@@ -16,7 +19,7 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-} from '@/components/ui/command';
+} from './ui/command';
 import {
   Drawer,
   DrawerContent,
@@ -24,10 +27,7 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from '@/components/ui/drawer';
-import { useIsMobile } from '@/hooks/use-mobile';
-import type { Metadata } from '@/lib/blog';
-import { navItems } from '@/lib/utils';
+} from './ui/drawer';
 
 interface Post {
   metadata: Metadata;
@@ -64,18 +64,15 @@ function CommandDesktop({ posts }: { posts?: Post[] }) {
         setOpen((prevOpen) => !prevOpen);
       }
     };
-    document.addEventListener('keydown', down);
 
+    document.addEventListener('keydown', down);
     return () => document.removeEventListener('keydown', down);
   }, []);
 
-  const handleSelect = useCallback(
-    (href: Route) => {
-      setOpen(false);
-      router.push(href);
-    },
-    [router]
-  );
+  const handleSelect = (href: Route) => {
+    setOpen(false);
+    router.push(href);
+  };
 
   return (
     <>
@@ -94,43 +91,41 @@ function CommandDesktop({ posts }: { posts?: Post[] }) {
         open={open}
         title="Search"
       >
-        <CommandInput
-          onValueChange={setValue}
-          placeholder="Search…"
-          value={value}
-        />
-        <CommandList>
-          <CommandEmpty>No results found.</CommandEmpty>
-          <CommandGroup heading="Posts">
-            {posts
-              ?.filter((post) =>
-                post.metadata.title.toLowerCase().includes(value.toLowerCase())
-              )
-              .map((post) => (
+        <Command>
+          <CommandInput
+            onValueChange={setValue}
+            placeholder="Search…"
+            value={value}
+          />
+          <CommandList>
+            <CommandEmpty>No results found.</CommandEmpty>
+            <CommandGroup heading="Posts">
+              {posts?.map((post) => (
                 <CommandItem
                   className="cursor-pointer"
                   key={post.slug}
                   onSelect={() => handleSelect(`/blog/${post.slug}` as Route)}
                 >
                   <NewspaperIcon />
-                  <p>{post.metadata.title}</p>
+                  <p className="line-clamp-1">{post.metadata.title}</p>
                 </CommandItem>
               ))}
-          </CommandGroup>
-          <CommandSeparator />
-          <CommandGroup heading="Navigation">
-            {navItems.map((nav) => (
-              <CommandItem
-                className="cursor-pointer"
-                key={nav.href}
-                onSelect={() => handleSelect(nav.href)}
-              >
-                <ArrowUpRightIcon />
-                {nav.label}
-              </CommandItem>
-            ))}
-          </CommandGroup>
-        </CommandList>
+            </CommandGroup>
+            <CommandSeparator />
+            <CommandGroup heading="Navigation">
+              {navItems.map((nav) => (
+                <CommandItem
+                  className="cursor-pointer"
+                  key={nav.href}
+                  onSelect={() => handleSelect(nav.href)}
+                >
+                  <ArrowUpRightIcon />
+                  <p className="line-clamp-1">{nav.label}</p>
+                </CommandItem>
+              ))}
+            </CommandGroup>
+          </CommandList>
+        </Command>
       </CommandDialog>
     </>
   );
@@ -155,13 +150,13 @@ function CommandMobile({ posts }: { posts?: Post[] }) {
           <SearchIcon />
         </Button>
       </DrawerTrigger>
-      <DrawerContent>
+      <DrawerContent className="bg-popover">
         <DrawerHeader className="sr-only">
           <DrawerTitle>Search</DrawerTitle>
           <DrawerDescription>Search anything…</DrawerDescription>
         </DrawerHeader>
-        <div className="p-4">
-          <Command className="bg-background">
+        <div className="p-2">
+          <Command>
             <CommandInput
               onValueChange={setValue}
               placeholder="Search…"
@@ -170,25 +165,19 @@ function CommandMobile({ posts }: { posts?: Post[] }) {
             <CommandList>
               <CommandEmpty>No results found.</CommandEmpty>
               <CommandGroup heading="Posts">
-                {posts
-                  ?.filter((post) =>
-                    post.metadata.title
-                      .toLowerCase()
-                      .includes(value.toLowerCase())
-                  )
-                  .map((post) => (
-                    <CommandItem
-                      className="mb-2 cursor-pointer"
-                      key={post.slug}
-                      onSelect={() => {
-                        setOpen(false);
-                        router.push(`/blog/${post.slug}`);
-                      }}
-                    >
-                      <NewspaperIcon />
-                      {post.metadata.title}
-                    </CommandItem>
-                  ))}
+                {posts?.map((post) => (
+                  <CommandItem
+                    className="mb-2 cursor-pointer"
+                    key={post.slug}
+                    onSelect={() => {
+                      setOpen(false);
+                      router.push(`/blog/${post.slug}`);
+                    }}
+                  >
+                    <NewspaperIcon />
+                    <p className="line-clamp-1">{post.metadata.title}</p>
+                  </CommandItem>
+                ))}
               </CommandGroup>
               <CommandSeparator />
               <CommandGroup heading="Navigation">
@@ -202,7 +191,7 @@ function CommandMobile({ posts }: { posts?: Post[] }) {
                     }}
                   >
                     <ArrowUpRightIcon />
-                    {nav.label}
+                    <p className="line-clamp-1">{nav.label}</p>
                   </CommandItem>
                 ))}
               </CommandGroup>

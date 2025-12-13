@@ -1,7 +1,7 @@
 import type { MDXComponents } from 'mdx/types';
 
-export function useMDXComponents(components: MDXComponents): MDXComponents {
-  return {
-    ...components,
-  };
+import { components } from '@/components/custom-mdx';
+
+export function useMDXComponents(mdxComponents: MDXComponents): MDXComponents {
+  return { ...components, ...mdxComponents };
 }

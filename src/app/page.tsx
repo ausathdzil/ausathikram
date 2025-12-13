@@ -1,4 +1,5 @@
 import Link from 'next/link';
+
 import {
   Item,
   ItemContent,
@@ -19,11 +20,8 @@ export default function Home() {
     <article className="prose prose-neutral dark:prose-invert">
       <h1 className="font-medium text-xl">Ausath Ikram</h1>
       <p>
-        I&apos;m a Frontend Developer at eBdesk. I like to build websites that
-        feels good to use.
-      </p>
-      <p>
-        You can find my code on{' '}
+        I&apos;m a Frontend Developer and I like to build websites and write
+        blog posts. You can find my code on{' '}
         <a
           href="https://github.com/ausathdzil"
           rel="noopener noreferrer"
@@ -45,15 +43,17 @@ export default function Home() {
       <ItemGroup className="not-prose list-none">
         {recentPosts.map((post) => (
           <li key={post.slug}>
-            <Item asChild className="-ml-4" size="sm">
-              <Link href={`/blog/${post.slug}`}>
-                <ItemContent>
-                  <ItemTitle className="text-base">
-                    {post.metadata.title}
-                  </ItemTitle>
-                  <ItemDescription>{post.metadata.summary}</ItemDescription>
-                </ItemContent>
-              </Link>
+            <Item
+              className="-ml-3"
+              render={<Link href={`/blog/${post.slug}`} />}
+              size="sm"
+            >
+              <ItemContent>
+                <ItemTitle className="text-base">
+                  {post.metadata.title}
+                </ItemTitle>
+                <ItemDescription>{post.metadata.summary}</ItemDescription>
+              </ItemContent>
             </Item>
           </li>
         ))}

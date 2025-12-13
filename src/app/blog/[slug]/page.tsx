@@ -7,7 +7,7 @@ import type { MDXRemoteOptions } from 'next-mdx-remote-client/rsc';
 import remarkGfm from 'remark-gfm';
 import type { BlogPosting, WithContext } from 'schema-dts';
 
-import { CustomMDX } from '@/components/blog/custom-mdx';
+import { CustomMDX } from '@/components/custom-mdx';
 import { getBlogPost, getBlogPostsMetadata } from '@/lib/blog';
 import { baseUrl, formatDate, getTableOfContents } from '@/lib/utils';
 
@@ -96,7 +96,7 @@ export default async function Page({ params }: PageProps<'/blog/[slug]'>) {
         type="application/ld+json"
       />
       <article className="prose prose-neutral dark:prose-invert">
-        <h1 className="font-medium text-xl">{post.metadata.title}</h1>
+        <h1 className="font-medium">{post.metadata.title}</h1>
         <p>
           Ausath Ikram <span className="text-primary">&bull;</span>{' '}
           <time dateTime={post.metadata.publishedAt}>

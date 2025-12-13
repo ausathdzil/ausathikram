@@ -1,10 +1,11 @@
 'use client';
 
 import { CheckIcon, CopyIcon } from 'lucide-react';
+
 import { useState } from 'react';
 
 import { cn } from '@/lib/utils';
-import { Button } from '../ui/button';
+import { Button } from './ui/button';
 
 const COPIED_TIMEOUT = 1500;
 
@@ -23,7 +24,6 @@ export function CopyButton({ code }: { code: string }) {
     <Button
       aria-label={copied ? 'Copied' : 'Copy to clipboard'}
       className="absolute top-2 right-2 active:scale-[0.97]"
-      disabled={copied}
       onClick={handleCopy}
       size="icon-sm"
       title={copied ? 'Copied' : 'Copy to clipboard'}

@@ -1,13 +1,8 @@
-import { ArrowUpRightIcon, HouseIcon } from 'lucide-react';
-
 import type { Metadata } from 'next';
 import Image from 'next/image';
-import Link from 'next/link';
 
-import { buttonVariants } from '@/components/ui/button';
 import {
   Empty,
-  EmptyContent,
   EmptyDescription,
   EmptyHeader,
   EmptyMedia,
@@ -42,27 +37,9 @@ export default function NotFound() {
           </EmptyMedia>
           <EmptyTitle>Page Not Found</EmptyTitle>
           <EmptyDescription>
-            The page you're looking for does not exist
+            The page you're looking for does not exists
           </EmptyDescription>
         </EmptyHeader>
-        <EmptyContent>
-          <Link className={buttonVariants()} href="/">
-            <HouseIcon />
-            Home
-          </Link>
-        </EmptyContent>
-        <p className="text-muted-foreground text-sm">
-          Logo By
-          <a
-            className={buttonVariants({ variant: 'link', size: 'sm' })}
-            href="https://github.com/SAWARATSUKI/KawaiiLogos/blob/main/ResponseCode/404%20NotFound.png"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            SAWARATSUKI
-            <ArrowUpRightIcon />
-          </a>
-        </p>
       </Empty>
     </main>
   );

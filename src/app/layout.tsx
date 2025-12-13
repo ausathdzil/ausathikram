@@ -5,12 +5,12 @@ import type { Metadata, Viewport } from 'next';
 import localFont from 'next/font/local';
 import type { ReactNode } from 'react';
 
-import { CommandButton } from '@/components/layout/command-button';
-import { MobileNav } from '@/components/layout/mobile-nav';
-import { ModeToggle } from '@/components/layout/mode-toggle';
-import { NavLinks } from '@/components/layout/nav-links';
-import { ThemeProvider } from '@/components/layout/theme-provider';
-import { buttonVariants } from '@/components/ui/button';
+import { CommandButton } from '@/components/command-button';
+import { MobileNav } from '@/components/mobile-nav';
+import { ModeToggle } from '@/components/mode-toggle';
+import { NavLinks } from '@/components/nav-links';
+import { ThemeProvider } from '@/components/theme-provider';
+import { Button } from '@/components/ui/button';
 import { getBlogPostsMetadata } from '@/lib/blog';
 import { baseUrl, cn, sortByDateDesc } from '@/lib/utils';
 import './globals.css';
@@ -103,14 +103,17 @@ function Header() {
       <MobileNav />
       <div className="flex items-center gap-2">
         <CommandButton posts={sortedPosts} />
-        <a
-          aria-label="RSS"
-          className={buttonVariants({ variant: 'ghost', size: 'icon-sm' })}
-          href="/rss"
-          title="RSS"
-        >
-          <RssIcon />
-        </a>
+        <Button
+          nativeButton={false}
+          render={
+            <a href="/rss" title="RSS">
+              <RssIcon />
+              <span className="sr-only">RSS</span>
+            </a>
+          }
+          size="icon-sm"
+          variant="ghost"
+        />
         <ModeToggle />
       </div>
     </header>
