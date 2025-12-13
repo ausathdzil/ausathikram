@@ -6,16 +6,6 @@
     "includes": ["**/*", "!src/components/ui"]
   },
   "linter": {
-    "rules": {
-      "style": {
-        "useConsistentTypeDefinitions": {
-          "level": "warn",
-          "options": {
-            "style": "interface"
-          }
-        }
-      }
-    },
     "domains": {
       "next": "recommended",
       "react": "recommended"

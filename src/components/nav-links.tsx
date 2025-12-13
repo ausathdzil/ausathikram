@@ -12,7 +12,12 @@ export function NavLinks() {
         <Button
           key={item.label}
           nativeButton={false}
-          render={<Link href={item.href} />}
+          render={
+            <Link
+              href={item.href}
+              target={item.href === '/rss' ? '_blank' : '_self'}
+            />
+          }
           size="sm"
           variant="ghost"
         >

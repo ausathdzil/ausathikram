@@ -23,6 +23,7 @@ export function ModeToggle() {
             aria-label="Toggle theme"
             size="icon-sm"
             title="Toggle theme"
+            type="button"
             variant="ghost"
           />
         }

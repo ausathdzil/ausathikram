@@ -99,10 +99,6 @@
     -webkit-tap-highlight-color: transparent;
   }
 
-  body[data-scroll-locked] {
-    margin-right: 0 !important;
-  }
-
   a {
     @apply hover:text-blue-800 dark:hover:text-blue-400;
   }

@@ -1,6 +1,5 @@
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
-import { RssIcon } from 'lucide-react';
 import type { Metadata, Viewport } from 'next';
 import localFont from 'next/font/local';
 import type { ReactNode } from 'react';
@@ -10,7 +9,6 @@ import { MobileNav } from '@/components/mobile-nav';
 import { ModeToggle } from '@/components/mode-toggle';
 import { NavLinks } from '@/components/nav-links';
 import { ThemeProvider } from '@/components/theme-provider';
-import { Button } from '@/components/ui/button';
 import { getBlogPostsMetadata } from '@/lib/blog';
 import { baseUrl, cn, sortByDateDesc } from '@/lib/utils';
 import './globals.css';
@@ -95,17 +93,6 @@ function Header() {
       <MobileNav />
       <div className="flex items-center gap-2">
         <CommandButton posts={sortedPosts} />
-        <Button
-          nativeButton={false}
-          render={
-            <a href="/rss" title="RSS">
-              <RssIcon />
-              <span className="sr-only">RSS</span>
-            </a>
-          }
-          size="icon-sm"
-          variant="ghost"
-        />
         <ModeToggle />
       </div>
     </header>

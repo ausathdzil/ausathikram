@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 
 import { useMac } from '@/hooks/use-mac';
 import { useIsMobile } from '@/hooks/use-mobile';
-import type { Metadata } from '@/lib/blog';
+import type { BlogPost } from '@/lib/blog';
 import { navItems } from '@/lib/utils';
 import { Button } from './ui/button';
 import {
@@ -31,12 +31,11 @@ import {
 } from './ui/drawer';
 import { Kbd } from './ui/kbd';
 
-interface Post {
-  metadata: Metadata;
-  slug: string;
-}
+type CommandButtonProps = {
+  posts?: Omit<BlogPost, 'content'>[];
+};
 
-export function CommandButton({ posts }: { posts?: Post[] }) {
+export function CommandButton({ posts }: CommandButtonProps) {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState('');
   const router = useRouter();
@@ -112,6 +111,7 @@ export function CommandButton({ posts }: { posts?: Post[] }) {
             aria-label="Search"
             onClick={() => setOpen(true)}
             size="icon-sm"
+            type="button"
             variant="ghost"
           >
             <SearchIcon />
@@ -130,7 +130,12 @@ export function CommandButton({ posts }: { posts?: Post[] }) {
 
   return (
     <>
-      <Button onClick={() => setOpen(true)} size="sm" variant="outline">
+      <Button
+        onClick={() => setOpen(true)}
+        size="sm"
+        type="button"
+        variant="outline"
+      >
         Search…
         <Kbd>{isMac ? '⌘' : 'Ctrl'}&nbsp;+&nbsp;K</Kbd>
       </Button>

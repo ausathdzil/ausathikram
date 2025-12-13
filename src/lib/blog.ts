@@ -2,18 +2,18 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { cache } from 'react';
 
-export interface Metadata {
+export type Metadata = {
   title: string;
   publishedAt: string;
   summary: string;
   updatedAt?: string;
-}
+};
 
-export interface BlogPost {
+export type BlogPost = {
   metadata: Metadata;
   slug: string;
   content: string;
-}
+};
 
 const frontmatterRegex = /---\s*([\s\S]*?)\s*---/; // Match frontmatter block
 const quotesRegex = /^['"](.*)['"]$/; // Match quotes

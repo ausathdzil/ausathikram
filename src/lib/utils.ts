@@ -12,14 +12,15 @@ export const baseUrl =
     ? 'https://ausathikram.com'
     : 'http://localhost:3000';
 
-export interface NavItem<T extends string = string> {
+export type NavItem<T extends string = string> = {
   href: T;
   label: string;
-}
+};
 
 export const navItems: NavItem<Route>[] = [
   { label: 'About', href: '/' },
   { label: 'Blog', href: '/blog' },
+  { label: 'RSS', href: '/rss' },
 ];
 
 export function formatDate(date: string, showYear = true) {
