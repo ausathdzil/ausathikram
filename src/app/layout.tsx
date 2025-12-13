@@ -35,28 +35,20 @@ export const metadata: Metadata = {
   },
   description: 'Web developer.',
   openGraph: {
-    title: 'Ausath Ikram',
-    description: 'Web developer.',
     url: baseUrl,
     siteName: 'Ausath Ikram',
     locale: 'en_US',
     type: 'website',
   },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'black-translucent',
   },
 };
 
 export const viewport: Viewport = {
   maximumScale: 1,
+  viewportFit: 'cover',
 };
 
 export default function RootLayout({
@@ -79,7 +71,7 @@ export default function RootLayout({
           disableTransitionOnChange
           enableSystem
         >
-          <div className="mx-auto flex min-h-screen max-w-3xl flex-col items-center px-8">
+          <div className="mx-auto flex min-h-screen max-w-3xl flex-col items-center px-8 pt-safe-top">
             <Header />
             <main className="flex w-full flex-1 flex-col pb-32">
               {children}

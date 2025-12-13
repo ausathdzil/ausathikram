@@ -37,6 +37,10 @@
   --radius-4xl: calc(var(--radius) + 16px);
 }
 
+@theme {
+  --spacing-safe-top: env(safe-area-inset-top);
+}
+
 :root {
   --radius: 0.625rem;
   --background: oklch(1 0 0);
@@ -124,6 +128,10 @@
 .prose blockquote p:first-of-type::before,
 .prose blockquote p:last-of-type::after {
   @apply content-none;
+}
+
+.prose img {
+  @apply rounded-lg;
 }
 
 .prose pre {

@@ -11,17 +11,16 @@ import {
   ItemTitle,
 } from '@/components/ui/item';
 import { getBlogPostsMetadata } from '@/lib/blog';
-import { formatDate, sortByDateDesc } from '@/lib/utils';
+import { baseUrl, formatDate, sortByDateDesc } from '@/lib/utils';
 
 export const metadata: Metadata = {
   title: 'Blog',
-  description: 'Ausath Ikram blog.',
+  description: "Ausath Ikram's blog.",
   openGraph: {
-    title: 'Blog - Ausath Ikram',
-    description: "Ausath Ikram's blog.",
-    url: 'https://ausathikram.com/blog',
+    url: `${baseUrl}/blog`,
     siteName: 'Ausath Ikram',
     locale: 'en_US',
+    type: 'website',
   },
 };
 

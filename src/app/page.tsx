@@ -20,8 +20,8 @@ export default function Home() {
     <article className="prose prose-neutral dark:prose-invert">
       <h1 className="font-medium text-xl">Ausath Ikram</h1>
       <p>
-        I&apos;m a Frontend Developer and I like to build websites and write
-        blog posts. You can find my code on{' '}
+        I&apos;m a Frontend Developer and I like to build websites. You can find
+        my code on{' '}
         <a
           href="https://github.com/ausathdzil"
           rel="noopener noreferrer"

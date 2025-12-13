@@ -36,18 +36,11 @@ export async function generateMetadata({
     description: post.metadata.summary,
     authors: [{ url: 'https://ausathikram.com', name: 'Ausath Ikram' }],
     openGraph: {
-      title: post.metadata.title,
-      description: post.metadata.summary,
       publishedTime: post.metadata.publishedAt,
       url: `${baseUrl}/blog/${post.slug}`,
       siteName: 'Ausath Ikram',
       locale: 'en_US',
       type: 'article',
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: post.metadata.title,
-      description: post.metadata.summary,
     },
   };
 }
@@ -96,7 +89,7 @@ export default async function Page({ params }: PageProps<'/blog/[slug]'>) {
         type="application/ld+json"
       />
       <article className="prose prose-neutral dark:prose-invert">
-        <h1 className="font-medium">{post.metadata.title}</h1>
+        <h1 className="mb-0! font-medium">{post.metadata.title}</h1>
         <p>
           Ausath Ikram <span className="text-primary">&bull;</span>{' '}
           <time dateTime={post.metadata.publishedAt}>
