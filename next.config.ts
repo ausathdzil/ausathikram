@@ -7,7 +7,6 @@ const nextConfig: NextConfig = {
     mdxRs: {
       mdxType: 'gfm',
     },
-    turbopackFileSystemCacheForDev: true,
   },
   pageExtensions: ['md', 'mdx', 'ts', 'tsx'],
   reactCompiler: true,
