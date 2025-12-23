@@ -77,7 +77,7 @@ function createHeading(level: number) {
       `h${level}`,
       {
         id: slug,
-        className: 'group relative font-medium scroll-m-10',
+        className: 'group relative scroll-m-10',
       },
       [
         React.createElement(

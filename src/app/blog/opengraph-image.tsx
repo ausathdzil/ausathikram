@@ -11,8 +11,8 @@ export const size = {
 export const contentType = 'image/png';
 
 export default async function Image() {
-  const interSemiBold = await readFile(
-    path.join(process.cwd(), 'src/app/fonts/Inter-SemiBold.ttf')
+  const libreFranklinSemiBold = await readFile(
+    path.join(process.cwd(), 'src/app/fonts/LibreFranklin-SemiBold.ttf')
   );
 
   return new ImageResponse(
@@ -35,8 +35,8 @@ export default async function Image() {
       ...size,
       fonts: [
         {
-          name: 'Inter',
-          data: interSemiBold,
+          name: 'Libre Franklin',
+          data: libreFranklinSemiBold,
           style: 'normal',
           weight: 600,
         },

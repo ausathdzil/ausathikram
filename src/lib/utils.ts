@@ -24,7 +24,7 @@ export const navItems: NavItem<Route>[] = [
 ];
 
 export function formatDate(date: string, showYear = true) {
-  return format(new Date(date), showYear ? 'MMMM d, yyyy' : 'MMMM d');
+  return format(new Date(date), showYear ? 'MMMM dd, yyyy' : 'MMMM dd');
 }
 
 export function sortByDateDesc<T extends { metadata: { publishedAt: string } }>(

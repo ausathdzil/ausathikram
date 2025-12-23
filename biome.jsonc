@@ -9,6 +9,16 @@
     "domains": {
       "next": "recommended",
       "react": "recommended"
+    },
+    "rules": {
+      "style": {
+        "useConsistentTypeDefinitions": {
+          "level": "warn",
+          "options": {
+            "style": "type"
+          }
+        }
+      }
     }
   },
   "javascript": {

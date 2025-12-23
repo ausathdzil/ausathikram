@@ -30,7 +30,6 @@ export default function NotFound() {
             <Image
               alt="404 Not Found"
               height={216}
-              loading="eager"
               src={notFound}
               width={384}
             />

@@ -28,7 +28,7 @@ export async function generateMetadata({
   const post = getBlogPost(slug);
 
   if (!post) {
-    notFound();
+    return {};
   }
 
   return {

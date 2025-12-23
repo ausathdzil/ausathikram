@@ -28,8 +28,8 @@ export default async function Image({ params }: PageProps<'/blog/[slug]'>) {
     return new Response('Not found', { status: 404 });
   }
 
-  const interSemiBold = await readFile(
-    path.join(process.cwd(), 'src/app/fonts/Inter-SemiBold.ttf')
+  const libreFranklinSemiBold = await readFile(
+    path.join(process.cwd(), 'src/app/fonts/LibreFranklin-SemiBold.ttf')
   );
 
   return new ImageResponse(
@@ -52,8 +52,8 @@ export default async function Image({ params }: PageProps<'/blog/[slug]'>) {
       ...size,
       fonts: [
         {
-          name: 'Inter',
-          data: interSemiBold,
+          name: 'Libre Franklin',
+          data: libreFranklinSemiBold,
           style: 'normal',
           weight: 600,
         },

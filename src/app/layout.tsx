@@ -13,14 +13,16 @@ import { getBlogPostsMetadata } from '@/lib/blog';
 import { baseUrl, cn, sortByDateDesc } from '@/lib/utils';
 import './globals.css';
 
-const inter = localFont({
-  src: './fonts/InterVariable.woff2',
-  variable: '--font-inter',
+const libreFranklin = localFont({
+  src: './fonts/LibreFranklin[wght].woff2',
+  weight: '500 700',
+  variable: '--font-libre-franklin',
   display: 'swap',
 });
 
 const commitMono = localFont({
   src: './fonts/CommitMono VariableFont.woff2',
+  weight: '400 600',
   variable: '--font-commit-mono',
   display: 'swap',
 });
@@ -57,7 +59,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
-          inter.variable,
+          libreFranklin.variable,
           commitMono.variable,
           'font-sans dark:antialiased'
         )}
