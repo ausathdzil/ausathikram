@@ -22,17 +22,8 @@ export function MobileNav() {
   return (
     <div className="flex flex-1 items-center gap-4 sm:hidden">
       <Popover onOpenChange={handleOpenChange} open={isOpen}>
-        <PopoverTrigger
-          render={
-            <button
-              aria-label="Menu"
-              className="[&_svg]:size-4"
-              title="Menu"
-              type="button"
-            />
-          }
-        >
-          {isOpen ? <XIcon /> : <MenuIcon />}
+        <PopoverTrigger aria-label="Menu">
+          {isOpen ? <XIcon size={16} /> : <MenuIcon size={16} />}
         </PopoverTrigger>
         <PopoverContent
           align="start"
@@ -41,7 +32,7 @@ export function MobileNav() {
           side="bottom"
           sideOffset={14}
         >
-          <nav className="px-8 py-6">
+          <nav className="px-7 py-6">
             <ul className="flex flex-col gap-4">
               {navItems.map((item) => (
                 <li key={item.href}>
