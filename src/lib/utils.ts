@@ -1,6 +1,11 @@
 import { type ClassValue, clsx } from 'clsx';
 import { compareDesc, format } from 'date-fns';
 import type { Route } from 'next';
+import rehypeStringify from 'rehype-stringify';
+import { remark } from 'remark';
+import remarkGfm from 'remark-gfm';
+import remarkMdx from 'remark-mdx';
+import remarkRehype from 'remark-rehype';
 import { twMerge } from 'tailwind-merge';
 
 export function cn(...inputs: ClassValue[]) {
@@ -75,4 +80,15 @@ export function getTableOfContents(content: string) {
       slug,
     };
   });
+}
+
+export async function toHtml(mdxContent: string) {
+  const result = await remark()
+    .use(remarkMdx)
+    .use(remarkGfm)
+    .use(remarkRehype)
+    .use(rehypeStringify)
+    .process(mdxContent);
+
+  return String(result);
 }

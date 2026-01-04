@@ -1,27 +1,29 @@
 import { format } from 'date-fns';
 
 import { getBlogPosts } from '@/lib/blog';
-import { baseUrl, sortByDateDesc } from '@/lib/utils';
+import { baseUrl, sortByDateDesc, toHtml } from '@/lib/utils';
 
 const RSS_DATE_FORMAT = "EEE, dd MMM yyyy HH:mm:ss 'GMT'";
 
-export function GET() {
+export async function GET() {
   const posts = getBlogPosts();
   const sortedPosts = sortByDateDesc(posts);
 
-  const items = sortedPosts
-    .map(
-      (post) => `
+  const items = await Promise.all(
+    sortedPosts.map(async (post) => {
+      const contentHtml = await toHtml(post.content);
+      return `
         <item>
           <title>${post.metadata.title}</title>
           <link>${baseUrl}/blog/${post.slug}</link>
           <guid>${baseUrl}/blog/${post.slug}</guid>
           <description>${post.metadata.summary}</description>
+          <content:encoded><![CDATA[${contentHtml}]]></content:encoded>
           <pubDate>${format(new Date(post.metadata.publishedAt), RSS_DATE_FORMAT)}</pubDate>
         </item>
-      `
-    )
-    .join('');
+      `;
+    })
+  ).then((items) => items.join(''));
 
   const lastBuildDate =
     sortedPosts.length > 0
@@ -35,7 +37,7 @@ export function GET() {
       : format(new Date(), RSS_DATE_FORMAT);
 
   const rss = `<?xml version="1.0" encoding="UTF-8" ?>
-    <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
       <channel>
         <title>Ausath Ikram</title>
         <link>${baseUrl}</link>
