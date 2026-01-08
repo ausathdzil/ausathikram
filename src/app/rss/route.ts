@@ -16,8 +16,9 @@ export async function GET() {
         <item>
           <title>${post.metadata.title}</title>
           <link>${baseUrl}/blog/${post.slug}</link>
-          <guid>${baseUrl}/blog/${post.slug}</guid>
+          <guid isPermaLink="true">${baseUrl}/blog/${post.slug}</guid>
           <description>${post.metadata.summary}</description>
+          <author>mail@ausathikram.com (Ausath Ikram)</author>
           <content:encoded><![CDATA[${contentHtml}]]></content:encoded>
           <pubDate>${format(new Date(post.metadata.publishedAt), RSS_DATE_FORMAT)}</pubDate>
         </item>
