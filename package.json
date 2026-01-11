@@ -55,7 +55,7 @@
     "shiki": "^3.21.0",
     "tailwindcss": "^4",
     "typescript": "^5",
-    "ultracite": "7.0.9"
+    "ultracite": "7.0.11"
   },
   "ignoreScripts": [
     "sharp",
@@ -67,7 +67,6 @@
   ],
   "lint-staged": {
     "*.{js,jsx,ts,tsx,json,jsonc,css,scss,md,mdx}": [
-      "bunx ultracite fix",
       "bun x ultracite fix"
     ]
   }

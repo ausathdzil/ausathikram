@@ -105,7 +105,7 @@ export default async function Page({ params }: PageProps<'/blog/[slug]'>) {
         <ArrowLeftIcon size={16} />
         <span>Blog</span>
       </Link>
-      <aside className="prose prose-neutral dark:prose-invert fixed top-24 right-28 prose-li:mb-2 hidden w-64 opacity-60 hover:opacity-100 xl:block">
+      <aside className="prose prose-neutral dark:prose-invert fixed top-24 right-8 prose-li:mb-2 hidden w-64 opacity-60 hover:opacity-100 xl:block">
         <p className="not-prose mb-4 font-semibold text-primary">
           On this page
         </p>
