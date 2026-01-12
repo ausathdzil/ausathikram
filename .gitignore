@@ -34,10 +34,3 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-
-# ultracite
-.claude
-.cursor
-.husky
-.vscode
-.zed
