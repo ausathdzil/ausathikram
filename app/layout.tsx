@@ -19,11 +19,18 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://ausathikram.com'),
   title: {
-    template: '%s - Ausath Ikram',
     default: 'Ausath Ikram',
+    template: '%s - Ausath Ikram',
   },
   description: 'Web developer.',
+  openGraph: {
+    url: 'https://ausathikram.com',
+    siteName: 'Ausath Ikram',
+    locale: 'en_US',
+    type: 'website',
+  },
 }
 
 export default function RootLayout({
