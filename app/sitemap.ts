@@ -1,5 +1,4 @@
-import fs from 'node:fs/promises'
-import path from 'node:path'
+import { getPostsSlugs } from '@/lib/utils'
 
 export default async function sitemap() {
   const slugs = await getPostsSlugs()
@@ -15,28 +14,4 @@ export default async function sitemap() {
   }))
 
   return [...routes, ...posts]
-}
-
-const backslashRegex = /\\/g
-
-async function getPostsSlugs() {
-  const dir = path.join(process.cwd(), 'app', 'blog')
-
-  const entries = await fs.readdir(dir, {
-    recursive: true,
-    withFileTypes: true,
-  })
-
-  return entries
-    .filter((entry) => entry.isFile() && entry.name === 'page.mdx')
-    .map((entry) => {
-      const relativePath = path.relative(
-        dir,
-        path.join(entry.parentPath, entry.name)
-      )
-
-      return path.dirname(relativePath)
-    })
-    .filter((slug) => slug !== '.')
-    .map((slug) => slug.replace(backslashRegex, '/'))
 }

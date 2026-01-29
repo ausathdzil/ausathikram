@@ -1,3 +1,5 @@
+import { format } from 'date-fns'
+
 export const metadata = {
   title: 'Components with Search Params as State',
   description: 'Using URL search params as state for common UI patterns.',
@@ -7,12 +9,14 @@ export const metadata = {
     siteName: 'Ausath Ikram',
     locale: 'en_US',
     type: 'article',
-  }
+  },
+  pubDate: '2025-11-22',
+  updated: '2026-01-29',
 }
 
 # {metadata.title}
 
-<div className="text-muted-foreground">[Ausath Ikram](/) &bull; <time dateTime="2025-11-22">November 22, 2025</time></div>
+<div className="text-muted-foreground">[Ausath Ikram](/) &bull; <time dateTime={metadata.pubDate}>{format(new Date(metadata.pubDate), 'MMMM d, yyyy')}</time></div>
 
 ## Table of Contents
 
