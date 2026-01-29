@@ -4,12 +4,19 @@ import type { NextConfig } from 'next'
 const nextConfig: NextConfig = {
   experimental: {
     inlineCss: true,
+    mdxRs: {
+      mdxType: 'gfm',
+    },
   },
   pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
   reactCompiler: true,
   typedRoutes: true,
 }
 
-const withMDX = createMDX({})
+const withMDX = createMDX({
+  options: {
+    remarkPlugins: ['remark-gfm'],
+  },
+})
 
 export default withMDX(nextConfig)

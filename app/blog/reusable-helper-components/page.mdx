@@ -1,6 +1,6 @@
 export const metadata = {
-    title: 'Components with Search Params as State',
-    description: 'Using URL search params as state for common UI patterns.',
+  title: 'Components with Search Params as State',
+  description: 'Using URL search params as state for common UI patterns.',
 }
 
 # {metadata.title}
@@ -22,7 +22,7 @@ There are a lot of reasons why and it probably needs a blog post on its own, but
     <figcaption>— Francois Best, nuqs</figcaption>
 </figure>
 
-Other reasons includes sharing, bookmarks, browser history, back/forward navigations, and more.
+Other reasons includes sharing, bookmarks, browser history, back/forward navigations, and more.[^1]
 
 Combining HTML form elements (`<input>` and `<select>`) with APIs that exposes search params are a great way to implement state management with search params.
 
@@ -51,7 +51,7 @@ export default function Page() {
       <input name="q" type="search" />
       <button type="submit">Search</button>
     </Form>
-  );
+  )
 }
 ```
 
@@ -160,20 +160,282 @@ export function SearchInput({ name, ...props }: SearchInputProps) {
 A slight delay can make a huge difference in user experience.
 
 ```tsx
-import { Table } from '@/components/table';
-import { getItems } from '@/lib/data';
+import { Table } from '@/components/table'
+import { getItems } from '@/lib/data'
 
 export default async function Page({ searchParams }: PageProps<'/explore'>) {
-  const { q } = await searchParams;
-  const data = await getItems(q);
+  const { q } = await searchParams
+  const data = await getItems(q)
 
   return (
     <div>
       <SearchInput name="q" />
       <Table data={data} />
     </div>
-  );
+  )
 }
 ```
 
 Remember to set the name props to whatever you want as the query key.
+
+## Pagination
+
+Start by creating this helper function:
+
+```tsx
+function generatePagination(currentPage: number, totalPages: number) {
+  if (totalPages <= 7) {
+    return Array.from({ length: totalPages }, (_, i) => i + 1)
+  }
+
+  if (currentPage <= 3) {
+    return [1, 2, 3, '…', totalPages - 1, totalPages]
+  }
+
+  if (currentPage >= totalPages - 2) {
+    return [1, 2, '…', totalPages - 2, totalPages - 1, totalPages]
+  }
+
+  return [
+    1,
+    '…',
+    currentPage - 1,
+    currentPage,
+    currentPage + 1,
+    '…',
+    totalPages,
+  ]
+}
+```
+
+This will be useful to make the component reusable.
+
+```tsx
+'use client'
+
+import { useSearchParams, usePathname } from 'next/navigation'
+
+function generatePagination(currentPage: number, totalPages: number) {
+  // From the helper function above…
+}
+
+type PaginationProps = {
+  paginationMeta: {
+    // Other meta like hasNext, hasPrev, etc. would also be useful…
+    totalPages: number
+  }
+} & React.ComponentProps<'div'>
+
+export function Pagination({ paginationMeta, ...props }: PaginationProps) {
+  const searchParams = useSearchParams()
+  const pathname = usePathname()
+
+  const currentPage = Number(searchParams.get('page') ?? '1')
+  const allPages = generatePagination(currentPage, paginationMeta.totalPages)
+
+  const createPageUrl = (page: number | string) => {
+    const params = new URLSearchParams(searchParams)
+
+    if (typeof page === 'number') {
+      const safePage = Math.min(Math.max(page, 1), paginationMeta.totalPages)
+
+      params.set('page', safePage.toString())
+    }
+
+    return `${pathname}?${params.toString()}`
+  }
+
+  return (
+    <div {...props}>
+      <a href={createPageUrl(currentPage - 1)}>Previous</a>
+      {allPages.map((page) =>
+        page === '…' ? (
+          <div key={`ellipsis-${page}`}>{page}</div>
+        ) : (
+          <a href={createPageUrl(page)} key={page}>
+            {page}
+          </a>
+        )
+      )}
+      <a href={createPageUrl(currentPage + 1)}>Next</a>
+    </div>
+  )
+}
+```
+
+You need to make sure and adjust your pagination meta so it matches what you actually have from your data source.
+
+```tsx
+import { Pagination } from '@/components/pagination'
+import { Table } from '@/components/table'
+import { getItems } from '@/lib/data'
+
+export default async function Page({ searchParams }: PageProps<'/explore'>) {
+  const { page } = await searchParams
+
+  // Make sure this returns all the pagination meta we need
+  const { data, meta } = await getItems(page)
+
+  return (
+    <div>
+      <Table data={data} />
+      <Pagination paginationMeta={meta} />
+    </div>
+  )
+}
+```
+
+You can also use other variables from your paginationMeta to disable the previous and next link.
+
+## Filter Select
+
+This one uses the same pattern as search input.
+
+```tsx
+'use client'
+
+import { useSearchParams, usePathname, useRouter } from 'next/navigation'
+
+type Option = {
+  value: string
+  label: string
+}
+
+type FilterSelectProps = {
+  name: string
+  opts: Option[]
+} & React.ComponentProps<'select'>
+
+export function FilterSelect({ name, opts, ...props }: FilterSelectProps) {
+  const searchParams = useSearchParams()
+  const pathname = usePathname()
+  const router = useRouter()
+
+  const handleChange = (opt: string) => {
+    const params = new URLSearchParams(searchParams)
+    if (opt) {
+      params.set(name, opt)
+    } else {
+      params.delete(name)
+    }
+    router.replace(`${pathname}?${params.toString()}`)
+  }
+
+  return (
+    <select
+      defaultValue={searchParams.get(name)?.toString()}
+      name={name}
+      onChange={(e) => handleChange(e.target.value)}
+      {...props}
+    >
+      {opts.map((opt) => (
+        <option key={opt.value} value={opt.value}>
+          {opt.label}
+        </option>
+      ))}
+    </select>
+  )
+}
+```
+
+You can use it like this:
+
+```tsx
+export default function Page() {
+  const statusOpts = [
+    { label: 'Select Status', value: '' },
+    { label: 'All', value: 'all' },
+    { label: 'Todo', value: 'todo' },
+    { label: 'Pending', value: 'pending' },
+    { label: 'Completed', value: 'completed' },
+  ]
+
+  const sortOpts = [
+    { label: 'Sort By', value: '' },
+    { label: 'ID', value: 'id' },
+    { label: 'Title', value: 'title' },
+    { label: 'Date Completed', value: 'completed_at' },
+  ]
+
+  return (
+    <div>
+      <FilterSelect name="status" opts={statusOpts} />
+      <FilterSelect name="sort_by" opts={sortOpts} />
+    </div>
+  )
+}
+```
+
+Like the first Search Input we made using the `<Form>` component earlier, the name attribute is important here as it determines what type of filter we want to append to the URL.
+
+## Other Frameworks
+
+The technique here is not unique to Next.js, you can apply the same thing with other frameworks (given a similar API). For example, the same code but with **React Router**:
+
+```tsx
+import { useSearchParams } from 'react-router'
+import { useDebouncedCallback } from 'use-debounce'
+
+type SearchInputProps = {
+  name: string
+} & React.ComponentProps<'input'>
+
+const DEBOUNCE_MS = 300
+
+export function SearchInput({ name, ...props }: SearchInputProps) {
+  const [searchParams, setSearchParams] = useSearchParams()
+
+  const handleSearch = useDebouncedCallback((term: string) => {
+    const params = new URLSearchParams(searchParams)
+    if (term) {
+      params.set(name, term)
+    } else {
+      params.delete(name)
+    }
+    setSearchParams(params)
+  }, DEBOUNCE_MS)
+
+  return (
+    <input
+      defaultValue={searchParams.get(name)?.toString()}
+      name={name}
+      onChange={(e) => handleSearch(e.target.value)}
+      type="search"
+      {...props}
+    />
+  )
+}
+```
+
+## nuqs
+
+You are also most likely be able to implement this components in your codebase with nuqs as it is a dedicated, type-safe search params state management library for React.
+
+```tsx
+'use client'
+
+import { useQueryState } from 'nuqs'
+
+type SearchInputProps = {
+  name: string
+} & React.ComponentProps<'input'>
+
+export function SearchInput({ name, ...props }: SearchInputProps) {
+  // Create a query state for `q`, with default as empty string
+  const [q, setQ] = useQueryState('q', { defaultValue: '' })
+
+  return (
+    <input
+      name={name}
+      onChange={(e) => setQ(e.target.value)}
+      type="search"
+      value={q} // sync input value to query state
+      {...props}
+    />
+  )
+}
+```
+
+I haven't tried it so I asked ChatGPT to do it and it does look way more simple.
+
+[^1]: [Francois Best on Next.js Conf 2025](https://youtu.be/qpczQVJMG1Y?t=209)

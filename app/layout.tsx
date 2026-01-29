@@ -19,8 +19,11 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'Ausath Ikram',
-  description: 'Web developer',
+  title: {
+    template: '%s - Ausath Ikram',
+    default: 'Ausath Ikram',
+  },
+  description: 'Web developer.',
 }
 
 export default function RootLayout({
