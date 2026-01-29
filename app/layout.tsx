@@ -37,7 +37,7 @@ export default function RootLayout({
           'font-sans dark:antialiased'
         )}
       >
-        <main className="prose prose-neutral dark:prose-invert mx-auto py-16 prose-h1:font-semibold prose-h2:font-semibold prose-h3:font-semibold prose-a:text-blue-700 prose-h1:text-2xl">
+        <main className="prose prose-neutral dark:prose-invert mx-auto py-16 prose-blockquote:font-serif prose-h1:font-semibold prose-h2:font-semibold prose-h3:font-semibold prose-a:text-blue-700 prose-blockquote:text-lg prose-h1:text-2xl prose-blockquote:not-italic prose-blockquote:[&>p:first-of-type::before]:content-[''] prose-blockquote:[&>p:last-of-type::after]:content-['']">
           {children}
         </main>
       </body>

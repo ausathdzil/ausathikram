@@ -1,0 +1,181 @@
+export const metadata = {
+    title: 'Components with Search Params as State',
+    description: 'Using URL search params as state for common UI patterns.',
+}
+
+# {metadata.title}
+
+<time dateTime="2025-11-22">November 22, 2025</time>
+
+---
+
+I often find myself building these components so many times for so many use cases:
+
+- Search input
+- Pagination
+- Filter select
+
+All of them utilizes URL search params as a state manager.
+
+There are a lot of reasons why and it probably needs a blog post on its own, but I like this one the most:
+
+<figure>
+    <blockquote>The URL is the first UI your users will see</blockquote>
+    <figcaption>— Francois Best, nuqs</figcaption>
+</figure>
+
+Other reasons includes sharing, bookmarks, browser history, back/forward navigations, and more.
+
+Combining HTML form elements (`<input>` and `<select>`) with APIs that exposes search params are a great way to implement state management with search params.
+
+With these 3 Next.js client component hooks:
+
+- useSearchParams lets us read the current URL's query string. It returns a read-only version of the URLSearchParams interface.
+- usePathname lets us read the current URl's pathname.
+- useRouter allows us to programmatically change routes inside client component.
+
+We can build a reusable React client components that manages their state with URL search params.
+
+I found this pattern for the first time when learning Next.js in [Learn Next.js](https://nextjs.org/learn) and have been using it ever since.
+
+## Search Input
+
+There are two ways to implement this: updating the state when input changes (with debounce) and form submission.
+
+The latter is more straight forward. We can use the `<Form>` component from `next/form`.
+
+```tsx
+import Form from 'next/form'
+
+export default function Page() {
+  return (
+    <Form action="/explore">
+      <input name="q" type="search" />
+      <button type="submit">Search</button>
+    </Form>
+  );
+}
+```
+
+The name attribute of the `<input>` element is important here. On form submission (hitting enter or clicking the submit button), this will do a client-side navigation and append the value of your input to the URL (e.g. /explore?q=anything).
+
+Next.js `<Form>` also prefetch the loading UIs for that route when the component is within the user's viewport.
+
+For the second approach, we want to sync the URL with our `<input>`. To do that we will need to use some hooks.
+
+```tsx
+'use client'
+
+import { useSearchParams, usePathname, useRouter } from 'next/navigation'
+
+type SearchInputProps = {
+  name: string
+} & React.ComponentProps<'input'>
+
+export function SearchInput({ name, ...props }: SearchInputProps) {
+  const searchParams = useSearchParams()
+  const pathname = usePathname()
+  const router = useRouter()
+
+  const handleSearch = (term: string) => {
+    const params = new URLSearchParams(searchParams)
+    if (term) {
+      params.set(name, term)
+    } else {
+      params.delete(name)
+    }
+    router.replace(`${pathname}?${params.toString()}`)
+  }
+
+  return (
+    <input
+      defaultValue={searchParams.get(name)?.toString()}
+      name={name}
+      onChange={(e) => handleSearch(e.target.value)}
+      type="search"
+      {...props}
+    />
+  )
+}
+```
+
+This will update the URL everytime the input value changes, but most of the time we don't want that. A quick fix is to use debouncing.
+
+You can make a custom hook yourself, but I usually just use `use-debounce` because of its small size (< 1kb) and avoid writing more boilerplates.
+
+```ts
+import { useDebouncedCallback } from 'use-debounce'
+
+const DEBOUNCE_MS = 300
+
+const handleSearch = useDebouncedCallback((term: string) => {
+  const params = new URLSearchParams(searchParams)
+  if (term) {
+    params.set(name, term)
+  } else {
+    params.delete(name)
+  }
+  router.replace(`${pathname}?${params.toString()}`)
+}, DEBOUNCE_MS)
+```
+
+Final code:
+
+```tsx
+'use client'
+
+import { useSearchParams, usePathname, useRouter } from 'next/navigation'
+
+type SearchInputProps = {
+  name: string
+} & React.ComponentProps<'input'>
+
+const DEBOUNCE_MS = 300
+
+export function SearchInput({ name, ...props }: SearchInputProps) {
+  const searchParams = useSearchParams()
+  const pathname = usePathname()
+  const router = useRouter()
+
+  const handleSearch = useDebounceCallback((term: string) => {
+    const params = new URLSearchParams(searchParams)
+    if (term) {
+      params.set(name, term)
+    } else {
+      params.delete(name)
+    }
+    router.replace(`${pathname}?${params.toString()}`)
+  }, DEBOUNCE_MS)
+
+  return (
+    <input
+      defaultValue={searchParams.get(name)?.toString()}
+      name={name}
+      onChange={(e) => handleSearch(e.target.value)}
+      type="search"
+      {...props}
+    />
+  )
+}
+```
+
+A slight delay can make a huge difference in user experience.
+
+```tsx
+import { Table } from '@/components/table';
+import { getItems } from '@/lib/data';
+
+export default async function Page({ searchParams }: PageProps<'/explore'>) {
+  const { q } = await searchParams;
+  const data = await getItems(q);
+
+  return (
+    <div>
+      <SearchInput name="q" />
+      <Table data={data} />
+    </div>
+  );
+}
+```
+
+Remember to set the name props to whatever you want as the query key.
