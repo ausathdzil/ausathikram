@@ -6,8 +6,8 @@
     "dev": "bun run --bun next dev",
     "build": "bun run --bun next build",
     "start": "bun run --bun next start",
-    "check": "ultracite check",
-    "fix": "ultracite fix",
+    "check": "bun x ultracite check",
+    "fix": "bun x ultracite fix",
     "prepare": "husky"
   },
   "dependencies": {
@@ -20,6 +20,7 @@
     "next": "16.1.6",
     "react": "19.2.3",
     "react-dom": "19.2.3",
+    "sugar-high": "^0.9.5",
     "tailwind-merge": "^3.4.0"
   },
   "devDependencies": {
