@@ -1,35 +1,22 @@
 import type { MDXComponents } from 'mdx/types'
+import type { Route } from 'next'
 import NextLink from 'next/link'
 import { highlight } from 'sugar-high'
 
-function Link({
-  children,
-  href,
-  ...props
-}: React.ComponentProps<typeof NextLink>) {
-  const hrefString = href.toString()
+function Link({ href, ...props }: React.ComponentProps<'a'>) {
+  if (!href || href.startsWith('#')) {
+    return <a className="scroll-m-10" href={href} {...props} />
+  }
 
-  if (hrefString.startsWith('/')) {
+  if (href.startsWith('/')) {
     return (
-      <NextLink href={href} {...props}>
-        {children}
+      <NextLink href={href as Route} {...props}>
+        {props.children}
       </NextLink>
     )
   }
 
-  if (hrefString.startsWith('#')) {
-    return (
-      <a href={href.toString()} {...props}>
-        {children}
-      </a>
-    )
-  }
-
-  return (
-    <a href={hrefString} rel="noopener noreferrer" target="_blank" {...props}>
-      {children}
-    </a>
-  )
+  return <a href={href} rel="noopener noreferrer" target="_blank" {...props} />
 }
 
 function Code({ children, ...props }: React.ComponentProps<'code'>) {

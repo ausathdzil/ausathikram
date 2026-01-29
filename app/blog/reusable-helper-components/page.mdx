@@ -1,11 +1,18 @@
 export const metadata = {
   title: 'Components with Search Params as State',
   description: 'Using URL search params as state for common UI patterns.',
+  authors: [{ name: 'Ausath Ikram', url: 'https://ausathikram.com' }],
+  openGraph: {
+    url: 'https://ausathikram.com/blog/reusable-helper-components',
+    siteName: 'Ausath Ikram',
+    locale: 'en_US',
+    type: 'article',
+  }
 }
 
 # {metadata.title}
 
-<time dateTime="2025-11-22">November 22, 2025</time>
+<div className="text-muted-foreground">[Ausath Ikram](/) &bull; <time dateTime="2025-11-22">November 22, 2025</time></div>
 
 I often find myself building these components so many times for so many use cases:
 
@@ -18,7 +25,7 @@ All of them utilizes URL search params as a state manager.
 There are a lot of reasons why and it probably needs a blog post on its own, but I like this one the most:
 
 <figure>
-    <blockquote>The URL is the first UI your users will see</blockquote>
+    <blockquote>“The URL is the first UI your users will see”</blockquote>
     <figcaption>— Francois Best, nuqs</figcaption>
 </figure>
 
