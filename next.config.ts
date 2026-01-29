@@ -1,8 +1,12 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  experimental: {
+    inlineCss: true,
+  },
+  pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
   reactCompiler: true,
-};
+  typedRoutes: true,
+}
 
-export default nextConfig;
+export default nextConfig
