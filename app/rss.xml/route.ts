@@ -1,10 +1,9 @@
 import { compareDesc } from 'date-fns'
 
-import { getPostsSlugs } from '@/lib/utils'
+import { getBlogPosts } from '@/lib/blog'
 
 export async function GET() {
-  const slugs = await getPostsSlugs()
-  const posts = await Promise.all(slugs.map(getPostMetadata))
+  const posts = await getBlogPosts()
 
   const sortedPosts = posts.sort((a, b) =>
     compareDesc(new Date(a.pubDate), new Date(b.pubDate))
@@ -41,16 +40,4 @@ export async function GET() {
       'Content-Type': 'application/xml; charset=utf-8',
     },
   })
-}
-
-async function getPostMetadata(slug: string) {
-  const { metadata } = await import(`@/app/blog/${slug}/page.mdx`)
-
-  return {
-    title: metadata.title,
-    description: metadata.description,
-    pubDate: metadata.pubDate,
-    updated: metadata.updated || metadata.pubDate,
-    url: `https://ausathikram.com/blog/${slug}`,
-  }
 }
