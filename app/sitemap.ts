@@ -1,4 +1,4 @@
-import { getPostsSlugs } from '@/lib/utils'
+import { getPostsSlugs } from '@/lib/blog'
 
 export default async function sitemap() {
   const slugs = await getPostsSlugs()
