@@ -1,8 +1,6 @@
 import type { Metadata } from 'next'
 import { Geist_Mono, Libre_Franklin } from 'next/font/google'
-
 import './globals.css'
-import { cn } from '@/lib/utils'
 
 const libreFranklin = Libre_Franklin({
   variable: '--font-libre-franklin',
@@ -41,11 +39,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={cn(
-          libreFranklin.variable,
-          geistMono.variable,
-          'font-sans dark:antialiased'
-        )}
+        className={`${libreFranklin.variable} ${geistMono.variable} font-sans dark:antialiased`}
       >
         <main className="prose prose-neutral dark:prose-invert mx-auto prose-pre:bg-secondary/50 p-8 prose-blockquote:font-serif prose-code:font-mono prose-h1:font-semibold prose-h2:font-semibold prose-h3:font-semibold prose-pre:font-mono prose-a:text-blue-700 prose-blockquote:text-lg prose-h1:text-2xl prose-blockquote:not-italic md:px-0 md:py-16 prose-blockquote:[&>p:first-of-type::before]:content-[''] prose-blockquote:[&>p:last-of-type::after]:content-['']">
           {children}
