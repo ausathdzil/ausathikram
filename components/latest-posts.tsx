@@ -1,5 +1,4 @@
 import { compareDesc, format } from 'date-fns'
-import type { Route } from 'next'
 import Link from 'next/link'
 
 import { getBlogPosts } from '@/lib/blog'
@@ -13,7 +12,7 @@ export async function LatestPosts() {
   return sortedPosts.map((post) => (
     <div className="prose-p:mt-2 prose-h3:mb-2" key={post.url}>
       <h3>
-        <Link href={post.url as Route}>{post.title}</Link>
+        <Link href={post.url}>{post.title}</Link>
       </h3>
       <time dateTime={post.pubDate}>
         {format(new Date(post.pubDate), 'MMMM d, yyyy')}

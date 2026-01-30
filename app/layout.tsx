@@ -14,7 +14,7 @@ const libreFranklin = Libre_Franklin({
 
 const geistMono = Geist_Mono({
   variable: '--font-geist-mono',
-  weight: ['400', '500'],
+  weight: ['400', '600'],
   subsets: ['latin'],
   display: 'swap',
 })

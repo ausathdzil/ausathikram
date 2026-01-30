@@ -7,7 +7,6 @@ const nextConfig: NextConfig = {
   },
   pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
   reactCompiler: true,
-  typedRoutes: true,
 }
 
 const withMDX = createMDX({

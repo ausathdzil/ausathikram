@@ -1,5 +1,4 @@
 import type { MDXComponents } from 'mdx/types'
-import type { Route } from 'next'
 import NextLink from 'next/link'
 import { highlight } from 'sugar-high'
 
@@ -10,7 +9,7 @@ function Link({ href, ...props }: React.ComponentProps<'a'>) {
 
   if (href.startsWith('/')) {
     return (
-      <NextLink href={href as Route} {...props}>
+      <NextLink href={href} {...props}>
         {props.children}
       </NextLink>
     )
