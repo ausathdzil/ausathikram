@@ -1,22 +1,20 @@
-import createMDX from '@next/mdx';
-import type { NextConfig } from 'next';
+import createMDX from '@next/mdx'
+import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
   experimental: {
     inlineCss: true,
-    mdxRs: {
-      mdxType: 'gfm',
-    },
   },
-  pageExtensions: ['md', 'mdx', 'ts', 'tsx'],
+  pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
   reactCompiler: true,
   typedRoutes: true,
-};
+}
 
 const withMDX = createMDX({
   options: {
-    remarkPlugins: ['remark-gfm'],
+    remarkPlugins: ['remark-gfm', 'remark-toc'],
+    rehypePlugins: ['rehype-slug', 'rehype-autolink-headings'],
   },
-});
+})
 
-export default withMDX(nextConfig);
+export default withMDX(nextConfig)
