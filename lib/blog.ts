@@ -36,6 +36,6 @@ export async function getPostMetadata(slug: string) {
     description: metadata.description,
     pubDate: metadata.pubDate,
     updated: metadata.updated || metadata.pubDate,
-    url: `https://ausathikram.com/blog/${slug}`,
+    url: `${process.env.NEXT_PUBLIC_APP_URL}/blog/${slug}`,
   }
 }
