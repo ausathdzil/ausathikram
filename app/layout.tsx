@@ -1,23 +1,9 @@
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import type { Metadata } from 'next'
-import { Geist_Mono, Libre_Franklin } from 'next/font/google'
 
+import { geistMono, libreFranklin } from '@/lib/fonts'
 import './globals.css'
-
-const libreFranklin = Libre_Franklin({
-  variable: '--font-libre-franklin',
-  weight: ['500', '600'],
-  subsets: ['latin'],
-  display: 'swap',
-})
-
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  weight: ['400', '600'],
-  subsets: ['latin'],
-  display: 'swap',
-})
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://ausathikram.com'),
