@@ -3,8 +3,8 @@ import NextLink from 'next/link'
 import { highlight } from 'sugar-high'
 
 function Link({ href, ...props }: React.ComponentProps<'a'>) {
-  if (!href || href.startsWith('#')) {
-    return <a className="scroll-m-10" href={href} {...props} />
+  if (!href?.startsWith('http')) {
+    return <a href={href} {...props} />
   }
 
   if (href.startsWith('/')) {
