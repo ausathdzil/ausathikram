@@ -9,19 +9,9 @@
     "includes": ["!components/ui"]
   },
   "linter": {
-    "rules": {
-      "suspicious": {
-        "noUnknownAtRules": "off"
-      }
-    },
     "domains": {
       "next": "recommended",
       "react": "recommended"
-    }
-  },
-  "css": {
-    "parser": {
-      "tailwindDirectives": true
     }
   },
   "javascript": {
