@@ -2,20 +2,18 @@ import type { MDXComponents } from 'mdx/types'
 import NextLink from 'next/link'
 import { highlight } from 'sugar-high'
 
-function Link({ href, ...props }: React.ComponentProps<'a'>) {
-  if (!href?.startsWith('http')) {
-    return <a href={href} {...props} />
+function Link({ href, ...props }: React.ComponentPropsWithoutRef<'a'>) {
+  if (href?.startsWith('/')) {
+    return <NextLink href={href} {...props} />
   }
 
-  if (href.startsWith('/')) {
+  if (href?.startsWith('http')) {
     return (
-      <NextLink href={href} {...props}>
-        {props.children}
-      </NextLink>
+      <a href={href} rel="noopener noreferrer" target="_blank" {...props} />
     )
   }
 
-  return <a href={href} rel="noopener noreferrer" target="_blank" {...props} />
+  return <a href={href} {...props} />
 }
 
 function Code({ children, ...props }: React.ComponentProps<'code'>) {
