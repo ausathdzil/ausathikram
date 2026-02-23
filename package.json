@@ -24,20 +24,19 @@
     "rehype-slug": "^6.0.0",
     "remark-gfm": "^4.0.1",
     "remark-toc": "^9.0.0",
-    "sugar-high": "^0.9.5",
-    "tailwind-merge": "^3.4.1"
+    "sugar-high": "^0.9.5"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.3.15",
-    "@tailwindcss/postcss": "^4.1.18",
+    "@biomejs/biome": "2.4.4",
+    "@tailwindcss/postcss": "^4.2.0",
     "@tailwindcss/typography": "^0.5.19",
     "@types/node": "^24.10.13",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "babel-plugin-react-compiler": "1.0.0",
-    "tailwindcss": "^4.1.18",
+    "tailwindcss": "^4.2.0",
     "typescript": "^5.9.3",
-    "ultracite": "7.2.2"
+    "ultracite": "7.2.3"
   },
   "ignoreScripts": [
     "sharp",

@@ -11,12 +11,12 @@ export const ogImageSize = {
 export const ogImageContentType = 'image/png'
 
 interface OGImageProps {
-  children: ReactNode
-  backgroundColor?: string
-  fontSize?: string
-  padding?: string
   alignItems?: 'flex-start' | 'center' | 'flex-end'
+  backgroundColor?: string
+  children: ReactNode
+  fontSize?: string
   justifyContent?: 'flex-start' | 'center' | 'flex-end'
+  padding?: string
 }
 
 export async function createOGImage({
