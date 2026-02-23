@@ -18,7 +18,6 @@ export async function LatestPosts() {
         {format(new Date(post.pubDate), 'MMMM d, yyyy')}
       </time>
       <p>{post.description}</p>
-      <hr />
     </div>
   ))
 }
