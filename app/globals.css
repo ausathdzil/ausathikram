@@ -24,14 +24,8 @@
 }
 
 @layer base {
-  html {
-    scrollbar-gutter: stable;
-  }
-
   body {
     @apply bg-background text-foreground;
-
-    -webkit-tap-highlight-color: transparent;
   }
 
   button:not(:disabled),
