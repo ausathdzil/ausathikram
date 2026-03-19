@@ -34,6 +34,5 @@
   "files.associations": {
     "*.css": "tailwindcss"
   },
-  "typescript.experimental.useTsgo": true,
   "typescript.tsdk": "node_modules/typescript/lib"
 }
