@@ -1,14 +1,13 @@
 import { createOGImage, ogImageContentType, ogImageSize } from '@/components/og'
-import { getPostMetadata } from '@/lib/blog'
 
-const post = await getPostMetadata('reusable-helper-components')
+const title = 'Components with Search Params as State'
 
-export const alt = post.title
+export const alt = title
 export const size = ogImageSize
 export const contentType = ogImageContentType
 
-export default async function Image() {
-  return await createOGImage({
-    children: post.title,
+export default function Image() {
+  return createOGImage({
+    children: title,
   })
 }

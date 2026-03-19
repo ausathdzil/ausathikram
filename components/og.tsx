@@ -1,5 +1,3 @@
-import { readFile } from 'node:fs/promises'
-import path from 'node:path'
 import { ImageResponse } from 'next/og'
 import type { ReactNode } from 'react'
 
@@ -19,18 +17,14 @@ interface OGImageProps {
   padding?: string
 }
 
-export async function createOGImage({
+export function createOGImage({
   children,
   backgroundColor = '#fff',
   fontSize = '72px',
   padding = '96px',
   alignItems = 'flex-end',
   justifyContent = 'flex-start',
-}: OGImageProps): Promise<ImageResponse> {
-  const geistSemiBold = await readFile(
-    path.join(process.cwd(), 'app/fonts/Geist-SemiBold.ttf')
-  )
-
+}: OGImageProps): ImageResponse {
   return new ImageResponse(
     <div
       style={{
@@ -43,21 +37,12 @@ export async function createOGImage({
         padding,
         fontSize,
         lineHeight: '1',
-        fontFamily: 'Geist',
       }}
     >
       {children}
     </div>,
     {
       ...ogImageSize,
-      fonts: [
-        {
-          name: 'Geist',
-          data: geistSemiBold,
-          style: 'normal',
-          weight: 600,
-        },
-      ],
     }
   )
 }
