@@ -4,8 +4,8 @@ export const alt = 'Projects'
 export const size = ogImageSize
 export const contentType = ogImageContentType
 
-export default async function Image() {
-  return await createOGImage({
+export default function Image() {
+  return createOGImage({
     children: 'Projects',
   })
 }
