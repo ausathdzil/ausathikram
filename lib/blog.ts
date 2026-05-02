@@ -19,7 +19,7 @@ export async function getPostsSlugs() {
     .map((entry) => {
       const relativePath = path.relative(
         dir,
-        path.join(entry.parentPath, entry.name)
+        path.join(entry.parentPath, entry.name),
       )
 
       return path.dirname(relativePath)

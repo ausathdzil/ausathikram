@@ -6,7 +6,7 @@ export async function GET() {
   const posts = await getBlogPosts()
 
   const sortedPosts = posts.sort((a, b) =>
-    compareDesc(new Date(a.pubDate), new Date(b.pubDate))
+    compareDesc(new Date(a.pubDate), new Date(b.pubDate)),
   )
 
   const items = sortedPosts
@@ -18,7 +18,7 @@ export async function GET() {
         <guid isPermaLink="true">${post.url}</guid>
         <pubDate>${new Date(post.pubDate).toUTCString()}</pubDate>
         <updated>${new Date(post.updated).toUTCString()}</updated>
-      </item>`
+      </item>`,
     )
     .join('\n')
 

@@ -43,6 +43,6 @@ export function createOGImage({
     </div>,
     {
       ...ogImageSize,
-    }
+    },
   )
 }
