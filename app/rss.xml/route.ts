@@ -1,12 +1,10 @@
-import { compareDesc } from 'date-fns'
-
 import { getBlogPosts } from '@/lib/blog'
 
 export async function GET() {
   const posts = await getBlogPosts()
 
-  const sortedPosts = posts.sort((a, b) =>
-    compareDesc(new Date(a.pubDate), new Date(b.pubDate)),
+  const sortedPosts = posts.sort(
+    (a, b) => new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime(),
   )
 
   const items = sortedPosts

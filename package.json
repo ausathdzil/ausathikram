@@ -15,24 +15,20 @@
     "@next/mdx": "16.2.6",
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",
-    "date-fns": "^4.1.0",
-    "geist": "^1.7.0",
+    "geist": "^1.7.1",
     "next": "16.2.6",
     "react": "19.2.6",
     "react-dom": "19.2.6",
-    "rehype-autolink-headings": "^7.1.0",
-    "rehype-slug": "^6.0.0",
     "remark-gfm": "^4.0.1",
-    "remark-toc": "^9.0.0",
-    "sugar-high": "^1.1.0"
+    "sugar-high": "^1.2.0"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.4.15",
+    "@biomejs/biome": "2.4.16",
     "@tailwindcss/postcss": "^4.3.0",
     "@tailwindcss/typography": "^0.5.19",
     "@types/mdx": "^2.0.13",
-    "@types/node": "^25.6.2",
-    "@types/react": "19.2.14",
+    "@types/node": "^25.9.1",
+    "@types/react": "19.2.15",
     "@types/react-dom": "19.2.3",
     "babel-plugin-react-compiler": "1.0.0",
     "tailwindcss": "^4.3.0",
@@ -47,7 +43,7 @@
     "unrs-resolver"
   ],
   "overrides": {
-    "@types/react": "19.2.14",
+    "@types/react": "19.2.15",
     "@types/react-dom": "19.2.3"
   }
 }

@@ -1,5 +1,4 @@
 import { ImageResponse } from 'next/og'
-import type { ReactNode } from 'react'
 
 export const ogImageSize = {
   width: 1200,
@@ -8,34 +7,22 @@ export const ogImageSize = {
 
 export const ogImageContentType = 'image/png'
 
-interface OGImageProps {
-  alignItems?: 'flex-start' | 'center' | 'flex-end'
-  backgroundColor?: string
-  children: ReactNode
-  fontSize?: string
-  justifyContent?: 'flex-start' | 'center' | 'flex-end'
-  padding?: string
-}
-
 export function createOGImage({
   children,
-  backgroundColor = '#fff',
-  fontSize = '72px',
-  padding = '96px',
-  alignItems = 'flex-end',
-  justifyContent = 'flex-start',
-}: OGImageProps): ImageResponse {
+}: {
+  children: React.ReactNode
+}): ImageResponse {
   return new ImageResponse(
     <div
       style={{
         display: 'flex',
         height: '100%',
         width: '100%',
-        alignItems,
-        justifyContent,
-        backgroundColor,
-        padding,
-        fontSize,
+        alignItems: 'flex-end',
+        justifyContent: 'flex-start',
+        backgroundColor: '#fff',
+        padding: '96px',
+        fontSize: '72px',
         lineHeight: '1',
       }}
     >

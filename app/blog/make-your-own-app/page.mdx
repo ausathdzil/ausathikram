@@ -1,4 +1,3 @@
-import { format } from 'date-fns'
 import Image from 'next/image'
 
 import lounge from '@/public/lounge.png'
@@ -14,12 +13,12 @@ export const metadata = {
     type: 'article',
   },
   pubDate: '2026-02-23',
-  updated: '2026-05-10',
+  updated: '2026-05-31',
 }
 
 # {metadata.title}
 
-<div className="text-muted-foreground">[Ausath Ikram](/) - <time dateTime={metadata.pubDate}>{format(new Date(metadata.pubDate), 'MMMM d, yyyy')}</time></div>
+<div className="text-muted-foreground">[Ausath Ikram](/) - <time dateTime={metadata.pubDate}>{new Date(metadata.pubDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</time></div>
 
 Some time ago, I made [Lounge](https://github.com/ausathdzil/lounge), a fully *vibe-coded* GTK-native app to track movies I watched recently. I wrote 0 line of code.
 

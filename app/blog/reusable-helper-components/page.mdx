@@ -1,5 +1,3 @@
-import { format } from 'date-fns'
-
 export const metadata = {
   title: 'Components with Search Params as State',
   description: 'Using URL search params as state for common UI patterns.',
@@ -11,14 +9,12 @@ export const metadata = {
     type: 'article',
   },
   pubDate: '2025-11-22',
-  updated: '2026-05-10',
+  updated: '2026-05-31',
 }
 
 # {metadata.title}
 
-<div className="text-muted-foreground">[Ausath Ikram](/) - <time dateTime={metadata.pubDate}>{format(new Date(metadata.pubDate), 'MMMM d, yyyy')}</time></div>
-
-## Table of Contents
+<div className="text-muted-foreground">[Ausath Ikram](/) - <time dateTime={metadata.pubDate}>{new Date(metadata.pubDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</time></div>
 
 ## URL as a State
 
@@ -43,9 +39,9 @@ Combining HTML form elements (`<input>` and `<select>`) with APIs that exposes s
 
 With these 3 Next.js client component hooks:
 
-- useSearchParams lets us read the current URL's query string. It returns a read-only version of the URLSearchParams interface.
-- usePathname lets us read the current URl's pathname.
-- useRouter allows us to programmatically change routes inside client component.
+- `useSearchParams` lets us read the current URL's query string. It returns a read-only version of the URLSearchParams interface.
+- `usePathname` lets us read the current URl's pathname.
+- `useRouter` allows us to programmatically change routes inside client component.
 
 We can build a reusable React client components that manages their state with URL search params.
 

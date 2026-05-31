@@ -6,7 +6,7 @@
   --color-foreground: var(--foreground);
 
   --font-sans: var(--font-inter);
-  --font-sans--font-feature-settings: "liga" 1, "calt" 1;
+  --font-sans--font-feature-settings: var(--font-features-settings);
   --font-mono: var(--font-geist-mono);
 }
 
@@ -25,6 +25,7 @@
   --sh-comment: #a19595;
 
   --font-inter: Inter, sans-serif;
+  --font-features-settings: "liga" 1, "calt" 1;
 }
 
 @supports (font-variation-settings: normal) {

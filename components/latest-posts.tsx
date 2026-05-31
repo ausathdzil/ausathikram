@@ -1,4 +1,3 @@
-import { compareDesc, format } from 'date-fns'
 import Link from 'next/link'
 
 import { getBlogPosts } from '@/lib/blog'
@@ -6,7 +5,9 @@ import { getBlogPosts } from '@/lib/blog'
 export async function LatestPosts() {
   const posts = await getBlogPosts()
   const sortedPosts = posts
-    .sort((a, b) => compareDesc(new Date(a.pubDate), new Date(b.pubDate)))
+    .sort(
+      (a, b) => new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime(),
+    )
     .slice(0, 5)
 
   return sortedPosts.map((post) => (
@@ -15,7 +16,11 @@ export async function LatestPosts() {
         <Link href={post.url}>{post.title}</Link>
       </h3>
       <time dateTime={post.pubDate}>
-        {format(new Date(post.pubDate), 'MMMM d, yyyy')}
+        {new Date(post.pubDate).toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+        })}
       </time>
       <p>{post.description}</p>
     </div>
