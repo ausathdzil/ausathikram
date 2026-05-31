@@ -28,7 +28,7 @@ export async function getPostsSlugs() {
     .map((slug) => slug.replace(/\\/g, '/'))
 }
 
-export async function getPostMetadata(slug: string) {
+async function getPostMetadata(slug: string) {
   const { metadata } = await import(`@/app/blog/${slug}/page.mdx`)
 
   return {
