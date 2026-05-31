@@ -7,29 +7,24 @@ export const ogImageSize = {
 
 export const ogImageContentType = 'image/png'
 
+const style: React.CSSProperties = {
+  display: 'flex',
+  height: '100%',
+  width: '100%',
+  alignItems: 'flex-end',
+  justifyContent: 'flex-start',
+  backgroundColor: '#fff',
+  padding: '96px',
+  fontSize: '72px',
+  lineHeight: '1',
+}
+
 export function createOGImage({
   children,
 }: {
   children: React.ReactNode
 }): ImageResponse {
-  return new ImageResponse(
-    <div
-      style={{
-        display: 'flex',
-        height: '100%',
-        width: '100%',
-        alignItems: 'flex-end',
-        justifyContent: 'flex-start',
-        backgroundColor: '#fff',
-        padding: '96px',
-        fontSize: '72px',
-        lineHeight: '1',
-      }}
-    >
-      {children}
-    </div>,
-    {
-      ...ogImageSize,
-    },
-  )
+  return new ImageResponse(<div style={style}>{children}</div>, {
+    ...ogImageSize,
+  })
 }

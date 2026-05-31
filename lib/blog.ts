@@ -14,18 +14,26 @@ export async function getPostsSlugs() {
     withFileTypes: true,
   })
 
-  return entries
-    .filter((entry) => entry.isFile() && entry.name === 'page.mdx')
-    .map((entry) => {
-      const relativePath = path.relative(
-        dir,
-        path.join(entry.parentPath, entry.name),
-      )
+  const slugs: string[] = []
 
-      return path.dirname(relativePath)
-    })
-    .filter((slug) => slug !== '.')
-    .map((slug) => slug.replace(/\\/g, '/'))
+  for (const entry of entries) {
+    if (!entry.isFile() || entry.name !== 'page.mdx') {
+      continue
+    }
+
+    const relativePath = path.relative(
+      dir,
+      path.join(entry.parentPath, entry.name),
+    )
+
+    const slug = path.dirname(relativePath).replace(/\\/g, '/')
+
+    if (slug !== '.') {
+      slugs.push(slug)
+    }
+  }
+
+  return slugs
 }
 
 async function getPostMetadata(slug: string) {
