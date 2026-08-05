@@ -6,7 +6,6 @@ const nextConfig: NextConfig = {
     inlineCss: true,
   },
   pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
-  reactCompiler: true,
 }
 
 const withMDX = createMDX({
