@@ -5,6 +5,7 @@ import type { Metadata } from 'next'
 
 import { Footer } from '@/components/footer'
 import './globals.css'
+import { GeistSans } from 'geist/font/sans'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://ausathikram.com'),
@@ -27,11 +28,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html className={`${GeistMono.variable}`} lang="en">
-      <head>
-        <link href="https://rsms.me/" rel="preconnect" />
-        <link href="https://rsms.me/inter/inter.css" rel="stylesheet" />
-      </head>
+    <html className={`${GeistSans.variable} ${GeistMono.variable}`} lang="en">
       <body>
         <main className="prose prose-neutral mx-auto prose-pre:bg-neutral-50 p-8 font-sans prose-blockquote:font-serif prose-code:font-mono prose-h1:font-semibold prose-h2:font-semibold prose-h3:font-semibold prose-pre:font-mono prose-a:text-blue-700 prose-blockquote:text-lg prose-h1:text-2xl prose-blockquote:not-italic prose-code:before:content-[''] prose-code:after:content-[''] md:px-0 md:py-16 prose-blockquote:[&>p:first-of-type::before]:content-[''] prose-blockquote:[&>p:last-of-type::after]:content-['']">
           {children}
