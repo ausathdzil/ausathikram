@@ -1,0 +1,90 @@
+export const metadata = {
+  title: 'Stateless Agents',
+  description: "Working with AI agents and improving your project's environment with well-structured documentation.",
+  authors: [{ name: 'Ausath Ikram', url: 'https://ausathikram.com' }],
+  openGraph: {
+    url: 'https://ausathikram.com/blog/stateless-agents',
+    siteName: 'Ausath Ikram',
+    locale: 'en_US',
+    type: 'article',
+  },
+  pubDate: '2026-11-11',
+  updated: '2026-11-11',
+}
+
+# {metadata.title}
+
+<div className="text-muted-foreground">[Ausath Ikram](/) - <time dateTime={metadata.pubDate}>{new Date(metadata.pubDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</time></div>
+
+I don't have unlimited tokens. It's important for me to be able to make an efficient workflow so that I get the most out of my agents while staying within budget.
+
+A big, long document that is injected at the start of every conversation does not work, and I find that it's always the source of the problem (IMO), and agents tend to mess up anyway because of the instruction budget[^1]. But starting blindly every time is frustrating because you will have to explain the context of your project or even a subset of work every single time.
+
+You shouldn’t have to explain context every time you switch sessions or start a new chat with an AI agent. Agents (and humans) should be able to understand the context of the project by simply exploring the codebase. So you need to improve your (and your agent's) environment.
+
+## AGENTS.md
+
+The place for project context is NOT `AGENTS.md`. That file shouldn’t be too long or explain everything about your codebase.
+
+Resist the urge to append your `AGENTS.md` with new instructions when an agent makes a mistake (treating it as a “trauma record”).
+
+It will bloat, become stale quickly, and poison your agent.
+
+<figure>
+  <blockquote>
+    <p>“Every token in your AGENTS.md file gets loaded on every single request, regardless of whether it's relevant.”</p>
+  </blockquote>
+  <figcaption>— Matt Pocock on [A Complete Guide To AGENTS.md](https://www.aihero.dev/a-complete-guide-to-agents-md#:~:text=Every%20token%20in%20your%20AGENTS.md%20file%20gets%20loaded%20on%20every%20single%20request%2C%20regardless%20of%20whether%20it%27s%20relevant.)</figcaption>
+</figure>
+
+## My Environment
+
+I find Matt Pocock’s skills a really good starting point. You can read more about it in his skills [GitHub repository](https://github.com/mattpocock/skills).
+
+Start with a `docs/` folder at the root of the project and add a `vision.md` file to describe what you’re building.
+
+As your project grows, `docs/` can be populated with ADRs, research, guides, runbooks, whatever suits your team’s needs. Then organize this with subfolders and a map (an index for the agent).
+
+You don’t need to tell your agent to read a big, long Markdown file. Frontier models are smart enough to look for things that are relevant to the task they're currently working on.
+
+Most of this will be created when you set up Matt Pocock’s skills (included in the skills repo). I added some things specific to my workflow. My structure is just an example of how you can structure your project’s `docs/`. There is no “right” way to do this.
+
+`docs/README.md`:
+```
+# Docs
+
+Organized by kind. ADRs explain why, guides explain how, runbooks give
+commands, archive is frozen history.
+
+## Vision (start here)
+
+- `vision.md` — project goal, context, approach, scope, and phase status.
+
+## ADRs (immutable once accepted)
+
+New behavior supersedes with a new ADR; never edit an accepted one.
+
+- `adr/012-inventory-schema-and-retention.md` — Phase 2 structures, ownership, retention, lifecycle and concurrency guards.
+- …
+
+## Guides (living, must match code)
+
+- `guides/api-modules.md` — how a master-data resource is built in `apps/api`.
+- …
+
+## Runbooks (commands)
+
+- `runbooks/api-client-codegen.md` — regenerate the admin API client after any API shape change.
+- …
+
+## Archive (frozen)
+
+- `archive/validation-findings.md` — pre-decision audit; superseded by ADR-002.
+- …
+```
+
+This file by itself will let you and your agents know where things are. For example, when you want to implement a new feature that is just a new CRUD endpoint for an existing resource, agents will be able to find the guide for building simple CRUD modules and follow it. If they need to understand why a certain decision was made, they will look at the ADRs.
+
+Files inside `docs/` are your responsibility to manage. You can ask for help with writing, but you can't expect an agent to know what's in your head. So structure your docs responsibly and in a way that works for you and your agent.
+
+[^1]: [A Complete Guide to AGENTS.md](https://www.aihero.dev/a-complete-guide-to-agents-md#the-instruction-budget)
