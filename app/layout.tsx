@@ -1,5 +1,8 @@
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
+import { GeistMono } from 'geist/font/mono'
+import { GeistSans } from 'geist/font/sans'
+import { GeistSerifRegular } from 'geist/font/serif/regular'
 import type { Metadata } from 'next'
 
 import { Footer } from '@/components/footer'
@@ -26,9 +29,12 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html
+      lang="en"
+      className={`${GeistSans.variable} ${GeistSerifRegular.variable} ${GeistMono.variable}`}
+    >
       <body>
-        <main className="prose prose-neutral mx-auto prose-pre:bg-neutral-50 p-8 font-serif prose-blockquote:font-serif prose-code:font-mono prose-h1:font-semibold prose-h2:font-semibold prose-h3:font-semibold prose-pre:font-mono prose-a:text-blue-700 prose-blockquote:text-lg prose-h1:text-2xl prose-blockquote:not-italic prose-code:before:content-[''] prose-code:after:content-[''] md:px-0 md:py-16 prose-blockquote:[&>p:first-of-type::before]:content-[''] prose-blockquote:[&>p:last-of-type::after]:content-['']">
+        <main className="prose prose-neutral mx-auto prose-pre:bg-neutral-50 p-8 font-sans prose-blockquote:font-serif prose-blockquote:font-normal prose-code:font-mono prose-h1:font-semibold prose-h2:font-semibold prose-h3:font-semibold prose-pre:font-mono prose-a:text-blue-700 prose-blockquote:text-lg prose-h1:text-2xl prose-blockquote:not-italic prose-code:before:content-[''] prose-code:after:content-[''] md:px-0 md:py-16 prose-blockquote:[&>p:first-of-type::before]:content-[''] prose-blockquote:[&>p:last-of-type::after]:content-['']">
           {children}
           <hr />
           <Footer />
