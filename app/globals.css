@@ -29,10 +29,6 @@
   --sh-string: #00a99a;
   --sh-keyword: #f47067;
   --sh-comment: #a19595;
-
-  font-feature-settings:
-    "liga" 1,
-    "calt" 1;
 }
 
 @layer base {
