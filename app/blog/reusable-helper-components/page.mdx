@@ -9,7 +9,7 @@ export const metadata = {
     type: 'article',
   },
   pubDate: '2025-11-22',
-  updated: '2026-05-31',
+  updated: '2026-11-11',
 }
 
 # {metadata.title}
@@ -39,8 +39,8 @@ Combining HTML form elements (`<input>` and `<select>`) with APIs that exposes s
 
 With these 3 Next.js client component hooks:
 
-- `useSearchParams` lets us read the current URL's query string. It returns a read-only version of the URLSearchParams interface.
-- `usePathname` lets us read the current URl's pathname.
+- `useSearchParams` lets us read the current URL’s query string. It returns a read-only version of the URLSearchParams interface.
+- `usePathname` lets us read the current URl’s pathname.
 - `useRouter` allows us to programmatically change routes inside client component.
 
 We can build a reusable React client components that manages their state with URL search params.
@@ -68,7 +68,7 @@ export default function Page() {
 
 The name attribute of the `<input>` element is important here. On form submission (hitting enter or clicking the submit button), this will do a client-side navigation and append the value of your input to the URL (e.g. `/explore?q=anything`).
 
-Next.js `<Form>` also prefetch the loading UIs for that route when the component is within the user's viewport.
+Next.js `<Form>` also prefetch the loading UIs for that route when the component is within the user’s viewport.
 
 For the second approach, we want to sync the URL with our `<input>`. To do that we will need to use some hooks.
 
@@ -108,7 +108,7 @@ export function SearchInput({ name, ...props }: SearchInputProps) {
 }
 ```
 
-This will update the URL everytime the input value changes, but most of the time we don't want that. A quick fix is to use debouncing.
+This will update the URL everytime the input value changes, but most of the time we don’t want that. A quick fix is to use debouncing.
 
 You can make a custom hook yourself, but I usually just use `use-debounce` because of its small size (< 1kb) and avoid writing more boilerplates.
 
@@ -447,6 +447,6 @@ export function SearchInput({ name, ...props }: SearchInputProps) {
 }
 ```
 
-I haven't tried it so I asked ChatGPT to do it and it does look way more simple.
+I haven’t tried it so I asked ChatGPT to do it and it does look way more simple.
 
 [^1]: [Francois Best on Next.js Conf 2025](https://youtu.be/qpczQVJMG1Y?t=209)

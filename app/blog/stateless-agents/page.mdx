@@ -16,11 +16,11 @@ export const metadata = {
 
 <div className="text-muted-foreground">[Ausath Ikram](/) - <time dateTime={metadata.pubDate}>{new Date(metadata.pubDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</time></div>
 
-I don't have unlimited tokens. It's important for me to be able to make an efficient workflow so that I get the most out of my agents while staying within budget.
+I don’t have unlimited tokens. It’s important for me to be able to make an efficient workflow so that I get the most out of my agents while staying within budget.
 
-A big, long document that is injected at the start of every conversation does not work, and I find that it's always the source of the problem (IMO), and agents tend to mess up anyway because of the instruction budget[^1]. But starting blindly every time is frustrating because you will have to explain the context of your project or even a subset of work every single time.
+A big, long document that is injected at the start of every conversation does not work, and I find that it’s always the source of the problem (IMO), and agents tend to mess up anyway because of the instruction budget[^1]. But starting blindly every time is frustrating because you will have to explain the context of your project or even a subset of work every single time.
 
-You shouldn’t have to explain context every time you switch sessions or start a new chat with an AI agent. Agents (and humans) should be able to understand the context of the project by simply exploring the codebase. So you need to improve your (and your agent's) environment.
+You shouldn’t have to explain context every time you switch sessions or start a new chat with an AI agent. Agents (and humans) should be able to understand the context of the project by simply exploring the codebase. So you need to improve your (and your agent’s) environment.
 
 ## AGENTS.md
 
@@ -32,7 +32,7 @@ It will bloat, become stale quickly, and poison your agent.
 
 <figure>
   <blockquote>
-    <p>“Every token in your AGENTS.md file gets loaded on every single request, regardless of whether it's relevant.”</p>
+    <p>“Every token in your AGENTS.md file gets loaded on every single request, regardless of whether it’s relevant.”</p>
   </blockquote>
   <figcaption>— Matt Pocock on [A Complete Guide To AGENTS.md](https://www.aihero.dev/a-complete-guide-to-agents-md#:~:text=Every%20token%20in%20your%20AGENTS.md%20file%20gets%20loaded%20on%20every%20single%20request%2C%20regardless%20of%20whether%20it%27s%20relevant.)</figcaption>
 </figure>
@@ -45,7 +45,7 @@ Start with a `docs/` folder at the root of the project and add a `vision.md` fil
 
 As your project grows, `docs/` can be populated with ADRs, research, guides, runbooks, whatever suits your team’s needs. Then organize this with subfolders and a map (an index for the agent).
 
-You don’t need to tell your agent to read a big, long Markdown file. Frontier models are smart enough to look for things that are relevant to the task they're currently working on.
+You don’t need to tell your agent to read a big, long Markdown file. Frontier models are smart enough to look for things that are relevant to the task they’re currently working on.
 
 Most of this will be created when you set up Matt Pocock’s skills (included in the skills repo). I added some things specific to my workflow. My structure is just an example of how you can structure your project’s `docs/`. There is no “right” way to do this.
 
@@ -83,8 +83,6 @@ New behavior supersedes with a new ADR; never edit an accepted one.
 - …
 ```
 
-This file by itself will let you and your agents know where things are. For example, when you want to implement a new feature that is just a new CRUD endpoint for an existing resource, agents will be able to find the guide for building simple CRUD modules and follow it. If they need to understand why a certain decision was made, they will look at the ADRs.
-
-Files inside `docs/` are your responsibility to manage. You can ask for help with writing, but you can't expect an agent to know what's in your head. So structure your docs responsibly and in a way that works for you and your agent.
+Files inside `docs/` are your responsibility to manage. You can ask for help with writing, but you can't expect an agent to know what’s in your head. So structure your docs responsibly and in a way that works for you and your agent.
 
 [^1]: [A Complete Guide to AGENTS.md](https://www.aihero.dev/a-complete-guide-to-agents-md#the-instruction-budget)
